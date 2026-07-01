@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Mocoa 360° — Copper Giant Resources Corp.</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #000000;
+    color: #e0e0e0;
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .viewer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    cursor: grab;
+    background: #000000;
+    touch-action: none;
+  }
+
+  .viewer.grabbing { cursor: grabbing; }
+
+  .viewer .img-wrap {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .viewer .img-wrap img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    image-rendering: auto;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    transition: none;
+    margin-top: -70px;
+  }
+
+  .viewer .img-wrap { z-index: 1; }
+  .viewer .img-wrap + .img-wrap { z-index: 2; }
+  .viewer .img-wrap + .img-wrap img { opacity: 0; }
+
+  /* Loading */
+  .loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    z-index: 10;
+    transition: opacity 0.6s ease;
+  }
+  .loader.hidden { opacity: 0; pointer-events: none; }
+  .loader .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid #1a1c20;
+    border-top-color: #FF002C;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  .loader p {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Bottom bar */
+  .info {
+    display: none !important;
+  }
+
+  /* Progress dots */
+  .progress {
+    display: none !important;
+  }
+
+  /* Hint */
+  .hint-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 8;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .hint-overlay.show { opacity: 1; }
+  .hint-overlay .arrow {
+    font-size: 48px;
+    color: rgba(255,255,255,0.08);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translateX(-10px); opacity: 0.08; }
+    50% { transform: translateX(10px); opacity: 0.2; }
+  }
+
+  /* Zoom controls */
+  .zoom-controls {
+    display: none !important;
+  }
+
+  /* Zoom level indicator */
+  .zoom-level {
+    display: none !important;
+  }
+
+  @media (max-width: 480px) {
+    .info { font-size: 9px; padding: 8px 12px; }
+    .info .brand { font-size: 10px; }
+    .progress { bottom: 40px; }
+    .zoom-controls { right: 10px; bottom: 52px; }
+    .zoom-controls button { width: 34px; height: 34px; font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="viewer" id="viewer">
+    <div class="img-wrap"><img id="imgA" src="" alt="Mocoa 360° view"></div>
+    <div class="img-wrap"><img id="imgB" src="" alt=""></div>
+
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+      <p>Loading Mocoa 360°</p>
+    </div>
+
+    <div class="progress" id="progress"></div>
+
+    <div class="hint-overlay" id="hintOverlay">
+      <div class="arrow">⟷</div>
+    </div>
+
+    <div class="zoom-level" id="zoomLabel">100%</div>
+    <div class="zoom-controls">
+      <button id="zoomIn" title="Zoom in">+</button>
+      <button id="zoomOut" title="Zoom out">−</button>
+    </div>
+
+    <div class="info">
+      <span class="brand">Copper Giant Resources Corp.</span>
+      <span class="position" id="positionLabel">0°</span>
+      <span class="hint">⟵ <span id="dragHint">drag to rotate</span> ⟶</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Config ──────────────────────────────────────────────────
+  const TOTAL = 36;
+  const STEP = 10;
+  const FRAMES = Array.from({ length: TOTAL }, (_, i) => `${(i + 1) * STEP}.png`);
+  const BASE = './frames/';
+
+  // ── DOM ─────────────────────────────────────────────────────
+  const viewer = document.getElementById('viewer');
+  const imgA = document.getElementById('imgA');
+  const imgB = document.getElementById('imgB');
+  const loader = document.getElementById('loader');
+  const progress = document.getElementById('progress');
+  const posLabel = document.getElementById('positionLabel');
+  const hintOverlay = document.getElementById('hintOverlay');
+  const dragHint = document.getElementById('dragHint');
+  const zoomLabel = document.getElementById('zoomLabel');
+  const zoomInBtn = document.getElementById('zoomIn');
+  const zoomOutBtn = document.getElementById('zoomOut');
+
+  // ── State ───────────────────────────────────────────────────
+  let pos = 0;
+  let prev = -1;
+  let dragging = false;
+  let lx = 0;
+  let ly = 0;
+  let vel = 0;
+  let lt = 0;
+  let iid = null;
+  let touched = false;
+  let loaded = 0;
+  let ppf = 0;
+
+  // Zoom state
+  let zoom = 1;
+  const ZOOM_MIN = 0.5;
+  const ZOOM_MAX = 4;
+  const ZOOM_STEP = 0.25;
+
+  function calcPPF() {
+    ppf = Math.max(6, viewer.clientWidth / TOTAL);
+  }
+
+  // ── Apply zoom ──────────────────────────────────────────────
+  function applyZoom() {
+    let sc = 'scale(' + zoom + ')';
+    imgA.style.transform = sc;
+    imgB.style.transform = sc;
+    zoomLabel.textContent = Math.round(zoom * 100) + '%';
+  }
+
+  // ── Render ──────────────────────────────────────────────────
+  function render() {
+    let p = ((pos % TOTAL) + TOTAL) % TOTAL;
+    let idx = Math.floor(p);
+    let blend = p - idx;
+
+    let a = idx % TOTAL;
+    let b = (idx + 1) % TOTAL;
+
+    if (a !== prev) {
+      imgA.src = BASE + FRAMES[a];
+      prev = a;
+    }
+    imgB.src = BASE + FRAMES[b];
+    imgB.style.opacity = blend;
+
+    let deg = Math.round((p / TOTAL) * (TOTAL * STEP));
+    posLabel.textContent = deg + '°';
+
+    let dots = progress.children;
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active', i === a);
+    }
+  }
+
+  function setPos(v) {
+    pos = v;
+    render();
+  }
+
+  // ── Zoom ────────────────────────────────────────────────────
+  function setZoom(z) {
+    zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z));
+    applyZoom();
+  }
+
+  zoomInBtn.addEventListener('click', function() { setZoom(zoom + ZOOM_STEP); });
+  zoomOutBtn.addEventListener('click', function() { setZoom(zoom - ZOOM_STEP); });
+
+  // ── Scroll wheel forwarding (prevents scroll trap) ─────────
+  viewer.addEventListener('wheel', function(e) {
+    // Forward the scroll wheel movement to the parent window
+    window.parent.scrollBy({
+      top: e.deltaY,
+      behavior: 'auto'
+    });
+  }, { passive: true });
+
+  // ── Pinch-to-zoom ───────────────────────────────────────────
+  let pinchDist = 0;
+  let pinchZoom = 1;
+
+  function getDist(e) {
+    if (e.touches && e.touches.length === 2) {
+      let dx = e.touches[0].clientX - e.touches[1].clientX;
+      let dy = e.touches[0].clientY - e.touches[1].clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+    return 0;
+  }
+
+  function getX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+
+  // ── Pointer events (always rotate, never pan) ───────────────
+  function down(e) {
+    if (e.touches && e.touches.length === 2) {
+      pinchDist = getDist(e);
+      pinchZoom = zoom;
+      return;
+    }
+    dragging = true;
+    viewer.classList.add('grabbing');
+    lx = getX(e);
+    lt = performance.now();
+    vel = 0;
+    if (iid) { cancelAnimationFrame(iid); iid = null; }
+
+    if (!touched) {
+      touched = true;
+      hintOverlay.classList.remove('show');
+      dragHint.textContent = 'drag to rotate';
+    }
+  }
+
+  function move(e) {
+    if (e.touches && e.touches.length === 2) {
+      e.preventDefault();
+      let d = getDist(e);
+      if (pinchDist > 0) {
+        setZoom(pinchZoom * (d / pinchDist));
+      }
+      return;
+    }
+
+    if (!dragging) return;
+    e.preventDefault();
+
+    let x = getX(e);
+    let dx = lx - x;
+
+    if (Math.abs(dx) > 0.5) {
+      setPos(pos + dx / ppf);
+      lx = x;
+    }
+
+    vel = dx;
+    lt = performance.now();
+  }
+
+  function up(e) {
+    if (e.touches && e.touches.length < 2) {
+      pinchDist = 0;
+    }
+
+    if (!dragging) return;
+    dragging = false;
+    viewer.classList.remove('grabbing');
+
+    let now = performance.now();
+    let dt = Math.min(now - lt, 100);
+
+    if (Math.abs(vel) > 2 && dt > 0) {
+      let v = vel * 0.12;
+      function inert() {
+        v *= 0.92;
+        if (Math.abs(v) < 0.01) { iid = null; return; }
+        setPos(pos + v);
+        iid = requestAnimationFrame(inert);
+      }
+      inert();
+    }
+  }
+
+  viewer.addEventListener('mousedown', down);
+  window.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', up);
+
+  viewer.addEventListener('touchstart', down, { passive: true });
+  window.addEventListener('touchmove', move, { passive: false });
+  window.addEventListener('touchend', up, { passive: true });
+
+  viewer.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+  // ── Keyboard ────────────────────────────────────────────────
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      setPos(pos + (e.key === 'ArrowLeft' ? -1 : 1));
+    }
+  });
+
+  // ── Preload ─────────────────────────────────────────────────
+  function preload() {
+    FRAMES.forEach(function(name) {
+      let img = new Image();
+      img.onload = function() {
+        loaded++;
+        if (loaded === TOTAL) {
+          loader.classList.add('hidden');
+          imgA.src = BASE + FRAMES[0];
+          prev = 0;
+          render();
+          if (!touched) setTimeout(function() { hintOverlay.classList.add('show'); }, 800);
+        }
+      };
+      img.src = BASE + name;
+    });
+  }
+
+  // ── Init ────────────────────────────────────────────────────
+  function init() {
+    calcPPF();
+    window.addEventListener('resize', function() {
+      calcPPF();
+      applyZoom();
+    });
+
+    for (let i = 0; i < TOTAL; i++) {
+      let dot = document.createElement('div');
+      dot.className = 'dot';
+      progress.appendChild(dot);
+    }
+
+    applyZoom();
+    preload();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
