@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copper Giant | Mocoa Project</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/apple-icon.png">
+    <link rel="stylesheet" href="style.css?v=9.8">
+</head>
+<body>
+
+    <!-- Apple-style hover backdrop blur overlay -->
+    <div class="page-backdrop"></div>
+
+    <!-- Header/Navigation Group placed above the video -->
+    <div class="top-header-group">
+        <!-- Ticker Bar (Illustrator Ticker) -->
+        <div class="ticker-bar">
+            <div class="ticker-stocks">
+                <span><strong>TSXV</strong>: CGNT C$0.73 <span style="color: #4cd964;">+1.39%</span></span>
+                <span><strong>OTC</strong>: LBCMF $0.53 <span style="color: #ff3b30;">-1.07%</span></span>
+                <span><strong>FSE</strong>: 29H0 €0.43 <span style="color: #4cd964;">+2.85%</span></span>
+                <span><strong>Cu</strong>: $6.40/Lb</span>
+            </div>
+        </div>
+
+        <!-- Header Navigation -->
+        <header class="nav-header">
+            <nav class="main-nav">
+                <a href="index.html" class="logo">
+                    <img src="assets/LOGO.svg" alt="Copper Giant">
+                </a>
+                
+                <div class="nav-links-left">
+                    <a href="index.html" class="nav-link ">Home</a>
+                    <a href="corporate.html" class="nav-link " data-dropdown="corporate">Corporate</a>
+                    <a href="mocoa.html" class="nav-link active" data-dropdown="mocoa">Mocoa Project</a>
+                    <a href="news.html" class="nav-link " data-dropdown="news">News</a>
+                </div>
+
+                <div class="nav-links-right">
+                    <a href="investors.html" class="nav-btn-outline ">Investors</a>
+                    <a href="investors.html#newsletter" class="nav-btn-outline">Get Updates</a>
+                    <a href="investors.html#presentation" class="nav-btn-solid">View Presentation</a>
+                </div>
+
+                <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Apple-style Dropdown Trays Container -->
+        <div class="header-dropdown-container">
+            <!-- Corporate Dropdown Tray -->
+            <div class="dropdown-tray-panel" id="tray-corporate">
+                <div class="dropdown-tray-content">
+                    <div class="dropdown-column main-col">
+                        <span class="dropdown-col-title">Conoce Corporate</span>
+                        <a href="corporate.html#overview" class="dropdown-item-large">Overview</a>
+                        <a href="corporate.html#team" class="dropdown-item-large">Management & Board</a>
+                        <a href="corporate.html#fiore" class="dropdown-item-large">Fiore Group Partnership</a>
+                        <a href="corporate.html#governance" class="dropdown-item-large">Governance</a>
+                    </div>
+                    <div class="dropdown-column secondary-col">
+                        <span class="dropdown-col-title">Principios</span>
+                        <a href="corporate.html#responsibility" class="dropdown-item-small">Responsibility</a>
+                        <a href="corporate.html#sustainability" class="dropdown-item-small">Sustainability</a>
+                        <a href="corporate.html#local-workforce" class="dropdown-item-small">Local Impact</a>
+                    </div>
+                    <div class="dropdown-column visual-col">
+                        <div class="dropdown-card">
+                            <img src="meet the team.jpg" alt="Corporate" class="dropdown-card-img">
+                            <div class="dropdown-card-text">
+                                <strong>Management Team</strong>
+                                <span>Battle-Tested. Ready to Win.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mocoa Project Dropdown Tray -->
+            <div class="dropdown-tray-panel" id="tray-mocoa">
+                <div class="dropdown-tray-content">
+                    <div class="dropdown-column main-col">
+                        <span class="dropdown-col-title">Mocoa Project</span>
+                        <a href="mocoa.html#overview" class="dropdown-item-large">Project Overview</a>
+                        <a href="mocoa.html#geology" class="dropdown-item-large">Geology & Deposit</a>
+                        <a href="mocoa.html#coreshack" class="dropdown-item-large">Coreshack Gallery</a>
+                        <a href="mocoa.html#technical" class="dropdown-item-large">Technical Reports</a>
+                    </div>
+                    <div class="dropdown-column secondary-col">
+                        <span class="dropdown-col-title">Detalles del Depósito</span>
+                        <a href="mocoa.html#estimate" class="dropdown-item-small">NI 43-101 Estimate</a>
+                        <a href="mocoa.html#connector" class="dropdown-item-small">Connector Zone</a>
+                        <a href="mocoa.html#estrella" class="dropdown-item-small">La Estrella</a>
+                        <a href="mocoa.html#highlights" class="dropdown-item-small">Drilling Highlights</a>
+                    </div>
+                    <div class="dropdown-column visual-col">
+                        <div class="dropdown-card">
+                            <img src="mocoa-deposit-bg.jpg" alt="Mocoa Deposit" class="dropdown-card-img">
+                            <div class="dropdown-card-text">
+                                <strong>Interactive 3D Model</strong>
+                                <span>Explore the Porphyry Deposit.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Dropdown Tray -->
+            <div class="dropdown-tray-panel" id="tray-news">
+                <div class="dropdown-tray-content">
+                    <div class="dropdown-column main-col">
+                        <span class="dropdown-col-title">News Hub</span>
+                        <a href="news.html#latest" class="dropdown-item-large">Latest Press Releases</a>
+                        <a href="news.html#coverage" class="dropdown-item-large">Media Coverage</a>
+                        <a href="news.html#filings" class="dropdown-item-large">Financial Filings</a>
+                    </div>
+                    <div class="dropdown-column secondary-col">
+                        <span class="dropdown-col-title">Recursos</span>
+                        <a href="news.html#fact-sheet" class="dropdown-item-small">Fact Sheet</a>
+                        <a href="news.html#gallery" class="dropdown-item-small">Photo Gallery</a>
+                        <a href="news.html#contact" class="dropdown-item-small">Contact Info</a>
+                    </div>
+                    <div class="dropdown-column visual-col">
+                        <div class="dropdown-card">
+                            <img src="Themaking.jpg" alt="News" class="dropdown-card-img">
+                            <div class="dropdown-card-text">
+                                <strong>Making of a Giant</strong>
+                                <span>Follow our updates and growth.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html" class="mobile-link ">Home</a>
+            <a href="corporate.html" class="mobile-link ">Corporate</a>
+            <a href="mocoa.html" class="mobile-link active">Mocoa Project</a>
+            <a href="news.html" class="mobile-link ">News</a>
+            <a href="investors.html" class="mobile-link " style="color: var(--copper-primary);">Investors</a>
+        </div>
+    </div>
+
+<section class="hero-video-section" id="overview">
+        <div class="hero-video-wrapper">
+            <img src="assets/libero/mocoa_hero.webp" alt="Mocoa Project" class="hero-video-bg">
+            <div class="hero-video-overlay">
+                <div class="hero-text-container">
+                    <h1 class="hero-title">A giant in<br>the making.</h1>
+                    <div class="hero-eyebrow">Asset Profile · Putumayo, Colombia</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-banner" style="background: #050505; border-bottom: 1px solid var(--border-glass); padding: 50px 0;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px;">
+            <div style="flex: 1; min-width: 300px; max-width: 500px;">
+                <p id="mocoa-metrics-desc" style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin: 0;">The Mocoa porphyry system exhibits all the characteristics of the world's great copper deposits: immense scale, consistent grades, and potential for significant expansion.</p>
+            </div>
+            <div id="mocoa-metrics-container" style="display: flex; gap: 40px; flex-wrap: wrap; justify-content: flex-end; flex: 1; min-width: 300px;">
+                <div class="metric-item" style="text-align: left;">
+                    <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">7.6B+ Lbs</div>
+                    <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">Inferred Copper</div>
+                </div>
+                <div class="metric-item" style="text-align: left;">
+                    <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">1B+ Lbs</div>
+                    <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">Inferred Moly</div>
+                </div>
+                <div class="metric-item" style="text-align: left;">
+                    <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">1,283 km²</div>
+                    <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">Property Area</div>
+                </div>
+                <div class="metric-item" style="text-align: left;">
+                    <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">100%</div>
+                    <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">Owned by CGNT</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview & Geology Section -->
+    <section class="section-padding container" id="geology" style="">
+        <div class="section-header-group fade-up" style="margin-bottom: 20px;">
+            <h2 class="section-title">Deposit & Scale</h2>
+            <div class="section-subtitle">Geological Context</div>
+        </div>
+
+        <p class="hero-subtitle" style="margin-left: auto; margin-right: auto; text-align: center; max-width: 800px; margin-bottom: 50px;">
+            Located in the Putumayo Department of southern Colombia, the Mocoa project is one of the largest undeveloped copper-molybdenum porphyry deposits in the Americas. 
+            Mineralization is associated with dacite porphyry stocks intruding a thick sequence of volcanic rocks, creating a highly stable and consistent orebody.
+        </p>
+
+        <!-- Bento Grid for Mocoa Details -->
+        <div class="photo-bento">
+            <!-- Large Card 1 -->
+            <div class="photo-card large fade-up">
+                <div class="photo-card-img" style="background-image: url('assets/libero/card_resource.webp');"></div>
+                <div class="photo-card-content">
+                    <div class="text-eyebrow" style="margin-bottom: 10px;">Resource Estimate</div>
+                    <h3>1.1 Billion Tonnes</h3>
+                    <p>At 0.51% Copper Equivalent (CuEq). This includes a high-grade core that is the focus of current expansion drilling.</p>
+                </div>
+            </div>
+
+            <!-- Medium Card 1 -->
+            <div class="photo-card medium fade-up" style="transition-delay: 0.1s;">
+                <div class="photo-card-img" style="background-image: url('assets/libero/card_infrastructure.webp');"></div>
+                <div class="photo-card-content">
+                    <div class="text-eyebrow" style="margin-bottom: 10px;">Infrastructure</div>
+                    <h3>Strategic Access</h3>
+                    <p>Located in a favorable region with nearby access to highways, water, and future power transmission lines.</p>
+                </div>
+            </div>
+
+            <!-- Medium Card 2 -->
+            <div class="photo-card medium fade-up">
+                <div class="photo-card-img" style="background-image: url('assets/libero/card_potential.webp');"></div>
+                <div class="photo-card-content">
+                    <div class="text-eyebrow" style="margin-bottom: 10px;">Upside</div>
+                    <h3>District Potential</h3>
+                    <p>The 1,283 km² land package covers an entire mineralized belt, with multiple untested porphyry targets already identified.</p>
+                </div>
+            </div>
+
+            <!-- Large Card 2 -->
+            <div class="photo-card large fade-up" style="transition-delay: 0.1s;">
+                <div class="photo-card-img" style="background-image: url('assets/libero/card_pea.webp');"></div>
+                <div class="photo-card-content">
+                    <div class="text-eyebrow" style="margin-bottom: 10px;">PEA Study</div>
+                    <h3>Preliminary Economic Assessment</h3>
+                    <p>H2 2026 targeted completion. Ongoing environmental baselines and engineering work are fully funded through the end of 2026.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mineral Resource Section -->
+    <section class="section-padding" id="mineral-resource" style="border-top: 1px solid var(--border-glass);">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="section-header-group fade-up" style="margin-bottom: 40px;">
+                <h2 class="section-title">Mineral Resource</h2>
+                <div class="section-subtitle">Resource Estimate</div>
+            </div>
+            <div class="bg-giant-slate p-8 mb-12">
+                <div class="flex items-center gap-4 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database h-10 w-10 text-copper-500" aria-hidden="true">
+                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                        <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
+                        <path d="M3 12A9 3 0 0 0 21 12"></path>
+                    </svg>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">Inferred Mineral Resource</h3>
+                        <p class="text-white/60">In-pit constrained, effective November 18, 2025</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full" style="border-collapse: collapse;">
+                        <thead>
+                            <tr class="border-b" style="border-bottom: 1px solid var(--border-glass);">
+                                <th class="text-left py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Category</th>
+                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Tonnes</th>
+                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">CuEq %</th>
+                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Cu %</th>
+                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Mo %</th>
+                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Cu (lbs)</th>
+                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Mo (lbs)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
+                                <td class="py-4 px-4 text-white font-medium">Inferred Resource</td>
+                                <td class="py-4 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">1.12 Billion</td>
+                                <td class="py-4 px-4 text-right text-white font-mono">0.51%</td>
+                                <td class="py-4 px-4 text-right text-white font-mono">0.31%</td>
+                                <td class="py-4 px-4 text-right text-white font-mono">0.039%</td>
+                                <td class="py-4 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">7.6 Billion</td>
+                                <td class="py-4 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">1.0 Billion</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bento-metric-grid">
+                <div class="bento-metric-card">
+                    <div class="metric-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                    </div>
+                    <div>
+                        <p class="metric-value font-mono">54</p>
+                        <p class="metric-label">Total Drill Holes</p>
+                    </div>
+                </div>
+                <div class="bento-metric-card">
+                    <div class="metric-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scaling"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M14 15H9v-5"></path><path d="m16 8 5-5"></path><path d="M21 7V3h-4"></path></svg>
+                    </div>
+                    <div>
+                        <p class="metric-value font-mono">+37,000m</p>
+                        <p class="metric-label">Total Metres Drilled</p>
+                    </div>
+                </div>
+                <div class="bento-metric-card">
+                    <div class="metric-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-to-line"><path d="M12 17V3"></path><path d="m6 11 6 6 6-6"></path><path d="M19 21H5"></path></svg>
+                    </div>
+                    <div>
+                        <p class="metric-value font-mono">1,235m</p>
+                        <p class="metric-label">Deepest Hole</p>
+                    </div>
+                </div>
+                <div class="bento-metric-card">
+                    <div class="metric-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers"><path d="m12 3-10 5L12 13l10-5-10-5Z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                    </div>
+                    <div>
+                        <p class="metric-value font-mono" style="font-size: 1.5rem; padding: 6px 0; font-weight: 700;">Open</p>
+                        <p class="metric-label">Mineralization (All Directions)</p>
+                    </div>
+                </div>
+            </div>
+            <details class="resource-notes-accordion p-6 md:p-8 mb-12">
+                <summary class="flex items-center justify-between cursor-pointer list-none select-none text-white font-bold text-base md:text-lg">
+                    <div class="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                        <span>Mineral Resource Notes</span>
+                    </div>
+                    <span class="accordion-arrow text-white/50 transition-transform duration-300">▼</span>
+                </summary>
+                <div class="mt-6 text-white/50 text-sm space-y-4 leading-relaxed border-t border-white/5 pt-5">
+                    <p>1. The MRE was completed by Kevin Hon, B.Sc., P.Geo., Senior Resource Geologist, and Warren Black, M.Sc., P.Geo., Senior Consultant: Mineral Resources and Geostatistics, both of APEX Geoscience Ltd. Mr. Hon and Mr. Black are independent Qualified Persons, as defined by NI 43-101, and are responsible for the completion of the Mineral Resource Estimate, with an effective date of November 18, 2025. Michael Dufresne, M.Sc., P.Geo., President &amp; CEO of APEX, completed a peer review of the estimate.</p>
+                    <p>2. Mineral Resources that are not Mineral Reserves do not have demonstrated economic viability.</p>
+                    <p>3. The estimate of Mineral Resources may be materially affected by environmental, permitting, legal, title, taxation, socio-political, marketing, or other relevant issues.</p>
+                    <p>4. The Inferred Mineral Resource in this estimate has a lower level of confidence than that applied to an Indicated Mineral Resource and must not be converted to a Mineral Reserve. It is reasonably expected that the majority of the Inferred Mineral Resource could potentially be upgraded to an Indicated Mineral Resource with continued exploration.</p>
+                    <p>5. The Mineral Resources were estimated in accordance with the Canadian Institute of Mining, Metallurgy and Petroleum (CIM), CIM Standards on Mineral Resources and Reserves, Definitions (2014) and Best Practices Guidelines (2019) prepared by the CIM Standing Committee on Reserve Definitions and adopted by the CIM Council.</p>
+                    <p>6. Economic assumptions used include US$4.00/lb Cu, US$20.00/lb Mo, process recoveries of 90% for Cu and 95% for Mo, a US$10/t processing cost, G&amp;A costs of US$1.00/t, and a 3% NSR royalty.</p>
+                    <p>7. CuEq* values are calculated using a Cu-to-Mo value ratio of 1:5.278, incorporating both metal prices and metallurgical recoveries.</p>
+                    <p>8. The constraining pit optimization parameters include a US$2.5/t mining cost for both mineralized and waste material and 45° pit slopes. Pit-constrained Mineral Resources are reported at a cutoff of 0.25% CuEq*.</p>
+                    <div class="mt-6 pt-5 border-t border-white/10">
+                        <p class="text-white/40 text-xs leading-relaxed">For full technical disclosure, please refer to the Company's NI 43-101 Technical Report filed on SEDAR+ at <a href="https://www.sedarplus.ca/" target="_blank" rel="noopener noreferrer" class="text-copper-500/70 hover:text-copper-500 transition-colors">www.sedarplus.ca</a>.</p>
+                    </div>
+                </div>
+            </details>
+            <div class="mt-12 grid lg:grid-cols-2 gap-12 items-center bg-giant-slate p-8">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up h-12 w-12 text-copper-500 mb-6" aria-hidden="true">
+                        <path d="M16 7h6v6"></path>
+                        <path d="m22 7-8.5 8.5-5-5L2 17"></path>
+                    </svg>
+                    <h3 class="text-2xl font-bold text-white mb-4">Significant Growth Potential</h3>
+                    <div class="space-y-4 text-white/70">
+                        <p>The Mocoa deposit remains open in all directions, with recent drilling continuing to expand the mineralized footprint. Three distinct high-grade zones have been identified within the broader porphyry system.</p>
+                        <p>District-scale exploration potential extends well beyond the current resource area, with multiple untested targets identified through geophysical surveys and surface mapping.</p>
+                    </div>
+                </div>
+                <div class="bg-giant-gray p-8 space-y-4">
+                    <h4 class="text-xl font-bold text-white">Key Takeaways</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li class="flex items-start gap-3"><span class="w-2 h-2 bg-copper-500 rounded-full mt-2"></span>Resource remains open for expansion</li>
+                        <li class="flex items-start gap-3"><span class="w-2 h-2 bg-copper-500 rounded-full mt-2"></span>Three high-grade zones identified</li>
+                        <li class="flex items-start gap-3"><span class="w-2 h-2 bg-copper-500 rounded-full mt-2"></span>District-scale exploration upside</li>
+                        <li class="flex items-start gap-3"><span class="w-2 h-2 bg-copper-500 rounded-full mt-2"></span>Ongoing drilling program</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- District Exploration Section -->
+    <section class="section-padding" id="district-exploration" style="border-top: 1px solid var(--border-glass); background: var(--bg-deep);">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="section-header-group fade-up" style="margin-bottom: 40px;">
+                <h2 class="section-title">District Exploration</h2>
+                <div class="section-subtitle">Regional Potential</div>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 mb-16">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-6">District-Scale Potential</h3>
+                    <div class="space-y-4 text-white/70">
+                        <p>The Mocoa project sits within a larger porphyry copper belt with significant district-scale exploration potential. Our exploration team has identified multiple high-priority targets beyond the main deposit.</p>
+                        <p>Recent results continue to demonstrate that we have only scratched the surface of what this district can deliver. The main deposit remains open in all directions, and new zones of high-grade mineralization continue to be discovered.</p>
+                    </div>
+                </div>
+                <div class="bg-giant-slate p-6">
+                    <h4 class="text-xl font-bold text-white mb-6">Exploration Highlights</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-giant-gray">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-compass h-8 w-8 text-copper-500" aria-hidden="true">
+                                <path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path>
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <div>
+                                <p class="text-white font-medium">Active Drilling</p>
+                                <p class="text-white/60 text-sm">Multiple rigs turning on site</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-giant-gray">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target h-8 w-8 text-copper-500" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                            <div>
+                                <p class="text-white font-medium">New Targets</p>
+                                <p class="text-white/60 text-sm">District-scale opportunities identified</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-giant-gray">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers h-8 w-8 text-copper-500" aria-hidden="true">
+                                <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
+                                <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
+                                <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path>
+                            </svg>
+                            <div>
+                                <p class="text-white font-medium">Depth Potential</p>
+                                <p class="text-white/60 text-sm">Mineralization open at depth</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-white mb-8">Exploration Targets</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-giant-slate p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h4 class="text-xl font-bold text-white">Mocoa Main — MRE Expansion</h4>
+                        <span class="px-3 py-1 text-xs font-medium bg-copper-500/20 text-copper-500">Drilling</span>
+                    </div>
+                    <p class="text-white/60">Expansion drilling to grow the 1.12 Bt inferred resource, which remains open in all directions.</p>
+                </div>
+                <div class="bg-giant-slate p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h4 class="text-xl font-bold text-white">Mocoa Main — Resource Conversion</h4>
+                        <span class="px-3 py-1 text-xs font-medium bg-copper-500/20 text-copper-500">Drilling</span>
+                    </div>
+                    <p class="text-white/60">Infill drilling targeting 30–50% conversion of inferred resources to indicated category.</p>
+                </div>
+                <div class="bg-giant-slate p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h4 class="text-xl font-bold text-white">Estrella &amp; Piedralisa</h4>
+                        <span class="px-3 py-1 text-xs font-medium bg-blue-500/20 text-blue-400">Target</span>
+                    </div>
+                    <p class="text-white/60">Planned maiden drilling on two high-priority district targets identified through geochemistry and geophysics.</p>
+                </div>
+                <div class="bg-giant-slate p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h4 class="text-xl font-bold text-white">Regional Targets</h4>
+                        <span class="px-3 py-1 text-xs font-medium bg-green-500/20 text-green-400">Mapping</span>
+                    </div>
+                    <p class="text-white/60">Mapping and sampling across multiple porphyry-style targets within the broader district.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-white mb-8" style="text-align: center;">Exploration Methodology</h3>
+                <div class="methodology-grid">
+                    <div class="methodology-card">
+                        <div class="card-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map h-6 w-6"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"></path><path d="M15 5.764v15"></path><path d="M9 3.236v15"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Geological Mapping</h4>
+                            <p class="text-white/60 text-sm">Detailed surface mapping to identify alteration patterns and structural controls</p>
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <div class="card-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers h-6 w-6"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Geophysics</h4>
+                            <p class="text-white/60 text-sm">IP/Resistivity and magnetic surveys to define drill targets at depth</p>
+                        </div>
+                    </div>
+                    <div class="methodology-card">
+                        <div class="card-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target h-6 w-6"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-2">Diamond Drilling</h4>
+                            <p class="text-white/60 text-sm">Core drilling to test targets and expand the known resource</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geology: Characteristics of a Giant Section -->
+    <section class="section-padding" id="geology-details" style="border-top: 1px solid var(--border-glass);">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="section-header-group fade-up" style="margin-bottom: 40px;">
+                <h2 class="section-title">Geology: Characteristics of a Giant</h2>
+                <div class="section-subtitle">Deposit Profile</div>
+            </div>
+
+            <!-- Segmented Control Tabs (Apple Style) -->
+            <div class="flex justify-center mb-10 fade-up">
+                <div class="segmented-control">
+                    <button class="tab-btn active" data-target="geology-tab-overview" data-content-class="geology-tab-content">Overview</button>
+                    <button class="tab-btn" data-target="geology-tab-model" data-content-class="geology-tab-content">Deposit Model</button>
+                    <button class="tab-btn" data-target="geology-tab-shells" data-content-class="geology-tab-content">High-Grade Shells</button>
+                </div>
+            </div>
+
+            <!-- Tab 1: Overview -->
+            <div id="geology-tab-overview" class="geology-tab-content fade-up">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6">A World-Class Porphyry System</h3>
+                        <div class="space-y-4 text-white/70">
+                            <p>The Mocoa deposit is a classic porphyry copper-molybdenum system formed in a continental arc setting. The mineralization is hosted by Jurassic-age intrusive rocks that have intruded older sedimentary and volcanic sequences.</p>
+                            <p>What makes Mocoa exceptional is the remarkable continuity and scale of the mineralization. The deposit extends over 2 kilometers in strike length and remains open in all directions. Drilling has demonstrated mineralization to depths exceeding 1,200 meters.</p>
+                            <p>Three distinct high-grade zones have been identified within the broader mineralized envelope, each representing potential targets for higher-grade starter scenarios.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-giant-slate p-6" style="border-radius: var(--radius-card); border: 1px solid var(--border-glass);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers h-10 w-10 mb-4" aria-hidden="true">
+                                <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
+                                <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
+                                <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path>
+                            </svg>
+                            <h3 class="text-lg font-bold text-white mb-2">Porphyry System</h3>
+                            <p class="text-white/60 text-sm">Classic calc-alkaline porphyry copper-molybdenum system with multiple intrusive phases.</p>
+                        </div>
+                        <div class="bg-giant-slate p-6" style="border-radius: var(--radius-card); border: 1px solid var(--border-glass);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mountain h-10 w-10 mb-4" aria-hidden="true">
+                                <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
+                            </svg>
+                            <h3 class="text-lg font-bold text-white mb-2">Alteration</h3>
+                            <p class="text-white/60 text-sm">Well-developed potassic, phyllic, and propylitic alteration zones typical of large porphyry deposits.</p>
+                        </div>
+                        <div class="bg-giant-slate p-6" style="border-radius: var(--radius-card); border: 1px solid var(--border-glass);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-droplets h-10 w-10 mb-4" aria-hidden="true">
+                                <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"></path>
+                                <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"></path>
+                            </svg>
+                            <h3 class="text-lg font-bold text-white mb-2">Mineral Style</h3>
+                            <p class="text-white/60 text-sm">Disseminated and stockwork veinlet copper-molybdenum mineralization throughout the deposit.</p>
+                        </div>
+                        <div class="bg-giant-slate p-6" style="border-radius: var(--radius-card); border: 1px solid var(--border-glass);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap h-10 w-10 mb-4" aria-hidden="true">
+                                <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+                            </svg>
+                            <h3 class="text-lg font-bold text-white mb-2">Starter Shells</h3>
+                            <p class="text-white/60 text-sm">Multiple high-grade shells identified within the broader mineralized envelope.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Deposit Model -->
+            <div id="geology-tab-model" class="geology-tab-content fade-up" style="display: none;">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-white mb-4">Deposit Characteristics</h3>
+                    <p class="text-white/70 max-w-3xl">A detailed breakdown of Mocoa's structural dimensions, mineralization composition, and host geologies.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-giant-slate p-8 border border-white/5" style="border-radius: var(--radius-card);">
+                        <h4 class="text-xl font-bold text-copper-500 mb-6 pb-2 border-b border-white/5">Dimensions</h4>
+                        <ul class="space-y-3 text-white/70">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Strike length: &gt;2,000m</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Width: &gt;1,000m</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Depth: &gt;1,200m (open)</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Open in all directions</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-giant-slate p-8 border border-white/5" style="border-radius: var(--radius-card);">
+                        <h4 class="text-xl font-bold text-copper-500 mb-6 pb-2 border-b border-white/5">Mineralization</h4>
+                        <ul class="space-y-3 text-white/70">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Primary: Chalcopyrite, molybdenite</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Secondary: Chalcocite, covellite</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Gangue: Quartz, K-feldspar</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Style: Stockwork & disseminated</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-giant-slate p-8 border border-white/5" style="border-radius: var(--radius-card);">
+                        <h4 class="text-xl font-bold text-copper-500 mb-6 pb-2 border-b border-white/5">Host Rocks</h4>
+                        <ul class="space-y-3 text-white/70">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Volcanic-sedimentary sequences</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Saldaña Formation host</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Quartz-monzonite intrusions</span></li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-copper-500 rounded-full"></span><span>Jurassic age (~180-160 Ma)</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: High-Grade Shells -->
+            <div id="geology-tab-shells" class="geology-tab-content fade-up" style="display: none;">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-white mb-4">High-Grade Zones</h3>
+                    <p class="text-white/70 max-w-3xl">Three distinct high-grade zones have been mapped inside the mineralized system, indicating potential targets for higher-grade starter scenarios.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-giant-slate p-8 border-l-4 border-copper-500" style="border-radius: var(--radius-card); border-top: 1px solid var(--border-glass); border-right: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); transition: all 0.3s ease;">
+                        <h4 class="text-xl font-bold text-white mb-3">Breccia-Related</h4>
+                        <p class="text-white/60 mb-5 text-sm">Breccia-hosted high-grade core of the deposit, displaying dense mineralized matrices.</p>
+                        <div class="mt-auto">
+                            <p class="text-copper-500 font-bold font-mono text-2xl">+1.0% CuEq*</p>
+                        </div>
+                    </div>
+                    <div class="bg-giant-slate p-8 border-l-4 border-copper-500" style="border-radius: var(--radius-card); border-top: 1px solid var(--border-glass); border-right: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); transition: all 0.3s ease;">
+                        <h4 class="text-xl font-bold text-white mb-3">Central Near-Surface Block</h4>
+                        <p class="text-white/60 mb-5 text-sm">Near-surface porphyry-related mineralization in the core central block of Mocoa.</p>
+                        <div class="mt-auto">
+                            <p class="text-copper-500 font-bold font-mono text-2xl">+0.7% CuEq*</p>
+                        </div>
+                    </div>
+                    <div class="bg-giant-slate p-8 border-l-4 border-copper-500" style="border-radius: var(--radius-card); border-top: 1px solid var(--border-glass); border-right: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); transition: all 0.3s ease;">
+                        <h4 class="text-xl font-bold text-white mb-3">Deep Porphyry-Related</h4>
+                        <p class="text-white/60 mb-5 text-sm">Newly defined third high-grade porphyry shell discovered during deep drilling phases.</p>
+                        <div class="mt-auto">
+                            <p class="text-copper-500 font-bold font-mono text-2xl">+0.7% CuEq*</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-white/40 text-xs mt-6 leading-relaxed">* CuEq (%) = Cu (%) + 5.278 × Mo (%), utilizing metal prices of Cu – US$4.00/lb and Mo – US$20.00/lb and metal recoveries of 90% Cu and 95% Mo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section-padding" id="journey" style="background: var(--bg-deep); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+        <div class="container">
+            <div class="section-header-group fade-up" style="margin-bottom: 50px;">
+                <h2 class="section-title">The Journey So Far</h2>
+                <div class="section-subtitle">Our History</div>
+            </div>
+
+
+            <div style="position: relative; max-width: 900px; margin: 0 auto; padding-left: 40px; border-left: 2px solid rgba(255, 68, 68, 0.2);">
+                <!-- Timeline items -->
+                <div class="fade-up" style="position: relative; margin-bottom: 60px;">
+                    <!-- Timeline Dot -->
+                    <div style="position: absolute; left: -49px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--copper-primary); border: 4px solid var(--bg-deep); box-shadow: 0 0 10px var(--copper-primary);"></div>
+                    <div style="font-family: var(--font-mono); font-size: 1.2rem; color: var(--copper-primary); font-weight: 700; margin-bottom: 10px;">2018</div>
+                    <h3 class="text-h3" style="font-size: 1.5rem; margin-bottom: 10px; color: white;">Project Acquisition</h3>
+                    <p style="color: var(--text-secondary); max-width: 700px;">Copper Giant acquires 100% of the Mocoa project, consolidating the land package and recognizing its world-class scale potential.</p>
+                </div>
+
+                <div class="fade-up" style="position: relative; margin-bottom: 60px;">
+                    <div style="position: absolute; left: -49px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--copper-primary); border: 4px solid var(--bg-deep); box-shadow: 0 0 10px var(--copper-primary);"></div>
+                    <div style="font-family: var(--font-mono); font-size: 1.2rem; color: var(--copper-primary); font-weight: 700; margin-bottom: 10px;">2022</div>
+                    <h3 class="text-h3" style="font-size: 1.5rem; margin-bottom: 10px; color: white;">Exploration Restart</h3>
+                    <p style="color: var(--text-secondary); max-width: 700px;">Launch of the aggressive phase-1 drilling campaign. High-precision resource definition drilling begins to expand the historical footprint.</p>
+                </div>
+
+                <div class="fade-up" style="position: relative; margin-bottom: 60px;">
+                    <div style="position: absolute; left: -49px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--copper-primary); border: 4px solid var(--bg-deep); box-shadow: 0 0 10px var(--copper-primary);"></div>
+                    <div style="font-family: var(--font-mono); font-size: 1.2rem; color: var(--copper-primary); font-weight: 700; margin-bottom: 10px;">2024</div>
+                    <h3 class="text-h3" style="font-size: 1.5rem; margin-bottom: 10px; color: white;">High-Grade Discovery</h3>
+                    <p style="color: var(--text-secondary); max-width: 700px;">Multiple thick intercepts of high-grade copper-molybdenum mineralization are discovered within and adjacent to the porphyry system, revealing a massive high-grade core.</p>
+                </div>
+
+                <div class="fade-up" style="position: relative; margin-bottom: 60px;">
+                    <div style="position: absolute; left: -49px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--copper-primary); border: 4px solid var(--bg-deep); box-shadow: 0 0 10px var(--copper-primary);"></div>
+                    <div style="font-family: var(--font-mono); font-size: 1.2rem; color: var(--copper-primary); font-weight: 700; margin-bottom: 10px;">2025</div>
+                    <h3 class="text-h3" style="font-size: 1.5rem; margin-bottom: 10px; color: white;">Resource Update</h3>
+                    <p style="color: var(--text-secondary); max-width: 700px;">Updated National Instrument 43-101 mineral resource estimate is filed, confirming 1.1 billion tonnes at 0.51% CuEq, putting Mocoa among the premier copper assets in development globally.</p>
+                </div>
+
+                <div class="fade-up" style="position: relative; margin-bottom: 20px;">
+                    <div style="position: absolute; left: -49px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--copper-primary); border: 4px solid var(--bg-deep); box-shadow: 0 0 10px var(--copper-primary);"></div>
+                    <div style="font-family: var(--font-mono); font-size: 1.2rem; color: var(--copper-primary); font-weight: 700; margin-bottom: 10px;">2026</div>
+                    <h3 class="text-h3" style="font-size: 1.5rem; margin-bottom: 10px; color: white;">Fully Funded Expansion & PEA</h3>
+                    <p style="color: var(--text-secondary); max-width: 700px;">A 23,000m exploration program is launched (+80% drilling volume vs 2025) to test district-wide satellite targets and complete the project's maiden Preliminary Economic Assessment (PEA).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Hotspots Section -->
+    <section class="section-padding" id="exploration" style="padding-left: 0; padding-right: 0;">
+        <div class="container">
+            <div class="section-header-group fade-up" style="margin-bottom: 40px;">
+                <h2 class="section-title">Resource Cross-Section</h2>
+                <div class="section-subtitle">Interactive Exploration</div>
+            </div>
+        </div>
+
+        
+        <div class="hotspot-section fade-up">
+            <div class="hotspot-wrapper">
+                <svg viewBox="0 0 1000 600" width="100%" class="hotspot-img" xmlns="http://www.w3.org/2000/svg" style="background: transparent; height: auto;">
+                    <defs>
+                        <!-- Glow effect for the Orebody -->
+                        <filter id="ore-glow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="30" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                        <!-- Copper/Orange gradient for the Orebody -->
+                        <radialGradient id="ore-grad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#FF5522" stop-opacity="0.3" />
+                            <stop offset="70%" stop-color="#FF2200" stop-opacity="0.12" />
+                            <stop offset="100%" stop-color="#FF2200" stop-opacity="0" />
+                        </radialGradient>
+                        <!-- Gold/Copper gradient for mineralized segments -->
+                        <linearGradient id="mineral-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#FFCC00" />
+                            <stop offset="100%" stop-color="#FF3300" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Faint grid background -->
+                    <g stroke="rgba(255,255,255,0.02)" stroke-width="1">
+                        <line x1="0" y1="100" x2="1000" y2="100" />
+                        <line x1="0" y1="200" x2="1000" y2="200" />
+                        <line x1="0" y1="300" x2="1000" y2="300" />
+                        <line x1="0" y1="400" x2="1000" y2="400" />
+                        <line x1="0" y1="500" x2="1000" y2="500" />
+                        
+                        <line x1="100" y1="0" x2="100" y2="600" />
+                        <line x1="200" y1="0" x2="200" y2="600" />
+                        <line x1="300" y1="0" x2="300" y2="600" />
+                        <line x1="400" y1="0" x2="400" y2="600" />
+                        <line x1="500" y1="0" x2="500" y2="600" />
+                        <line x1="600" y1="0" x2="600" y2="600" />
+                        <line x1="700" y1="0" x2="700" y2="600" />
+                        <line x1="800" y1="0" x2="800" y2="600" />
+                        <line x1="900" y1="0" x2="900" y2="600" />
+                    </g>
+
+                    <!-- Elevation markers -->
+                    <g fill="rgba(255,255,255,0.15)" font-family="monospace" font-size="9" text-anchor="end">
+                        <text x="980" y="105">+2,400m EL</text>
+                        <text x="980" y="205">+2,200m EL</text>
+                        <text x="980" y="305">+2,000m EL</text>
+                        <text x="980" y="405">+1,800m EL</text>
+                        <text x="980" y="505">+1,600m EL</text>
+                    </g>
+
+                    <!-- Glowing Orebody Blob -->
+                    <path d="M 280 350 C 280 200, 500 180, 720 220 C 850 350, 750 500, 600 520 C 450 540, 280 480, 280 350 Z" fill="url(#ore-grad)" filter="url(#ore-glow)" />
+
+                    <!-- Terrain Surface line -->
+                    <path d="M 0 240 Q 100 240, 200 200 T 350 120 T 440 140 T 550 270 T 650 210 T 800 230 T 1000 220" stroke="rgba(255,255,255,0.15)" stroke-width="2.5" fill="none" />
+
+                    <!-- Drill Hole Paths (dashed lines) -->
+                    <!-- MD-046 -->
+                    <line x1="200" y1="200" x2="280" y2="480" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="3,3" />
+                    <!-- MD-043 -->
+                    <line x1="350" y1="120" x2="425" y2="480" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="3,3" />
+                    <!-- MD-047 -->
+                    <line x1="440" y1="140" x2="490" y2="440" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="3,3" />
+                    <!-- MD-044 -->
+                    <line x1="550" y1="270" x2="590" y2="510" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="3,3" />
+                    <!-- MD-045 -->
+                    <line x1="650" y1="210" x2="690" y2="450" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="3,3" />
+
+                    <!-- Drill Hole mineralized highlighted segments -->
+                    <!-- MD-046 intercept -->
+                    <line x1="215" y1="256" x2="245" y2="364" stroke="url(#mineral-grad)" stroke-width="4.5" stroke-linecap="round" />
+                    <!-- MD-043 intercept -->
+                    <line x1="365" y1="196" x2="385" y2="292" stroke="url(#mineral-grad)" stroke-width="4.5" stroke-linecap="round" />
+                    <!-- MD-047 intercept -->
+                    <line x1="450" y1="200" x2="470" y2="320" stroke="url(#mineral-grad)" stroke-width="4.5" stroke-linecap="round" />
+                    <!-- MD-044 intercept -->
+                    <line x1="560" y1="330" x2="580" y2="450" stroke="url(#mineral-grad)" stroke-width="4.5" stroke-linecap="round" />
+                    <!-- MD-045 intercept -->
+                    <line x1="660" y1="270" x2="680" y2="390" stroke="url(#mineral-grad)" stroke-width="4.5" stroke-linecap="round" />
+
+                    <!-- Collar Labels -->
+                    <g fill="rgba(255,255,255,0.4)" font-family="monospace" font-size="10" font-weight="bold">
+                        <text x="200" y="185" text-anchor="middle">MD-046</text>
+                        <text x="350" y="105" text-anchor="middle">MD-043</text>
+                        <text x="440" y="125" text-anchor="middle">MD-047</text>
+                        <text x="550" y="255" text-anchor="middle">MD-044</text>
+                        <text x="650" y="195" text-anchor="middle">MD-045</text>
+                    </g>
+                </svg>
+                
+                <!-- MD-043 -->
+                <div class="hotspot-pin" style="top: 40%; left: 37.5%;">
+                    <div class="hotspot-tooltip">
+                        <h4>MD-043</h4>
+                        <p>1,235m interval length</p>
+                        <p class="highlight">0.42% Cu | 0.05% Mo</p>
+                    </div>
+                </div>
+
+                <!-- MD-044 -->
+                <div class="hotspot-pin" style="top: 65%; left: 57%;">
+                    <div class="hotspot-tooltip">
+                        <h4>MD-044</h4>
+                        <p>1,141m interval length</p>
+                        <p class="highlight">0.27% Cu | 0.04% Mo</p>
+                    </div>
+                </div>
+
+                <!-- MD-045 -->
+                <div class="hotspot-pin" style="top: 55%; left: 67%;">
+                    <div class="hotspot-tooltip">
+                        <h4>MD-045</h4>
+                        <p>1,166m interval length</p>
+                        <p class="highlight">0.31% Cu | 0.03% Mo</p>
+                    </div>
+                </div>
+
+                <!-- MD-046 -->
+                <div class="hotspot-pin" style="top: 52%; left: 23%;">
+                    <div class="hotspot-tooltip">
+                        <h4>MD-046</h4>
+                        <p>1,007m interval length</p>
+                        <p class="highlight">0.28% Cu | 0.02% Mo</p>
+                    </div>
+                </div>
+
+                <!-- MD-047 -->
+                <div class="hotspot-pin" style="top: 43%; left: 46%;">
+                    <div class="hotspot-tooltip">
+                        <h4>MD-047</h4>
+                        <p>1,004m interval length</p>
+                        <p class="highlight">0.39% Cu | 0.04% Mo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clean Data Over Dark/Photo BG -->
+    <section class="section-padding data-section" id="drilling">
+        <div class="topo-bg"></div>
+        <div class="container">
+            <div class="section-header-group fade-up" style="margin-bottom: 30px;">
+                <h2 class="section-title">Drilling Highlights</h2>
+                <div class="section-subtitle">Results</div>
+            </div>
+            <p class="hero-subtitle fade-up" style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 40px;">Exceptional results across the system. MD-043 yielded 1,235m at 0.42% Cu & 0.05% Mo.</p>
+
+
+            <div class="drill-table">
+                <div class="drill-row">
+                    <div class="drill-id font-mono">MD-043</div>
+                    <div class="drill-result font-mono">840m @ 0.83% CuEq*</div>
+                    <div class="drill-length font-mono">incl. 251m @ 1.32% CuEq*</div>
+                </div>
+                <div class="drill-row">
+                    <div class="drill-id font-mono">MD-044</div>
+                    <div class="drill-result font-mono">1,141m @ 0.40% CuEq*</div>
+                    <div class="drill-length font-mono">incl. 382m @ 0.62% CuEq*</div>
+                </div>
+                <div class="drill-row">
+                    <div class="drill-id font-mono">MD-045</div>
+                    <div class="drill-result font-mono">1,166m @ 0.45% CuEq*</div>
+                    <div class="drill-length font-mono">incl. 250m @ 0.72% CuEq*</div>
+                </div>
+                <div class="drill-row">
+                    <div class="drill-id font-mono">MD-046</div>
+                    <div class="drill-result font-mono">1,007m @ 0.38% CuEq*</div>
+                    <div class="drill-length font-mono">0.28% Cu, 0.02% Mo</div>
+                </div>
+                <div class="drill-row" style="border-bottom: none;">
+                    <div class="drill-id font-mono">MD-047</div>
+                    <div class="drill-result font-mono">1,004m @ 0.55% CuEq*</div>
+                    <div class="drill-length font-mono">incl. 282m @ 0.76% CuEq*</div>
+                </div>
+            </div>
+            
+            <p style="color: var(--text-tertiary); font-size: 0.75rem; margin-top: 30px; line-height: 1.4;">
+                * Copper equivalent (CuEq) grades are calculated using metal prices of US$3.80/lb Cu and US$20.00/lb Mo. Intercepts are reported as downhole core lengths. True widths are estimated to be between 75-90% of drill interval lengths depending on local dip.
+            </p>
+        </div>
+    </section>
+
+        
+        <!-- Content Gallery Section -->
+    <section class="section-padding" id="gallery" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        <div class="container fade-up">
+            <div class="section-header-group fade-up" style="margin-bottom: 40px;">
+                <h2 class="section-title">Content Gallery</h2>
+                <div class="section-subtitle">Multimedia</div>
+            </div>
+
+            
+            <!-- Segmented Control Tabs (Apple Style) -->
+            <div class="flex justify-center mb-10">
+                <div class="segmented-control">
+                    <button class="tab-btn active" data-target="gallery-videos-wrapper">Videos</button>
+                    <button class="tab-btn" data-target="gallery-photos-wrapper">Photos & Imagery</button>
+                </div>
+            </div>
+            
+            <!-- Videos Tab Content -->
+            <div id="gallery-videos-wrapper" class="gallery-tab-content">
+                <!-- Filter buttons -->
+                <div class="gallery-filters">
+                    <button class="filter-pill active" data-filter="all">All Videos</button>
+                    <button class="filter-pill" data-filter="technical">Geology & Technical</button>
+                    <button class="filter-pill" data-filter="corporate">Corporate & Social</button>
+                </div>
+
+                <!-- Videos Grid -->
+                <div class="videos-grid" id="videos-grid">
+                    <div class="video-card" data-category="technical" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault.jpg" alt="Geology Part 4 | Mocoa's Magmatic Heart" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Geology Part 4 | Mocoa's Magmatic Heart</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="technical" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(1).jpg" alt="Geology Part 3 | Magma Fertility" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Geology Part 3 | Magma Fertility</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="technical" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(2).jpg" alt="Geology Part 2 | Tectonic Setting" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Geology Part 2 | Tectonic Setting</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(3).jpg" alt="Episode 2 | Why Mocoa" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Episode 2 | Why Mocoa</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(4).jpg" alt="Meet the Team Part 2 | Joey Wilkins" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Meet the Team Part 2 | Joey Wilkins</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(5).jpg" alt="Meet the Team Part 3 | Joey Wilkins" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Meet the Team Part 3 | Joey Wilkins</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="technical" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(6).jpg" alt="Geology Part 1 | The Making of a Copper Giant" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Geology Part 1 | The Making of a Copper Giant</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(7).jpg" alt="Episode 1: Why Mocoa" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Episode 1: Why Mocoa</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(8).jpg" alt="Meet The Team | Thyana Álvarez" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Meet The Team | Thyana Álvarez</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(9).jpg" alt="Rule Symposium 2025 | Copper Giant" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Rule Symposium 2025 | Copper Giant</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(10).jpg" alt="Copper Giant Launches | Backed by Frank Giustra" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Copper Giant Launches | Backed by Frank Giustra</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="technical" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(11).jpg" alt="Libero Copper Announces Full 1,141-Metre Drill Hole from Surface Average 0.46% CuEq at Mocoa" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Libero Copper Announces Full 1,141-Metre Drill Hole from Surface Average 0.46% CuEq at Mocoa</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(12).jpg" alt="News Release - November 6, 2024 | 14,000 Metre Exploration Program at Mocoa Update" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">News Release - November 6, 2024 | 14,000 Metre Exploration Program at Mocoa Update</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="technical" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(13).jpg" alt="Libero Copper Extracts Copper Metal from the Mocoa Deposit with the National University of Colombia" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">Libero Copper Extracts Copper Metal from the Mocoa Deposit with the National University of Colombia</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-category="corporate" data-video-src="https://www.youtube.com/embed/5V9uYvN2_Xg">
+                        <img src="assets/videos/hqdefault(14).jpg" alt="ESG: Libero Copper Works Together with the Community at Putumayo" loading="lazy">
+                        <div class="video-card-overlay">
+                            <div class="play-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                            <p class="video-card-caption">ESG: Libero Copper Works Together with the Community at Putumayo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container" id="video-load-more-container">
+                    <button class="btn-load-more" id="btn-video-load-more" onclick="loadMoreVideos()">
+                        <span>Load More</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Photos Tab Content -->
+            <div id="gallery-photos-wrapper" class="gallery-tab-content" style="display: none;">
+                <!-- Filter buttons -->
+                <div class="gallery-filters">
+                    <button class="filter-pill active" data-filter="all">All Photos</button>
+                    <button class="filter-pill" data-filter="community">Community & Social</button>
+                    <button class="filter-pill" data-filter="environment">Environment</button>
+                    <button class="filter-pill" data-filter="infrastructure">Infrastructure</button>
+                </div>
+
+                <!-- Photos Grid -->
+                <div class="photos-grid" id="photos-grid">
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="0">
+                        <img alt="Pedestrian Bridge" src="assets/gallery/gallery-01.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Pedestrian Bridge</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="1">
+                        <img alt="Bridge Aerial View" src="assets/gallery/gallery-02.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Bridge Aerial View</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="environment" data-gallery-index="2">
+                        <img alt="Water Sampling" src="assets/gallery/gallery-03.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Water Sampling</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="3">
+                        <img alt="Libero Cobre Team" src="assets/gallery/gallery-04.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Libero Cobre Team</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="4">
+                        <img alt="Mocoa Valley Landscape" src="assets/gallery/gallery-05.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Mocoa Valley Landscape</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="environment" data-gallery-index="5">
+                        <img alt="Nursery & Reforestation" src="assets/gallery/gallery-06.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Nursery & Reforestation</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="6">
+                        <img alt="Community Engagement" src="assets/gallery/gallery-07.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Engagement</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="7">
+                        <img alt="Community Presentation" src="assets/gallery/gallery-08.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Presentation</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="8">
+                        <img alt="Community Meeting" src="assets/gallery/gallery-17.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Meeting</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="9">
+                        <img alt="Field Crew in the Jungle" src="assets/gallery/gallery-10.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Field Crew in the Jungle</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="10">
+                        <img alt="Community Event" src="assets/gallery/gallery-11.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Event</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="11">
+                        <img alt="Community Gathering" src="assets/gallery/gallery-12.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Gathering</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="12">
+                        <img alt="Community Town Hall" src="assets/gallery/gallery-13.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Town Hall</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="13">
+                        <img alt="Core Sample Inspection" src="assets/gallery/gallery-14.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Core Sample Inspection</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="14">
+                        <img alt="Community Speaker" src="assets/gallery/gallery-15.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Speaker</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="15">
+                        <img alt="Community Forum" src="assets/gallery/gallery-16.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Forum</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="16">
+                        <img alt="Community Dialogue" src="assets/gallery/gallery-17(1).jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Dialogue</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="17">
+                        <img alt="Aerial View of Site" src="assets/gallery/gallery-18.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Aerial View of Site</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="18">
+                        <img alt="Community Voice" src="assets/gallery/gallery-19.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Voice</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="19">
+                        <img alt="Community Workshop" src="assets/gallery/gallery-20.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Workshop</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="20">
+                        <img alt="Ruta Verde Event" src="assets/gallery/gallery-21.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Ruta Verde Event</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="21">
+                        <img alt="Ruta Verde Gathering" src="assets/gallery/gallery-22.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Ruta Verde Gathering</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="22">
+                        <img alt="Night Community Event" src="assets/gallery/gallery-23.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Night Community Event</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="23">
+                        <img alt="Core Samples Close-up" src="assets/gallery/gallery-24.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Core Samples Close-up</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="environment" data-gallery-index="24">
+                        <img alt="Tree Planting" src="assets/gallery/gallery-25.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Tree Planting</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="25">
+                        <img alt="Workshop Activity" src="assets/gallery/gallery-26.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Workshop Activity</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="environment" data-gallery-index="26">
+                        <img alt="Reforestation Work" src="assets/gallery/gallery-27.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Reforestation Work</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="27">
+                        <img alt="Ridge Trail" src="assets/gallery/gallery-28.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Ridge Trail</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="28">
+                        <img alt="Mineralized Core" src="assets/gallery/gallery-29.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Mineralized Core</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="environment" data-gallery-index="29">
+                        <img alt="Field Water Sampling" src="assets/gallery/gallery-30.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Field Water Sampling</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="30">
+                        <img alt="Workers Descending Hill" src="assets/gallery/gallery-31.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Workers Descending Hill</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="31">
+                        <img alt="Worker Sawing Wood" src="assets/gallery/gallery-32.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Worker Sawing Wood</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="32">
+                        <img alt="Bridge Community Group" src="assets/gallery/gallery-33.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Bridge Community Group</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="33">
+                        <img alt="Core Handling" src="assets/gallery/gallery-34.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Core Handling</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="34">
+                        <img alt="Drill Rig Equipment" src="assets/gallery/gallery-35.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Drill Rig Equipment</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="35">
+                        <img alt="Drill Rig Operations" src="assets/gallery/gallery-36.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Drill Rig Operations</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="36">
+                        <img alt="Team in the Field" src="assets/gallery/gallery-37.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Team in the Field</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="37">
+                        <img alt="Crew Lining Up" src="assets/gallery/gallery-38.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Crew Lining Up</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="38">
+                        <img alt="Geologists Examining Core" src="assets/gallery/gallery-39.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Geologists Examining Core</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="39">
+                        <img alt="Team Photo" src="assets/gallery/gallery-40.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Team Photo</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="40">
+                        <img alt="Core Sample Analysis" src="assets/gallery/gallery-41.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Core Sample Analysis</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="41">
+                        <img alt="Geologist with Core" src="assets/gallery/gallery-42.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Geologist with Core</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="42">
+                        <img alt="Jungle Trail" src="assets/gallery/gallery-43.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Jungle Trail</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="43">
+                        <img alt="Carrying Equipment" src="assets/gallery/gallery-44.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Carrying Equipment</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="44">
+                        <img alt="Cobbler Artisan" src="assets/gallery/gallery-45.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Cobbler Artisan</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="45">
+                        <img alt="Embroidery Machine" src="assets/gallery/gallery-46.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Embroidery Machine</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="46">
+                        <img alt="Libero Cobre Staff" src="assets/gallery/gallery-47.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Libero Cobre Staff</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="community" data-gallery-index="47">
+                        <img alt="Community Planning Session" src="assets/gallery/gallery-48.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Community Planning Session</p>
+                        </div>
+                    </div>
+                    <div class="photo-card" data-category="infrastructure" data-gallery-index="48">
+                        <img alt="Drill Rig Control Room" src="assets/gallery/gallery-49.jpg" loading="lazy">
+                        <div class="photo-card-overlay">
+                            <p class="photo-card-caption">Drill Rig Control Room</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="load-more-container" id="load-more-container">
+                    <button class="btn-load-more" id="btn-load-more" onclick="loadMorePhotos()">
+                        <span>Load More</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <!-- The Coreshack Section -->
+    <section class="section-padding pt-0" id="coreshack" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px);">
+        <div class="container fade-up">
+            <div class="section-header-group fade-up" style="margin-bottom: 40px;">
+                <h2 class="section-title">The Coreshack</h2>
+                <div class="section-subtitle">Core Gallery</div>
+            </div>
+            <div class="coreshack-grid">
+                <div class="coreshack-card" data-core-index="0">
+                    <img alt="The Coreshack 1" src="assets/coreshack/copper-giant-the-coreshack-1.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 1</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="1">
+                    <img alt="The Coreshack 2" src="assets/coreshack/copper-giant-the-coreshack-2.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 2</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="2">
+                    <img alt="The Coreshack 3" src="assets/coreshack/copper-giant-the-coreshack-3.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 3</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="3">
+                    <img alt="The Coreshack 4" src="assets/coreshack/copper-giant-the-coreshack-4.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 4</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="4">
+                    <img alt="The Coreshack 5" src="assets/coreshack/copper-giant-the-coreshack-5.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 5</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="5">
+                    <img alt="The Coreshack 6" src="assets/coreshack/copper-giant-the-coreshack-6.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 6</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="6">
+                    <img alt="The Coreshack 7" src="assets/coreshack/copper-giant-the-coreshack-7.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 7</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="7">
+                    <img alt="The Coreshack 8" src="assets/coreshack/copper-giant-the-coreshack-8.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 8</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="8">
+                    <img alt="The Coreshack 9" src="assets/coreshack/copper-giant-the-coreshack-9.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 9</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="9">
+                    <img alt="The Coreshack 10" src="assets/coreshack/copper-giant-the-coreshack-10.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 10</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="10">
+                    <img alt="The Coreshack 11" src="assets/coreshack/copper-giant-the-coreshack-11.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 11</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="11">
+                    <img alt="The Coreshack 12" src="assets/coreshack/copper-giant-the-coreshack-12.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 12</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="12">
+                    <img alt="The Coreshack 13" src="assets/coreshack/copper-giant-the-coreshack-13.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 13</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="13">
+                    <img alt="The Coreshack 14" src="assets/coreshack/copper-giant-the-coreshack-14.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 14</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="14">
+                    <img alt="The Coreshack 15" src="assets/coreshack/copper-giant-the-coreshack-15.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 15</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="15">
+                    <img alt="The Coreshack 16" src="assets/coreshack/copper-giant-the-coreshack-16.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 16</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="16">
+                    <img alt="The Coreshack 17" src="assets/coreshack/copper-giant-the-coreshack-17.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 17</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="17">
+                    <img alt="The Coreshack 18" src="assets/coreshack/copper-giant-the-coreshack-18.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 18</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="18">
+                    <img alt="The Coreshack 19" src="assets/coreshack/copper-giant-the-coreshack-19.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 19</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="19">
+                    <img alt="The Coreshack 20" src="assets/coreshack/copper-giant-the-coreshack-20.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 20</p>
+                    </div>
+                </div>
+                <div class="coreshack-card" data-core-index="20">
+                    <img alt="The Coreshack 21" src="assets/coreshack/copper-giant-the-coreshack-21.webp" loading="lazy">
+                    <div class="coreshack-card-overlay">
+                        <p class="coreshack-card-title">The Coreshack 21</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Maps Section -->
+    <section class="section-padding pt-0" id="maps" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px);">
+        <div class="container fade-up">
+            <div class="section-header-group fade-up" style="margin-bottom: 40px;">
+                <h2 class="section-title">Project Maps</h2>
+                <div class="section-subtitle">Visual References</div>
+            </div>
+            <div class="maps-grid">
+                <div class="map-card" data-map-index="0">
+                    <img alt="AS Map + Moly" src="assets/copper-giant-mocoa-as-map-moly.jpg" loading="lazy">
+                    <div class="map-card-overlay">
+                        <h3 class="map-card-title">AS Map + Moly</h3>
+                    </div>
+                </div>
+                <div class="map-card" data-map-index="1">
+                    <img alt="K Alteration Map + Moly" src="assets/copper-giant-mocoa-k-alteration-moly.jpg" loading="lazy">
+                    <div class="map-card-overlay">
+                        <h3 class="map-card-title">K Alteration Map + Moly</h3>
+                    </div>
+                </div>
+                <div class="map-card" data-map-index="2">
+                    <img alt="Property Map" src="assets/copper-giant-mocoa-property-map.jpg" loading="lazy">
+                    <div class="map-card-overlay">
+                        <h3 class="map-card-title">Property Map</h3>
+                    </div>
+                </div>
+                <div class="map-card" data-map-index="3">
+                    <img alt="Reserva Forestal" src="assets/copper-giant-mocoa-reserva-forestal.jpg" loading="lazy">
+                    <div class="map-card-overlay">
+                        <h3 class="map-card-title">Reserva Forestal</h3>
+                    </div>
+                </div>
+                <div class="map-card" data-map-index="4">
+                    <img alt="Cross Section 1" src="assets/copper-giant-mocoa-section-1.jpg" loading="lazy">
+                    <div class="map-card-overlay">
+                        <h3 class="map-card-title">Cross Section 1</h3>
+                    </div>
+                </div>
+                <div class="map-card" data-map-index="5">
+                    <img alt="Cross Section 6" src="assets/copper-giant-mocoa-section-6.jpg" loading="lazy">
+                    <div class="map-card-overlay">
+                        <h3 class="map-card-title">Cross Section 6</h3>
+                    </div>
+                </div>
+                <div class="map-card" data-map-index="6">
+                    <img alt="Cross Section 10" src="assets/copper-giant-mocoa-section-10.jpg" loading="lazy">
+                    <div class="map-card-overlay">
+                        <h3 class="map-card-title">Cross Section 10</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+<!-- Main Styled Footer (Mockup Layout) -->
+    <footer class="site-footer">
+        <div class="footer-top-columns">
+            <!-- Column 1: About -->
+            <div class="footer-column">
+                <a href="index.html" class="footer-logo-link">
+                    <!-- Inline SVG logo so we can change st1 to #000 in CSS -->
+                    <svg class="footer-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 354 91.95">
+                        <path class="st1" d="M155.48,91l-.89-4.25h-.11c-2.39,3.47-6.2,5.2-11.46,5.2s-9.88-1.77-13.19-5.31c-3.69-3.91-5.53-9.07-5.53-15.48,0-6.04,1.8-11.02,5.39-14.95,3.6-3.93,8.41-5.9,14.45-5.9,5.18,0,9.37,1.27,12.58,3.8,3.2,2.53,5.12,6.04,5.76,10.51h-11.29c-.34-1.34-1.09-2.46-2.26-3.35-1.17-.89-2.62-1.34-4.33-1.34-2.72,0-4.81,1.02-6.26,3.07-1.45,2.05-2.18,4.77-2.18,8.16s.79,6.09,2.38,8.22c1.58,2.12,3.75,3.19,6.51,3.19,3.8,0,6.15-1.66,7.04-4.98h-5.31v-8.27h16.49v21.69h-7.77Z"/>
+                        <rect class="st1" x="172.81" y="51.03" width="11.68" height="39.96"/>
+                        <path class="st1" d="M192.26,91l14.76-39.96h11.91l14.81,39.96h-12.41l-1.96-5.87h-13.53l-1.96,5.87h-11.63ZM211.09,69.26l-2.63,7.82h8.27l-2.52-7.82-1.51-5.14h-.11c-.56,2.12-1.06,3.84-1.51,5.14"/>
+                        <polygon class="st1" points="241.5 91 241.5 51.04 253.18 51.04 266.26 73.5 266.37 73.5 266.37 51.04 277.66 51.04 277.66 91 265.59 91 252.9 68.36 252.79 68.36 252.79 91 241.5 91"/>
+                        <polygon class="st1" points="286.49 60.98 286.49 51.04 320.92 51.04 320.92 60.98 309.47 60.98 309.47 91 297.78 91 297.78 60.98 286.49 60.98"/>
+                        <path class="st1" d="M144.41,41.64c-5.63,0-10.15-1.94-13.58-5.81-3.43-3.87-5.14-8.87-5.14-14.98s1.71-11.02,5.11-14.95c3.41-3.93,8.02-5.9,13.83-5.9,4.55,0,8.22,1.17,11.01,3.52,2.79,2.35,4.47,5.42,5.03,9.22h-4.92c-.48-2.53-1.7-4.56-3.66-6.09-1.96-1.53-4.48-2.29-7.57-2.29-4.29,0-7.64,1.54-10.06,4.61-2.42,3.07-3.63,7.03-3.63,11.88s1.26,8.88,3.77,11.88c2.51,3,5.84,4.5,9.98,4.5,3.58,0,6.34-1.04,8.3-3.13,1.96-2.09,3.06-4.71,3.33-7.88h4.97c-.04,1.98-.49,4-1.37,6.07-.88,2.07-2.02,3.79-3.44,5.17-2.87,2.8-6.86,4.19-11.96,4.19"/>
+                        <path class="st1" d="M200.5,35.83c-3.56,3.91-8.3,5.87-14.22,5.87s-10.67-1.96-14.22-5.87c-3.56-3.91-5.34-8.91-5.34-14.98s1.78-11.07,5.34-14.98C175.61,1.96,180.35,0,186.28,0s10.67,1.96,14.22,5.87c3.56,3.91,5.34,8.9,5.34,14.98s-1.78,11.07-5.34,14.98M175.66,32.7c2.53,3.06,6.07,4.58,10.62,4.58s8.09-1.53,10.62-4.58c2.53-3.05,3.8-7.01,3.8-11.85s-1.27-8.8-3.8-11.88c-2.53-3.07-6.07-4.61-10.62-4.61s-8.09,1.54-10.62,4.61c-2.53,3.07-3.8,7.03-3.8,11.88s1.27,8.8,3.8,11.85"/>
+                        <path class="st1" d="M213.22,40.86V.9h16.66c4.17,0,7.34,1.29,9.5,3.86,1.79,2.09,2.68,4.62,2.68,7.6,0,3.73-1.08,6.62-3.24,8.66-2.16,2.05-5.38,3.07-9.67,3.07h-10.9v16.77h-5.03ZM218.25,5.25v14.76h10.51c2.76,0,4.83-.65,6.23-1.96,1.4-1.3,2.1-3.13,2.1-5.48s-.7-4.2-2.1-5.45c-1.4-1.25-3.38-1.87-5.95-1.87h-10.79Z"/>
+                        <path class="st1" d="M248.32,40.86V.9h16.66c4.17,0,7.34,1.29,9.5,3.86,1.79,2.09,2.68,4.62,2.68,7.6,0,3.73-1.08,6.62-3.24,8.66-2.16,2.05-5.38,3.07-9.67,3.07h-10.9v16.77h-5.03ZM253.35,5.25v14.76h10.51c2.76,0,4.83-.65,6.23-1.96,1.4-1.3,2.1-3.13,2.1-5.48s-.7-4.2-2.1-5.45c-1.4-1.25-3.38-1.87-5.95-1.87h-10.79Z"/>
+                        <polygon class="st1" points="283.42 40.86 283.42 .89 311.65 .89 311.65 5.31 288.45 5.31 288.45 17.94 309.52 17.94 309.52 22.19 288.45 22.19 288.45 36.22 312.32 36.22 312.32 40.86 283.42 40.86"/>
+                        <path class="st1" d="M319.58,40.86V.9h18.67c3.5,0,6.34,1.01,8.52,3.02,2.18,2.01,3.27,4.66,3.27,7.94,0,5.11-2.31,8.4-6.93,9.89v.17c1.97.71,3.38,1.82,4.22,3.33.84,1.51,1.35,3.79,1.54,6.85.37,5.11.99,7.96,1.84,8.55v.22h-5.42c-.41-.34-.7-1.04-.87-2.12-.17-1.08-.36-3.35-.59-6.82-.19-2.91-.9-4.96-2.15-6.15-1.25-1.19-3.23-1.79-5.95-1.79h-11.12v16.88h-5.03ZM324.62,5.25v14.64h11.85c2.76,0,4.84-.64,6.26-1.93,1.41-1.29,2.12-3.08,2.12-5.39,0-2.5-.63-4.34-1.9-5.53-1.27-1.19-3.34-1.79-6.2-1.79h-12.13Z"/>
+                        <path class="st0" d="M350.56,70.31c-2.29,2.28-5.07,3.42-8.34,3.42s-6.05-1.14-8.34-3.42c-2.29-2.28-3.44-5.13-3.44-8.56s1.15-6.24,3.44-8.54c2.29-2.29,5.07-3.44,8.34-3.44s6.05,1.15,8.34,3.44c2.29,2.29,3.44,5.14,3.44,8.54s-1.15,6.29-3.44,8.56M335.22,69.1c1.83,1.93,4.17,2.89,7,2.89s5.17-.96,7-2.89c1.83-1.93,2.75-4.38,2.75-7.35s-.92-5.38-2.77-7.33c-1.85-1.95-4.17-2.92-6.98-2.92s-5.13.97-6.98,2.92c-1.85,1.95-2.77,4.39-2.77,7.33s.92,5.42,2.75,7.35M340.14,57.34v3.56h2.77c1.39,0,2.08-.59,2.08-1.78s-.69-1.78-2.08-1.78h-2.77Z"/>
+                        <polygon class="st0" points="90.37 40.06 90.37 .81 51.04 .81 51.04 13.46 68.49 13.46 65.78 16.17 49.47 32.48 58.46 41.48 74.77 25.17 74.78 25.16 77.48 22.45 77.48 40.06 90.37 40.06"/>
+                        <path class="st0" d="M39.36,1.38C17.17,4.15,0,23.07,0,46.01s17.17,41.87,39.36,44.64V1.38Z"/>
+                        <path class="st0" d="M90.37,91h-45.39c0-24.84,20.14-44.99,44.98-44.99.14,0,.27,0,.4,0v44.98Z"/>
+                    </svg>
+                </a>
+                <p class="footer-about-text">Copper Giant is dedicated to advancing high-quality copper projects responsibly. Led by a team experienced in building major mines, our focus is the Mocoa project in Putumayo, Colombia.</p>
+                <div class="footer-social-links">
+                    <a href="#" class="footer-social-btn" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="footer-social-btn" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                    </a>
+                    <a href="#" class="footer-social-btn" aria-label="Pinterest">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.27 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.62 0 11.983-5.367 11.983-11.987C24 5.367 18.637 0 12.017 0z"/></svg>
+                    </a>
+                    <a href="#" class="footer-social-btn" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Explore -->
+            <div class="footer-column">
+                <h4 class="footer-column-title">Explore</h4>
+                <ul class="footer-links-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="corporate.html">Corporate</a></li>
+                    <li><a href="mocoa.html">Mocoa Project</a></li>
+                    <li><a href="news.html">News Hub</a></li>
+                    <li><a href="investors.html">Investors</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: News -->
+            <div class="footer-column">
+                <h4 class="footer-column-title">News</h4>
+                <div class="footer-news-list">
+                    <div class="footer-news-item">
+                        <a href="news.html" class="footer-news-title-link">Copper Giant Expands Mocoa Resource Footprint</a>
+                        <span class="footer-news-date">May 20, 2026</span>
+                    </div>
+                    <div class="footer-news-item">
+                        <a href="news.html" class="footer-news-title-link">Copper Giant Secures Development Framework</a>
+                        <span class="footer-news-date">April 28, 2026</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Column 4: Contact -->
+            <div class="footer-column">
+                <h4 class="footer-column-title">Contact</h4>
+                <div class="footer-contact-list">
+                    <div class="footer-contact-item">
+                        +1 (604) 609-6110
+                    </div>
+                    <div class="footer-contact-item">
+                        <a href="mailto:info@coppergiant.com">info@coppergiant.com</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        Suite 3123 – 595 Burrard St,<br>Vancouver, BC V7X 1J1, Canada
+                    </div>
+                </div>
+                <form class="footer-newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit" aria-label="Subscribe">
+                        <svg viewBox="0 0 104.94 104.32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <polygon points="104.94 100.7 104.94 0 4.03 0 4.03 32.45 48.8 32.45 41.86 39.39 0 81.25 23.07 104.32 64.91 62.49 64.93 62.46 71.87 55.53 71.87 100.7 104.94 100.7"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Giant MOCOA text graphic -->
+        <div class="footer-mocoa-graphic-wrap">
+            <img src="mocoa.png" alt="MOCOA" class="footer-mocoa-graphic">
+        </div>
+        
+        <!-- Black Copyright Bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-container">
+                <div class="footer-bottom-copyright">
+                    © Copyright 2026 – Copper Giant. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Terms of Use</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="legal.html">Legal Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<!-- Ported Modals & Overlays -->
+
+                <!-- Get Updates Modal -->
+    <div class="modal-overlay" id="updates-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="btn-close-modal" aria-label="Close Modal">&times;</button>
+            
+            <div id="modal-form-state">
+                <div class="modal-header">
+                    <h3>Get Updates</h3>
+                    <p>Sign up to receive the latest news, drilling results, and corporate updates directly to your inbox.</p>
+                </div>
+                <form action="https://coppergiant.us2.list-manage.com/subscribe/post?u=40061becfca7aa7c373a83b2f&amp;id=cfeb8b0225&amp;f_id=0084c2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="modal-form validate" target="_blank" novalidate>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    
+                    <div class="input-group mc-field-group">
+                        <input type="email" name="EMAIL" class="required email input-field" id="mce-EMAIL" placeholder="Email Address *" required>
+                    </div>
+                    
+                    <div class="form-row" style="display: flex; gap: 12px;">
+                        <div class="input-group mc-field-group" style="flex: 1;">
+                            <input type="text" name="FNAME" class="text input-field" id="mce-FNAME" placeholder="First Name">
+                        </div>
+                        
+                        <div class="input-group mc-field-group" style="flex: 1;">
+                            <input type="text" name="LNAME" class="text input-field" id="mce-LNAME" placeholder="Last Name">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group mc-field-group">
+                        <input type="text" name="MMERGE3" class="text input-field" id="mce-MMERGE3" placeholder="Company">
+                    </div>
+                    
+                    <div class="mc-field-group" style="margin-top: 5px;">
+                        <strong style="color: var(--copper-primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 6px;">Interest</strong>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label" for="mce-group[1]-1-0">
+                                <input type="checkbox" name="group[1][1]" id="mce-group[1]-1-0" value="">
+                                News &amp; Updates
+                            </label>
+                            <label class="checkbox-label" for="mce-group[1]-1-1">
+                                <input type="checkbox" name="group[1][2]" id="mce-group[1]-1-1" value="">
+                                Investor Relations
+                            </label>
+                            <label class="checkbox-label" for="mce-group[1]-1-2">
+                                <input type="checkbox" name="group[1][4]" id="mce-group[1]-1-2" value="">
+                                Drilling Results &amp; Assays
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <input type="text" name="b_40061becfca7aa7c373a83b2f_cfeb8b0225" tabindex="-1" value="">
+                    </div>
+                    
+                    <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn-submit-modal">
+                        Subscribe
+                        <svg width="14" height="14" viewBox="49.47 0.81 41 41" fill="currentColor">
+                            <polygon points="90.37 40.06 90.37 .81 51.04 .81 51.04 13.46 68.49 13.46 65.78 16.17 49.47 32.48 58.46 41.48 74.77 25.17 74.78 25.16 77.48 22.45 77.48 40.06 90.37 40.06"/>
+                        </svg>
+                    </button>
+                    
+                    <p style="color: var(--text-secondary); font-size: 11px; text-align: center; margin: 8px 0 0 0; line-height: 1.4;">
+                        We respect your privacy. Unsubscribe at any time.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+<div class="modal-overlay" id="gallery-lightbox-modal">
+        <button class="modal-close" id="btn-close-gallery-lightbox" aria-label="Close Lightbox">&times;</button>
+        <div class="lightbox-content">
+            <img id="gallery-lightbox-img" src="" alt="" class="lightbox-img">
+            <p id="gallery-lightbox-caption" class="lightbox-caption"></p>
+            
+            <div class="lightbox-nav-container">
+                <button class="lightbox-nav lightbox-prev" id="btn-lightbox-prev" aria-label="Previous">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                </button>
+                <button class="lightbox-nav lightbox-next" id="btn-lightbox-next" aria-label="Next">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+<div class="modal-overlay" id="gallery-video-modal">
+        <button class="modal-close" id="btn-close-gallery-video" aria-label="Close Video">&times;</button>
+        <div class="video-modal-content">
+            <iframe id="gallery-video-iframe" src="" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="btn-back-to-top" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="49.47 0.81 41 41" fill="currentColor">
+        <polygon points="90.37 40.06 90.37 .81 51.04 .81 51.04 13.46 68.49 13.46 65.78 16.17 49.47 32.48 58.46 41.48 74.77 25.17 74.78 25.16 77.48 22.45 77.48 40.06 90.37 40.06"/>
+    </svg>
+</button>
+
+
+    <!-- Video Modal Overlay -->
+    <div class="modal-overlay" id="video-modal" onclick="closeVideoModal(event)">
+        <div class="modal-content-video">
+            <button class="modal-close-btn" onclick="closeVideoModal(event)">&times;</button>
+            <iframe id="modal-youtube-iframe" style="width: 100%; height: 100%; border: none;" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+
+
+<script src="script.js?v=2.1"></script>
+
+    
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+
+    
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+
+    
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+
+    <!-- jQuery and Mailchimp validation scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+</body>
+</html>

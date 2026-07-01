@@ -1,0 +1,215 @@
+{
+  "ticker": {
+    "TSXV": { "symbol": "CGNT", "price": "C$0.73", "change": "+1.39%", "direction": "up" },
+    "OTC": { "symbol": "LBCMF", "price": "$0.53", "change": "-1.07%", "direction": "down" },
+    "FSE": { "symbol": "29H0", "price": "€0.43", "change": "+2.85%", "direction": "up" },
+    "Cu": { "price": "$6.40/Lb" }
+  },
+  "heroes": [
+    {
+      "page": "home",
+      "type": "video",
+      "media": "assets/Video Web.mp4",
+      "ratio": "2520/972",
+      "title": "A massive system. Built on <br>responsibility. Guided by <br>experience.",
+      "title_tag": "p",
+      "title_class": "hero-subtitle"
+    },
+    {
+      "page": "corporate",
+      "type": "image",
+      "media": "assets/libero/corporate_hero.webp",
+      "alt": "Corporate",
+      "ratio": "2520/972",
+      "title": "Built on<br>trust.",
+      "title_tag": "h1",
+      "title_class": "hero-title",
+      "eyebrow": "Fiore Group Portfolio Company"
+    },
+    {
+      "page": "mocoa",
+      "type": "image",
+      "media": "assets/libero/mocoa_hero.webp",
+      "alt": "Mocoa Project",
+      "ratio": "2520/972",
+      "title": "A giant in<br>the making.",
+      "title_tag": "h1",
+      "title_class": "hero-title",
+      "eyebrow": "Asset Profile · Putumayo, Colombia"
+    },
+    {
+      "page": "news",
+      "type": "image",
+      "media": "assets/libero/news_hero.webp",
+      "alt": "News Room",
+      "ratio": "2520/972",
+      "title": "Press &<br>updates.",
+      "title_tag": "h1",
+      "title_class": "hero-title",
+      "eyebrow": "Media Room & Communications"
+    },
+    {
+      "page": "investors",
+      "type": "image",
+      "media": "assets/the-coreshack.jpg",
+      "alt": "Investors",
+      "ratio": "2520/972",
+      "title": "Value &amp;<br>Exposure",
+      "title_tag": "h1",
+      "title_class": "hero-subtitle",
+      "eyebrow": "Financial Profile &bull; TSXV: CGNT"
+    }
+  ],
+  "metrics_banner": {
+    "corporate": {
+      "description": "Copper Giant is part of the Fiore Group, advancing high-quality copper projects responsibly, efficiently, and with long-term positive impact.",
+      "metrics": [
+        { "value": "$30B+", "label": "Value Created" },
+        { "value": "40+ Yrs", "label": "Mining Experience" },
+        { "value": "89%", "label": "Local Employees" }
+      ]
+    },
+    "mocoa": {
+      "description": "The Mocoa deposit ranks among the largest undeveloped copper resources in the Americas.",
+      "metrics": [
+        { "value": "5.2B", "label": "Lbs CuEq M&I" },
+        { "value": "882M", "label": "Lbs CuEq Inferred" },
+        { "value": "655M", "label": "Tonnes M&I" }
+      ]
+    }
+  },
+  "bento_sections": {
+    "home": [
+      {
+        "id": "copper-today",
+        "title": "Copper Today",
+        "heading": "The world needs more copper.",
+        "body": "Every electric vehicle, every wind turbine, every grid upgrade demands exponentially more copper than the fossil fuel equivalent. Supply isn't keeping up.",
+        "link_text": "Why Copper Matters →",
+        "link_href": "https://www.coppergiant.co",
+        "image": "assets/copper-today.jpg",
+        "span": "wide"
+      },
+      {
+        "id": "mocoa-scale",
+        "title": "Mocoa at Scale",
+        "heading": "A world-class asset in a tier-1 jurisdiction.",
+        "body": "One of the largest undeveloped copper resources in the Americas. At-surface mineralization. District-scale potential beyond the current resource footprint.",
+        "link_text": "Explore Mocoa →",
+        "link_href": "mocoa.html",
+        "image": "assets/mocoa-landscape.jpg",
+        "span": "tall"
+      },
+      {
+        "id": "meet-team",
+        "title": "Team",
+        "heading": "Meet the team behind the discovery.",
+        "body": "A management team with a proven track record of finding and building mines. Backed by the Fiore Group.",
+        "link_text": "Meet the Team →",
+        "link_href": "corporate.html#team",
+        "image": "assets/meet-the-team.jpg",
+        "span": "tall"
+      },
+      {
+        "id": "why-invest",
+        "title": "Investment Thesis",
+        "heading": "Why Copper Giant?",
+        "body": "Strong copper fundamentals, a world-class resource in a mining-friendly jurisdiction, an experienced team, and a clear path to value creation.",
+        "link_text": "Investor Deck →",
+        "link_href": "investors.html",
+        "image": "assets/why-invest.jpg",
+        "span": "wide"
+      }
+    ]
+  },
+  "split_cards": [
+    {
+      "id": "meet-the-team",
+      "title": "MEET THE TEAM",
+      "subtitle": "Tested / Ready to win",
+      "image": "meet the team.jpg",
+      "link_type": "page",
+      "link_href": "corporate.html#team"
+    },
+    {
+      "id": "road-to-mocoa",
+      "title": "ROAD TO MOCOA",
+      "subtitle": "Inside a copper megaproject",
+      "image": "ROAD-to-MOCOA.jpg",
+      "link_type": "modal",
+      "link_href": ""
+    },
+    {
+      "id": "mocoa-deposit",
+      "title": "MOCOA THE DEPOSIT",
+      "subtitle": "The Resource | The Scale | The Potential",
+      "image": "mocoa-deposit-bg.png",
+      "link_type": "page",
+      "link_href": "mocoa.html"
+    },
+    {
+      "id": "copper-giant-way",
+      "title": "THE COPPER GIANT WAY",
+      "subtitle": "Local Strength / National Reputation / Lasting Impact",
+      "image": "The copper giant way.jpg",
+      "link_type": "page",
+      "link_href": "corporate.html"
+    },
+    {
+      "id": "making-of-giant",
+      "title": "THE MAKING OF A GIANT",
+      "subtitle": "Why Mocoa has giant written all over it",
+      "image": "Themaking.jpg",
+      "link_type": "page",
+      "link_href": "mocoa.html"
+    },
+    {
+      "id": "coreshack",
+      "title": "THE CORESHACK",
+      "subtitle": "The core that speaks for itself",
+      "image": "nucleos-CG.png",
+      "link_type": "page",
+      "link_href": "investors.html"
+    }
+  ],
+  "core_values": [
+    {
+      "number": "01",
+      "title": "Vision",
+      "body": "To be a leading copper producer, safely and responsibly contributing to the global energy transition and enabling green technologies."
+    },
+    {
+      "number": "02",
+      "title": "Responsibility",
+      "body": "Operating with the highest standards of environmental, safety, and social governance. We prioritize the health and protection of the Putumayo ecosystem."
+    },
+    {
+      "number": "03",
+      "title": "Community",
+      "body": "Building lasting, positive relationships with local communities through transparent engagement and our Good Neighbor philosophy."
+    },
+    {
+      "number": "04",
+      "title": "Impact",
+      "body": "Creating enduring economic, educational, and structural values for our stakeholders, host communities, and future generations."
+    }
+  ],
+  "esg_cards": [
+    {
+      "title": "Community First",
+      "body": "89% of our workforce comes from local communities. We invest in education, healthcare, and infrastructure alongside our operations."
+    },
+    {
+      "title": "Environmental Stewardship",
+      "body": "We operate with full environmental impact assessments, responsible water management, and progressive reclamation planning."
+    },
+    {
+      "title": "Indigenous Partnerships",
+      "body": "Our Good Neighbor Agreements with local Indigenous communities set the standard for respectful, mutually beneficial relationships."
+    },
+    {
+      "title": "Sustainable Future",
+      "body": "Every step of our operations is designed with long-term sustainability in mind — creating value that outlasts the mine."
+    }
+  ]
+}

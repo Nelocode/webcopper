@@ -1,0 +1,74 @@
+{
+  "items": [
+    {
+      "name": "Ian Harris",
+      "role": "President & CEO | Director",
+      "category": "management",
+      "img": "assets/ian-harris.webp",
+      "bio": "Ian Harris is a seasoned mining engineer and executive with over 20 years of experience in the mining industry, including more than a decade of leadership roles in South America. He has a proven track record of advancing major projects from discovery to construction and production. Notably, he played a key role in the development of the Mirador mine in Ecuador, contributing to the sale of Corriente Resources for $690 million. He has also served as CEO of Al Masane Al Kobra Mining Co. and President of Soma Gold Corp."
+    },
+    {
+      "name": "Frank Balint",
+      "role": "Strategic Advisor",
+      "category": "management",
+      "img": "",
+      "bio": "Frank Balint is a professional geologist (P.Geo) and seasoned mining executive with over 45 years of experience. He spent nearly 20 years with Inmet Mining Corporation as VP of Corporate Development and VP of Exploration, playing a key role in increasing its market capitalization from $200 million to over $5 billion. He was instrumental in advancing the world-class Cobre Panama copper project. He has also served on the boards of Wolfden Resources, GoldQuest Mining, and Doré Copper Mining."
+    },
+    {
+      "name": "Tetiana Konstantynivska",
+      "role": "VP of Investor Relations",
+      "category": "management",
+      "img": "assets/tetiana-konstantynivska.jpg",
+      "bio": "Tetiana Konstantynivska is an investor relations and digital marketing professional specializing in the mining and metals sector. He has worked with numerous public and private companies across exploration, development, and production. Previously, he led communications at Lucara Diamond, served as Director of Communications at Dolly Varden Silver, and executed marketing campaigns for West Red Lake Gold Mines. He holds a B.A. from the University of British Columbia."
+    },
+    {
+      "name": "Edwin Naranjo Sierra",
+      "role": "VP of Exploration",
+      "category": "management",
+      "img": "assets/edwin-naranjo-sierra.jpg",
+      "bio": "Edwin Naranjo Sierra is a professional geologist and expert in mineral exploration with extensive experience in the Colombian Andes. He has served as Exploration Manager for Libero Copper, leading programs at the Mocoa copper-molybdenum project. He holds an MSc in Earth Sciences and is a Fellow of the Australasian Institute of Mining and Metallurgy (FAusIMM), serving as the Qualified Person (QP) for technical disclosure."
+    },
+    {
+      "name": "Thyana Álvarez",
+      "role": "VP & Country Manager",
+      "category": "management",
+      "img": "assets/thyana-alvarez.webp",
+      "bio": "Thyana Álvarez is a Colombian mining executive with over 25 years of experience in sustainability and corporate relations. She oversees community engagement and operations for the Mocoa project. Known for her leadership in responsible mining and ESG, she was recognized by Semana magazine as one of Colombia’s most influential women in emerging industries. She has led direct, face-to-face dialogues with local Indigenous communities like the Inga Condagua to build trust without intermediaries."
+    },
+    {
+      "name": "Robert Van Egmond",
+      "role": "Director",
+      "category": "board",
+      "img": "assets/robert-van-egmond.webp",
+      "bio": "Robert Van Egmond is a professional geologist with 35 years of international exploration experience spanning North America, South America, and Africa. He has held senior roles at Dolly Varden Silver Corp and served as a director for West Red Lake Gold Mines Ltd. He brings deep technical expertise in resource expansion and porphyry copper systems."
+    },
+    {
+      "name": "Mark Gibson",
+      "role": "Director",
+      "category": "board",
+      "img": "assets/mark-gibson.webp",
+      "bio": "Mark Gibson is a geophysicist and mining executive with over 35 years of global experience in exploration, operations, and project development. He previously served as Chief Operating Officer of Ivanhoe Electric Inc. and Kaizen Discovery, and as COO of Cordoba Minerals, where he was key in advancing the Alacran copper-gold project in Colombia. He is currently CEO of FeCycle Technologies Group."
+    },
+    {
+      "name": "Jay Sujir",
+      "role": "Director",
+      "category": "board",
+      "img": "assets/jay-sujir.jpg",
+      "bio": "Jay Sujir is a securities and natural resources lawyer with over 25 years of experience. He is a senior partner at Farris, Vaughan, Wills & Murphy LLP, specializing in corporate finance, mergers & acquisitions, and securities regulation. He advises numerous natural resource exploration and development companies on governance, financing, and corporate strategy."
+    },
+    {
+      "name": "Ian Harris",
+      "role": "Director",
+      "category": "board",
+      "img": "assets/ian-harris.webp",
+      "bio": "Ian Harris is a seasoned mining engineer and executive with over 20 years of experience in the mining industry, including more than a decade of leadership roles in South America. He has a proven track record of advancing major projects from discovery to construction and production. Notably, he played a key role in the development of the Mirador mine in Ecuador, contributing to the sale of Corriente Resources for $690 million. He has also served as CEO of Al Masane Al Kobra Mining Co. and President of Soma Gold Corp."
+    },
+    {
+      "name": "Ernest Mast",
+      "role": "Director",
+      "category": "board",
+      "img": "assets/ernest-mast.webp",
+      "bio": "Ernest Mast has over 30 years of technical and executive experience in the mining sector. He previously served as President and CEO of Primero Mining Corp. and Minera Panama S.A., where he led the development of the world-class Cobre Panama project. He also served as VP of Operations at New Gold Inc. He holds Bachelor’s and Master’s degrees in metallurgical engineering from McGill University."
+    }
+  ]
+}

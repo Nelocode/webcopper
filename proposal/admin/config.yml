@@ -1,0 +1,185 @@
+# Decap CMS Configuration
+local_backend: true
+logo_url: assets/LOGO.svg
+show_logo_in_header: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Where uploaded files will be stored in the repo
+media_folder: assets
+# The relative URL path used in HTML to link to these files
+public_folder: assets
+
+collections:
+  - name: "content"
+    label: "Website Content"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "proposal/data/news.json"
+        label: "Press Releases"
+        name: "news"
+        fields:
+          - label: "Press Releases List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}} ({{fields.date}})"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", description: "e.g., MAY 5, 2026" }
+              - { label: "Category", name: "category", widget: "select", options: ["technical", "corporate", "exploration", "financial", "governance"] }
+              - { label: "Is Featured?", name: "featured", widget: "boolean", default: false }
+              - { label: "Summary", name: "summary", widget: "text" }
+              - { label: "PDF Document", name: "pdfUrl", widget: "file", required: false }
+              - { label: "External / Read Link", name: "readUrl", widget: "string", required: false }
+
+      - file: "proposal/data/downloads.json"
+        label: "Investor Downloads"
+        name: "downloads"
+        fields:
+          - label: "Downloads List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "string" }
+              - { label: "Category", name: "category", widget: "select", options: ["investor", "agm"] }
+              - { label: "File Details (Badge)", name: "info", widget: "string", description: "e.g., PDF • 8.4 MB • May 2026" }
+              - { label: "Download Link / PDF File", name: "fileUrl", widget: "file" }
+
+      - file: "proposal/data/team.json"
+        label: "Team Members"
+        name: "team"
+        fields:
+          - label: "Team List"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Category", name: "category", widget: "select", options: ["management", "board"] }
+              - { label: "Biography", name: "bio", widget: "text" }
+              - { label: "Photo / Image", name: "img", widget: "image", required: false }
+
+      - file: "proposal/data/site.json"
+        label: "General Site Settings & Texts"
+        name: "site"
+        fields:
+          - label: "Ticker Bar Data"
+            name: "ticker"
+            widget: "object"
+            fields:
+              - label: "TSXV Ticker"
+                name: "TSXV"
+                widget: "object"
+                fields:
+                  - { label: "Symbol", name: "symbol", widget: "string" }
+                  - { label: "Price", name: "price", widget: "string" }
+                  - { label: "Change (%)", name: "change", widget: "string" }
+                  - { label: "Direction", name: "direction", widget: "select", options: ["up", "down"] }
+              - label: "OTC Ticker"
+                name: "OTC"
+                widget: "object"
+                fields:
+                  - { label: "Symbol", name: "symbol", widget: "string" }
+                  - { label: "Price", name: "price", widget: "string" }
+                  - { label: "Change (%)", name: "change", widget: "string" }
+                  - { label: "Direction", name: "direction", widget: "select", options: ["up", "down"] }
+              - label: "FSE Ticker"
+                name: "FSE"
+                widget: "object"
+                fields:
+                  - { label: "Symbol", name: "symbol", widget: "string" }
+                  - { label: "Price", name: "price", widget: "string" }
+                  - { label: "Change (%)", name: "change", widget: "string" }
+                  - { label: "Direction", name: "direction", widget: "select", options: ["up", "down"] }
+              - label: "Copper Price (Cu)"
+                name: "Cu"
+                widget: "object"
+                fields:
+                  - { label: "Price per Lb", name: "price", widget: "string" }
+          
+          - label: "Page Hero Settings"
+            name: "heroes"
+            widget: "list"
+            fields:
+              - { label: "Page ID", name: "page", widget: "string", readonly: true }
+              - { label: "Media Type", name: "type", widget: "select", options: ["image", "video"] }
+              - { label: "Media Path / Video File", name: "media", widget: "file" }
+              - { label: "Alt Text", name: "alt", widget: "string", required: false }
+              - { label: "Eyebrow / Subtitle Badge", name: "eyebrow", widget: "string", required: false }
+              - { label: "Title Text (HTML supported)", name: "title", widget: "string" }
+
+          - label: "Metrics Banners"
+            name: "metrics_banner"
+            widget: "object"
+            fields:
+              - label: "Corporate Page Banner"
+                name: "corporate"
+                widget: "object"
+                fields:
+                  - { label: "Description Text", name: "description", widget: "text" }
+                  - label: "Metrics List"
+                    name: "metrics"
+                    widget: "list"
+                    fields:
+                      - { label: "Value", name: "value", widget: "string" }
+                      - { label: "Label", name: "label", widget: "string" }
+              - label: "Mocoa Page Banner"
+                name: "mocoa"
+                widget: "object"
+                fields:
+                  - { label: "Description Text", name: "description", widget: "text" }
+                  - label: "Metrics List"
+                    name: "metrics"
+                    widget: "list"
+                    fields:
+                      - { label: "Value", name: "value", widget: "string" }
+                      - { label: "Label", name: "label", widget: "string" }
+
+          - label: "Homepage Bento Cards"
+            name: "bento_sections"
+            widget: "object"
+            fields:
+              - label: "Home Cards List"
+                name: "home"
+                widget: "list"
+                fields:
+                  - { label: "ID", name: "id", widget: "string", readonly: true }
+                  - { label: "Title / Category", name: "title", widget: "string" }
+                  - { label: "Heading Text", name: "heading", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+                  - { label: "Button / Link Text", name: "link_text", widget: "string" }
+                  - { label: "Link Reference", name: "link_href", widget: "string" }
+                  - { label: "Card Image", name: "image", widget: "image" }
+
+          - label: "Homepage Split Grid Cards"
+            name: "split_cards"
+            widget: "list"
+            fields:
+              - { label: "ID / Identifier", name: "id", widget: "string", readonly: true }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - { label: "Background Image", name: "image", widget: "image" }
+              - { label: "Link Type", name: "link_type", widget: "select", options: ["page", "modal"] }
+              - { label: "Page Link (if Page Type)", name: "link_href", widget: "string", required: false }
+
+          - label: "Core Values (Corporate Page)"
+            name: "core_values"
+            widget: "list"
+            fields:
+              - { label: "Number Badge (e.g. 01)", name: "number", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+
+          - label: "ESG / Sustainability Cards"
+            name: "esg_cards"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }

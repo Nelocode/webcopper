@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copper Giant | News</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/apple-icon.png">
+    <link rel="stylesheet" href="style.css?v=9.8">
+</head>
+<body>
+
+    <!-- Apple-style hover backdrop blur overlay -->
+    <div class="page-backdrop"></div>
+
+    <!-- Header/Navigation Group placed above the video -->
+    <div class="top-header-group">
+        <!-- Ticker Bar (Illustrator Ticker) -->
+        <div class="ticker-bar">
+            <div class="ticker-stocks">
+                <span><strong>TSXV</strong>: CGNT C$0.73 <span style="color: #4cd964;">+1.39%</span></span>
+                <span><strong>OTC</strong>: LBCMF $0.53 <span style="color: #ff3b30;">-1.07%</span></span>
+                <span><strong>FSE</strong>: 29H0 €0.43 <span style="color: #4cd964;">+2.85%</span></span>
+                <span><strong>Cu</strong>: $6.40/Lb</span>
+            </div>
+        </div>
+
+        <!-- Header Navigation -->
+        <header class="nav-header">
+            <nav class="main-nav">
+                <a href="index.html" class="logo">
+                    <img src="assets/LOGO.svg" alt="Copper Giant">
+                </a>
+                
+                <div class="nav-links-left">
+                    <a href="index.html" class="nav-link ">Home</a>
+                    <a href="corporate.html" class="nav-link " data-dropdown="corporate">Corporate</a>
+                    <a href="mocoa.html" class="nav-link " data-dropdown="mocoa">Mocoa Project</a>
+                    <a href="news.html" class="nav-link active" data-dropdown="news">News</a>
+                </div>
+
+                <div class="nav-links-right">
+                    <a href="investors.html" class="nav-btn-outline ">Investors</a>
+                    <a href="investors.html#newsletter" class="nav-btn-outline">Get Updates</a>
+                    <a href="investors.html#presentation" class="nav-btn-solid">View Presentation</a>
+                </div>
+
+                <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Apple-style Dropdown Trays Container -->
+        <div class="header-dropdown-container">
+            <!-- Corporate Dropdown Tray -->
+            <div class="dropdown-tray-panel" id="tray-corporate">
+                <div class="dropdown-tray-content">
+                    <div class="dropdown-column main-col">
+                        <span class="dropdown-col-title">Conoce Corporate</span>
+                        <a href="corporate.html#overview" class="dropdown-item-large">Overview</a>
+                        <a href="corporate.html#team" class="dropdown-item-large">Management & Board</a>
+                        <a href="corporate.html#fiore" class="dropdown-item-large">Fiore Group Partnership</a>
+                        <a href="corporate.html#governance" class="dropdown-item-large">Governance</a>
+                    </div>
+                    <div class="dropdown-column secondary-col">
+                        <span class="dropdown-col-title">Principios</span>
+                        <a href="corporate.html#responsibility" class="dropdown-item-small">Responsibility</a>
+                        <a href="corporate.html#sustainability" class="dropdown-item-small">Sustainability</a>
+                        <a href="corporate.html#local-workforce" class="dropdown-item-small">Local Impact</a>
+                    </div>
+                    <div class="dropdown-column visual-col">
+                        <div class="dropdown-card">
+                            <img src="meet the team.jpg" alt="Corporate" class="dropdown-card-img">
+                            <div class="dropdown-card-text">
+                                <strong>Management Team</strong>
+                                <span>Battle-Tested. Ready to Win.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mocoa Project Dropdown Tray -->
+            <div class="dropdown-tray-panel" id="tray-mocoa">
+                <div class="dropdown-tray-content">
+                    <div class="dropdown-column main-col">
+                        <span class="dropdown-col-title">Mocoa Project</span>
+                        <a href="mocoa.html#overview" class="dropdown-item-large">Project Overview</a>
+                        <a href="mocoa.html#geology" class="dropdown-item-large">Geology & Deposit</a>
+                        <a href="mocoa.html#coreshack" class="dropdown-item-large">Coreshack Gallery</a>
+                        <a href="mocoa.html#technical" class="dropdown-item-large">Technical Reports</a>
+                    </div>
+                    <div class="dropdown-column secondary-col">
+                        <span class="dropdown-col-title">Detalles del Depósito</span>
+                        <a href="mocoa.html#estimate" class="dropdown-item-small">NI 43-101 Estimate</a>
+                        <a href="mocoa.html#connector" class="dropdown-item-small">Connector Zone</a>
+                        <a href="mocoa.html#estrella" class="dropdown-item-small">La Estrella</a>
+                        <a href="mocoa.html#highlights" class="dropdown-item-small">Drilling Highlights</a>
+                    </div>
+                    <div class="dropdown-column visual-col">
+                        <div class="dropdown-card">
+                            <img src="mocoa-deposit-bg.jpg" alt="Mocoa Deposit" class="dropdown-card-img">
+                            <div class="dropdown-card-text">
+                                <strong>Interactive 3D Model</strong>
+                                <span>Explore the Porphyry Deposit.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Dropdown Tray -->
+            <div class="dropdown-tray-panel" id="tray-news">
+                <div class="dropdown-tray-content">
+                    <div class="dropdown-column main-col">
+                        <span class="dropdown-col-title">News Hub</span>
+                        <a href="news.html#latest" class="dropdown-item-large">Latest Press Releases</a>
+                        <a href="news.html#coverage" class="dropdown-item-large">Media Coverage</a>
+                        <a href="news.html#filings" class="dropdown-item-large">Financial Filings</a>
+                    </div>
+                    <div class="dropdown-column secondary-col">
+                        <span class="dropdown-col-title">Recursos</span>
+                        <a href="news.html#fact-sheet" class="dropdown-item-small">Fact Sheet</a>
+                        <a href="news.html#gallery" class="dropdown-item-small">Photo Gallery</a>
+                        <a href="news.html#contact" class="dropdown-item-small">Contact Info</a>
+                    </div>
+                    <div class="dropdown-column visual-col">
+                        <div class="dropdown-card">
+                            <img src="Themaking.jpg" alt="News" class="dropdown-card-img">
+                            <div class="dropdown-card-text">
+                                <strong>Making of a Giant</strong>
+                                <span>Follow our updates and growth.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html" class="mobile-link ">Home</a>
+            <a href="corporate.html" class="mobile-link ">Corporate</a>
+            <a href="mocoa.html" class="mobile-link ">Mocoa Project</a>
+            <a href="news.html" class="mobile-link active">News</a>
+            <a href="investors.html" class="mobile-link " style="color: var(--copper-primary);">Investors</a>
+        </div>
+    </div>
+
+<section class="hero-video-section" id="overview">
+        <div class="hero-video-wrapper">
+            <img src="assets/libero/news_hero.webp" alt="News Room" class="hero-video-bg">
+            <div class="hero-video-overlay">
+                <div class="hero-text-container">
+                    <h1 class="hero-title">Press &<br>updates.</h1>
+                    <div class="hero-eyebrow">Media Room & Communications</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-banner" style="background: #050505; border-bottom: 1px solid var(--border-glass); padding: 50px 0;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px;">
+            <div style="flex: 1; min-width: 300px; max-width: 500px;">
+                <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; margin: 0;">Follow our exploration breakthroughs, resource expansions, and community updates in southern Colombia.</p>
+            </div>
+            <div style="display: flex; gap: 60px; flex-wrap: wrap; justify-content: flex-end; flex: 1; min-width: 300px;">
+                <div class="metric-item" style="text-align: left;">
+                    <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">PEA</div>
+                    <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">Initiated H1 2026</div>
+                </div>
+                <div class="metric-item" style="text-align: left;">
+                    <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">3 Rigs</div>
+                    <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">Active Drilling</div>
+                </div>
+                <div class="metric-item" style="text-align: left;">
+                    <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">23,000m</div>
+                    <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">Drilling Program</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press Releases Section -->
+    <section class="section-padding container" id="press" style="">
+        <div class="section-header-group fade-up" style="margin-bottom: 30px;">
+            <h2 class="section-title">Press Releases</h2>
+            <div class="section-subtitle">Announcements</div>
+        </div>
+
+        
+        <!-- Filter and Search Controls -->
+        <div class="press-controls fade-up" style="margin-bottom: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; max-width: 950px; margin-left: auto; margin-right: auto;">
+            <!-- Category Pills -->
+            <div class="press-filters" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <button class="filter-pill active" data-filter="all">All</button>
+                <button class="filter-pill" data-filter="exploration">Exploration</button>
+                <button class="filter-pill" data-filter="technical">Technical</button>
+                <button class="filter-pill" data-filter="corporate">Corporate</button>
+                <button class="filter-pill" data-filter="financial">Financial</button>
+                <button class="filter-pill" data-filter="governance">Governance</button>
+            </div>
+            <!-- Search Bar -->
+            <div class="press-search-wrapper" style="position: relative; flex: 1; max-width: 350px; min-width: 250px;">
+                <span style="position: absolute; left: 15px; top: 52%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; display: flex; align-items: center;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </span>
+                <input type="text" id="press-search" placeholder="Search press releases..." style="width: 100%; padding: 12px 16px 12px 42px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); border-radius: var(--radius-card); color: white; font-family: var(--font-sans); font-size: 0.9rem; transition: all 0.3s ease; outline: none;" onfocus="this.style.borderColor='var(--copper-primary)'; this.style.boxShadow='0 0 15px rgba(255, 85, 34, 0.15)';" onblur="this.style.borderColor='var(--border-glass)'; this.style.boxShadow='none';">
+            </div>
+        </div>
+
+        <div id="press-list" style="display: flex; flex-direction: column; gap: 30px; max-width: 950px; margin: 0 auto;">
+            <!-- Dynamic content loaded via JSON -->
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                fetch('data/news.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        const listContainer = document.getElementById('press-list');
+                        if (!listContainer || !data.items) return;
+                        
+                        let html = '';
+                        data.items.forEach((item, index) => {
+                            const delay = (index * 0.05).toFixed(2);
+                            if (item.featured) {
+                                html += `
+                                <div class="press-item fade-up" data-category="${item.category}" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); border: 1px solid var(--border-glass); border-left: 3px solid var(--copper-primary); padding: 45px; border-radius: var(--radius-card); display: flex; flex-direction: column; gap: 15px; position: relative;">
+                                    <div style="display: flex; gap: 12px; align-items: center;">
+                                        <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--copper-primary); font-weight: 700;">${item.date}</span>
+                                        <span style="font-size: 0.75rem; background: var(--copper-primary); color: white; padding: 3px 8px; border-radius: var(--radius-card); font-weight: 600; font-family: var(--font-mono); text-transform: uppercase;">Featured · ${item.category}</span>
+                                    </div>
+                                    <h3 style="font-size: 2rem; line-height: 1.35; color: white; font-weight: 700; max-width: 850px; letter-spacing: -0.01em;">
+                                        <a href="${item.readUrl || item.pdfUrl}" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center;" onmouseover="this.style.color='var(--copper-primary)'" onmouseout="this.style.color='white'">
+                                            <span>${item.title}</span>
+                                            <span style="color: var(--copper-primary); margin-left: 8px; font-weight: 400; transition: transform 0.3s ease;" class="arrow-indicator">→</span>
+                                        </a>
+                                    </h3>
+                                    <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; max-width: 850px; margin-bottom: 20px;">
+                                        ${item.summary || ''}
+                                    </p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+                                        <a href="${item.readUrl || item.pdfUrl}" target="_blank" rel="noopener noreferrer" class="btn-copper" style="padding: 12px 28px; font-size: 0.8rem;">Read Full Release</a>
+                                        ${item.pdfUrl ? `<a href="${item.pdfUrl}" download target="_blank" rel="noopener noreferrer" class="btn-copper" style="background: transparent; border: 1px solid var(--border-glass); color: var(--text-primary); padding: 12px 28px; font-size: 0.8rem;">Download PDF</a>` : ''}
+                                    </div>
+                                </div>`;
+                            } else {
+                                html += `
+                                <div class="press-item fade-up" data-category="${item.category}" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); border: 1px solid var(--border-glass); padding: 35px; border-radius: var(--radius-card); display: flex; justify-content: space-between; align-items: center; gap: 30px; transition-delay: ${delay}s;">
+                                    <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+                                        <div style="display: flex; gap: 12px; align-items: center;">
+                                            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">${item.date}</span>
+                                            <span style="font-size: 0.7rem; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--border-glass); padding: 2px 6px; border-radius: var(--radius-card); font-weight: 600; font-family: var(--font-mono); text-transform: uppercase;">${item.category}</span>
+                                        </div>
+                                        <h3 style="font-size: 1.3rem; color: white; font-weight: 600; line-height: 1.4;">
+                                            <a href="${item.readUrl || item.pdfUrl}" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--copper-primary)'" onmouseout="this.style.color='white'">${item.title}</a>
+                                        </h3>
+                                    </div>
+                                    <a href="${item.pdfUrl || item.readUrl}" target="_blank" rel="noopener noreferrer" class="btn-copper" style="background: transparent; border: 1px solid var(--border-glass); color: var(--text-secondary); padding: 10px 20px; font-size: 0.85rem; height: fit-content; white-space: nowrap;">Read PDF</a>
+                                </div>`;
+                            }
+                        });
+                        listContainer.innerHTML = html;
+                        
+                        // Dispatch custom event to let script.js know to bind filters
+                        document.dispatchEvent(new CustomEvent('pressReleasesLoaded'));
+                    })
+                    .catch(err => console.error('Error loading press releases:', err));
+            });
+        </script>
+    </section>
+
+    <!-- Media Section -->
+    <section class="section-padding" id="media" style="background: var(--bg-deep); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass); ">
+        <div class="container">
+            <div class="section-header-group fade-up" style="margin-bottom: 50px;">
+                <h2 class="section-title">Media Coverage & Reports</h2>
+                <div class="section-subtitle">Industry Coverage</div>
+            </div>
+
+            
+            <div class="photo-bento">
+                <!-- Media Card 1 -->
+                <div class="photo-card medium fade-up">
+                    <div class="photo-card-img" style="background-image: url('assets/libero/card_miner.webp');"></div>
+                    <div class="photo-card-content">
+                        <div class="text-eyebrow" style="margin-bottom: 10px;">The Northern Miner</div>
+                        <h3>Mocoa's Expansion Potential</h3>
+                        <p>How Copper Giant is mapping out the large-scale copper-molybdenum porphyry system in southern Colombia.</p>
+                    </div>
+                </div>
+
+                <!-- Media Card 2 -->
+                <div class="photo-card medium fade-up" style="transition-delay: 0.1s;">
+                    <div class="photo-card-img" style="background-image: url('assets/libero/card_investing.webp');"></div>
+                    <div class="photo-card-content">
+                        <div class="text-eyebrow" style="margin-bottom: 10px;">Resource Investing News</div>
+                        <h3>Addressing the Copper Shortage</h3>
+                        <p>Frank Giustra discusses the strategic importance of Colombian copper deposits for global electrification.</p>
+                    </div>
+                </div>
+
+                <!-- Media Card 3 -->
+                <div class="photo-card medium fade-up" style="transition-delay: 0.2s;">
+                    <div class="photo-card-img" style="background-image: url('assets/libero/card_journal.webp');"></div>
+                    <div class="photo-card-content">
+                        <div class="text-eyebrow" style="margin-bottom: 10px;">Mining Journal</div>
+                        <h3>Colombia's Next Generation Mines</h3>
+                        <p>An in-depth analysis of Mocoa's infrastructure access, local support, and low-footprint engineering.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Footer -->
+
+<!-- Main Styled Footer (Mockup Layout) -->
+    <footer class="site-footer">
+        <div class="footer-top-columns">
+            <!-- Column 1: About -->
+            <div class="footer-column">
+                <a href="index.html" class="footer-logo-link">
+                    <!-- Inline SVG logo so we can change st1 to #000 in CSS -->
+                    <svg class="footer-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 354 91.95">
+                        <path class="st1" d="M155.48,91l-.89-4.25h-.11c-2.39,3.47-6.2,5.2-11.46,5.2s-9.88-1.77-13.19-5.31c-3.69-3.91-5.53-9.07-5.53-15.48,0-6.04,1.8-11.02,5.39-14.95,3.6-3.93,8.41-5.9,14.45-5.9,5.18,0,9.37,1.27,12.58,3.8,3.2,2.53,5.12,6.04,5.76,10.51h-11.29c-.34-1.34-1.09-2.46-2.26-3.35-1.17-.89-2.62-1.34-4.33-1.34-2.72,0-4.81,1.02-6.26,3.07-1.45,2.05-2.18,4.77-2.18,8.16s.79,6.09,2.38,8.22c1.58,2.12,3.75,3.19,6.51,3.19,3.8,0,6.15-1.66,7.04-4.98h-5.31v-8.27h16.49v21.69h-7.77Z"/>
+                        <rect class="st1" x="172.81" y="51.03" width="11.68" height="39.96"/>
+                        <path class="st1" d="M192.26,91l14.76-39.96h11.91l14.81,39.96h-12.41l-1.96-5.87h-13.53l-1.96,5.87h-11.63ZM211.09,69.26l-2.63,7.82h8.27l-2.52-7.82-1.51-5.14h-.11c-.56,2.12-1.06,3.84-1.51,5.14"/>
+                        <polygon class="st1" points="241.5 91 241.5 51.04 253.18 51.04 266.26 73.5 266.37 73.5 266.37 51.04 277.66 51.04 277.66 91 265.59 91 252.9 68.36 252.79 68.36 252.79 91 241.5 91"/>
+                        <polygon class="st1" points="286.49 60.98 286.49 51.04 320.92 51.04 320.92 60.98 309.47 60.98 309.47 91 297.78 91 297.78 60.98 286.49 60.98"/>
+                        <path class="st1" d="M144.41,41.64c-5.63,0-10.15-1.94-13.58-5.81-3.43-3.87-5.14-8.87-5.14-14.98s1.71-11.02,5.11-14.95c3.41-3.93,8.02-5.9,13.83-5.9,4.55,0,8.22,1.17,11.01,3.52,2.79,2.35,4.47,5.42,5.03,9.22h-4.92c-.48-2.53-1.7-4.56-3.66-6.09-1.96-1.53-4.48-2.29-7.57-2.29-4.29,0-7.64,1.54-10.06,4.61-2.42,3.07-3.63,7.03-3.63,11.88s1.26,8.88,3.77,11.88c2.51,3,5.84,4.5,9.98,4.5,3.58,0,6.34-1.04,8.3-3.13,1.96-2.09,3.06-4.71,3.33-7.88h4.97c-.04,1.98-.49,4-1.37,6.07-.88,2.07-2.02,3.79-3.44,5.17-2.87,2.8-6.86,4.19-11.96,4.19"/>
+                        <path class="st1" d="M200.5,35.83c-3.56,3.91-8.3,5.87-14.22,5.87s-10.67-1.96-14.22-5.87c-3.56-3.91-5.34-8.91-5.34-14.98s1.78-11.07,5.34-14.98C175.61,1.96,180.35,0,186.28,0s10.67,1.96,14.22,5.87c3.56,3.91,5.34,8.9,5.34,14.98s-1.78,11.07-5.34,14.98M175.66,32.7c2.53,3.06,6.07,4.58,10.62,4.58s8.09-1.53,10.62-4.58c2.53-3.05,3.8-7.01,3.8-11.85s-1.27-8.8-3.8-11.88c-2.53-3.07-6.07-4.61-10.62-4.61s-8.09,1.54-10.62,4.61c-2.53,3.07-3.8,7.03-3.8,11.88s1.27,8.8,3.8,11.85"/>
+                        <path class="st1" d="M213.22,40.86V.9h16.66c4.17,0,7.34,1.29,9.5,3.86,1.79,2.09,2.68,4.62,2.68,7.6,0,3.73-1.08,6.62-3.24,8.66-2.16,2.05-5.38,3.07-9.67,3.07h-10.9v16.77h-5.03ZM218.25,5.25v14.76h10.51c2.76,0,4.83-.65,6.23-1.96,1.4-1.3,2.1-3.13,2.1-5.48s-.7-4.2-2.1-5.45c-1.4-1.25-3.38-1.87-5.95-1.87h-10.79Z"/>
+                        <path class="st1" d="M248.32,40.86V.9h16.66c4.17,0,7.34,1.29,9.5,3.86,1.79,2.09,2.68,4.62,2.68,7.6,0,3.73-1.08,6.62-3.24,8.66-2.16,2.05-5.38,3.07-9.67,3.07h-10.9v16.77h-5.03ZM253.35,5.25v14.76h10.51c2.76,0,4.83-.65,6.23-1.96,1.4-1.3,2.1-3.13,2.1-5.48s-.7-4.2-2.1-5.45c-1.4-1.25-3.38-1.87-5.95-1.87h-10.79Z"/>
+                        <polygon class="st1" points="283.42 40.86 283.42 .89 311.65 .89 311.65 5.31 288.45 5.31 288.45 17.94 309.52 17.94 309.52 22.19 288.45 22.19 288.45 36.22 312.32 36.22 312.32 40.86 283.42 40.86"/>
+                        <path class="st1" d="M319.58,40.86V.9h18.67c3.5,0,6.34,1.01,8.52,3.02,2.18,2.01,3.27,4.66,3.27,7.94,0,5.11-2.31,8.4-6.93,9.89v.17c1.97.71,3.38,1.82,4.22,3.33.84,1.51,1.35,3.79,1.54,6.85.37,5.11.99,7.96,1.84,8.55v.22h-5.42c-.41-.34-.7-1.04-.87-2.12-.17-1.08-.36-3.35-.59-6.82-.19-2.91-.9-4.96-2.15-6.15-1.25-1.19-3.23-1.79-5.95-1.79h-11.12v16.88h-5.03ZM324.62,5.25v14.64h11.85c2.76,0,4.84-.64,6.26-1.93,1.41-1.29,2.12-3.08,2.12-5.39,0-2.5-.63-4.34-1.9-5.53-1.27-1.19-3.34-1.79-6.2-1.79h-12.13Z"/>
+                        <path class="st0" d="M350.56,70.31c-2.29,2.28-5.07,3.42-8.34,3.42s-6.05-1.14-8.34-3.42c-2.29-2.28-3.44-5.13-3.44-8.56s1.15-6.24,3.44-8.54c2.29-2.29,5.07-3.44,8.34-3.44s6.05,1.15,8.34,3.44c2.29,2.29,3.44,5.14,3.44,8.54s-1.15,6.29-3.44,8.56M335.22,69.1c1.83,1.93,4.17,2.89,7,2.89s5.17-.96,7-2.89c1.83-1.93,2.75-4.38,2.75-7.35s-.92-5.38-2.77-7.33c-1.85-1.95-4.17-2.92-6.98-2.92s-5.13.97-6.98,2.92c-1.85,1.95-2.77,4.39-2.77,7.33s.92,5.42,2.75,7.35M340.14,57.34v3.56h2.77c1.39,0,2.08-.59,2.08-1.78s-.69-1.78-2.08-1.78h-2.77Z"/>
+                        <polygon class="st0" points="90.37 40.06 90.37 .81 51.04 .81 51.04 13.46 68.49 13.46 65.78 16.17 49.47 32.48 58.46 41.48 74.77 25.17 74.78 25.16 77.48 22.45 77.48 40.06 90.37 40.06"/>
+                        <path class="st0" d="M39.36,1.38C17.17,4.15,0,23.07,0,46.01s17.17,41.87,39.36,44.64V1.38Z"/>
+                        <path class="st0" d="M90.37,91h-45.39c0-24.84,20.14-44.99,44.98-44.99.14,0,.27,0,.4,0v44.98Z"/>
+                    </svg>
+                </a>
+                <p class="footer-about-text">Copper Giant is dedicated to advancing high-quality copper projects responsibly. Led by a team experienced in building major mines, our focus is the Mocoa project in Putumayo, Colombia.</p>
+                <div class="footer-social-links">
+                    <a href="#" class="footer-social-btn" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="footer-social-btn" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+                    </a>
+                    <a href="#" class="footer-social-btn" aria-label="Pinterest">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.966 1.406-5.966s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.27 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.62 0 11.983-5.367 11.983-11.987C24 5.367 18.637 0 12.017 0z"/></svg>
+                    </a>
+                    <a href="#" class="footer-social-btn" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Explore -->
+            <div class="footer-column">
+                <h4 class="footer-column-title">Explore</h4>
+                <ul class="footer-links-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="corporate.html">Corporate</a></li>
+                    <li><a href="mocoa.html">Mocoa Project</a></li>
+                    <li><a href="news.html">News Hub</a></li>
+                    <li><a href="investors.html">Investors</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: News -->
+            <div class="footer-column">
+                <h4 class="footer-column-title">News</h4>
+                <div class="footer-news-list">
+                    <div class="footer-news-item">
+                        <a href="news.html" class="footer-news-title-link">Copper Giant Expands Mocoa Resource Footprint</a>
+                        <span class="footer-news-date">May 20, 2026</span>
+                    </div>
+                    <div class="footer-news-item">
+                        <a href="news.html" class="footer-news-title-link">Copper Giant Secures Development Framework</a>
+                        <span class="footer-news-date">April 28, 2026</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Column 4: Contact -->
+            <div class="footer-column">
+                <h4 class="footer-column-title">Contact</h4>
+                <div class="footer-contact-list">
+                    <div class="footer-contact-item">
+                        +1 (604) 609-6110
+                    </div>
+                    <div class="footer-contact-item">
+                        <a href="mailto:info@coppergiant.com">info@coppergiant.com</a>
+                    </div>
+                    <div class="footer-contact-item">
+                        Suite 3123 – 595 Burrard St,<br>Vancouver, BC V7X 1J1, Canada
+                    </div>
+                </div>
+                <form class="footer-newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit" aria-label="Subscribe">
+                        <svg viewBox="0 0 104.94 104.32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                            <polygon points="104.94 100.7 104.94 0 4.03 0 4.03 32.45 48.8 32.45 41.86 39.39 0 81.25 23.07 104.32 64.91 62.49 64.93 62.46 71.87 55.53 71.87 100.7 104.94 100.7"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Giant MOCOA text graphic -->
+        <div class="footer-mocoa-graphic-wrap">
+            <img src="mocoa.png" alt="MOCOA" class="footer-mocoa-graphic">
+        </div>
+        
+        <!-- Black Copyright Bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-container">
+                <div class="footer-bottom-copyright">
+                    © Copyright 2026 – Copper Giant. All Rights Reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="terms.html">Terms of Use</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="legal.html">Legal Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<!-- Ported Modals & Overlays -->
+
+                <!-- Get Updates Modal -->
+    <div class="modal-overlay" id="updates-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="btn-close-modal" aria-label="Close Modal">&times;</button>
+            
+            <div id="modal-form-state">
+                <div class="modal-header">
+                    <h3>Get Updates</h3>
+                    <p>Sign up to receive the latest news, drilling results, and corporate updates directly to your inbox.</p>
+                </div>
+                <form action="https://coppergiant.us2.list-manage.com/subscribe/post?u=40061becfca7aa7c373a83b2f&amp;id=cfeb8b0225&amp;f_id=0084c2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="modal-form validate" target="_blank" novalidate>
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    
+                    <div class="input-group mc-field-group">
+                        <input type="email" name="EMAIL" class="required email input-field" id="mce-EMAIL" placeholder="Email Address *" required>
+                    </div>
+                    
+                    <div class="form-row" style="display: flex; gap: 12px;">
+                        <div class="input-group mc-field-group" style="flex: 1;">
+                            <input type="text" name="FNAME" class="text input-field" id="mce-FNAME" placeholder="First Name">
+                        </div>
+                        
+                        <div class="input-group mc-field-group" style="flex: 1;">
+                            <input type="text" name="LNAME" class="text input-field" id="mce-LNAME" placeholder="Last Name">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group mc-field-group">
+                        <input type="text" name="MMERGE3" class="text input-field" id="mce-MMERGE3" placeholder="Company">
+                    </div>
+                    
+                    <div class="mc-field-group" style="margin-top: 5px;">
+                        <strong style="color: var(--copper-primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 6px;">Interest</strong>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label" for="mce-group[1]-1-0">
+                                <input type="checkbox" name="group[1][1]" id="mce-group[1]-1-0" value="">
+                                News &amp; Updates
+                            </label>
+                            <label class="checkbox-label" for="mce-group[1]-1-1">
+                                <input type="checkbox" name="group[1][2]" id="mce-group[1]-1-1" value="">
+                                Investor Relations
+                            </label>
+                            <label class="checkbox-label" for="mce-group[1]-1-2">
+                                <input type="checkbox" name="group[1][4]" id="mce-group[1]-1-2" value="">
+                                Drilling Results &amp; Assays
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>
+                    
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <input type="text" name="b_40061becfca7aa7c373a83b2f_cfeb8b0225" tabindex="-1" value="">
+                    </div>
+                    
+                    <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn-submit-modal">
+                        Subscribe
+                        <svg width="14" height="14" viewBox="49.47 0.81 41 41" fill="currentColor">
+                            <polygon points="90.37 40.06 90.37 .81 51.04 .81 51.04 13.46 68.49 13.46 65.78 16.17 49.47 32.48 58.46 41.48 74.77 25.17 74.78 25.16 77.48 22.45 77.48 40.06 90.37 40.06"/>
+                        </svg>
+                    </button>
+                    
+                    <p style="color: var(--text-secondary); font-size: 11px; text-align: center; margin: 8px 0 0 0; line-height: 1.4;">
+                        We respect your privacy. Unsubscribe at any time.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="btn-back-to-top" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="49.47 0.81 41 41" fill="currentColor">
+        <polygon points="90.37 40.06 90.37 .81 51.04 .81 51.04 13.46 68.49 13.46 65.78 16.17 49.47 32.48 58.46 41.48 74.77 25.17 74.78 25.16 77.48 22.45 77.48 40.06 90.37 40.06"/>
+    </svg>
+</button>
+
+
+    <!-- Video Modal Overlay -->
+    <div class="modal-overlay" id="video-modal" onclick="closeVideoModal(event)">
+        <div class="modal-content-video">
+            <button class="modal-close-btn" onclick="closeVideoModal(event)">&times;</button>
+            <iframe id="modal-youtube-iframe" style="width: 100%; height: 100%; border: none;" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+
+
+<script src="script.js?v=2.1"></script>
+
+    
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+
+    
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+
+    
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+
+    <!-- jQuery and Mailchimp validation scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+    (function($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0]='EMAIL'; ftypes[0]='email';
+      fnames[1]='FNAME'; ftypes[1]='text';
+      fnames[2]='LNAME'; ftypes[2]='text';
+      fnames[3]='MMERGE3'; ftypes[3]='text';
+      fnames[4]='MMERGE4'; ftypes[4]='text';
+      fnames[5]='MMERGE5'; ftypes[5]='text';
+      fnames[6]='MMERGE6'; ftypes[6]='text';
+      fnames[10]='MMERGE10'; ftypes[10]='text';
+      fnames[11]='MMERGE11'; ftypes[11]='text';
+      fnames[12]='MMERGE12'; ftypes[12]='text';
+      fnames[13]='MMERGE13'; ftypes[13]='text';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+    </script>
+</body>
+</html>

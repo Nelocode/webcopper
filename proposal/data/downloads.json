@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "title": "Corporate Presentation",
+      "description": "Current corporate overview, project highlights, and investment thesis",
+      "category": "investor",
+      "info": "PDF • 21.0 MB • June 2026",
+      "fileUrl": "assets/corporate-presentation.pdf"
+    },
+    {
+      "title": "NI 43-101 Technical Report",
+      "description": "Preliminary Economic Assessment for the Mocoa Copper-Molybdenum Project",
+      "category": "investor",
+      "info": "PDF • 8.2 MB • April 2026",
+      "fileUrl": "https://www.coppergiant.co/documents/Technical-Report-43-101.pdf"
+    },
+    {
+      "title": "Annual Information Form",
+      "description": "Annual disclosure document for the fiscal year ended December 31, 2025",
+      "category": "investor",
+      "info": "PDF • 3.1 MB • April 2026",
+      "fileUrl": "https://www.coppergiant.co/documents/Form-of-Proxy-CGNT-AGM-2025.pdf"
+    },
+    {
+      "title": "Management Discussion & Analysis",
+      "description": "Interim MD&A for Q1 2026",
+      "category": "investor",
+      "info": "PDF • 1.8 MB • May 2026",
+      "fileUrl": "https://www.coppergiant.co/documents/NI-MAIL-CARD-2025-CG.pdf"
+    },
+    {
+      "title": "2026 AGM Notice & Circular",
+      "description": "Notice of Annual General Meeting and management proxy circular",
+      "category": "agm",
+      "info": "PDF • 2.3 MB • April 2026",
+      "fileUrl": "https://www.coppergiant.co/documents/Information-Circular-Copper-Giant-AGM-Circular-NOTICE-COMBINED.pdf"
+    },
+    {
+      "title": "2026 AGM Proxy Form",
+      "description": "Form of Proxy for the 2026 AGM",
+      "category": "agm",
+      "info": "PDF • 1.0 MB • April 2026",
+      "fileUrl": "https://www.coppergiant.co/documents/Form-of-Proxy-CGNT-AGM-2025.pdf"
+    }
+  ]
+}

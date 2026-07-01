@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!-- Explicitly set the config.yml path to prevent browser resolution errors on different slash URLs -->
+    <link href="config.yml" type="text/yaml" rel="cms-config-url" />
+    <style>
+      /* Make the login page background dark so the white logo text is visible */
+      body:has(button[class*="Login"]),
+      body:has(button[class*="login"]),
+      body:has(div[class*="Login"]),
+      body:has(div[class*="login"]),
+      div[class*="LoginContainer"],
+      div[class*="Login-container"],
+      div[class*="login-container"],
+      main[class*="Login"],
+      section[class*="Login"],
+      div[class*="Login"] {
+        background: radial-gradient(circle at center, #1b1c1e 0%, #08090a 100%) !important;
+        background-color: #0c0d0e !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </body>
+</html>
