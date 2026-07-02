@@ -229,9 +229,9 @@
     },
     {
       "id": "news",
-      "title": "Making of a Giant",
-      "subtitle": "Why Mocoa has giant written all over it.",
-      "image": "Themaking.jpg",
+      "title": "What's News?",
+      "subtitle": "Follow our updates and growth.",
+      "image": "assets/libero/card_journal.webp",
       "link_href": "news.html"
     }
   ]

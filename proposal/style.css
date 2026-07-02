@@ -1552,7 +1552,9 @@ body.header-hovered .page-backdrop {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.92);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1584,13 +1586,27 @@ body.header-hovered .page-backdrop {
 
 .modal-close-btn {
     position: absolute;
-    top: -44px;
-    right: 0;
-    background: transparent;
-    border: none;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
     color: white;
-    font-size: 2rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.modal-close-btn:hover {
+    background: white;
+    color: black;
+    transform: rotate(90deg);
 }
 
 /* 12. MOBILE MENU OVERLAY */

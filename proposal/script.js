@@ -340,9 +340,34 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.className = 'modal-overlay';
         modal.id = 'mocoa360-modal';
         modal.innerHTML = `
-            <div class="modal-content-video" style="max-width: 90vw; height: 85vh; border-radius: var(--radius-card); background: #000; border: 1px solid var(--border-glass); position: relative; margin: 20px;">
-                <button class="modal-close-btn" style="position: absolute; right: 15px; top: 10px; font-size: 2rem; color: #fff; background: none; border: none; cursor: pointer; z-index: 10;" onclick="closeMocoa360Modal()">&times;</button>
-                <iframe id="mocoa360-iframe-modal" style="width: 100%; height: 100%; border: none; border-radius: var(--radius-card);" src="" title="Mocoa 360° Interactive Model" scrolling="no"></iframe>
+            <div class="modal-content-video" style="max-width: 90vw; height: 85vh; border-radius: var(--radius-card); background: #000; border: 1px solid var(--border-glass); position: relative; margin: 20px; overflow: hidden; display: flex; flex-direction: column;">
+                <button class="modal-close" style="z-index: 20;" onclick="closeMocoa360Modal()">&times;</button>
+                
+                <!-- Title Overlay -->
+                <div style="padding: 18px 20px 0 20px; text-align: center; position: absolute; top: 0; left: 0; right: 0; z-index: 10; pointer-events: none;">
+                    <h3 style="margin: 0; font-size: 1.4rem; text-transform: uppercase; color: white; letter-spacing: 0.05em; font-family: var(--font-primary); font-weight: 800;">The Mocoa Porphyry</h3>
+                    <p style="margin: 3px 0 0 0; font-size: 0.75rem; color: var(--copper-primary); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; font-family: var(--font-mono);">Interactive 3D Model</p>
+                </div>
+
+                <!-- 3D frame and SVG panels overlay container -->
+                <div style="flex: 1; position: relative; overflow: hidden;">
+                    <iframe id="mocoa360-iframe-modal" style="width: 100%; height: 100%; border: none;" src="" title="Mocoa 360° Interactive Model" scrolling="no"></iframe>
+                    
+                    <!-- Panels -->
+                    <div class="mocoa-360-overlay-container" style="display: flex; justify-content: space-between; align-items: flex-end; padding: 20px; box-sizing: border-box; position: absolute; inset: 0; pointer-events: none;">
+                        <div class="mocoa-360-left-panel" style="width: 240px; max-width: 30vw; pointer-events: auto;">
+                            <img src="Recurso 2.svg" alt="Inferred Mineral Resource Estimate" class="recurso-panel-img">
+                        </div>
+                        <div class="mocoa-360-right-panel" style="width: 210px; max-width: 28vw; pointer-events: auto;">
+                            <img src="Recurso 3.svg" alt="Towers, Scale and Legend" class="recurso-panel-img">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom metrics bar -->
+                <div class="mocoa-360-bottom-bar" style="background: #0d0d0d; border-top: 1px solid var(--border-glass); padding: 8px 20px; z-index: 10; flex-shrink: 0; display: flex; align-items: center; justify-content: center; height: auto;">
+                    <img src="Recurso 1.svg" alt="Mocoa Project Stage & Valuation Metrics" class="recurso-bottom-img" style="max-height: 44px; object-fit: contain;">
+                </div>
             </div>
         `;
         modal.onclick = function(e) {
@@ -381,13 +406,13 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.id = 'instagram-modal';
         modal.innerHTML = `
             <div class="modal-content" style="max-width: 800px; padding: 30px; background: #0b0b0b; border: 1px solid var(--border-glass); border-radius: var(--radius-card); position: relative; margin: 20px; width: 90%;">
-                <button class="modal-close-btn" style="position: absolute; right: 15px; top: 15px; font-size: 2rem; color: #fff; background: none; border: none; cursor: pointer;" onclick="closeInstagramModal()">&times;</button>
+                <button class="modal-close" onclick="closeInstagramModal()">&times;</button>
                 
                 <!-- Instagram Header -->
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px;">
                     <div style="display: flex; align-items: center; gap: 16px;">
-                        <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 2px solid var(--copper-primary); padding: 2px; background: #000; display: flex; align-items: center; justify-content: center;">
-                            <img src="assets/LOGO2.svg" style="width: 80%; height: 80%; object-fit: contain;" alt="Copper Giant Logo">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 2px solid var(--copper-primary); padding: 2px; background: #fff; display: flex; align-items: center; justify-content: center;">
+                            <img src="assets/LOGO.svg" style="width: 90%; height: 90%; object-fit: contain;" alt="Copper Giant Logo">
                         </div>
                         <div style="text-align: left;">
                             <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: white;">@cu_giant</h3>
@@ -404,9 +429,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="instagram-feed-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
                     <!-- Post 1 -->
                     <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/coreshack/copper-giant-the-coreshack-1.webp" alt="Instagram Post">
+                        <img src="photo_2026-06-24 10.27.43.jpeg" alt="Instagram Post">
                         <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Inspecting high-grade copper chalcopyrite and bornite mineralization in core from our Mocoa project.</p>
+                            <p class="insta-post-desc">Inspecting high-grade copper mineralization under the lens at our Mocoa project.</p>
                             <div class="insta-post-stats">
                                 <span>❤️ 142</span>
                                 <span>💬 12</span>
@@ -415,9 +440,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <!-- Post 2 -->
                     <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="Libero Cobre/Jornada de Reforestación3.JPG" alt="Instagram Post">
+                        <img src="meet the team.jpg" alt="Instagram Post">
                         <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Proudly supporting reforestation and environmental preservation in Mocoa, Putumayo with local community neighbors.</p>
+                            <p class="insta-post-desc">Analyzing porphyry and breccia samples on our core logging tables with the geological team.</p>
                             <div class="insta-post-stats">
                                 <span>❤️ 98</span>
                                 <span>💬 8</span>
@@ -426,9 +451,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <!-- Post 3 -->
                     <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/mocoa-deposit-3d.jpg" alt="Instagram Post">
+                        <img src="assets/ernest-mast.webp" alt="Instagram Post">
                         <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Our interactive 3D model reveals the immense scale of the Mocoa deposit - 4.6Mt Copper and 511Mlb Molybdenum.</p>
+                            <p class="insta-post-desc">Director Ernest Mast shares updates on our sustainable approach and long-term vision at Mocoa.</p>
                             <div class="insta-post-stats">
                                 <span>❤️ 210</span>
                                 <span>💬 19</span>
@@ -437,9 +462,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <!-- Post 4 -->
                     <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="meet the team.jpg" alt="Instagram Post">
+                        <img src="assets/about-team.jpg" alt="Instagram Post">
                         <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Proven leadership advancing world-class projects. Guided by decades of global exploration experience.</p>
+                            <p class="insta-post-desc">Our dedicated field team mapping and collecting data to unlock Mocoa's giant potential.</p>
                             <div class="insta-post-stats">
                                 <span>❤️ 85</span>
                                 <span>💬 4</span>
@@ -448,9 +473,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <!-- Post 5 -->
                     <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/libero/card_miner.webp" alt="Instagram Post">
+                        <img src="Libero Cobre/Jornada de Reforestación3.JPG" alt="Instagram Post">
                         <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Responsible copper mining is crucial for a cleaner future. Advancing Mocoa responsibly and sustainably.</p>
+                            <p class="insta-post-desc">Proudly supporting environmental preservation and community reforestation in Putumayo.</p>
                             <div class="insta-post-stats">
                                 <span>❤️ 115</span>
                                 <span>💬 11</span>
@@ -459,9 +484,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <!-- Post 6 -->
                     <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/about-team.jpg" alt="Instagram Post">
+                        <img src="assets/mocoa-deposit-3d.jpg" alt="Instagram Post">
                         <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Our dedicated geological team in the field. Translating geology into value at the Mocoa Copper-Molybdenum project.</p>
+                            <p class="insta-post-desc">Visualizing Mocoa's resource scale in 3D: 4.6Mt Copper and 511Mlb Molybdenum.</p>
                             <div class="insta-post-stats">
                                 <span>❤️ 130</span>
                                 <span>💬 7</span>
