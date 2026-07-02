@@ -41,14 +41,53 @@
                 </a>
                 
                 <div class="nav-links-left">
-                    <a href="index.html" class="nav-link ">Home</a>
-                    <a href="corporate.html" class="nav-link " data-dropdown="corporate">Corporate</a>
-                    <a href="mocoa.html" class="nav-link active" data-dropdown="mocoa">Mocoa Project</a>
-                    <a href="news.html" class="nav-link " data-dropdown="news">News</a>
+                    <a href="index.html" class="nav-link">Home</a>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="corporate.html" class="nav-link">Corporate</a>
+                        <div class="dropdown-menu">
+                            <a href="corporate.html#overview">Overview</a>
+                            <a href="corporate.html#team">Management & Board</a>
+                            <a href="corporate.html#fiore">Fiore Group Partnership</a>
+                            <a href="corporate.html#governance">Governance</a>
+                            <a href="corporate.html#responsibility">Responsibility</a>
+                            <a href="corporate.html#sustainability">Sustainability</a>
+                            <a href="corporate.html#local-workforce">Local Impact</a>
+                            <a href="#" onclick="window.openCustomVideoModal('https://www.youtube.com/embed/videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1'); return false;">Corporate Playlist</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="mocoa.html" class="nav-link active">Mocoa Project</a>
+                        <div class="dropdown-menu">
+                            <a href="mocoa.html#overview">Project Overview</a>
+                            <a href="mocoa.html#geology">Geology & Deposit</a>
+                            <a href="mocoa.html#coreshack">Coreshack Gallery</a>
+                            <a href="mocoa.html#technical">Technical Reports</a>
+                            <a href="mocoa.html#estimate">NI 43-101 Estimate</a>
+                            <a href="mocoa.html#connector">Connector Zone</a>
+                            <a href="mocoa.html#estrella">La Estrella</a>
+                            <a href="mocoa.html#highlights">Drilling Highlights</a>
+                            <a href="#" onclick="window.openMocoa360Modal(); return false;">Interactive 3D Model</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="news.html" class="nav-link">News</a>
+                        <div class="dropdown-menu">
+                            <a href="news.html#latest">Latest Press Releases</a>
+                            <a href="news.html#coverage">Media Coverage</a>
+                            <a href="news.html#filings">Financial Filings</a>
+                            <a href="news.html#fact-sheet">Fact Sheet</a>
+                            <a href="news.html#gallery">Photo Gallery</a>
+                            <a href="news.html#contact">Contact Info</a>
+                            <a href="#" onclick="window.openInstagramModal(); return false;">Instagram Gallery</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="nav-links-right">
-                    <a href="investors.html" class="nav-btn-outline ">Investors</a>
+                    <a href="investors.html" class="nav-btn-outline">Investors</a>
                     <a href="investors.html#newsletter" class="nav-btn-outline">Get Updates</a>
                     <a href="investors.html#presentation" class="nav-btn-solid">View Presentation</a>
                 </div>
@@ -60,93 +99,6 @@
                 </button>
             </nav>
         </header>
-
-        <!-- Apple-style Dropdown Trays Container -->
-        <div class="header-dropdown-container">
-            <!-- Corporate Dropdown Tray -->
-            <div class="dropdown-tray-panel" id="tray-corporate">
-                <div class="dropdown-tray-content">
-                    <div class="dropdown-column main-col">
-                        <span class="dropdown-col-title">Conoce Corporate</span>
-                        <a href="corporate.html#overview" class="dropdown-item-large">Overview</a>
-                        <a href="corporate.html#team" class="dropdown-item-large">Management & Board</a>
-                        <a href="corporate.html#fiore" class="dropdown-item-large">Fiore Group Partnership</a>
-                        <a href="corporate.html#governance" class="dropdown-item-large">Governance</a>
-                    </div>
-                    <div class="dropdown-column secondary-col">
-                        <span class="dropdown-col-title">Principios</span>
-                        <a href="corporate.html#responsibility" class="dropdown-item-small">Responsibility</a>
-                        <a href="corporate.html#sustainability" class="dropdown-item-small">Sustainability</a>
-                        <a href="corporate.html#local-workforce" class="dropdown-item-small">Local Impact</a>
-                    </div>
-                    <div class="dropdown-column visual-col">
-                        <a class="dropdown-card" href="corporate.html#team">
-                            <img src="meet the team.jpg" alt="Corporate" class="dropdown-card-img">
-                            <div class="dropdown-card-text">
-                                <strong>Management Team</strong>
-                                <span>Battle-Tested. Ready to Win.</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mocoa Project Dropdown Tray -->
-            <div class="dropdown-tray-panel" id="tray-mocoa">
-                <div class="dropdown-tray-content">
-                    <div class="dropdown-column main-col">
-                        <span class="dropdown-col-title">Mocoa Project</span>
-                        <a href="mocoa.html#overview" class="dropdown-item-large">Project Overview</a>
-                        <a href="mocoa.html#geology" class="dropdown-item-large">Geology & Deposit</a>
-                        <a href="mocoa.html#coreshack" class="dropdown-item-large">Coreshack Gallery</a>
-                        <a href="mocoa.html#technical" class="dropdown-item-large">Technical Reports</a>
-                    </div>
-                    <div class="dropdown-column secondary-col">
-                        <span class="dropdown-col-title">Detalles del Depósito</span>
-                        <a href="mocoa.html#estimate" class="dropdown-item-small">NI 43-101 Estimate</a>
-                        <a href="mocoa.html#connector" class="dropdown-item-small">Connector Zone</a>
-                        <a href="mocoa.html#estrella" class="dropdown-item-small">La Estrella</a>
-                        <a href="mocoa.html#highlights" class="dropdown-item-small">Drilling Highlights</a>
-                    </div>
-                    <div class="dropdown-column visual-col">
-                        <a class="dropdown-card" href="mocoa.html">
-                            <img src="mocoa-deposit-bg.jpg" alt="Mocoa Deposit" class="dropdown-card-img">
-                            <div class="dropdown-card-text">
-                                <strong>Interactive 3D Model</strong>
-                                <span>Explore the Porphyry Deposit.</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- News Dropdown Tray -->
-            <div class="dropdown-tray-panel" id="tray-news">
-                <div class="dropdown-tray-content">
-                    <div class="dropdown-column main-col">
-                        <span class="dropdown-col-title">News Hub</span>
-                        <a href="news.html#latest" class="dropdown-item-large">Latest Press Releases</a>
-                        <a href="news.html#coverage" class="dropdown-item-large">Media Coverage</a>
-                        <a href="news.html#filings" class="dropdown-item-large">Financial Filings</a>
-                    </div>
-                    <div class="dropdown-column secondary-col">
-                        <span class="dropdown-col-title">Recursos</span>
-                        <a href="news.html#fact-sheet" class="dropdown-item-small">Fact Sheet</a>
-                        <a href="news.html#gallery" class="dropdown-item-small">Photo Gallery</a>
-                        <a href="news.html#contact" class="dropdown-item-small">Contact Info</a>
-                    </div>
-                    <div class="dropdown-column visual-col">
-                        <a class="dropdown-card" href="news.html">
-                            <img src="Themaking.jpg" alt="News" class="dropdown-card-img">
-                            <div class="dropdown-card-text">
-                                <strong>Making of a Giant</strong>
-                                <span>Follow our updates and growth.</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Mobile Menu Overlay -->
         <div class="mobile-menu-overlay" id="mobile-menu">

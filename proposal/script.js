@@ -261,64 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initSplitCards();
 
-    // ---------------------------------------------------------
-    // 0.6. Mega Menu Dropdown Cards Loader (Dynamic from site.json)
-    // ---------------------------------------------------------
-    function initDropdownCards() {
-        const panels = {
-            'corporate': document.querySelector('#tray-corporate .dropdown-card'),
-            'mocoa': document.querySelector('#tray-mocoa .dropdown-card'),
-            'news': document.querySelector('#tray-news .dropdown-card')
-        };
 
-        if (!panels.corporate && !panels.mocoa && !panels.news) return;
-
-        fetch('data/site.json')
-            .then(res => res.json())
-            .then(data => {
-                const cards = data.menu_dropdown_cards || [];
-                cards.forEach(card => {
-                    const cardEl = panels[card.id];
-                    if (!cardEl) return;
-
-                    // Set click handlers for specific pop-ups
-                    if (card.id === 'corporate') {
-                        cardEl.setAttribute('href', '#');
-                        cardEl.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            window.openCustomVideoModal("https://www.youtube.com/embed/videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1");
-                        });
-                    } else if (card.id === 'mocoa') {
-                        cardEl.setAttribute('href', '#');
-                        cardEl.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            window.openMocoa360Modal();
-                        });
-                    } else if (card.id === 'news') {
-                        cardEl.setAttribute('href', '#');
-                        cardEl.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            window.openInstagramModal();
-                        });
-                    } else if (card.link_href) {
-                        cardEl.setAttribute('href', card.link_href);
-                    }
-
-                    const img = cardEl.querySelector('.dropdown-card-img');
-                    if (img && card.image) {
-                        img.src = card.image;
-                    }
-
-                    const titleEl = cardEl.querySelector('strong');
-                    const subtitleEl = cardEl.querySelector('span');
-
-                    if (titleEl) titleEl.textContent = card.title;
-                    if (subtitleEl) subtitleEl.textContent = card.subtitle;
-                });
-            })
-            .catch(err => console.warn('Dropdown cards loader: could not load site.json', err));
-    }
-    initDropdownCards();
 
     // ---------------------------------------------------------
     // 0.6.5. Custom Pop-ups (YouTube Playlist, Mocoa360, Instagram)
@@ -804,115 +747,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------------------------------------------------------
-    // 4. Apple-Style Dropdown Menu & Hover Blur Effect
-    // ---------------------------------------------------------
-    const navLinks = document.querySelectorAll('.nav-links-left .nav-link');
-    const dropdownTrays = document.querySelectorAll('.dropdown-tray-panel');
-    const dropdownContainer = document.querySelector('.header-dropdown-container');
-    const headerGroupEl = document.querySelector('.top-header-group');
-    
-    let hideTimeout = null;
-    let activeTray = null;
 
-    function showDropdown(dropdownId) {
-        if (hideTimeout) {
-            clearTimeout(hideTimeout);
-            hideTimeout = null;
-        }
-
-        const targetTray = document.getElementById(`tray-${dropdownId}`);
-        
-        // If switching to a different active tray, swap immediately
-        if (activeTray && activeTray !== targetTray) {
-            activeTray.classList.remove('active');
-        }
-
-        if (targetTray) {
-            targetTray.classList.add('active');
-            activeTray = targetTray;
-            dropdownContainer.classList.add('active');
-            document.body.classList.add('header-hovered');
-        } else {
-            closeDropdown();
-        }
-    }
-
-    function closeDropdown() {
-        if (activeTray) {
-            activeTray.classList.remove('active');
-            activeTray = null;
-        }
-        if (dropdownContainer) {
-            dropdownContainer.classList.remove('active');
-        }
-        document.body.classList.remove('header-hovered');
-    }
-
-    function queueCloseDropdown() {
-        if (hideTimeout) clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => {
-            closeDropdown();
-        }, 150); // 150ms delay perfect to prevent accidental mouseouts
-    }
-
-    navLinks.forEach(link => {
-        const dropdownId = link.getAttribute('data-dropdown');
-        
-        link.addEventListener('mouseenter', () => {
-            if (window.innerWidth >= 992) {
-                if (dropdownId) {
-                    showDropdown(dropdownId);
-                } else {
-                    closeDropdown(); // Hovering Home (no data-dropdown) closes open trays
-                }
-            }
-        });
-
-        link.addEventListener('mouseleave', () => {
-            if (window.innerWidth >= 992) {
-                queueCloseDropdown();
-            }
-        });
-    });
-
-    if (dropdownContainer) {
-        dropdownContainer.addEventListener('mouseenter', () => {
-            if (window.innerWidth >= 992) {
-                if (hideTimeout) {
-                    clearTimeout(hideTimeout);
-                    hideTimeout = null;
-                }
-            }
-        });
-
-        dropdownContainer.addEventListener('mouseleave', () => {
-            if (window.innerWidth >= 992) {
-                queueCloseDropdown();
-            }
-        });
-    }
-
-    if (headerGroupEl) {
-        headerGroupEl.addEventListener('mouseenter', () => {
-            if (window.innerWidth >= 992) {
-                if (hideTimeout) {
-                    clearTimeout(hideTimeout);
-                    hideTimeout = null;
-                }
-            }
-        });
-
-        headerGroupEl.addEventListener('mouseleave', () => {
-            if (window.innerWidth >= 992) {
-                queueCloseDropdown();
-            }
-        });
-    }
 
     // ---------------------------------------------------------
     // 5. Header Scroll Background Toggle
     // ---------------------------------------------------------
+    const headerGroupEl = document.querySelector('.top-header-group');
     if (headerGroupEl) {
         function checkScroll() {
             if (window.scrollY > 10) {
