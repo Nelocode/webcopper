@@ -321,14 +321,145 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------------------------------------------------------
     // 0.6.5. Custom Pop-ups (YouTube Playlist, Mocoa360, Instagram)
     // ---------------------------------------------------------
+    let currentPlaylistIndex = 1;
+
     window.openCustomVideoModal = function(url) {
         const videoModal = document.getElementById('video-modal');
         const ytIframe = document.getElementById('modal-youtube-iframe');
         if (videoModal && ytIframe) {
             videoModal.classList.add('active');
-            ytIframe.src = url;
+            
+            // Check if it's the playlist url
+            if (url.indexOf('list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h') > -1) {
+                currentPlaylistIndex = 1;
+                ytIframe.src = url + "&index=" + currentPlaylistIndex;
+                
+                // Inject navigation arrows if not already present
+                injectPlaylistArrows();
+                
+                // Show the arrows
+                const leftArrow = document.getElementById('playlist-arrow-left');
+                const rightArrow = document.getElementById('playlist-arrow-right');
+                if (leftArrow) leftArrow.style.display = 'flex';
+                if (rightArrow) rightArrow.style.display = 'flex';
+            } else {
+                ytIframe.src = url;
+                
+                // Hide the arrows
+                const leftArrow = document.getElementById('playlist-arrow-left');
+                const rightArrow = document.getElementById('playlist-arrow-right');
+                if (leftArrow) leftArrow.style.display = 'none';
+                if (rightArrow) rightArrow.style.display = 'none';
+            }
         }
     };
+
+    function injectPlaylistArrows() {
+        if (document.getElementById('playlist-arrow-left')) return;
+        
+        const videoModal = document.getElementById('video-modal');
+        if (!videoModal) return;
+
+        const leftArrow = document.createElement('div');
+        leftArrow.id = 'playlist-arrow-left';
+        leftArrow.className = 'playlist-nav-arrow';
+        leftArrow.innerHTML = '&#8592;'; // Left arrow code
+        leftArrow.onclick = function(e) {
+            e.stopPropagation();
+            navigatePlaylist(-1);
+        };
+
+        const rightArrow = document.createElement('div');
+        rightArrow.id = 'playlist-arrow-right';
+        rightArrow.className = 'playlist-nav-arrow';
+        rightArrow.innerHTML = '&#8594;'; // Right arrow code
+        rightArrow.onclick = function(e) {
+            e.stopPropagation();
+            navigatePlaylist(1);
+        };
+
+        // Append to modal
+        videoModal.appendChild(leftArrow);
+        videoModal.appendChild(rightArrow);
+
+        // Add CSS style dynamically
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .playlist-nav-arrow {
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                color: #fff;
+                font-size: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                z-index: 1010;
+                user-select: none;
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+            }
+            .playlist-nav-arrow:hover {
+                background: #fff;
+                color: #000;
+                transform: translateY(-50%) scale(1.08);
+            }
+            #playlist-arrow-left {
+                left: 40px;
+            }
+            #playlist-arrow-right {
+                right: 40px;
+            }
+            @media (max-width: 1024px) {
+                #playlist-arrow-left {
+                    left: 20px;
+                }
+                #playlist-arrow-right {
+                    right: 20px;
+                }
+                .playlist-nav-arrow {
+                    width: 44px;
+                    height: 44px;
+                    font-size: 1.25rem;
+                }
+            }
+            @media (max-width: 768px) {
+                #playlist-arrow-left {
+                    left: 15px;
+                }
+                #playlist-arrow-right {
+                    right: 15px;
+                }
+                .playlist-nav-arrow {
+                    width: 38px;
+                    height: 38px;
+                    font-size: 1.1rem;
+                }
+            }
+        `;
+        videoModal.appendChild(style);
+    }
+
+    function navigatePlaylist(direction) {
+        const ytIframe = document.getElementById('modal-youtube-iframe');
+        if (!ytIframe) return;
+
+        currentPlaylistIndex += direction;
+        if (currentPlaylistIndex < 1) {
+            currentPlaylistIndex = 3;
+        } else if (currentPlaylistIndex > 3) {
+            currentPlaylistIndex = 1;
+        }
+
+        ytIframe.src = "https://www.youtube.com/embed/videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1&index=" + currentPlaylistIndex;
+    }
 
     // Mocoa 360 Pop-up Model
     function injectMocoa360Modal() {
@@ -487,14 +618,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.closeVideoModal = function(e) {
         if (e) {
-            // Prevent close when clicking inside the video itself
+            // Prevent close when clicking inside the video itself or on the arrows
             if (e.target.closest('.modal-content-video') && !e.target.classList.contains('modal-close-btn')) {
+                return;
+            }
+            if (e.target.closest('.playlist-nav-arrow')) {
                 return;
             }
         }
         if (videoModal && ytIframe) {
             videoModal.classList.remove('active');
             ytIframe.src = ""; // Stops the video
+            
+            // Hide the arrows
+            const leftArrow = document.getElementById('playlist-arrow-left');
+            const rightArrow = document.getElementById('playlist-arrow-right');
+            if (leftArrow) leftArrow.style.display = 'none';
+            if (rightArrow) rightArrow.style.display = 'none';
         }
     };
 
