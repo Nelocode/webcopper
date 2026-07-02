@@ -281,7 +281,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cardEl = panels[card.id];
                     if (!cardEl) return;
 
-                    if (card.link_href) {
+                    // Set click handlers for specific pop-ups
+                    if (card.id === 'corporate') {
+                        cardEl.setAttribute('href', '#');
+                        cardEl.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            window.openCustomVideoModal("https://www.youtube.com/embed/videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1");
+                        });
+                    } else if (card.id === 'mocoa') {
+                        cardEl.setAttribute('href', '#');
+                        cardEl.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            window.openMocoa360Modal();
+                        });
+                    } else if (card.id === 'news') {
+                        cardEl.setAttribute('href', '#');
+                        cardEl.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            window.openInstagramModal();
+                        });
+                    } else if (card.link_href) {
                         cardEl.setAttribute('href', card.link_href);
                     }
 
@@ -300,6 +319,181 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.warn('Dropdown cards loader: could not load site.json', err));
     }
     initDropdownCards();
+
+    // ---------------------------------------------------------
+    // 0.6.5. Custom Pop-ups (YouTube Playlist, Mocoa360, Instagram)
+    // ---------------------------------------------------------
+    window.openCustomVideoModal = function(url) {
+        const videoModal = document.getElementById('video-modal');
+        const ytIframe = document.getElementById('modal-youtube-iframe');
+        if (videoModal && ytIframe) {
+            videoModal.classList.add('active');
+            ytIframe.src = url;
+        }
+    };
+
+    // Mocoa 360 Pop-up Model
+    function injectMocoa360Modal() {
+        if (document.getElementById('mocoa360-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'mocoa360-modal';
+        modal.innerHTML = `
+            <div class="modal-content-video" style="max-width: 90vw; height: 85vh; border-radius: var(--radius-card); background: #000; border: 1px solid var(--border-glass); position: relative; margin: 20px;">
+                <button class="modal-close-btn" style="position: absolute; right: 15px; top: 10px; font-size: 2rem; color: #fff; background: none; border: none; cursor: pointer; z-index: 10;" onclick="closeMocoa360Modal()">&times;</button>
+                <iframe id="mocoa360-iframe-modal" style="width: 100%; height: 100%; border: none; border-radius: var(--radius-card);" src="" title="Mocoa 360° Interactive Model" scrolling="no"></iframe>
+            </div>
+        `;
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                closeMocoa360Modal();
+            }
+        };
+        document.body.appendChild(modal);
+    }
+
+    window.openMocoa360Modal = function() {
+        injectMocoa360Modal();
+        const modal = document.getElementById('mocoa360-modal');
+        const iframe = document.getElementById('mocoa360-iframe-modal');
+        if (modal && iframe) {
+            modal.classList.add('active');
+            iframe.src = 'mocoa360/index.html?v=1.4';
+        }
+    };
+
+    window.closeMocoa360Modal = function() {
+        const modal = document.getElementById('mocoa360-modal');
+        const iframe = document.getElementById('mocoa360-iframe-modal');
+        if (modal && iframe) {
+            modal.classList.remove('active');
+            iframe.src = '';
+        }
+    };
+
+    // Instagram Mock Feed Pop-up
+    function injectInstagramModal() {
+        if (document.getElementById('instagram-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'instagram-modal';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 800px; padding: 30px; background: #0b0b0b; border: 1px solid var(--border-glass); border-radius: var(--radius-card); position: relative; margin: 20px; width: 90%;">
+                <button class="modal-close-btn" style="position: absolute; right: 15px; top: 15px; font-size: 2rem; color: #fff; background: none; border: none; cursor: pointer;" onclick="closeInstagramModal()">&times;</button>
+                
+                <!-- Instagram Header -->
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 2px solid var(--copper-primary); padding: 2px; background: #000; display: flex; align-items: center; justify-content: center;">
+                            <img src="assets/LOGO2.svg" style="width: 80%; height: 80%; object-fit: contain;" alt="Copper Giant Logo">
+                        </div>
+                        <div style="text-align: left;">
+                            <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: white;">@cu_giant</h3>
+                            <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">Copper Giant Resources Corp.</p>
+                        </div>
+                    </div>
+                    <a href="https://www.instagram.com/cu_giant/" target="_blank" rel="noopener noreferrer" class="btn-copper" style="padding: 10px 20px; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 4px; font-weight: 600;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        Follow
+                    </a>
+                </div>
+                
+                <!-- Feed Grid -->
+                <div class="instagram-feed-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                    <!-- Post 1 -->
+                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
+                        <img src="assets/coreshack/copper-giant-the-coreshack-1.webp" alt="Instagram Post">
+                        <div class="insta-post-overlay">
+                            <p class="insta-post-desc">Inspecting high-grade copper chalcopyrite and bornite mineralization in core from our Mocoa project.</p>
+                            <div class="insta-post-stats">
+                                <span>❤️ 142</span>
+                                <span>💬 12</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post 2 -->
+                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
+                        <img src="Libero Cobre/Jornada de Reforestación3.JPG" alt="Instagram Post">
+                        <div class="insta-post-overlay">
+                            <p class="insta-post-desc">Proudly supporting reforestation and environmental preservation in Mocoa, Putumayo with local community neighbors.</p>
+                            <div class="insta-post-stats">
+                                <span>❤️ 98</span>
+                                <span>💬 8</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post 3 -->
+                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
+                        <img src="assets/mocoa-deposit-3d.jpg" alt="Instagram Post">
+                        <div class="insta-post-overlay">
+                            <p class="insta-post-desc">Our interactive 3D model reveals the immense scale of the Mocoa deposit - 4.6Mt Copper and 511Mlb Molybdenum.</p>
+                            <div class="insta-post-stats">
+                                <span>❤️ 210</span>
+                                <span>💬 19</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post 4 -->
+                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
+                        <img src="meet the team.jpg" alt="Instagram Post">
+                        <div class="insta-post-overlay">
+                            <p class="insta-post-desc">Proven leadership advancing world-class projects. Guided by decades of global exploration experience.</p>
+                            <div class="insta-post-stats">
+                                <span>❤️ 85</span>
+                                <span>💬 4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post 5 -->
+                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
+                        <img src="assets/libero/card_miner.webp" alt="Instagram Post">
+                        <div class="insta-post-overlay">
+                            <p class="insta-post-desc">Responsible copper mining is crucial for a cleaner future. Advancing Mocoa responsibly and sustainably.</p>
+                            <div class="insta-post-stats">
+                                <span>❤️ 115</span>
+                                <span>💬 11</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Post 6 -->
+                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
+                        <img src="assets/about-team.jpg" alt="Instagram Post">
+                        <div class="insta-post-overlay">
+                            <p class="insta-post-desc">Our dedicated geological team in the field. Translating geology into value at the Mocoa Copper-Molybdenum project.</p>
+                            <div class="insta-post-stats">
+                                <span>❤️ 130</span>
+                                <span>💬 7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                closeInstagramModal();
+            }
+        };
+        document.body.appendChild(modal);
+    }
+
+    window.openInstagramModal = function() {
+        injectInstagramModal();
+        const modal = document.getElementById('instagram-modal');
+        if (modal) {
+            modal.classList.add('active');
+        }
+    };
+
+    window.closeInstagramModal = function() {
+        const modal = document.getElementById('instagram-modal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
+    };
 
     // ---------------------------------------------------------
     // 0.7. Home News Hub Loader (Dynamic 6 items from news.json)
@@ -404,6 +598,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeVideoModal();
+            if (window.closeMocoa360Modal) window.closeMocoa360Modal();
+            if (window.closeInstagramModal) window.closeInstagramModal();
         }
     });
 
