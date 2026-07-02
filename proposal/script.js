@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         cardEl.setAttribute('href', '#');
                         cardEl.addEventListener('click', (e) => {
                             e.preventDefault();
-                            window.openTeamPlaylistModal();
+                            window.openCustomVideoModal("https://www.youtube.com/embed/videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1");
                         });
                     } else if (card.id === 'mocoa') {
                         cardEl.setAttribute('href', '#');
@@ -395,168 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Corporate Team Playlist Modal
-    function injectTeamPlaylistModal() {
-        if (document.getElementById('team-playlist-modal')) return;
 
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.id = 'team-playlist-modal';
-        modal.innerHTML = `
-            <div class="modal-content" style="max-width: 1050px; width: 90%; height: 75vh; background: #0c0c0c; border: 1px solid var(--border-glass); border-radius: var(--radius-card); display: flex; flex-direction: column; overflow: hidden; position: relative; margin: 20px;">
-                <!-- Header -->
-                <div style="height: 65px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; flex-shrink: 0; background: #0c0c0c; z-index: 10;">
-                    <div style="text-align: left;">
-                        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: white;">Corporate Presentation & Team Videos</h3>
-                        <p style="margin: 2px 0 0 0; font-size: 0.72rem; color: var(--copper-primary); text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-mono); font-weight: 600;">Copper Giant Playlist</p>
-                    </div>
-                    <button class="modal-close" style="position: static;" onclick="closeTeamPlaylistModal()">&times;</button>
-                </div>
-                
-                <!-- Two Pane Content -->
-                <div style="flex: 1; display: flex; overflow: hidden; background: #000; flex-direction: row;" id="playlist-flex-pane">
-                    <!-- Player (Left Pane) -->
-                    <div style="flex: 7; height: 100%; position: relative; background: #000;">
-                        <iframe id="team-playlist-iframe" style="width: 100%; height: 100%; border: none;" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                    
-                    <!-- Playlist Sidebar (Right Pane) -->
-                    <div class="playlist-sidebar" style="flex: 3; height: 100%; border-left: 1px solid rgba(255,255,255,0.08); background: #0c0c0c; display: flex; flex-direction: column; overflow-y: auto; padding: 16px; gap: 12px; box-sizing: border-box;">
-                        <h4 style="margin: 0 0 4px 0; color: #fff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; text-align: left;">Videos in Playlist</h4>
-                        
-                        <!-- Video Item 1 -->
-                        <div class="playlist-item active" onclick="playPlaylistVideo(this, 'SdGeDEznMXg')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.04);">
-                            <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
-                                <img src="assets/meet-the-team.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
-                            </div>
-                            <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
-                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Mocoa Project Overview</span>
-                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Exploration Update</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Video Item 2 -->
-                        <div class="playlist-item" onclick="playPlaylistVideo(this, 'B7XABIdWLOY')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid transparent;">
-                            <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
-                                <img src="meet the team.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
-                            </div>
-                            <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
-                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Corporate Presentation</span>
-                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Ernest Mast</span>
-                            </div>
-                        </div>
-
-                        <!-- Video Item 3 -->
-                        <div class="playlist-item" onclick="playPlaylistVideo(this, '0LLGecN0knM')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid transparent;">
-                            <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
-                                <img src="Themaking.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
-                            </div>
-                            <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
-                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">The Making of a Giant</span>
-                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Mocoa Resources</span>
-                            </div>
-                        </div>
-
-                        <!-- Video Item 4 -->
-                        <div class="playlist-item" onclick="playPlaylistVideo(this, 'videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid transparent;">
-                            <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
-                                <img src="assets/about-team.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
-                            </div>
-                            <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
-                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Full Playlist Stream</span>
-                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">All Channel Videos</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        modal.onclick = function(e) {
-            if (e.target === modal) {
-                closeTeamPlaylistModal();
-            }
-        };
-        
-        // Add responsive design CSS for mobile playlist sidebar stack
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @media (max-width: 768px) {
-                #playlist-flex-pane {
-                    flex-direction: column !important;
-                }
-                #playlist-flex-pane > div:first-child {
-                    flex: 5 !important;
-                }
-                #playlist-flex-pane > div:last-child {
-                    flex: 5 !important;
-                    border-left: none !important;
-                    border-top: 1px solid rgba(255,255,255,0.08) !important;
-                }
-            }
-        `;
-        modal.appendChild(style);
-        document.body.appendChild(modal);
-    }
-
-    window.openTeamPlaylistModal = function() {
-        injectTeamPlaylistModal();
-        const modal = document.getElementById('team-playlist-modal');
-        const iframe = document.getElementById('team-playlist-iframe');
-        if (modal && iframe) {
-            modal.classList.add('active');
-            iframe.src = "https://www.youtube.com/embed/SdGeDEznMXg?autoplay=1&rel=0";
-            
-            // Reset active state to first item
-            const items = modal.querySelectorAll('.playlist-item');
-            items.forEach((item, index) => {
-                if (index === 0) {
-                    item.classList.add('active');
-                    item.style.background = 'rgba(255,255,255,0.08)';
-                    item.style.borderColor = 'var(--copper-primary)';
-                } else {
-                    item.classList.remove('active');
-                    item.style.background = 'transparent';
-                    item.style.borderColor = 'transparent';
-                }
-            });
-        }
-    };
-
-    window.closeTeamPlaylistModal = function() {
-        const modal = document.getElementById('team-playlist-modal');
-        const iframe = document.getElementById('team-playlist-iframe');
-        if (modal && iframe) {
-            modal.classList.remove('active');
-            iframe.src = "";
-        }
-    };
-
-    window.playPlaylistVideo = function(el, videoId) {
-        const iframe = document.getElementById('team-playlist-iframe');
-        if (!iframe) return;
-        
-        if (videoId.indexOf('videoseries') > -1) {
-            iframe.src = "https://www.youtube.com/embed/" + videoId + "&autoplay=1";
-        } else {
-            iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
-        }
-
-        // Toggle active classes
-        const items = document.querySelectorAll('.playlist-item');
-        items.forEach(item => {
-            item.classList.remove('active');
-            item.style.background = 'transparent';
-            item.style.borderColor = 'transparent';
-        });
-
-        el.classList.add('active');
-        el.style.background = 'rgba(255,255,255,0.08)';
-        el.style.borderColor = 'var(--copper-primary)';
-    };
 
 
 
@@ -664,8 +503,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') {
             closeVideoModal();
             if (window.closeMocoa360Modal) window.closeMocoa360Modal();
-            if (window.closeInstagramModal) window.closeInstagramModal();
-            if (window.closeTeamPlaylistModal) window.closeTeamPlaylistModal();
         }
     });
 
