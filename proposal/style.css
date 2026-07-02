@@ -619,16 +619,24 @@ body.header-hovered .page-backdrop {
 }
 
 .news-hub-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 24px;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 10px 0 20px 0;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+.news-hub-grid::-webkit-scrollbar {
+    display: none;
 }
 
 @media (min-width: 768px) {
-    .news-hub-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .news-hub-card {
+        flex: 0 0 calc(33.333% - 16px);
+        scroll-snap-align: start;
     }
 }
 

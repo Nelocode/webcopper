@@ -302,6 +302,43 @@ document.addEventListener('DOMContentLoaded', () => {
     initDropdownCards();
 
     // ---------------------------------------------------------
+    // 0.7. Home News Hub Loader (Dynamic 6 items from news.json)
+    // ---------------------------------------------------------
+    function initHomeNews() {
+        const newsGrid = document.querySelector('.news-hub-grid');
+        if (!newsGrid) return;
+
+        fetch('data/news.json')
+            .then(res => res.json())
+            .then(data => {
+                const items = data.items || [];
+                const recentItems = items.slice(0, 6);
+
+                newsGrid.innerHTML = recentItems.map(item => {
+                    const dateStr = item.date.toUpperCase();
+                    const link = item.pdfUrl || item.readUrl || 'news.html';
+
+                    return `
+                        <div class="news-hub-card">
+                            <div class="card-brand-lockup">
+                                <div class="card-brand-title-row">
+                                    <img src="assets/LOGO2.svg" alt="Arrow" class="card-brand-arrow">
+                                    <h4 class="card-news-title">${item.title}</h4>
+                                </div>
+                                <div class="card-brand-line"></div>
+                                <div class="card-brand-date">${dateStr}</div>
+                            </div>
+                            <p class="news-card-body">${item.summary}</p>
+                            <button class="btn-rect btn-rect-primary" onclick="window.location.href='${link}'">READ MORE</button>
+                        </div>
+                    `;
+                }).join('');
+            })
+            .catch(err => console.warn('Home news loader: could not load news.json', err));
+    }
+    initHomeNews();
+
+    // ---------------------------------------------------------
     // 1. Mobile Menu Toggle (Illustrator Proposal Custom)
     // ---------------------------------------------------------
     const mobileMenuToggle = document.getElementById('btn-mobile-menu');
@@ -380,7 +417,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (newsGrid && leftArrow && rightArrow) {
         // Simple click-scroll for mobile swipe behavior
         leftArrow.addEventListener('click', () => {
-            const cardWidth = newsGrid.querySelector('.news-hub-card').clientWidth;
+            const card = newsGrid.querySelector('.news-hub-card');
+            const cardWidth = card ? card.clientWidth : 380;
             newsGrid.scrollBy({
                 left: -cardWidth - 24,
                 behavior: 'smooth'
@@ -388,7 +426,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         rightArrow.addEventListener('click', () => {
-            const cardWidth = newsGrid.querySelector('.news-hub-card').clientWidth;
+            const card = newsGrid.querySelector('.news-hub-card');
+            const cardWidth = card ? card.clientWidth : 380;
             newsGrid.scrollBy({
                 left: cardWidth + 24,
                 behavior: 'smooth'
