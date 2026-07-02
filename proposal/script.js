@@ -143,17 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!section) return;
 
         const path = window.location.pathname;
-        const pageMap = {
-            'index.html': 'home',
-            '/': 'home',
-            'corporate.html': 'corporate',
-            'mocoa.html': 'mocoa',
-            'news.html': 'news',
-            'investors.html': 'investors'
-        };
-        const pageName = Object.keys(pageMap).find(k => path.endsWith(k))
-            ? pageMap[Object.keys(pageMap).find(k => path.endsWith(k))]
-            : 'home';
+        const cleanPath = path.toLowerCase().replace(/\/$/, '').split('/').pop().replace('.html', '');
+        const pageName = (cleanPath === '' || cleanPath === 'index' || cleanPath === 'home') ? 'home' : cleanPath;
 
         fetch('data/site.json')
             .then(res => res.json())
