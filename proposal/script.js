@@ -365,8 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 
                 <!-- Bottom metrics bar -->
-                <div class="mocoa-360-bottom-bar" style="background: #0d0d0d; border-top: 1px solid var(--border-glass); padding: 14px 24px; z-index: 10; flex-shrink: 0; display: flex; align-items: center; justify-content: center; height: auto;">
-                    <img src="Recurso 1.svg" alt="Mocoa Project Stage & Valuation Metrics" class="recurso-bottom-img" style="height: auto; max-height: 70px; width: 100%; max-width: 900px; display: block; margin: 0 auto; object-fit: contain;">
+                <div class="mocoa-360-bottom-bar" style="background: #0d0d0d; border-top: 1px solid var(--border-glass); padding: 10px 24px; z-index: 10; flex-shrink: 0; display: flex; align-items: center; justify-content: center; height: auto;">
+                    <img src="Recurso 1.svg" alt="Mocoa Project Stage & Valuation Metrics" class="recurso-bottom-img" style="width: 100%; max-width: 680px; height: auto; display: block; margin: 0 auto;">
                 </div>
             </div>
         `;
@@ -427,18 +427,42 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h4 style="margin: 0 0 4px 0; color: #fff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; text-align: left;">Videos in Playlist</h4>
                         
                         <!-- Video Item 1 -->
-                        <div class="playlist-item active" onclick="playPlaylistVideo(this, '-LWD7kVmmrs')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.04);">
+                        <div class="playlist-item active" onclick="playPlaylistVideo(this, 'SdGeDEznMXg')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.04);">
                             <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
                                 <img src="assets/meet-the-team.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
                                 <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
                             </div>
                             <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
-                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Copper Giant Corporate Overview</span>
-                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Ernest Mast</span>
+                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Mocoa Project Overview</span>
+                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Exploration Update</span>
                             </div>
                         </div>
                         
                         <!-- Video Item 2 -->
+                        <div class="playlist-item" onclick="playPlaylistVideo(this, 'B7XABIdWLOY')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid transparent;">
+                            <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
+                                <img src="meet the team.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
+                            </div>
+                            <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Corporate Presentation</span>
+                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Ernest Mast</span>
+                            </div>
+                        </div>
+
+                        <!-- Video Item 3 -->
+                        <div class="playlist-item" onclick="playPlaylistVideo(this, '0LLGecN0knM')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid transparent;">
+                            <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
+                                <img src="Themaking.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
+                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
+                            </div>
+                            <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">The Making of a Giant</span>
+                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Mocoa Resources</span>
+                            </div>
+                        </div>
+
+                        <!-- Video Item 4 -->
                         <div class="playlist-item" onclick="playPlaylistVideo(this, 'videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid transparent;">
                             <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
                                 <img src="assets/about-team.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
@@ -446,19 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
                                 <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Full Playlist Stream</span>
-                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">6 Videos</span>
-                            </div>
-                        </div>
-
-                        <!-- Video Item 3 -->
-                        <div class="playlist-item" onclick="playPlaylistVideo(this, '9_2c4qC6H6U')" style="display: flex; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; border: 1px solid transparent;">
-                            <div style="width: 76px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: #111; flex-shrink: 0; position: relative;">
-                                <img src="Themaking.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Thumbnail">
-                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff;">▶</div>
-                            </div>
-                            <div style="flex: 1; text-align: left; display: flex; flex-direction: column; justify-content: center;">
-                                <span style="color: #fff; font-size: 0.72rem; font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">Mocoa Project Overview</span>
-                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">Exploration Update</span>
+                                <span style="color: var(--text-secondary); font-size: 0.65rem; margin-top: 3px;">All Channel Videos</span>
                             </div>
                         </div>
                     </div>
@@ -498,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const iframe = document.getElementById('team-playlist-iframe');
         if (modal && iframe) {
             modal.classList.add('active');
-            iframe.src = "https://www.youtube.com/embed/-LWD7kVmmrs?autoplay=1&rel=0";
+            iframe.src = "https://www.youtube.com/embed/SdGeDEznMXg?autoplay=1&rel=0";
             
             // Reset active state to first item
             const items = modal.querySelectorAll('.playlist-item');
@@ -582,7 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="instagram-feed-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
                     <!-- Post 1 -->
                     <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/coreshack-inspect.jpg" alt="Instagram Post">
+                        <img src="assets/coreshack-inspect.png" alt="Instagram Post">
                         <div class="insta-post-overlay">
                             <p class="insta-post-desc">Inspecting high-grade copper mineralization under the lens at our Mocoa project.</p>
                             <div class="insta-post-stats">
