@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cardClass = classMap[card.id] || 'meet-the-team-card';
                     const bgStyle = card.image ? `style="--card-bg: url('${card.image}')"` : '';
                     const actionBtn = card.link_type === 'modal' 
-                        ? `<button class="btn-card-action" onclick="openVideoModal()">Dive in</button>`
+                        ? `<button class="btn-card-action" onclick="window.openCustomVideoModal('${card.link_href || ''}')">Dive in</button>`
                         : `<button class="btn-card-action" onclick="window.location.href='${card.link_href || ''}'">Dive in</button>`;
 
                     return `

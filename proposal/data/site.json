@@ -128,8 +128,8 @@
       "title": "MEET THE TEAM",
       "subtitle": "Tested / Ready to win",
       "image": "meet the team.jpg",
-      "link_type": "page",
-      "link_href": "corporate.html#team"
+      "link_type": "modal",
+      "link_href": "https://www.youtube.com/embed/videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1"
     },
     {
       "id": "road-to-mocoa",
@@ -137,7 +137,7 @@
       "subtitle": "Inside a copper megaproject",
       "image": "ROAD-to-MOCOA.jpg",
       "link_type": "modal",
-      "link_href": ""
+      "link_href": "https://www.youtube.com/embed/-LWD7kVmmrs?autoplay=1&rel=0"
     },
     {
       "id": "mocoa-deposit",
