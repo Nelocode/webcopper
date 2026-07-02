@@ -136,6 +136,132 @@ document.addEventListener('DOMContentLoaded', () => {
     initMocoaPage();
 
     // ---------------------------------------------------------
+    // 0.4. Live Hero Section Loader (Dynamic from site.json)
+    // ---------------------------------------------------------
+    function initHero() {
+        const section = document.querySelector('.hero-video-section');
+        if (!section) return;
+
+        const path = window.location.pathname;
+        const pageMap = {
+            'index.html': 'home',
+            '/': 'home',
+            'corporate.html': 'corporate',
+            'mocoa.html': 'mocoa',
+            'news.html': 'news',
+            'investors.html': 'investors'
+        };
+        const pageName = Object.keys(pageMap).find(k => path.endsWith(k))
+            ? pageMap[Object.keys(pageMap).find(k => path.endsWith(k))]
+            : 'home';
+
+        fetch('data/site.json')
+            .then(res => res.json())
+            .then(data => {
+                const hero = (data.heroes || []).find(h => h.page === pageName);
+                if (!hero) return;
+
+                section.innerHTML = '';
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'hero-video-wrapper';
+                if (hero.ratio) {
+                    wrapper.style.aspectRatio = hero.ratio;
+                }
+
+                if (hero.type === 'video') {
+                    const video = document.createElement('video');
+                    video.autoplay = true;
+                    video.loop = true;
+                    video.muted = true;
+                    video.playsInline = true;
+                    video.className = 'hero-video-bg';
+                    const source = document.createElement('source');
+                    source.src = hero.media;
+                    source.type = 'video/mp4';
+                    video.appendChild(source);
+                    wrapper.appendChild(video);
+                } else {
+                    const img = document.createElement('img');
+                    img.src = hero.media;
+                    img.alt = hero.alt || '';
+                    img.className = 'hero-video-bg' + (hero.page === 'investors' ? ' ken-burns' : '');
+                    wrapper.appendChild(img);
+                }
+
+                const overlay = document.createElement('div');
+                overlay.className = 'hero-video-overlay';
+
+                const container = document.createElement('div');
+                container.className = 'hero-text-container';
+
+                if (hero.eyebrow) {
+                    const eb = document.createElement('div');
+                    eb.className = 'hero-eyebrow';
+                    eb.innerHTML = hero.eyebrow;
+                    container.appendChild(eb);
+                }
+
+                if (hero.title) {
+                    const title = document.createElement(hero.title_tag || 'h1');
+                    title.className = hero.title_class || 'hero-title';
+                    title.innerHTML = hero.title;
+                    container.appendChild(title);
+                }
+
+                overlay.appendChild(container);
+                wrapper.appendChild(overlay);
+                section.appendChild(wrapper);
+            })
+            .catch(err => console.warn('Hero loader: could not load site.json', err));
+    }
+    initHero();
+
+    // ---------------------------------------------------------
+    // 0.5. Live Split Section Cards Loader (Dynamic from site.json)
+    // ---------------------------------------------------------
+    function initSplitCards() {
+        const splitContainer = document.querySelector('.split-cards-grid');
+        if (!splitContainer) return;
+
+        fetch('data/site.json')
+            .then(res => res.json())
+            .then(data => {
+                const cards = data.split_cards || [];
+                if (cards.length === 0) return;
+
+                const classMap = {
+                    'meet-the-team': 'meet-the-team-card',
+                    'road-to-mocoa': 'video-portal-new',
+                    'mocoa-deposit': 'geology-card span-full',
+                    'copper-giant-way': 'copper-giant-way-card',
+                    'making-of-giant': 'making-of-giant-card',
+                    'coreshack': 'split-coreshack-card span-full'
+                };
+
+                splitContainer.innerHTML = cards.map(card => {
+                    const cardClass = classMap[card.id] || 'meet-the-team-card';
+                    const bgStyle = card.image ? `style="--card-bg: url('${card.image}')"` : '';
+                    const actionBtn = card.link_type === 'modal' 
+                        ? `<button class="btn-card-action" onclick="openVideoModal()">Dive in</button>`
+                        : `<button class="btn-card-action" onclick="window.location.href='${card.link_href || ''}'">Dive in</button>`;
+
+                    return `
+                        <div class="split-card text-centered ${cardClass}" ${bgStyle}>
+                            <div class="video-card-header">
+                                <h3 class="card-title-main">${card.title}</h3>
+                                <p class="card-subtitle-sub">${card.subtitle}</p>
+                            </div>
+                            ${actionBtn}
+                        </div>
+                    `;
+                }).join('');
+            })
+            .catch(err => console.warn('Split cards loader: could not load site.json', err));
+    }
+    initSplitCards();
+
+    // ---------------------------------------------------------
     // 1. Mobile Menu Toggle (Illustrator Proposal Custom)
     // ---------------------------------------------------------
     const mobileMenuToggle = document.getElementById('btn-mobile-menu');
