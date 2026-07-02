@@ -595,13 +595,13 @@ body.header-hovered .page-backdrop {
 /* 7. NEWS HUB SECTION */
 .news-hub-section {
     background: var(--bg-void);
-    padding: 80px 24px 20px 24px;
+    padding: 45px 24px 20px 24px;
     border-bottom: 1px solid #1a1a1a;
 }
 
 .news-hub-header {
     max-width: 1200px;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 20px auto;
     text-align: center;
 }
 
@@ -1796,6 +1796,8 @@ body.header-hovered .page-backdrop {
     flex-direction: column;
     justify-content: flex-end;
     padding: 20px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .dropdown-card-img {

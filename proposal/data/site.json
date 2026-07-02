@@ -217,21 +217,21 @@
       "id": "corporate",
       "title": "Management Team",
       "subtitle": "Battle-Tested. Ready to Win.",
-      "image": "assets/meet-the-team.jpg",
+      "image": "meet the team.jpg",
       "link_href": "corporate.html#team"
     },
     {
       "id": "mocoa",
       "title": "Interactive 3D Model",
       "subtitle": "Explore the Porphyry Deposit.",
-      "image": "assets/mocoa-landscape.jpg",
+      "image": "mocoa-deposit-bg.jpg",
       "link_href": "mocoa.html"
     },
     {
       "id": "news",
       "title": "Making of a Giant",
       "subtitle": "Why Mocoa has giant written all over it.",
-      "image": "assets/why-invest.jpg",
+      "image": "Themaking.jpg",
       "link_href": "news.html"
     }
   ]
