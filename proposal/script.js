@@ -321,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------------------------------------------------------
     // 0.6.5. Custom Pop-ups (YouTube Playlist, Mocoa360, Instagram)
     // ---------------------------------------------------------
+    const playlistVideos = ['SdGeDEznMXg', 'B7XABIdWLOY', '0LLGecN0knM'];
     let currentPlaylistIndex = 1;
 
     window.openCustomVideoModal = function(url) {
@@ -332,7 +333,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check if it's the playlist url
             if (url.indexOf('list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h') > -1) {
                 currentPlaylistIndex = 1;
-                ytIframe.src = url + "&index=" + currentPlaylistIndex;
+                const videoId = playlistVideos[currentPlaylistIndex - 1];
+                ytIframe.src = `https://www.youtube.com/embed/${videoId}?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1`;
                 
                 // Inject navigation arrows if not already present
                 injectPlaylistArrows();
@@ -458,7 +460,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlaylistIndex = 1;
         }
 
-        ytIframe.src = "https://www.youtube.com/embed/videoseries?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1&index=" + currentPlaylistIndex;
+        const videoId = playlistVideos[currentPlaylistIndex - 1];
+        ytIframe.src = `https://www.youtube.com/embed/${videoId}?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1`;
     }
 
     // Mocoa 360 Pop-up Model
