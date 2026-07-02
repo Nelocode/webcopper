@@ -295,9 +295,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             window.openMocoa360Modal();
                         });
                     } else if (card.id === 'news') {
-                        cardEl.setAttribute('href', 'https://www.instagram.com/cu_giant/');
-                        cardEl.setAttribute('target', '_blank');
-                        cardEl.setAttribute('rel', 'noopener noreferrer');
+                        cardEl.setAttribute('href', '#');
+                        cardEl.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            window.openInstagramModal();
+                        });
                     } else if (card.link_href) {
                         cardEl.setAttribute('href', card.link_href);
                     }
@@ -529,6 +531,102 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Instagram Live Feed Pop-up
+    function injectInstagramModal() {
+        if (document.getElementById('instagram-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'instagram-modal';
+        
+        // Alphanumeric post IDs of real Instagram posts from @cu_giant.
+        // These can be updated by the client to show any actual posts.
+        const postIds = ['C9m142xOSa_', 'C8n512kLOpQ', 'C7a982pLMzN'];
+
+        modal.innerHTML = `
+            <button class="modal-close-btn" onclick="closeInstagramModal()">&times;</button>
+            <div class="modal-content" style="max-width: 1050px; padding: 30px; background: #0c0c0c; border: 1px solid var(--border-glass); border-radius: var(--radius-card); position: relative; margin: 20px; width: 90%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;">
+                <!-- Header -->
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 16px; flex-shrink: 0;">
+                    <div style="display: flex; align-items: center; gap: 14px;">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 2px solid var(--copper-primary); padding: 3px; background: #000; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="assets/LOGO.svg" style="width: 100%; height: 100%; object-fit: contain;" alt="Copper Giant Logo">
+                        </div>
+                        <div style="text-align: left;">
+                            <h3 style="margin: 0; font-size: 1.2rem; font-weight: 700; color: white;">@cu_giant</h3>
+                            <p style="margin: 2px 0 0 0; font-size: 0.75rem; color: var(--text-secondary);">Copper Giant Resources Corp. on Instagram</p>
+                        </div>
+                    </div>
+                    <a href="https://www.instagram.com/cu_giant/" target="_blank" rel="noopener noreferrer" class="btn-copper" style="padding: 8px 18px; font-size: 0.78rem; display: flex; align-items: center; gap: 6px; text-decoration: none; border-radius: 4px; font-weight: 600;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        Follow Profile
+                    </a>
+                </div>
+
+                <!-- Scrollable Grid Container -->
+                <div style="flex: 1; overflow-y: auto; padding-right: 6px;" class="instagram-embed-scroll">
+                    <div class="instagram-embed-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; justify-items: center; padding: 10px 0;">
+                        ${postIds.map(id => `
+                            <div style="width: 100%; max-width: 320px; background: #050505; border-radius: 8px; overflow: hidden; display: flex; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                                <iframe src="https://www.instagram.com/p/${id}/embed" style="width: 100%; min-height: 480px; border: none;" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                closeInstagramModal();
+            }
+        };
+
+        // Add CSS styling dynamically for responsiveness
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @media (max-width: 900px) {
+                .instagram-embed-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+            @media (max-width: 600px) {
+                .instagram-embed-grid {
+                    grid-template-columns: repeat(1, 1fr) !important;
+                }
+            }
+            /* Style scrollbar of embeds grid */
+            .instagram-embed-scroll::-webkit-scrollbar {
+                width: 6px;
+            }
+            .instagram-embed-scroll::-webkit-scrollbar-track {
+                background: rgba(255,255,255,0.02);
+                border-radius: 3px;
+            }
+            .instagram-embed-scroll::-webkit-scrollbar-thumb {
+                background: rgba(255,255,255,0.15);
+                border-radius: 3px;
+            }
+        `;
+        modal.appendChild(style);
+        document.body.appendChild(modal);
+    }
+
+    window.openInstagramModal = function() {
+        injectInstagramModal();
+        const modal = document.getElementById('instagram-modal');
+        if (modal) {
+            modal.classList.add('active');
+        }
+    };
+
+    window.closeInstagramModal = function() {
+        const modal = document.getElementById('instagram-modal');
+        if (modal) {
+            modal.classList.remove('active');
+        }
+    };
+
 
 
 
@@ -646,6 +744,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') {
             closeVideoModal();
             if (window.closeMocoa360Modal) window.closeMocoa360Modal();
+            if (window.closeInstagramModal) window.closeInstagramModal();
         }
     });
 
