@@ -5494,3 +5494,28 @@ div.response {
     font-weight: 600;
 }
 
+/* Playlist Sidebar and Items */
+.playlist-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.playlist-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.playlist-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+.playlist-sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+.playlist-item {
+    transition: all 0.2s ease;
+}
+.playlist-item:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+.playlist-item.active {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: var(--copper-primary) !important;
+}
+
