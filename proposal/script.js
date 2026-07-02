@@ -262,6 +262,46 @@ document.addEventListener('DOMContentLoaded', () => {
     initSplitCards();
 
     // ---------------------------------------------------------
+    // 0.6. Mega Menu Dropdown Cards Loader (Dynamic from site.json)
+    // ---------------------------------------------------------
+    function initDropdownCards() {
+        const panels = {
+            'corporate': document.querySelector('#tray-corporate .dropdown-card'),
+            'mocoa': document.querySelector('#tray-mocoa .dropdown-card'),
+            'news': document.querySelector('#tray-news .dropdown-card')
+        };
+
+        if (!panels.corporate && !panels.mocoa && !panels.news) return;
+
+        fetch('data/site.json')
+            .then(res => res.json())
+            .then(data => {
+                const cards = data.menu_dropdown_cards || [];
+                cards.forEach(card => {
+                    const cardEl = panels[card.id];
+                    if (!cardEl) return;
+
+                    if (card.link_href) {
+                        cardEl.setAttribute('href', card.link_href);
+                    }
+
+                    const img = cardEl.querySelector('.dropdown-card-img');
+                    if (img && card.image) {
+                        img.src = card.image;
+                    }
+
+                    const titleEl = cardEl.querySelector('strong');
+                    const subtitleEl = cardEl.querySelector('span');
+
+                    if (titleEl) titleEl.textContent = card.title;
+                    if (subtitleEl) subtitleEl.textContent = card.subtitle;
+                });
+            })
+            .catch(err => console.warn('Dropdown cards loader: could not load site.json', err));
+    }
+    initDropdownCards();
+
+    // ---------------------------------------------------------
     // 1. Mobile Menu Toggle (Illustrator Proposal Custom)
     // ---------------------------------------------------------
     const mobileMenuToggle = document.getElementById('btn-mobile-menu');

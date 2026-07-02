@@ -183,3 +183,13 @@ collections:
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Body Text", name: "body", widget: "text" }
+
+          - label: "Mega Menu Dropdown Cards"
+            name: "menu_dropdown_cards"
+            widget: "list"
+            fields:
+              - { label: "ID (e.g. corporate, mocoa, news)", name: "id", widget: "string", readonly: true }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Link URL", name: "link_href", widget: "string" }

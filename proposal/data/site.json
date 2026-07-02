@@ -211,5 +211,28 @@
       "title": "Sustainable Future",
       "body": "Every step of our operations is designed with long-term sustainability in mind — creating value that outlasts the mine."
     }
+  ],
+  "menu_dropdown_cards": [
+    {
+      "id": "corporate",
+      "title": "Management Team",
+      "subtitle": "Battle-Tested. Ready to Win.",
+      "image": "assets/meet-the-team.jpg",
+      "link_href": "corporate.html#team"
+    },
+    {
+      "id": "mocoa",
+      "title": "Interactive 3D Model",
+      "subtitle": "Explore the Porphyry Deposit.",
+      "image": "assets/mocoa-landscape.jpg",
+      "link_href": "mocoa.html"
+    },
+    {
+      "id": "news",
+      "title": "Making of a Giant",
+      "subtitle": "Why Mocoa has giant written all over it.",
+      "image": "assets/why-invest.jpg",
+      "link_href": "news.html"
+    }
   ]
 }
