@@ -295,11 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             window.openMocoa360Modal();
                         });
                     } else if (card.id === 'news') {
-                        cardEl.setAttribute('href', '#');
-                        cardEl.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            window.openInstagramModal();
-                        });
+                        cardEl.setAttribute('href', 'https://www.instagram.com/cu_giant/');
+                        cardEl.setAttribute('target', '_blank');
+                        cardEl.setAttribute('rel', 'noopener noreferrer');
                     } else if (card.link_href) {
                         cardEl.setAttribute('href', card.link_href);
                     }
@@ -560,130 +558,7 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.borderColor = 'var(--copper-primary)';
     };
 
-    // Instagram Mock Feed Pop-up
-    function injectInstagramModal() {
-        if (document.getElementById('instagram-modal')) return;
 
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.id = 'instagram-modal';
-        modal.innerHTML = `
-            <!-- Floating close button at the top right of overlay viewport -->
-            <button class="modal-close" style="position: absolute; top: 25px; right: 25px; z-index: 1010;" onclick="closeInstagramModal()">&times;</button>
-            
-            <div class="modal-content" style="max-width: 800px; padding: 30px; background: #0b0b0b; border: 1px solid var(--border-glass); border-radius: var(--radius-card); position: relative; margin: 20px; width: 90%;">
-                
-                <!-- Instagram Header -->
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px;">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 2px solid var(--copper-primary); padding: 4px; background: #000; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <img src="assets/LOGO.svg" style="width: 100%; height: 100%; object-fit: contain;" alt="Copper Giant Logo">
-                        </div>
-                        <div style="text-align: left;">
-                            <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: white;">@cu_giant</h3>
-                            <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">Copper Giant Resources Corp.</p>
-                        </div>
-                    </div>
-                    <a href="https://www.instagram.com/cu_giant/" target="_blank" rel="noopener noreferrer" class="btn-copper" style="padding: 10px 20px; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 4px; font-weight: 600;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                        Follow
-                    </a>
-                </div>
-                
-                <!-- Feed Grid -->
-                <div class="instagram-feed-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
-                    <!-- Post 1 -->
-                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/coreshack-inspect.png" alt="Instagram Post">
-                        <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Inspecting high-grade copper mineralization under the lens at our Mocoa project.</p>
-                            <div class="insta-post-stats">
-                                <span>❤️ 142</span>
-                                <span>💬 12</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Post 2 -->
-                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/meet-the-team.jpg" alt="Instagram Post">
-                        <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Analyzing porphyry and breccia samples on our core logging tables with the geological team.</p>
-                            <div class="insta-post-stats">
-                                <span>❤️ 98</span>
-                                <span>💬 8</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Post 3 -->
-                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/ernest-mast.webp" alt="Instagram Post">
-                        <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Director Ernest Mast shares updates on our sustainable approach and long-term vision at Mocoa.</p>
-                            <div class="insta-post-stats">
-                                <span>❤️ 210</span>
-                                <span>💬 19</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Post 4 -->
-                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/about-team.jpg" alt="Instagram Post">
-                        <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Our dedicated field team mapping and collecting data to unlock Mocoa's giant potential.</p>
-                            <div class="insta-post-stats">
-                                <span>❤️ 85</span>
-                                <span>💬 4</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Post 5 -->
-                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/reforestacion.jpg" alt="Instagram Post">
-                        <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Proudly supporting environmental preservation and community reforestation in Putumayo.</p>
-                            <div class="insta-post-stats">
-                                <span>❤️ 115</span>
-                                <span>💬 11</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Post 6 -->
-                    <div class="insta-post-card" onclick="window.open('https://www.instagram.com/cu_giant/', '_blank')">
-                        <img src="assets/mocoa-deposit-3d.jpg" alt="Instagram Post">
-                        <div class="insta-post-overlay">
-                            <p class="insta-post-desc">Visualizing Mocoa's resource scale in 3D: 4.6Mt Copper and 511Mlb Molybdenum.</p>
-                            <div class="insta-post-stats">
-                                <span>❤️ 130</span>
-                                <span>💬 7</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        `;
-        modal.onclick = function(e) {
-            if (e.target === modal) {
-                closeInstagramModal();
-            }
-        };
-        document.body.appendChild(modal);
-    }
-
-    window.openInstagramModal = function() {
-        injectInstagramModal();
-        const modal = document.getElementById('instagram-modal');
-        if (modal) {
-            modal.classList.add('active');
-        }
-    };
-
-    window.closeInstagramModal = function() {
-        const modal = document.getElementById('instagram-modal');
-        if (modal) {
-            modal.classList.remove('active');
-        }
-    };
 
     // ---------------------------------------------------------
     // 0.7. Home News Hub Loader (Dynamic 6 items from news.json)
