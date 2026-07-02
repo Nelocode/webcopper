@@ -532,16 +532,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Instagram Live Feed Pop-up
-    function injectInstagramModal() {
+    function injectInstagramModal(postIds) {
         if (document.getElementById('instagram-modal')) return;
 
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
         modal.id = 'instagram-modal';
-        
-        // Alphanumeric post IDs of real Instagram posts from @cu_giant.
-        // These can be updated by the client to show any actual posts.
-        const postIds = ['C9m142xOSa_', 'C8n512kLOpQ', 'C7a982pLMzN'];
 
         modal.innerHTML = `
             <button class="modal-close-btn" onclick="closeInstagramModal()">&times;</button>
@@ -613,11 +609,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.openInstagramModal = function() {
-        injectInstagramModal();
-        const modal = document.getElementById('instagram-modal');
-        if (modal) {
-            modal.classList.add('active');
-        }
+        fetch('data/site.json')
+            .then(res => res.json())
+            .then(data => {
+                const postIds = data.instagram_post_ids || [];
+                injectInstagramModal(postIds);
+                const modal = document.getElementById('instagram-modal');
+                if (modal) {
+                    modal.classList.add('active');
+                }
+            })
+            .catch(err => {
+                console.warn('Could not load site.json for Instagram modal', err);
+                injectInstagramModal(['C9m142xOSa_', 'C8n512kLOpQ', 'C7a982pLMzN']);
+                const modal = document.getElementById('instagram-modal');
+                if (modal) {
+                    modal.classList.add('active');
+                }
+            });
     };
 
     window.closeInstagramModal = function() {
