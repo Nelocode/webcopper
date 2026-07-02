@@ -535,13 +535,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function injectInstagramModal(postIds) {
         if (document.getElementById('instagram-modal')) return;
 
+        // Ensure the official Instagram embed script is present
+        if (!document.getElementById('instagram-embed-script')) {
+            const script = document.createElement('script');
+            script.id = 'instagram-embed-script';
+            script.src = 'https://www.instagram.com/embed.js';
+            script.async = true;
+            document.body.appendChild(script);
+        }
+
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
         modal.id = 'instagram-modal';
 
         modal.innerHTML = `
             <button class="modal-close-btn" onclick="closeInstagramModal()">&times;</button>
-            <div class="modal-content" style="max-width: 1050px; padding: 30px; background: #0c0c0c; border: 1px solid var(--border-glass); border-radius: var(--radius-card); position: relative; margin: 20px; width: 90%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;">
+            <div class="modal-content" style="max-width: 1080px; padding: 30px; background: #0c0c0c; border: 1px solid var(--border-glass); border-radius: var(--radius-card); position: relative; margin: 20px; width: 90%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;">
                 <!-- Header -->
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 16px; flex-shrink: 0;">
                     <div style="display: flex; align-items: center; gap: 14px;">
@@ -561,10 +570,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <!-- Scrollable Grid Container -->
                 <div style="flex: 1; overflow-y: auto; padding-right: 6px;" class="instagram-embed-scroll">
-                    <div class="instagram-embed-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; justify-items: center; padding: 10px 0;">
+                    <div class="instagram-embed-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; justify-items: center; padding: 10px 0; align-items: start;">
                         ${postIds.map(id => `
-                            <div style="width: 100%; max-width: 320px; background: #050505; border-radius: 8px; overflow: hidden; display: flex; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-                                <iframe src="https://www.instagram.com/p/${id}/embed" style="width: 100%; min-height: 480px; border: none;" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                            <div style="width: 100%; max-width: 320px; display: flex; justify-content: center;">
+                                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/${id}/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3); margin:0; width:100%; min-width:320px;">
+                                    <div style="padding:16px; text-align:center;">
+                                        <a href="https://www.instagram.com/p/${id}/" target="_blank" style="color:#000; text-decoration:none; font-family:var(--font-primary); font-size:0.85rem; font-weight:600;">Loading post...</a>
+                                    </div>
+                                </blockquote>
                             </div>
                         `).join('')}
                     </div>
@@ -617,6 +630,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const modal = document.getElementById('instagram-modal');
                 if (modal) {
                     modal.classList.add('active');
+                    if (window.instgrm) {
+                        window.instgrm.Embeds.process();
+                    }
                 }
             })
             .catch(err => {
@@ -625,6 +641,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const modal = document.getElementById('instagram-modal');
                 if (modal) {
                     modal.classList.add('active');
+                    if (window.instgrm) {
+                        window.instgrm.Embeds.process();
+                    }
                 }
             });
     };
