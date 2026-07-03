@@ -144,8 +144,8 @@
       "title": "MOCOA THE DEPOSIT",
       "subtitle": "The Resource | The Scale | The Potential",
       "image": "mocoa-deposit-bg.png",
-      "link_type": "page",
-      "link_href": "mocoa.html"
+      "link_type": "modal",
+      "link_href": "https://www.youtube.com/embed/LWcyXjxxjsY?list=PLcEfgyOkpXh1fk-046fTTNG_gnfk5SSmy&autoplay=1"
     },
     {
       "id": "copper-giant-way",
