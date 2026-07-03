@@ -2540,6 +2540,15 @@ body.header-hovered .page-backdrop {
 }
 
 
+/* Base Section backgrounds and dynamic alternation */
+section {
+    background-color: var(--bg-void);
+}
+section:nth-of-type(even) {
+    background-color: var(--bg-deep);
+}
+
+
 /* LAYOUT UTILS */
 .container {
     max-width: 1400px;
