@@ -233,12 +233,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 splitContainer.innerHTML = cards.map(card => {
                     const cardClass = classMap[card.id] || 'meet-the-team-card';
                     const bgStyle = card.image ? `style="--card-bg: url('${card.image}')"` : '';
-                    const actionBtn = card.link_type === 'modal' 
-                        ? `<button class="btn-card-action" onclick="window.openCustomVideoModal('${card.link_href || ''}')">Dive in</button>`
-                        : `<button class="btn-card-action" onclick="window.location.href='${card.link_href || ''}'">Dive in</button>`;
+                    
+                    let actionBtn = '';
+                    let cardOnclick = '';
+                    let cardStyle = '';
+                    
+                    if (card.link_type === 'modal') {
+                        actionBtn = `<button class="btn-card-action" onclick="window.openCustomVideoModal('${card.link_href || ''}')">Dive in</button>`;
+                    } else if (card.link_type === 'metrics-modal') {
+                        actionBtn = `<button class="btn-card-action" onclick="event.stopPropagation(); window.openDepositMetricsModal()">Dive in</button>`;
+                        cardOnclick = `onclick="window.openDepositMetricsModal()"`;
+                        cardStyle = `style="cursor: pointer;"`;
+                    } else {
+                        actionBtn = `<button class="btn-card-action" onclick="window.location.href='${card.link_href || ''}'">Dive in</button>`;
+                    }
+
+                    // Merge bgStyle and cardStyle if both exist
+                    let finalStyle = bgStyle;
+                    if (cardStyle) {
+                        if (bgStyle) {
+                            finalStyle = bgStyle.replace('style="', 'style="cursor: pointer; ');
+                        } else {
+                            finalStyle = cardStyle;
+                        }
+                    }
 
                     return `
-                        <div class="split-card text-centered ${cardClass}" ${bgStyle}>
+                        <div class="split-card text-centered ${cardClass}" ${finalStyle} ${cardOnclick}>
                             <div class="video-card-header">
                                 <h3 class="card-title-main">${card.title}</h3>
                                 <p class="card-subtitle-sub">${card.subtitle}</p>
@@ -1836,8 +1857,118 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     };
 
-    window.closeNewsModal = function() {
-        const modal = document.getElementById('news-modal');
+    // ---------------------------------------------------------
+    // Deposit Metrics Modal Implementation (Dynamic Injection & Overlay)
+    // ---------------------------------------------------------
+    function injectDepositMetricsModal() {
+        if (document.getElementById('deposit-metrics-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'deposit-metrics-modal';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 700px; width: 90%; padding: 40px; border-bottom: 3px solid var(--copper-primary); text-align: center; position: relative;">
+                <button class="modal-close" style="position: absolute; top: 20px; right: 20px; font-size: 2rem; background: none; border: none; color: var(--text-secondary); cursor: pointer; transition: color var(--transition-fast);" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--text-secondary)'" onclick="window.closeDepositMetricsModal()">&times;</button>
+                
+                <div style="margin-top: 10px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--copper-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">
+                        Mocoa Deposit Resource
+                    </div>
+                    <h2 style="font-size: 2rem; line-height: 1.3; color: white; font-weight: 800; margin-bottom: 25px; letter-spacing: -0.01em;">
+                        Mineral Resource Estimate
+                    </h2>
+                    
+                    <div style="height: 1px; background: rgba(255, 255, 255, 0.1); margin-bottom: 30px;"></div>
+                    
+                    <!-- Metrics Grid -->
+                    <div class="modal-metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-bottom: 35px;">
+                        
+                        <!-- Metric 1: Tonnes -->
+                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                                1.12B
+                            </div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); line-height: 1.4; letter-spacing: 0.05em;">
+                                Tonnes Inferred Resource
+                            </div>
+                        </div>
+                        
+                        <!-- Metric 2: Lbs CuEq -->
+                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                                12.7B
+                            </div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); line-height: 1.4; letter-spacing: 0.05em;">
+                                Lbs CuEq Inferred
+                            </div>
+                        </div>
+                        
+                        <!-- Metric 3: Grade -->
+                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
+                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--copper-primary); line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                                0.51%
+                            </div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); line-height: 1.4; letter-spacing: 0.05em;">
+                                Copper Equivalent Grade
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; max-width: 580px; margin: 0 auto 20px auto; text-align: center;">
+                        Note: The Mocoa copper-molybdenum porphyry deposit is one of the largest undeveloped copper resources in the Americas. Resources are reported in accordance with National Instrument 43-101 standards at a cut-off grade of 0.25% CuEq.
+                    </p>
+                </div>
+                
+                <div style="display: flex; gap: 16px; margin-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 25px; justify-content: center;">
+                    <a href="mocoa.html#mineral-resource" class="btn-rect btn-rect-primary" style="padding: 12px 28px; font-size: 0.8rem; text-decoration: none;" onclick="window.closeDepositMetricsModal()">MORE DETAILS</a>
+                    <button class="btn-rect" style="background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 12px 28px; font-size: 0.8rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'" onclick="window.closeDepositMetricsModal()">CLOSE</button>
+                </div>
+            </div>
+        `;
+        
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                window.closeDepositMetricsModal();
+            }
+        };
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                window.closeDepositMetricsModal();
+            }
+        });
+
+        // Add CSS style block dynamically for block hover effects inside modal
+        if (!document.getElementById('modal-metrics-style')) {
+            const style = document.createElement('style');
+            style.id = 'modal-metrics-style';
+            style.innerHTML = `
+                .metric-block:hover {
+                    border-color: var(--copper-primary) !important;
+                    background: rgba(255, 85, 34, 0.05) !important;
+                    box-shadow: 0 10px 30px rgba(255, 85, 34, 0.1);
+                    transform: translateY(-2px);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        document.body.appendChild(modal);
+    }
+
+    window.openDepositMetricsModal = function() {
+        injectDepositMetricsModal();
+        const modal = document.getElementById('deposit-metrics-modal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+
+    window.closeDepositMetricsModal = function() {
+        const modal = document.getElementById('deposit-metrics-modal');
         if (modal) {
             modal.classList.remove('active');
             document.body.style.overflow = '';

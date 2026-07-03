@@ -243,12 +243,12 @@
             </div>
             
             <!-- Card 3: Geology (Mocoa the Deposit) - Full Width -->
-            <div class="split-card text-centered geology-card span-full">
+            <div class="split-card text-centered geology-card span-full" style="cursor: pointer;" onclick="window.openDepositMetricsModal()">
                 <div class="video-card-header">
                     <h3 class="card-title-main">MOCOA THE DEPOSIT</h3>
                     <p class="card-subtitle-sub">The Resource | The Scale | The Potential</p>
                 </div>
-                <button class="btn-card-action" onclick="window.openCustomVideoModal('https://www.youtube.com/embed/LWcyXjxxjsY?list=PLcEfgyOkpXh1fk-046fTTNG_gnfk5SSmy&autoplay=1')">Dive in</button>
+                <button class="btn-card-action" onclick="event.stopPropagation(); window.openDepositMetricsModal()">Dive in</button>
             </div>
 
             <!-- Card 4: The Copper Giant Way -->
