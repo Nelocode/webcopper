@@ -3067,9 +3067,9 @@ section[id] {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: var(--copper-primary);
-    border: 1px solid var(--copper-primary);
-    color: white;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    color: var(--copper-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3079,7 +3079,7 @@ section[id] {
     visibility: hidden;
     transform: translateY(20px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 30px rgba(255, 0, 44, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
 }
 
 .back-to-top.visible {
@@ -3089,11 +3089,11 @@ section[id] {
 }
 
 .back-to-top:hover {
-    color: white;
-    background: var(--copper-primary-hover);
-    border-color: var(--copper-primary-hover);
+    color: var(--copper-primary-hover);
+    background: #ffffff;
+    border-color: #ffffff;
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(255, 0, 44, 0.45), 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 20px rgba(255, 0, 44, 0.15), 0 8px 30px rgba(0, 0, 0, 0.45);
 }
 
 .back-to-top svg {
