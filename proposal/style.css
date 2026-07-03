@@ -9,9 +9,9 @@
 :root {
     /* Colors from Illustrator Mockup */
     --bg-void: #000000;         /* True black background */
-    --bg-deep: #0a0a0a;         /* Deep grey background for sections */
-    --bg-card: #151515;         /* Medium grey card/panel background */
-    --bg-card-subtle: #202020;  /* Lighter grey for highlighting */
+    --bg-deep: #111111;         /* Deep grey background for sections */
+    --bg-card: #181818;         /* Medium grey card/panel background */
+    --bg-card-subtle: #242424;  /* Lighter grey for highlighting */
     --bg-glass: rgba(20, 20, 20, 0.4); /* Glassmorphism background */
     --border-subtle: rgba(255, 255, 255, 0.08);
     --border-glass: rgba(255, 255, 255, 0.05);
@@ -420,7 +420,7 @@ body.header-hovered .page-backdrop {
     position: relative;
     width: 100%;
     background: #000000;
-    border-bottom: 1px solid #1a1a1a;
+    border-bottom: 1px solid var(--border-subtle);
     display: block;
     margin: 0;
     padding: 0;
@@ -594,9 +594,9 @@ body.header-hovered .page-backdrop {
 
 /* 7. NEWS HUB SECTION */
 .news-hub-section {
-    background: var(--bg-void);
+    background: var(--bg-deep);
     padding: 45px 24px 20px 24px;
-    border-bottom: 1px solid #1a1a1a;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .news-hub-header {
@@ -935,7 +935,7 @@ body.header-hovered .page-backdrop {
 .mocoa-porphyry-section {
     background: var(--bg-void);
     padding: 100px 24px;
-    border-bottom: 1px solid #1a1a1a;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .mocoa-grid {
@@ -1067,9 +1067,9 @@ body.header-hovered .page-backdrop {
 
 /* 9. DOUBLE SPLIT SECTIONS (2x2 GRID) */
 .split-section {
-    background: var(--bg-void);
+    background: var(--bg-deep);
     padding: 20px 24px 80px 24px;
-    border-bottom: 1px solid #1a1a1a;
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .split-cards-grid {
