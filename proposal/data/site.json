@@ -40,7 +40,7 @@
     {
       "page": "news",
       "type": "image",
-      "media": "assets/libero/news_hero.webp",
+      "media": "assets/news-hero.jpg",
       "alt": "News Room",
       "ratio": "2520/972",
       "title": "Press &<br>updates.",
