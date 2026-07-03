@@ -60,7 +60,7 @@
                             <a href="mocoa.html#geology">Geology & Deposit</a>
                             <a href="mocoa.html#mineral-resource">NI 43-101 Estimate</a>
                             <a href="mocoa.html#drilling">Drilling Highlights</a>
-                            <a href="mocoa.html#coreshack">Coreshack Gallery</a>
+                            <a href="index.html#coreshack">Coreshack Gallery</a>
                             <a href="mocoa.html#gallery">Photos & Videos</a>
                             <a href="mocoa.html#maps">Project Maps</a>
                             <a href="#" onclick="window.openMocoa360Modal(); return false;">Interactive 3D Model</a>
@@ -270,12 +270,12 @@
             </div>
 
             <!-- Card 6: The Coreshack - Full Width -->
-            <div class="split-card split-coreshack-card span-full">
+            <div class="split-card split-coreshack-card span-full" onclick="window.openCoreshackCarouselModal()" style="cursor: pointer;">
                 <div class="video-card-header">
                     <h3 class="card-title-main">THE CORESHACK</h3>
                     <p class="card-subtitle-sub">The core that speaks for itself</p>
                 </div>
-                <button class="btn-card-action">Dive in</button>
+                <button class="btn-card-action" onclick="event.stopPropagation(); window.openCoreshackCarouselModal()">Dive in</button>
             </div>
         </div>
     </section>

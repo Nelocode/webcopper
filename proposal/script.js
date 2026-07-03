@@ -259,6 +259,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (card.link_type === 'coming-soon') {
                         actionBtn = `<button class="btn-card-action" style="cursor: default; pointer-events: none;">Coming Soon</button>`;
                         cardStyle = `style="cursor: default;"`;
+                    } else if (card.link_type === 'coreshack-modal') {
+                        actionBtn = `<button class="btn-card-action" onclick="event.stopPropagation(); window.openCoreshackCarouselModal()">Dive in</button>`;
+                        cardOnclick = `onclick="window.openCoreshackCarouselModal()"`;
+                        cardStyle = `style="cursor: pointer;"`;
                     } else {
                         actionBtn = `<button class="btn-card-action" onclick="window.location.href='${card.link_href || ''}'">Dive in</button>`;
                     }
@@ -1992,6 +1996,197 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
     };
+
+    // Coreshack Carousel Modal Implementation
+    // ---------------------------------------------------------
+    let coreshackActiveIndex = 0;
+    const coreshackImages = Array.from({length: 21}, (_, i) => `assets/coreshack/copper-giant-the-coreshack-${i + 1}.webp`);
+
+    function injectCoreshackCarouselModal() {
+        if (document.getElementById('coreshack-carousel-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'coreshack-carousel-modal';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 950px; width: 95%; padding: 30px; border-bottom: 3px solid var(--copper-primary); position: relative; background: #0c0c0c;">
+                <button class="modal-close" style="position: absolute; top: 15px; right: 15px; font-size: 2rem; background: none; border: none; color: var(--text-secondary); cursor: pointer; transition: color var(--transition-fast); z-index: 10;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--text-secondary)'" onclick="window.closeCoreshackCarouselModal()">&times;</button>
+                
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--copper-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px;">
+                        Mocoa Project
+                    </div>
+                    <h2 style="font-size: 1.8rem; line-height: 1.2; color: white; font-weight: 800; margin: 0; letter-spacing: -0.01em;">
+                        The Coreshack Gallery
+                    </h2>
+                </div>
+                
+                <!-- Main Carousel Container -->
+                <div class="coreshack-carousel-container" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: var(--radius-card); overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 50px rgba(0,0,0,0.8);">
+                    <!-- Active Slide -->
+                    <img id="coreshack-active-img" src="${coreshackImages[0]}" alt="The Coreshack" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: opacity 0.3s ease;">
+                    
+                    <!-- Controls -->
+                    <button class="carousel-nav-btn prev" onclick="window.coreshackPrevSlide()" style="position: absolute; left: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); width: 45px; height: 45px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 5;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="carousel-nav-btn next" onclick="window.coreshackNextSlide()" style="position: absolute; right: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); width: 45px; height: 45px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 5;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                    
+                    <!-- Caption -->
+                    <div id="coreshack-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 25px 20px 15px 20px; color: white; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; text-align: center; pointer-events: none;">
+                        Core Box 1 of 21
+                    </div>
+                </div>
+                
+                <!-- Thumbnails strip -->
+                <div class="coreshack-thumbnails-wrapper" style="margin-top: 15px; overflow-x: auto; display: flex; gap: 10px; padding: 5px 0 10px 0; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+                    ${coreshackImages.map((src, i) => `
+                        <div class="coreshack-thumb ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="window.coreshackSetSlide(${i})">
+                            <img src="${src}" alt="Thumb ${i + 1}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                window.closeCoreshackCarouselModal();
+            }
+        };
+
+        // Close on Escape key or Nav with arrow keys
+        document.addEventListener('keydown', (e) => {
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    window.closeCoreshackCarouselModal();
+                } else if (e.key === 'ArrowRight') {
+                    window.coreshackNextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    window.coreshackPrevSlide();
+                }
+            }
+        });
+
+        // Add CSS style block dynamically for scrollbars and thumbnails
+        if (!document.getElementById('modal-coreshack-style')) {
+            const style = document.createElement('style');
+            style.id = 'modal-coreshack-style';
+            style.innerHTML = `
+                .coreshack-thumbnails-wrapper::-webkit-scrollbar {
+                    height: 6px;
+                }
+                .coreshack-thumbnails-wrapper::-webkit-scrollbar-track {
+                    background: rgba(255,255,255,0.02);
+                    border-radius: 3px;
+                }
+                .coreshack-thumbnails-wrapper::-webkit-scrollbar-thumb {
+                    background: rgba(255,255,255,0.15);
+                    border-radius: 3px;
+                    transition: background 0.3s;
+                }
+                .coreshack-thumbnails-wrapper::-webkit-scrollbar-thumb:hover {
+                    background: var(--copper-primary);
+                }
+                .coreshack-thumb {
+                    width: 90px;
+                    height: 52px;
+                    flex-shrink: 0;
+                    border-radius: 4px;
+                    border: 2px solid transparent;
+                    cursor: pointer;
+                    overflow: hidden;
+                    opacity: 0.4;
+                    transition: all 0.25s ease;
+                }
+                .coreshack-thumb:hover {
+                    opacity: 0.8;
+                }
+                .coreshack-thumb.active {
+                    opacity: 1;
+                    border-color: var(--copper-primary);
+                    transform: scale(1.03);
+                }
+                .carousel-nav-btn {
+                    opacity: 0.6;
+                }
+                .carousel-nav-btn:hover {
+                    opacity: 1;
+                    background: var(--copper-primary) !important;
+                    border-color: var(--copper-primary) !important;
+                    transform: scale(1.08);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        document.body.appendChild(modal);
+    }
+
+    window.openCoreshackCarouselModal = function() {
+        injectCoreshackCarouselModal();
+        const modal = document.getElementById('coreshack-carousel-modal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            window.coreshackSetSlide(0);
+        }
+    };
+
+    window.closeCoreshackCarouselModal = function() {
+        const modal = document.getElementById('coreshack-carousel-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    window.coreshackSetSlide = function(index) {
+        coreshackActiveIndex = index;
+        const img = document.getElementById('coreshack-active-img');
+        const caption = document.getElementById('coreshack-caption');
+        if (img) {
+            img.style.opacity = '0.3';
+            setTimeout(() => {
+                img.src = coreshackImages[index];
+                img.style.opacity = '1';
+            }, 150);
+        }
+        if (caption) {
+            caption.innerText = `Core Box ${index + 1} of ${coreshackImages.length}`;
+        }
+        
+        // Update thumbnails
+        const thumbs = document.querySelectorAll('.coreshack-thumb');
+        thumbs.forEach((thumb, idx) => {
+            if (idx === index) {
+                thumb.classList.add('active');
+                // Scroll thumbnail into view
+                thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                thumb.classList.remove('active');
+            }
+        });
+    };
+
+    window.coreshackNextSlide = function() {
+        const nextIndex = (coreshackActiveIndex + 1) % coreshackImages.length;
+        window.coreshackSetSlide(nextIndex);
+    };
+
+    window.coreshackPrevSlide = function() {
+        const prevIndex = (coreshackActiveIndex - 1 + coreshackImages.length) % coreshackImages.length;
+        window.coreshackSetSlide(prevIndex);
+    };
+
+    // Auto-open modal if hash matches #coreshack
+    if (window.location.hash === '#coreshack') {
+        setTimeout(() => {
+            window.openCoreshackCarouselModal();
+        }, 500);
+    }
 
     initPresentationModal();
 });

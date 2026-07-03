@@ -168,8 +168,8 @@
       "title": "THE CORESHACK",
       "subtitle": "The core that speaks for itself",
       "image": "nucleos-CG.png",
-      "link_type": "page",
-      "link_href": "investors.html"
+      "link_type": "coreshack-modal",
+      "link_href": ""
     }
   ],
   "core_values": [
