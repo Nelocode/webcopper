@@ -182,6 +182,8 @@
                         const listContainer = document.getElementById('press-list');
                         if (!listContainer || !data.items) return;
                         
+                        window.allNewsItems = data.items; // Store globally
+                        
                         let html = '';
                         data.items.forEach((item, index) => {
                             const delay = (index * 0.05).toFixed(2);
@@ -193,7 +195,7 @@
                                         <span style="font-size: 0.75rem; background: var(--copper-primary); color: white; padding: 3px 8px; border-radius: var(--radius-card); font-weight: 600; font-family: var(--font-mono); text-transform: uppercase;">Featured · ${item.category}</span>
                                     </div>
                                     <h3 style="font-size: 2rem; line-height: 1.35; color: white; font-weight: 700; max-width: 850px; letter-spacing: -0.01em;">
-                                        <a href="${item.readUrl || item.pdfUrl}" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center;" onmouseover="this.style.color='var(--copper-primary)'" onmouseout="this.style.color='white'">
+                                        <a href="#" onclick="event.preventDefault(); window.openNewsModal(window.allNewsItems[${index}]);" style="color: white; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center;" onmouseover="this.style.color='var(--copper-primary)'" onmouseout="this.style.color='white'">
                                             <span>${item.title}</span>
                                             <span style="color: var(--copper-primary); margin-left: 8px; font-weight: 400; transition: transform 0.3s ease;" class="arrow-indicator">→</span>
                                         </a>
@@ -202,8 +204,8 @@
                                         ${item.summary || ''}
                                     </p>
                                     <div style="display: flex; flex-wrap: wrap; gap: 16px;">
-                                        <a href="${item.readUrl || item.pdfUrl}" target="_blank" rel="noopener noreferrer" class="btn-copper" style="padding: 12px 28px; font-size: 0.8rem;">Read Full Release</a>
-                                        ${item.pdfUrl ? `<a href="${item.pdfUrl}" download target="_blank" rel="noopener noreferrer" class="btn-copper" style="background: transparent; border: 1px solid var(--border-glass); color: var(--text-primary); padding: 12px 28px; font-size: 0.8rem;">Download PDF</a>` : ''}
+                                        <a href="#" onclick="event.preventDefault(); window.openNewsModal(window.allNewsItems[${index}]);" class="btn-copper" style="padding: 12px 28px; font-size: 0.8rem; text-decoration: none;">Read Full Release</a>
+                                        ${item.pdfUrl ? `<a href="${item.pdfUrl}" download target="_blank" rel="noopener noreferrer" class="btn-copper" style="background: transparent; border: 1px solid var(--border-glass); color: var(--text-primary); padding: 12px 28px; font-size: 0.8rem; text-decoration: none;">Download PDF</a>` : ''}
                                     </div>
                                 </div>`;
                             } else {
@@ -211,14 +213,14 @@
                                 <div class="press-item fade-up" data-category="${item.category}" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); border: 1px solid var(--border-glass); padding: 35px; border-radius: var(--radius-card); display: flex; justify-content: space-between; align-items: center; gap: 30px; transition-delay: ${delay}s;">
                                     <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
                                         <div style="display: flex; gap: 12px; align-items: center;">
-                                            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">${item.date}</span>
+                                            <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary);">${item.date}</span>
                                             <span style="font-size: 0.7rem; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--border-glass); padding: 2px 6px; border-radius: var(--radius-card); font-weight: 600; font-family: var(--font-mono); text-transform: uppercase;">${item.category}</span>
                                         </div>
                                         <h3 style="font-size: 1.3rem; color: white; font-weight: 600; line-height: 1.4;">
-                                            <a href="${item.readUrl || item.pdfUrl}" target="_blank" rel="noopener noreferrer" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--copper-primary)'" onmouseout="this.style.color='white'">${item.title}</a>
+                                            <a href="#" onclick="event.preventDefault(); window.openNewsModal(window.allNewsItems[${index}]);" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='var(--copper-primary)'" onmouseout="this.style.color='white'">${item.title}</a>
                                         </h3>
                                     </div>
-                                    <a href="${item.pdfUrl || item.readUrl}" target="_blank" rel="noopener noreferrer" class="btn-copper" style="background: transparent; border: 1px solid var(--border-glass); color: var(--text-secondary); padding: 10px 20px; font-size: 0.85rem; height: fit-content; white-space: nowrap;">Read PDF</a>
+                                    <a href="#" onclick="event.preventDefault(); window.openNewsModal(window.allNewsItems[${index}]);" class="btn-copper" style="background: transparent; border: 1px solid var(--border-glass); color: var(--text-secondary); padding: 10px 20px; font-size: 0.85rem; height: fit-content; white-space: nowrap; text-decoration: none;">Read Release</a>
                                 </div>`;
                             }
                         });

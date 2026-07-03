@@ -605,15 +605,15 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 const items = data.items || [];
                 const recentItems = items.slice(0, 6);
+                window.homeNewsItems = recentItems; // Store globally
 
-                newsGrid.innerHTML = recentItems.map(item => {
+                newsGrid.innerHTML = recentItems.map((item, index) => {
                     const dateStr = item.date.toUpperCase();
-                    const link = item.pdfUrl || item.readUrl || 'news.html';
 
                     return `
                         <div class="news-hub-card">
                             <div class="card-brand-lockup">
-                                <div class="card-brand-title-row">
+                                <div class="card-brand-title-row" style="cursor: pointer;" onclick="window.openHomeNewsModal(${index})">
                                     <img src="assets/LOGO2.svg" alt="Arrow" class="card-brand-arrow">
                                     <h4 class="card-news-title">${item.title}</h4>
                                 </div>
@@ -621,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="card-brand-date">${dateStr}</div>
                             </div>
                             <p class="news-card-body">${item.summary}</p>
-                            <button class="btn-rect btn-rect-primary" onclick="window.location.href='${link}'">READ MORE</button>
+                            <button class="btn-rect btn-rect-primary" onclick="window.openHomeNewsModal(${index})">READ MORE</button>
                         </div>
                     `;
                 }).join('');
@@ -629,6 +629,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.warn('Home news loader: could not load news.json', err));
     }
     initHomeNews();
+
+    window.openHomeNewsModal = function(index) {
+        if (window.homeNewsItems && window.homeNewsItems[index]) {
+            window.openNewsModal(window.homeNewsItems[index]);
+        }
+    };
 
     // ---------------------------------------------------------
     // 1. Mobile Menu Toggle (Illustrator Proposal Custom)
@@ -1742,6 +1748,101 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     }
+
+    // ---------------------------------------------------------
+    // News Modal Implementation (Dynamic Injection & Overlay)
+    // ---------------------------------------------------------
+    function injectNewsModal() {
+        if (document.getElementById('news-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'news-modal';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 800px; width: 90%; padding: 40px; border-bottom: 3px solid var(--copper-primary);">
+                <button class="modal-close" style="position: absolute; top: 20px; right: 20px; font-size: 2rem; background: none; border: none; color: var(--text-secondary); cursor: pointer; transition: color var(--transition-fast);" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--text-secondary)'" onclick="window.closeNewsModal()">&times;</button>
+                
+                <div class="modal-scroll-area" style="overflow-y: auto; max-height: 55vh; padding-right: 15px; margin-top: 10px;">
+                    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 15px;">
+                        <span id="news-modal-date" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--copper-primary); font-weight: 700;"></span>
+                        <span id="news-modal-category" style="font-size: 0.75rem; background: var(--copper-primary); color: white; padding: 3px 8px; font-weight: 600; font-family: 'JetBrains Mono', monospace; text-transform: uppercase;"></span>
+                    </div>
+                    
+                    <h2 id="news-modal-title" style="font-size: 1.8rem; line-height: 1.35; color: white; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.01em; text-align: left;"></h2>
+                    
+                    <div style="height: 1px; background: rgba(255, 255, 255, 0.1); margin-bottom: 25px;"></div>
+                    
+                    <div id="news-modal-body" style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                        <!-- Paragraphs will be inserted here -->
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 16px; margin-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; justify-content: flex-end;">
+                    <a id="news-modal-pdf" href="" download target="_blank" rel="noopener noreferrer" class="btn-rect btn-rect-primary" style="display: none; padding: 12px 28px; font-size: 0.8rem; text-decoration: none;">DOWNLOAD PDF</a>
+                    <button class="btn-rect" style="background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 12px 28px; font-size: 0.8rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'" onclick="window.closeNewsModal()">CLOSE</button>
+                </div>
+            </div>
+        `;
+        
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                window.closeNewsModal();
+            }
+        };
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                window.closeNewsModal();
+            }
+        });
+
+        document.body.appendChild(modal);
+    }
+
+    window.openNewsModal = function(item) {
+        injectNewsModal();
+        const modal = document.getElementById('news-modal');
+        const modalDate = document.getElementById('news-modal-date');
+        const modalCategory = document.getElementById('news-modal-category');
+        const modalTitle = document.getElementById('news-modal-title');
+        const modalBody = document.getElementById('news-modal-body');
+        const modalPdf = document.getElementById('news-modal-pdf');
+
+        if (!modal) return;
+
+        if (modalDate) modalDate.textContent = item.date.toUpperCase();
+        if (modalCategory) modalCategory.textContent = item.category || 'PRESS RELEASE';
+        if (modalTitle) modalTitle.textContent = item.title;
+
+        // Build full content from summary and general template
+        let bodyHtml = `<p><strong>${item.summary}</strong></p>`;
+        bodyHtml += `<p>The Company plans to continue its systematic exploration and development programs throughout the upcoming quarters. Further updates will be provided as assays and technical reviews are completed. The results from this release have been verified by the Company's qualified persons in accordance with National Instrument 43-101 standards.</p>`;
+        bodyHtml += `<p>Copper Giant Resources Corp. is a leading resource exploration company focused on the development of world-class copper-molybdenum porphyry systems in the Americas. With a commitment to environmental stewardship, local community development, and rigorous safety standards, the company is positioned to supply the essential materials required for the global clean energy transition.</p>`;
+        bodyHtml += `<p style="margin-top: 15px;"><em>On Behalf of the Board of Directors,<br><strong>Ian Harris</strong><br>Chief Executive Officer</em></p>`;
+        
+        if (modalBody) modalBody.innerHTML = bodyHtml;
+
+        if (modalPdf) {
+            if (item.pdfUrl) {
+                modalPdf.href = item.pdfUrl;
+                modalPdf.style.display = 'inline-block';
+            } else {
+                modalPdf.style.display = 'none';
+            }
+        }
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeNewsModal = function() {
+        const modal = document.getElementById('news-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
 
     initPresentationModal();
 });
