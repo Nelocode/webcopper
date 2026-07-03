@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const img = document.createElement('img');
                     img.src = hero.media;
                     img.alt = hero.alt || '';
-                    img.className = 'hero-video-bg' + (hero.page === 'investors' ? ' ken-burns' : '');
+                    img.className = 'hero-video-bg ken-burns';
                     wrapper.appendChild(img);
                 }
 
