@@ -152,16 +152,16 @@
       "title": "THE COPPER GIANT WAY",
       "subtitle": "Local Strength / National Reputation / Lasting Impact",
       "image": "The copper giant way.jpg",
-      "link_type": "page",
-      "link_href": "corporate.html"
+      "link_type": "coming-soon",
+      "link_href": ""
     },
     {
       "id": "making-of-giant",
       "title": "THE MAKING OF A GIANT",
       "subtitle": "Why Mocoa has giant written all over it",
       "image": "Themaking.jpg",
-      "link_type": "page",
-      "link_href": "mocoa.html"
+      "link_type": "coming-soon",
+      "link_href": ""
     },
     {
       "id": "coreshack",

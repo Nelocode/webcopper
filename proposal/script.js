@@ -256,6 +256,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         actionBtn = `<button class="btn-card-action" onclick="event.stopPropagation(); window.openDepositMetricsModal()">Dive in</button>`;
                         cardOnclick = `onclick="window.openDepositMetricsModal()"`;
                         cardStyle = `style="cursor: pointer;"`;
+                    } else if (card.link_type === 'coming-soon') {
+                        actionBtn = `<button class="btn-card-action" style="cursor: default; pointer-events: none;">Coming Soon</button>`;
+                        cardStyle = `style="cursor: default;"`;
                     } else {
                         actionBtn = `<button class="btn-card-action" onclick="window.location.href='${card.link_href || ''}'">Dive in</button>`;
                     }
