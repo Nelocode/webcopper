@@ -3067,11 +3067,9 @@ section[id] {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(10, 10, 10, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: rgba(255, 255, 255, 0.7);
+    background: var(--copper-primary);
+    border: 1px solid var(--copper-primary);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3081,7 +3079,7 @@ section[id] {
     visibility: hidden;
     transform: translateY(20px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 30px rgba(255, 0, 44, 0.2);
 }
 
 .back-to-top.visible {
@@ -3092,10 +3090,10 @@ section[id] {
 
 .back-to-top:hover {
     color: white;
-    background: rgba(20, 20, 20, 0.8);
-    border-color: rgba(255, 68, 68, 0.4);
+    background: var(--copper-primary-hover);
+    border-color: var(--copper-primary-hover);
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(255, 68, 68, 0.25), 0 8px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 20px rgba(255, 0, 44, 0.45), 0 8px 30px rgba(0, 0, 0, 0.6);
 }
 
 .back-to-top svg {
