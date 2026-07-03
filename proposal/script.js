@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Helper to format metric labels, supporting sublabels divided by |
+    function formatMetricLabel(label) {
+        if (label.includes('|')) {
+            const parts = label.split('|');
+            return `
+                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">${parts[0]}</span>
+                <span style="color: var(--text-secondary); text-transform: none; display: block; font-weight: 400; font-size: 0.85em; margin-top: 4px; letter-spacing: 0;">${parts[1]}</span>
+            `;
+        }
+        return `<span style="text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); font-weight: 600;">${label}</span>`;
+    }
+
     // ---------------------------------------------------------
     // 0. Live Ticker Bar Loader (Dynamic from site.json)
     // ---------------------------------------------------------
@@ -54,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         metricsContainer.innerHTML = c.metrics.map(m => `
                             <div class="metric-item" style="text-align: left;">
                                 <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">${m.value}</div>
-                                <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">${m.label}</div>
+                                <div class="metric-label" style="font-size: 0.75rem; margin-top: 8px; line-height: 1.4;">${formatMetricLabel(m.label)}</div>
                             </div>
                         `).join('');
                     }
@@ -125,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         metricsContainer.innerHTML = m.metrics.map(met => `
                             <div class="metric-item" style="text-align: left;">
                                 <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">${met.value}</div>
-                                <div class="metric-label" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--copper-primary); margin-top: 8px; font-weight: 600;">${met.label}</div>
+                                <div class="metric-label" style="font-size: 0.75rem; margin-top: 8px; line-height: 1.4;">${formatMetricLabel(met.label)}</div>
                             </div>
                         `).join('');
                     }
@@ -1885,31 +1897,34 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         <!-- Metric 1: Tonnes -->
                         <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
-                            <div style="font-size: 2.5rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                            <div style="font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 12px; font-family: var(--font-sans); letter-spacing: -0.02em;">
                                 1.12B
                             </div>
-                            <div style="font-size: 0.75rem; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); line-height: 1.4; letter-spacing: 0.05em;">
-                                Tonnes Inferred Resource
+                            <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
+                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">TONNES</span>
+                                <span style="color: var(--text-secondary); text-transform: none; display: block; font-weight: 400; margin-top: 2px; letter-spacing: 0;">Inferred Resource</span>
                             </div>
                         </div>
                         
                         <!-- Metric 2: Lbs CuEq -->
                         <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
-                            <div style="font-size: 2.5rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                            <div style="font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 12px; font-family: var(--font-sans); letter-spacing: -0.02em;">
                                 12.7B
                             </div>
-                            <div style="font-size: 0.75rem; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); line-height: 1.4; letter-spacing: 0.05em;">
-                                Lbs CuEq Inferred
+                            <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
+                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">LBS CuEq</span>
+                                <span style="visibility: hidden; display: block; margin-top: 2px;">&nbsp;</span>
                             </div>
                         </div>
                         
                         <!-- Metric 3: Grade -->
                         <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
-                            <div style="font-size: 2.5rem; font-weight: 800; color: var(--copper-primary); line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                            <div style="font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 12px; font-family: var(--font-sans); letter-spacing: -0.02em;">
                                 0.51%
                             </div>
-                            <div style="font-size: 0.75rem; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); line-height: 1.4; letter-spacing: 0.05em;">
-                                Copper Equivalent Grade
+                            <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
+                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">CuEq</span>
+                                <span style="visibility: hidden; display: block; margin-top: 2px;">&nbsp;</span>
                             </div>
                         </div>
                         
