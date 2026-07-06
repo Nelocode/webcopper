@@ -75,15 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 2. Core Values
                 if (valuesGrid && data.core_values) {
                     valuesGrid.innerHTML = data.core_values.map((v, index) => `
-                        <div class="news-hub-card fade-up" style="min-height: 360px; justify-content: flex-start; gap: 15px; transition-delay: ${index * 0.1}s;">
+                        <div class="news-hub-card fade-up" style="min-height: auto; justify-content: flex-start; gap: 15px; background: rgba(255,255,255,0.02); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06); padding: 35px 30px; border-radius: var(--radius-card); transition-delay: ${index * 0.1}s;">
                             <div class="card-brand-lockup">
                                 <div class="card-brand-title-row" style="align-items: center;">
-                                    <div style="font-size: 2.2rem; color: var(--copper-primary); font-weight: 800; font-family: var(--font-mono); line-height: 1; flex-shrink: 0; margin-right: 4px;">${v.number}</div>
-                                    <h4 class="card-news-title" style="font-size: 1.4rem; margin: 0; text-transform: uppercase;">${v.title}</h4>
+                                    <div style="font-size: 2rem; color: var(--copper-primary); font-weight: 800; font-family: var(--font-mono); line-height: 1; flex-shrink: 0; margin-right: 8px;">${v.number}</div>
+                                    <h4 class="card-news-title" style="font-size: 1.3rem; margin: 0; text-transform: uppercase; letter-spacing: 0.05em;">${v.title}</h4>
                                 </div>
                                 <div class="card-brand-line"></div>
-                           </div>
-                           <p class="news-card-body" style="margin-top: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">${v.body}</p>
+                            </div>
+                            <p class="news-card-body" style="margin-top: 10px; color: var(--text-secondary); font-size: 1.05rem; line-height: 1.65; margin-bottom: 0;">${v.body}</p>
                         </div>
                     `).join('');
                 }
