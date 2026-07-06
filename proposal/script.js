@@ -263,6 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         actionBtn = `<button class="btn-card-action" onclick="event.stopPropagation(); window.openCoreshackCarouselModal()">Dive in</button>`;
                         cardOnclick = `onclick="window.openCoreshackCarouselModal()"`;
                         cardStyle = `style="cursor: pointer;"`;
+                    } else if (card.link_type === 'external') {
+                        actionBtn = `<button class="btn-card-action" onclick="event.stopPropagation(); window.open('${card.link_href || ''}', '_blank')">Dive in</button>`;
+                        cardOnclick = `onclick="window.open('${card.link_href || ''}', '_blank')"`;
+                        cardStyle = `style="cursor: pointer;"`;
                     } else {
                         actionBtn = `<button class="btn-card-action" onclick="window.location.href='${card.link_href || ''}'">Dive in</button>`;
                     }

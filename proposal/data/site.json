@@ -128,8 +128,8 @@
       "title": "MEET THE TEAM",
       "subtitle": "Tested / Ready to win",
       "image": "meet the team.jpg",
-      "link_type": "modal",
-      "link_href": "https://www.youtube.com/embed/SdGeDEznMXg?list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h&autoplay=1"
+      "link_type": "external",
+      "link_href": "https://www.youtube.com/watch?v=SdGeDEznMXg&list=PLcEfgyOkpXh3HnxXxdgWmOKnz_1fwQL_h"
     },
     {
       "id": "road-to-mocoa",
