@@ -883,9 +883,9 @@ body.header-hovered .page-backdrop {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor: default;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: auto;
+    pointer-events: none;
     background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -893,17 +893,6 @@ body.header-hovered .page-backdrop {
     border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.mocoa-360-center-panel:hover {
-    background: rgba(255, 85, 34, 0.12);
-    border-color: var(--copper-primary);
-    box-shadow: 0 10px 30px rgba(255, 85, 34, 0.2);
-    transform: translateX(-50%) translateY(-2px);
-}
-
-.mocoa-360-center-panel:active {
-    transform: translateX(-50%) translateY(0);
 }
 
 .mocoa-360-center-panel .icon-360-img {
