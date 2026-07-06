@@ -2003,8 +2003,117 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Coreshack Carousel Modal Implementation
     // ---------------------------------------------------------
+    const coreshackCollection = [
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-1.webp",
+            caption: "Hydrothermal breccia containing high-density chalcopyrite-pyrite stockwork matrix.",
+            categories: ["all", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-2.webp",
+            caption: "Dacite porphyry with significant disseminated chalcopyrite and secondary bornite.",
+            categories: ["all", "copper"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-3.webp",
+            caption: "Porphyritic dacite showing quartz-molybdenite stockwork and potassic alteration.",
+            categories: ["all", "moly"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-4.webp",
+            caption: "Intense molybdenite paint on shear planes with associated pyrite.",
+            categories: ["all", "moly"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-5.webp",
+            caption: "Stunning bornite-chalcopyrite replacement in hydrothermal breccia (Best of the Best).",
+            categories: ["all", "best", "copper", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-6.webp",
+            caption: "Intense chalcopyrite dissemination in silicified dacite porphyry.",
+            categories: ["all", "copper"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-7.webp",
+            caption: "Multi-directional stockwork of quartz-chalcopyrite veinlets in potassic alteration.",
+            categories: ["all", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-8.webp",
+            caption: "Stellar chalcopyrite veinlets cutting potassic alteration zone (Best of the Best).",
+            categories: ["all", "best", "copper"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-9.webp",
+            caption: "Quartz-molybdenite-chalcopyrite vein showing classical symmetrical bands.",
+            categories: ["all", "moly"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-10.webp",
+            caption: "High-grade molybdenite stockwork in silica-rich core section (Best of the Best).",
+            categories: ["all", "best", "moly"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-11.webp",
+            caption: "Hydrothermal breccia with mineralized copper sulfide matrix.",
+            categories: ["all", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-12.webp",
+            caption: "Fine-grained disseminated bornite and chalcopyrite in dacite porphyry.",
+            categories: ["all", "copper"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-13.webp",
+            caption: "Thick quartz-molybdenite vein with sericitic alteration halo.",
+            categories: ["all", "moly"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-14.webp",
+            caption: "Dacite porphyry showing strong sericitic alteration with pyrite-chalcopyrite.",
+            categories: ["all", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-15.webp",
+            caption: "Hydrothermal breccia with massive chalcopyrite aggregates (Best of the Best).",
+            categories: ["all", "best", "copper", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-16.webp",
+            caption: "Stunning quartz-molybdenite veins showing excellent sulfide density (Best of the Best).",
+            categories: ["all", "best", "moly"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-17.webp",
+            caption: "Chalcopyrite-bornite mineralization in core showing strong potassic alteration.",
+            categories: ["all", "copper"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-18.webp",
+            caption: "Quartz-chalcopyrite stockwork cutting potassic altered dacite porphyry.",
+            categories: ["all", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-19.webp",
+            caption: "Molybdenite and minor chalcopyrite inside thick quartz veins.",
+            categories: ["all", "moly"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-20.webp",
+            caption: "Hydrothermal breccia with quartz-sericite-pyrite-chalcopyrite matrix.",
+            categories: ["all", "breccia"]
+        },
+        {
+            src: "assets/coreshack/copper-giant-the-coreshack-21.webp",
+            caption: "Outstanding high-grade bornite-chalcopyrite core box from target drill hole (Best of the Best).",
+            categories: ["all", "best", "copper"]
+        }
+    ];
+
+    let currentFilter = 'all';
+    let currentCoreshackImages = [...coreshackCollection];
     let coreshackActiveIndex = 0;
-    const coreshackImages = Array.from({length: 21}, (_, i) => `assets/coreshack/copper-giant-the-coreshack-${i + 1}.webp`);
 
     function injectCoreshackCarouselModal() {
         if (document.getElementById('coreshack-carousel-modal')) return;
@@ -2013,10 +2122,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.className = 'modal-overlay';
         modal.id = 'coreshack-carousel-modal';
         modal.innerHTML = `
-            <div class="modal-content" style="max-width: 950px; width: 95%; padding: 30px; border-bottom: 3px solid var(--copper-primary); position: relative; background: #0c0c0c;">
+            <div class="modal-content" style="max-width: 950px; width: 95%; padding: 35px 30px; border-bottom: 3px solid var(--copper-primary); position: relative; background: #0c0c0c;">
                 <button class="modal-close" style="position: absolute; top: 15px; right: 15px; font-size: 2rem; background: none; border: none; color: var(--text-secondary); cursor: pointer; transition: color var(--transition-fast); z-index: 10;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--text-secondary)'" onclick="window.closeCoreshackCarouselModal()">&times;</button>
                 
-                <div style="text-align: center; margin-bottom: 20px;">
+                <div style="text-align: center; margin-bottom: 15px;">
                     <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--copper-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px;">
                         Mocoa Project
                     </div>
@@ -2025,30 +2134,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     </h2>
                 </div>
                 
+                <!-- Filters Bar -->
+                <div class="coreshack-filters" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 18px; width: 100%;">
+                    <button class="coreshack-filter-btn active" data-filter="all" onclick="window.coreshackFilter('all')">All</button>
+                    <button class="coreshack-filter-btn" data-filter="best" onclick="window.coreshackFilter('best')">Best of the Best ⭐</button>
+                    <button class="coreshack-filter-btn" data-filter="copper" onclick="window.coreshackFilter('copper')">High-Grade Copper</button>
+                    <button class="coreshack-filter-btn" data-filter="moly" onclick="window.coreshackFilter('moly')">Molybdenite & Veins</button>
+                    <button class="coreshack-filter-btn" data-filter="breccia" onclick="window.coreshackFilter('breccia')">Breccia & Stockworks</button>
+                </div>
+
+                <!-- Caption Bar (Top of Image) -->
+                <div id="coreshack-caption-bar" style="background: #f5f5f5; border-left: 4px solid var(--copper-primary); padding: 12px 18px; margin-bottom: 18px; color: #111111; font-family: var(--font-primary); font-size: 0.95rem; font-weight: 500; text-align: left; line-height: 1.4; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                    Select a core photo to inspect geological details.
+                </div>
+                
                 <!-- Main Carousel Container -->
                 <div class="coreshack-carousel-container" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; border-radius: var(--radius-card); overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 50px rgba(0,0,0,0.8);">
                     <!-- Active Slide -->
-                    <img id="coreshack-active-img" src="${coreshackImages[0]}" alt="The Coreshack" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: opacity 0.3s ease;">
+                    <img id="coreshack-active-img" src="${currentCoreshackImages[0].src}" alt="The Coreshack" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: opacity 0.3s ease;">
                     
                     <!-- Controls -->
-                    <button class="carousel-nav-btn prev" onclick="window.coreshackPrevSlide()" style="position: absolute; left: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); width: 45px; height: 45px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 5;">
+                    <button class="carousel-nav-btn prev" onclick="event.stopPropagation(); window.coreshackPrevSlide()" style="position: absolute; left: 15px; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,255,255,0.15); width: 45px; height: 45px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 20; pointer-events: auto;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                     </button>
-                    <button class="carousel-nav-btn next" onclick="window.coreshackNextSlide()" style="position: absolute; right: 15px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); width: 45px; height: 45px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 5;">
+                    <button class="carousel-nav-btn next" onclick="event.stopPropagation(); window.coreshackNextSlide()" style="position: absolute; right: 15px; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,255,255,0.15); width: 45px; height: 45px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 20; pointer-events: auto;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
-                    
-                    <!-- Caption -->
-                    <div id="coreshack-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); padding: 25px 20px 15px 20px; color: white; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; text-align: center; pointer-events: none;">
-                        Core Box 1 of 21
-                    </div>
                 </div>
                 
                 <!-- Thumbnails strip -->
                 <div class="coreshack-thumbnails-wrapper" style="margin-top: 15px; overflow-x: auto; display: flex; gap: 10px; padding: 5px 0 10px 0; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
-                    ${coreshackImages.map((src, i) => `
+                    ${currentCoreshackImages.map((item, i) => `
                         <div class="coreshack-thumb ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="window.coreshackSetSlide(${i})">
-                            <img src="${src}" alt="Thumb ${i + 1}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="${item.src}" alt="Thumb ${i + 1}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     `).join('')}
                 </div>
@@ -2122,6 +2240,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     border-color: var(--copper-primary) !important;
                     transform: scale(1.08);
                 }
+                .coreshack-filter-btn {
+                    background: rgba(255, 255, 255, 0.04);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 20px;
+                    color: var(--text-secondary);
+                    padding: 6px 16px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+                    font-family: var(--font-primary);
+                }
+                .coreshack-filter-btn:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: white;
+                    border-color: rgba(255, 255, 255, 0.2);
+                }
+                .coreshack-filter-btn.active {
+                    background: var(--copper-primary);
+                    color: white;
+                    border-color: var(--copper-primary);
+                    box-shadow: 0 4px 12px rgba(255, 85, 34, 0.25);
+                }
             `;
             document.head.appendChild(style);
         }
@@ -2135,7 +2276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modal) {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            window.coreshackSetSlide(0);
+            window.coreshackFilter('all');
         }
     };
 
@@ -2147,19 +2288,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    window.coreshackFilter = function(category) {
+        currentFilter = category;
+        currentCoreshackImages = coreshackCollection.filter(item => item.categories.includes(category));
+        
+        // Update filter buttons UI
+        const filterBtns = document.querySelectorAll('.coreshack-filter-btn');
+        filterBtns.forEach(btn => {
+            if (btn.getAttribute('data-filter') === category) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        
+        // Re-inject thumbnails
+        const thumbsWrapper = document.querySelector('.coreshack-thumbnails-wrapper');
+        if (thumbsWrapper) {
+            thumbsWrapper.innerHTML = currentCoreshackImages.map((item, i) => `
+                <div class="coreshack-thumb ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="window.coreshackSetSlide(${i})">
+                    <img src="${item.src}" alt="Thumb ${i + 1}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            `).join('');
+        }
+        
+        // Reset to first slide in filtered set
+        window.coreshackSetSlide(0);
+    };
+
     window.coreshackSetSlide = function(index) {
+        if (currentCoreshackImages.length === 0) return;
         coreshackActiveIndex = index;
         const img = document.getElementById('coreshack-active-img');
-        const caption = document.getElementById('coreshack-caption');
+        const caption = document.getElementById('coreshack-caption-bar');
+        
         if (img) {
             img.style.opacity = '0.3';
             setTimeout(() => {
-                img.src = coreshackImages[index];
+                img.src = currentCoreshackImages[index].src;
                 img.style.opacity = '1';
             }, 150);
         }
         if (caption) {
-            caption.innerText = `Core Box ${index + 1} of ${coreshackImages.length}`;
+            const currentItem = currentCoreshackImages[index];
+            const originalIndex = coreshackCollection.indexOf(currentItem) + 1;
+            caption.innerHTML = `<strong>Core Box #${originalIndex}</strong>: ${currentItem.caption} <span style="float: right; font-size: 0.8rem; color: #555555; font-family: monospace;">(${index + 1} of ${currentCoreshackImages.length} in view)</span>`;
         }
         
         // Update thumbnails
@@ -2176,12 +2349,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.coreshackNextSlide = function() {
-        const nextIndex = (coreshackActiveIndex + 1) % coreshackImages.length;
+        if (currentCoreshackImages.length === 0) return;
+        const nextIndex = (coreshackActiveIndex + 1) % currentCoreshackImages.length;
         window.coreshackSetSlide(nextIndex);
     };
 
     window.coreshackPrevSlide = function() {
-        const prevIndex = (coreshackActiveIndex - 1 + coreshackImages.length) % coreshackImages.length;
+        if (currentCoreshackImages.length === 0) return;
+        const prevIndex = (coreshackActiveIndex - 1 + currentCoreshackImages.length) % currentCoreshackImages.length;
         window.coreshackSetSlide(prevIndex);
     };
 
