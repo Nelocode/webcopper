@@ -873,6 +873,85 @@ body.header-hovered .page-backdrop {
     box-sizing: border-box;
 }
 
+.mocoa-360-center-panel {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.mocoa-360-center-panel:hover {
+    background: rgba(255, 85, 34, 0.12);
+    border-color: var(--copper-primary);
+    box-shadow: 0 10px 30px rgba(255, 85, 34, 0.2);
+    transform: translateX(-50%) translateY(-2px);
+}
+
+.mocoa-360-center-panel:active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.mocoa-360-center-panel .icon-360 {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 6px;
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition: transform 0.4s ease;
+}
+
+.mocoa-360-center-panel:hover .icon-360 {
+    transform: rotate(360deg);
+}
+
+.mocoa-360-center-panel .icon-360 path {
+    transition: stroke 0.3s;
+}
+
+.mocoa-360-center-panel:hover .icon-360 path {
+    stroke: white;
+}
+
+.mocoa-360-center-panel .icon-360 text {
+    transition: fill 0.3s;
+}
+
+.mocoa-360-center-panel:hover .icon-360 text {
+    fill: var(--copper-primary);
+}
+
+.mocoa-360-btn-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-align: center;
+    margin-top: 4px;
+    line-height: 1.3;
+    transition: color 0.3s;
+}
+
+.mocoa-360-center-panel:hover .mocoa-360-btn-text {
+    color: white;
+}
+
 /* Responsive Overrides for Mocoa 360 Section */
 @media (max-width: 1024px) {
     .mocoa-360-container {
@@ -932,6 +1011,20 @@ body.header-hovered .page-backdrop {
     .mocoa-360-bottom-bar {
         padding: 16px;
         margin-top: 0;
+    }
+    .mocoa-360-center-panel {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin: 20px auto 10px auto;
+        width: fit-content;
+    }
+    .mocoa-360-center-panel:hover {
+        transform: translateY(-2px);
+    }
+    .mocoa-360-center-panel:active {
+        transform: translateY(0);
     }
 }
 
