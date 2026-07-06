@@ -140,11 +140,11 @@
       "link_href": "https://www.youtube.com/embed/-LWD7kVmmrs?autoplay=1&rel=0"
     },
     {
-      "id": "mocoa-deposit",
-      "title": "MOCOA THE DEPOSIT",
-      "subtitle": "The Resource | The Scale | The Potential",
-      "image": "mocoa-deposit-bg.png",
-      "link_type": "metrics-modal",
+      "id": "coreshack",
+      "title": "THE CORESHACK",
+      "subtitle": "The core that speaks for itself",
+      "image": "nucleos-CG.png",
+      "link_type": "coreshack-modal",
       "link_href": ""
     },
     {
@@ -164,11 +164,11 @@
       "link_href": ""
     },
     {
-      "id": "coreshack",
-      "title": "THE CORESHACK",
-      "subtitle": "The core that speaks for itself",
-      "image": "nucleos-CG.png",
-      "link_type": "coreshack-modal",
+      "id": "mocoa-deposit",
+      "title": "MOCOA THE DEPOSIT",
+      "subtitle": "The Resource | The Scale | The Potential",
+      "image": "mocoa-deposit-bg.png",
+      "link_type": "metrics-modal",
       "link_href": ""
     }
   ],

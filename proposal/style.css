@@ -906,33 +906,18 @@ body.header-hovered .page-backdrop {
     transform: translateX(-50%) translateY(0);
 }
 
-.mocoa-360-center-panel .icon-360 {
-    width: 42px;
-    height: 42px;
+.mocoa-360-center-panel .icon-360-img {
+    width: 68px;
+    height: auto;
     margin-bottom: 6px;
     display: block;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-    transition: transform 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mocoa-360-center-panel:hover .icon-360 {
-    transform: rotate(360deg);
-}
-
-.mocoa-360-center-panel .icon-360 path {
-    transition: stroke 0.3s;
-}
-
-.mocoa-360-center-panel:hover .icon-360 path {
-    stroke: white;
-}
-
-.mocoa-360-center-panel .icon-360 text {
-    transition: fill 0.3s;
-}
-
-.mocoa-360-center-panel:hover .icon-360 text {
-    fill: var(--copper-primary);
+.mocoa-360-center-panel:hover .icon-360-img {
+    transform: scale(1.08);
+    filter: drop-shadow(0 2px 8px rgba(255, 85, 34, 0.5));
 }
 
 .mocoa-360-btn-text {

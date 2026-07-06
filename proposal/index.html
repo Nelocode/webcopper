@@ -214,11 +214,7 @@
 
                 <!-- Centered 360° Control Pill -->
                 <div class="mocoa-360-center-panel" onclick="window.openMocoa360Modal()">
-                    <svg viewBox="0 0 100 100" class="icon-360">
-                        <path d="M 50 15 A 35 35 0 1 1 20 30" fill="none" stroke="var(--copper-primary)" stroke-width="6" stroke-linecap="round" />
-                        <path d="M 12 30 L 20 30 L 22 22" fill="none" stroke="var(--copper-primary)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-                        <text x="50" y="58" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="bold" fill="white" text-anchor="middle">360°</text>
-                    </svg>
+                    <img src="Recurso 4.svg" alt="360°" class="icon-360-img">
                     <div class="mocoa-360-btn-text">
                         3D Visualization<br>& Scale
                     </div>
@@ -254,13 +250,13 @@
                 <button class="btn-card-action" onclick="window.openCustomVideoModal('https://www.youtube.com/embed/-LWD7kVmmrs?autoplay=1&rel=0')">Dive in</button>
             </div>
             
-            <!-- Card 3: Geology (Mocoa the Deposit) - Full Width -->
-            <div class="split-card text-centered geology-card span-full" style="cursor: pointer;" onclick="window.openDepositMetricsModal()">
+            <!-- Card 3: The Coreshack - Full Width -->
+            <div class="split-card split-coreshack-card span-full" onclick="window.openCoreshackCarouselModal()" style="cursor: pointer;">
                 <div class="video-card-header">
-                    <h3 class="card-title-main">MOCOA THE DEPOSIT</h3>
-                    <p class="card-subtitle-sub">The Resource | The Scale | The Potential</p>
+                    <h3 class="card-title-main">THE CORESHACK</h3>
+                    <p class="card-subtitle-sub">The core that speaks for itself</p>
                 </div>
-                <button class="btn-card-action" onclick="event.stopPropagation(); window.openDepositMetricsModal()">Dive in</button>
+                <button class="btn-card-action" onclick="event.stopPropagation(); window.openCoreshackCarouselModal()">Dive in</button>
             </div>
 
             <!-- Card 4: The Copper Giant Way -->
@@ -281,13 +277,13 @@
                 <button class="btn-card-action" style="cursor: default; pointer-events: none;">Coming Soon</button>
             </div>
 
-            <!-- Card 6: The Coreshack - Full Width -->
-            <div class="split-card split-coreshack-card span-full" onclick="window.openCoreshackCarouselModal()" style="cursor: pointer;">
+            <!-- Card 6: Geology (Mocoa the Deposit) - Full Width -->
+            <div class="split-card text-centered geology-card span-full" style="cursor: pointer;" onclick="window.openDepositMetricsModal()">
                 <div class="video-card-header">
-                    <h3 class="card-title-main">THE CORESHACK</h3>
-                    <p class="card-subtitle-sub">The core that speaks for itself</p>
+                    <h3 class="card-title-main">MOCOA THE DEPOSIT</h3>
+                    <p class="card-subtitle-sub">The Resource | The Scale | The Potential</p>
                 </div>
-                <button class="btn-card-action" onclick="event.stopPropagation(); window.openCoreshackCarouselModal()">Dive in</button>
+                <button class="btn-card-action" onclick="event.stopPropagation(); window.openDepositMetricsModal()">Dive in</button>
             </div>
         </div>
     </section>
