@@ -50,9 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function initCorporatePage() {
         const metricsDesc = document.getElementById('corporate-metrics-desc');
         const metricsContainer = document.getElementById('corporate-metrics-container');
-        const esgGrid = document.getElementById('esg-grid');
 
-        if (!metricsDesc && !esgGrid) return;
+        if (!metricsDesc) return;
 
         fetch('data/site.json')
             .then(res => res.json())
@@ -73,31 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-                // 3. ESG Cards
-                if (esgGrid && data.esg_cards) {
-                    const esgIcons = [
-                        `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
-                        `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="9" y1="22" x2="9" y2="16"></line><line x1="15" y1="22" x2="15" y2="16"></line><line x1="9" y1="16" x2="15" y2="16"></line><path d="M9 6h.01"></path><path d="M15 6h.01"></path><path d="M9 10h.01"></path><path d="M15 10h.01"></path></svg>`,
-                        `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.58-1 8a7 7 0 0 1-7 10Z"></path><path d="M9 22v-4"></path></svg>`,
-                        `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>`
-                    ];
-                    const leafFallback = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.58-1 8a7 7 0 0 1-7 10Z"></path><path d="M9 22v-4"></path></svg>`;
 
-                    esgGrid.innerHTML = data.esg_cards.map((card, index) => {
-                        const icon = esgIcons[index] || leafFallback;
-                        return `
-                            <div class="esg-card fade-up" style="transition-delay: ${index * 0.1}s;">
-                                <div class="esg-icon-box">
-                                    ${icon}
-                                </div>
-                                <div class="esg-card-content">
-                                    <h4 class="esg-card-title">${card.title}</h4>
-                                    <p class="esg-card-desc">${card.body}</p>
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
-                }
             })
             .catch(err => console.warn('Corporate page loader: could not load site.json', err));
     }
