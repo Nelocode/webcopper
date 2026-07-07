@@ -436,7 +436,7 @@ body.header-hovered .page-backdrop {
 }
 
 .hero-video-wrapper.hero-half-height {
-    aspect-ratio: 2520 / 300; /* Much thinner height (less than a third of original 972) */
+    aspect-ratio: 2520 / 320; /* Much thinner height (less than a third of original 972) */
 }
 
 /* Adjust font sizes and vertical positioning inside half-height hero to keep it clean and readable */
@@ -5672,4 +5672,52 @@ div.response {
 .news-source-link:hover {
     color: var(--copper-primary);
 }
+
+/* Fix header overlapping and ticker-bar overflow on mobile/tablet viewports */
+@media (max-width: 992px) {
+    .ticker-bar {
+        justify-content: flex-start !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        padding: 0 16px !important;
+    }
+    .ticker-bar::-webkit-scrollbar {
+        display: none !important;
+    }
+    .ticker-stocks {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+        gap: 32px !important;
+    }
+    .ticker-stocks span {
+        flex-shrink: 0 !important;
+    }
+
+    /* Prevent hero container from shrinking to unusable heights on narrow screens */
+    .hero-video-section:not(#overview) .hero-video-wrapper {
+        aspect-ratio: auto !important;
+        height: 380px !important;
+    }
+    .hero-video-section#overview .hero-video-wrapper {
+        aspect-ratio: auto !important;
+        height: 220px !important;
+    }
+    
+    /* Ensure hero content starts below the fixed navigation and ticker bar (96px height) */
+    .hero-video-overlay {
+        padding-top: 110px !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+    
+    /* Adjust text alignments for readability */
+    .hero-text-container {
+        padding-top: 0 !important;
+        text-align: left !important;
+        align-items: flex-start !important;
+    }
+}
+
 
