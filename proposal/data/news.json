@@ -1,108 +1,1786 @@
 {
-  "items": [
-    {
-      "title": "Copper Giant Extends Mineralization Below the Conceptual Pit at Mocoa and Confirms a Third Mineralized Corridor",
-      "date": "June 22, 2026",
-      "year": "2026",
-      "category": "exploration",
-      "summary": "Deep infill hole MD-064 returns 1,052 metres of mineralization, including 486 m of 0.57% CuEq* (0.41% Cu and 0.029% Mo), exceeding the 0.51% resource average.",
-      "readUrl": "https://www.coppergiant.co/news/copper-giant-extends-mineralization-below-the-conceptual-pit-at-mocoa-and-confirms-a-third"
-    },
-    {
-      "title": "Copper Giant Expands Mocoa Resource Footprint and Advances Connector Zone Toward The La Estrella With Three Drill Rigs Turning",
-      "date": "May 20, 2026",
-      "year": "2026",
-      "category": "exploration",
-      "summary": "Copper Giant Resources Corp. today reports that three drill rigs are operational at Mocoa, focusing on expanding the mineralized footprint and connecting historical zones.",
-      "readUrl": "https://www.coppergiant.co/news/copper-giant-expands-mocoa-resource-footprint-and-advances-connector-zone-toward-the-la-es"
-    },
-    {
-      "title": "Copper Giant Begins Planned Comprehensive PEA for the Mocoa Copper-Molybdenum System with Globally Recognized Development Team",
-      "date": "May 5, 2026",
-      "year": "2026",
-      "category": "technical",
-      "summary": "Copper Giant has launched a planned NI 43-101 Preliminary Economic Assessment for Mocoa, appointing SLR as lead consultant alongside INTERA, Frank Wright Consulting, SGS Canada, and APEX Geoscience.",
-      "readUrl": "https://www.coppergiant.co/news/copper-giant-begins-planned-comprehensive-pea-for-the-mocoa-copper-molybdenum-system-with-globally-recognized-development-team"
-    },
-    {
-      "title": "Copper Giant, Working with the Colombian Government, Secures Long-Term Development Framework at Mocoa; Third Drill Rig Now Operational",
-      "date": "April 28, 2026",
-      "year": "2026",
-      "category": "governance",
-      "summary": "A cooperative long-term development framework has been established with local authorities and the Colombian government to support sustainable infrastructure and environmental planning.",
-      "readUrl": "https://www.coppergiant.co/news/copper-giant-working-with-the-colombian-government-secures-long-term-development-framework"
-    },
-    {
-      "title": "Copper Giant's First Directional Daughter Holes Beat Resource Model at Mocoa, Returning 0.97% CuEq Over 68m",
-      "date": "April 14, 2026",
-      "year": "2026",
-      "category": "exploration",
-      "summary": "First daughter hole returns 0.97% CuEq (0.70% Cu and 0.051% Mo) over 68m within a broader interval of 371m of 0.53% CuEq, beating resource model projections.",
-      "readUrl": "https://www.coppergiant.co/news/copper-giant-s-first-directional-daughter-holes-beat-resource-model-at-mocoa-returning-0-9"
-    },
-    {
-      "title": "Copper Giant Announces Appointment of New Director",
-      "date": "February 10, 2026",
-      "year": "2026",
-      "category": "corporate",
-      "summary": "Copper Giant Resources Corp. is pleased to announce the appointment of Mr. Jamie Sokalsky, former CEO of Barrick Gold, as a Director of the Company.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Announces Filing of Preliminary Economic Assessment",
-      "date": "December 16, 2025",
-      "year": "2025",
-      "category": "technical",
-      "summary": "Copper Giant Resources Corp. announces filing of a technical report detailing the Preliminary Economic Assessment for the Mocoa Copper-Molybdenum Project.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Drills Highest Grade Interval to Date at Mocoa",
-      "date": "December 9, 2025",
-      "year": "2025",
-      "category": "exploration",
-      "summary": "Massive sulphide intercepts found in the Mocoa Deposit's Central Porphyry continue to expand along the recently discovered Connector Zone.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Files MD&A and Interim Financial Statements",
-      "date": "November 28, 2025",
-      "year": "2025",
-      "category": "financial",
-      "summary": "Copper Giant Resources Corp. has filed its interim management's discussion and analysis for the three and nine months ended September 30, 2025.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Discovers Major New Target at Mocoa",
-      "date": "October 29, 2025",
-      "year": "2025",
-      "category": "exploration",
-      "summary": "High-grade copper-molybdenum breccia mineralization discovered approximately 1.5 km southeast from the main Mocoa deposit footprint.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Commences Regional Mapping and Geochemical Program",
-      "date": "August 22, 2024",
-      "year": "2024",
-      "category": "exploration",
-      "summary": "Exploration crews mobilize to conduct district-scale mapping and soil sampling across newly acquired concession areas adjacent to the Mocoa deposit.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Completes First Tranche of Private Placement",
-      "date": "June 14, 2024",
-      "year": "2024",
-      "category": "financial",
-      "summary": "Copper Giant closes the initial tranche of its previously announced non-brokered private placement, raising gross proceeds of C$4.5 million.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Enters Option Agreement to Acquire Mocoa Project",
-      "date": "September 5, 2023",
-      "year": "2023",
-      "category": "corporate",
-      "summary": "Copper Giant Resources Corp. enters into a definitive agreement to acquire a 100% interest in the Mocoa Copper-Molybdenum Project in Putumayo, Colombia.",
-      "readUrl": "https://www.coppergiant.co"
-    }
-  ]
+    "items": [
+        {
+            "date": "June 22, 2026",
+            "year": "2026",
+            "title": "63 And 64 Assay Results",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"63 And 64 Assay Results\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2026/2026 06 22 CGNT_ 63 and 64 assay results_FINAL.pdf",
+            "readUrl": "Press Release/2026/2026 06 22 CGNT_ 63 and 64 assay results_FINAL.pdf"
+        },
+        {
+            "date": "May 20, 2026",
+            "year": "2026",
+            "title": "61 And 62 Assay Results",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"61 And 62 Assay Results\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2026/2026 05 20 CGNT_ 61 and 62 assay results_FINAL.pdf",
+            "readUrl": "Press Release/2026/2026 05 20 CGNT_ 61 and 62 assay results_FINAL.pdf"
+        },
+        {
+            "date": "May 5, 2026",
+            "year": "2026",
+            "title": "Mocoa PEA",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Mocoa PEA\". Review the full document details in the attached PDF release.",
+            "category": "Technical",
+            "pdfUrl": "Press Release/2026/2026 05 05 CGNT_ Mocoa PEA_EN3_IH_DN_CIRO_BOD_FINAL.pdf",
+            "readUrl": "Press Release/2026/2026 05 05 CGNT_ Mocoa PEA_EN3_IH_DN_CIRO_BOD_FINAL.pdf"
+        },
+        {
+            "date": "April 28, 2026",
+            "year": "2026",
+            "title": "Title Integration",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Title Integration\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2026/2026 04 28 CGNT_ Title Integration_FINAL.pdf",
+            "readUrl": "Press Release/2026/2026 04 28 CGNT_ Title Integration_FINAL.pdf"
+        },
+        {
+            "date": "April 14, 2026",
+            "year": "2026",
+            "title": "2026-04-14_11-30-00",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2026-04-14_11-30-00\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2026/CGNT_2026-04-14_11-30-00.pdf",
+            "readUrl": "Press Release/2026/CGNT_2026-04-14_11-30-00.pdf"
+        },
+        {
+            "date": "April 8, 2026",
+            "year": "2026",
+            "title": "2026-04-08_15-30-00",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2026-04-08_15-30-00\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2026/CGNT_2026-04-08_15-30-00.pdf",
+            "readUrl": "Press Release/2026/CGNT_2026-04-08_15-30-00.pdf"
+        },
+        {
+            "date": "March 16, 2026",
+            "year": "2026",
+            "title": "55 56 And 57 Assay Results",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"55 56 And 57 Assay Results\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2026/2026-03-16 CGNT_ 55 56 and 57 assay results_FINAL_V2.pdf",
+            "readUrl": "Press Release/2026/2026-03-16 CGNT_ 55 56 and 57 assay results_FINAL_V2.pdf"
+        },
+        {
+            "date": "March 11, 2026",
+            "year": "2026",
+            "title": "Option Grant",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Option Grant\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2026/2026-03-11 CGNT_ Option Grant.pdf",
+            "readUrl": "Press Release/2026/2026-03-11 CGNT_ Option Grant.pdf"
+        },
+        {
+            "date": "March 2, 2026",
+            "year": "2026",
+            "title": "Second Met Testing",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Second Met Testing\". Review the full document details in the attached PDF release.",
+            "category": "Technical",
+            "pdfUrl": "Press Release/2026/2026-03-02 CGNT_ Second Met testing_FINAL.pdf",
+            "readUrl": "Press Release/2026/2026-03-02 CGNT_ Second Met testing_FINAL.pdf"
+        },
+        {
+            "date": "February 24, 2026",
+            "year": "2026",
+            "title": "2026-02-24_07-43-05",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2026-02-24_07-43-05\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2026/CGNT_2026-02-24_07-43-05.pdf",
+            "readUrl": "Press Release/2026/CGNT_2026-02-24_07-43-05.pdf"
+        },
+        {
+            "date": "February 17, 2026",
+            "year": "2026",
+            "title": "2026 Exploration Plan",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2026 Exploration Plan\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2026/2026-02-17 CGNT_ 2026 Exploration Plan_FINAL CLEAN.pdf",
+            "readUrl": "Press Release/2026/2026-02-17 CGNT_ 2026 Exploration Plan_FINAL CLEAN.pdf"
+        },
+        {
+            "date": "January 29, 2026",
+            "year": "2026",
+            "title": "2026-01-29_07-48-10",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2026-01-29_07-48-10\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2026/CGNT_2026-01-29_07-48-10.pdf",
+            "readUrl": "Press Release/2026/CGNT_2026-01-29_07-48-10.pdf"
+        },
+        {
+            "date": "January 14, 2026",
+            "year": "2026",
+            "title": "News Release - Close $12m Offering",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"News Release - Close $12m Offering\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2026/2026-01-14 Copper Giant News Release - Close $12m offering FINAL.pdf",
+            "readUrl": "Press Release/2026/2026-01-14 Copper Giant News Release - Close $12m offering FINAL.pdf"
+        },
+        {
+            "date": "January 9, 2026",
+            "year": "2026",
+            "title": "NI 43101 Filed",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"NI 43101 Filed\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2026/2026 01 09 CGNT_ NI 43101 filed_FINAL.pdf",
+            "readUrl": "Press Release/2026/2026 01 09 CGNT_ NI 43101 filed_FINAL.pdf"
+        },
+        {
+            "date": "October 2, 2025",
+            "year": "2025",
+            "title": "Met Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Met Update\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-10-02 CGNT_ Met update_FINAL.docx",
+            "readUrl": "Press Release/2025/2025-10-02 CGNT_ Met update_FINAL.docx"
+        },
+        {
+            "date": "August 21, 2025",
+            "year": "2025",
+            "title": "Md48 Assay Results",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Md48 Assay Results\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-08-21 CGNT_ MD48 assay results_FINAL.pdf",
+            "readUrl": "Press Release/2025/2025-08-21 CGNT_ MD48 assay results_FINAL.pdf"
+        },
+        {
+            "date": "July 30, 2025",
+            "year": "2025",
+            "title": "Corporate Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Corporate Update\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-07-30 CGNT Corporate update_FINAL.pdf",
+            "readUrl": "Press Release/2025/2025-07-30 CGNT Corporate update_FINAL.pdf"
+        },
+        {
+            "date": "July 24, 2025",
+            "year": "2025",
+            "title": "Corporate Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Corporate Update\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-07-24 CGNT Corporate update.pdf",
+            "readUrl": "Press Release/2025/2025-07-24 CGNT Corporate update.pdf"
+        },
+        {
+            "date": "July 15, 2025",
+            "year": "2025",
+            "title": "News Release - Upsize",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"News Release - Upsize\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-07-15 Copper Giant News Release - Upsize FINAL.pdf",
+            "readUrl": "Press Release/2025/2025-07-15 Copper Giant News Release - Upsize FINAL.pdf"
+        },
+        {
+            "date": "July 9, 2025",
+            "year": "2025",
+            "title": "News Release - July 8 2025",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"News Release - July 8 2025\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-07-09 Copper Giant News Release - July 8 2025 FINAL.pdf",
+            "readUrl": "Press Release/2025/2025-07-09 Copper Giant News Release - July 8 2025 FINAL.pdf"
+        },
+        {
+            "date": "June 27, 2025",
+            "year": "2025",
+            "title": "Minera Sol Acquisition",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Minera Sol Acquisition\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-06-27 CGNT%20MINERA%20SOL%20ACQUISITION%20FINAL.pdf",
+            "readUrl": "Press Release/2025/2025-06-27 CGNT%20MINERA%20SOL%20ACQUISITION%20FINAL.pdf"
+        },
+        {
+            "date": "June 25, 2025",
+            "year": "2025",
+            "title": "Md47 Partial Assays",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Md47 Partial Assays\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/202525-06-25 CGNT%20MD47%20PARTIAL%20ASSAYS_FINAL.pdf",
+            "readUrl": "Press Release/2025/202525-06-25 CGNT%20MD47%20PARTIAL%20ASSAYS_FINAL.pdf"
+        },
+        {
+            "date": "June 17, 2025",
+            "year": "2025",
+            "title": "Md47 And Md48",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Md47 And Md48\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-06-17 CGNT MD47 AND MD48_EN2_IH_DN.pdf",
+            "readUrl": "Press Release/2025/2025-06-17 CGNT MD47 AND MD48_EN2_IH_DN.pdf"
+        },
+        {
+            "date": "May 20, 2025",
+            "year": "2025",
+            "title": "Exploration Target Farris2",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Exploration Target Farris2\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-05-20  Exploration Target FARRIS_CIROV2_IH2_FINAL.pdf",
+            "readUrl": "Press Release/2025/2025-05-20  Exploration Target FARRIS_CIROV2_IH2_FINAL.pdf"
+        },
+        {
+            "date": "May 6, 2025",
+            "year": "2025",
+            "title": "Sedar05060374e00027216",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Sedar05060374e00027216\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-05-06 SEDAR05060374E00027216.pdf",
+            "readUrl": "Press Release/2025/2025-05-06 SEDAR05060374E00027216.pdf"
+        },
+        {
+            "date": "May 1, 2025",
+            "year": "2025",
+            "title": "Name Change",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Name Change\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-05-01 COPPER GIANT RESOURCES COMPLETES NAME CHANGE English.pdf",
+            "readUrl": "Press Release/2025/2025-05-01 COPPER GIANT RESOURCES COMPLETES NAME CHANGE English.pdf"
+        },
+        {
+            "date": "April 29, 2025",
+            "year": "2025",
+            "title": "Change Of Name To Copper Giant Resources Corp",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Change Of Name To Copper Giant Resources Corp\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-04-29 LIBERO COPPER ANNOUNCES CHANGE OF NAME TO COPPER GIANT RESOURCES CORP .pdf",
+            "readUrl": "Press Release/2025/2025-04-29 LIBERO COPPER ANNOUNCES CHANGE OF NAME TO COPPER GIANT RESOURCES CORP .pdf"
+        },
+        {
+            "date": "April 15, 2025",
+            "year": "2025",
+            "title": "Closing Of The Warrant Incentive Program Raising Gross 15-04-2025 Proceeds Of Cdn$1,660,847",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closing Of The Warrant Incentive Program Raising Gross 15-04-2025 Proceeds Of Cdn$1,660,847\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2025/2025-04-15 LIBERO COPPER ANNOUNCES CLOSING OF THE WARRANT INCENTIVE PROGRAM RAISING GROSS 15-04-2025 PROCEEDS OF CDN$1,660,847.pdf",
+            "readUrl": "Press Release/2025/2025-04-15 LIBERO COPPER ANNOUNCES CLOSING OF THE WARRANT INCENTIVE PROGRAM RAISING GROSS 15-04-2025 PROCEEDS OF CDN$1,660,847.pdf"
+        },
+        {
+            "date": "April 10, 2025",
+            "year": "2025",
+            "title": "Frank Giustra Increases Shareholdings In Libero Copper To 13.12%",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Frank Giustra Increases Shareholdings In Libero Copper To 13.12%\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-04-10 FRANK GIUSTRA INCREASES SHAREHOLDINGS IN LIBERO COPPER TO 13.12%.pdf",
+            "readUrl": "Press Release/2025/2025-04-10 FRANK GIUSTRA INCREASES SHAREHOLDINGS IN LIBERO COPPER TO 13.12%.pdf"
+        },
+        {
+            "date": "March 25, 2025",
+            "year": "2025",
+            "title": "Mobilization Of An Additional Drill Rig To The Mocoa Porphyry Copper-molybdenum Project In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Mobilization Of An Additional Drill Rig To The Mocoa Porphyry Copper-molybdenum Project In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-03-25 LIBERO COPPER ANNOUNCES MOBILIZATION OF AN ADDITIONAL DRILL RIG TO THE MOCOA PORPHYRY COPPER-MOLYBDENUM PROJECT IN COLOMBIA.pdf",
+            "readUrl": "Press Release/2025/2025-03-25 LIBERO COPPER ANNOUNCES MOBILIZATION OF AN ADDITIONAL DRILL RIG TO THE MOCOA PORPHYRY COPPER-MOLYBDENUM PROJECT IN COLOMBIA.pdf"
+        },
+        {
+            "date": "March 12, 2025",
+            "year": "2025",
+            "title": "Eastern Step-out Hole Md- 046 Advancing Resource Expansion At Mocoa Porphyry Copper-molybdenum Deposit In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Eastern Step-out Hole Md- 046 Advancing Resource Expansion At Mocoa Porphyry Copper-molybdenum Deposit In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-03-12 LIBERO COPPER PROVIDES UPDATE ON EASTERN STEP-OUT HOLE MD- 046 ADVANCING RESOURCE EXPANSION AT MOCOA PORPHYRY COPPER-MOLYBDENUM DEPOSIT IN COLOMBIA.pdf",
+            "readUrl": "Press Release/2025/2025-03-12 LIBERO COPPER PROVIDES UPDATE ON EASTERN STEP-OUT HOLE MD- 046 ADVANCING RESOURCE EXPANSION AT MOCOA PORPHYRY COPPER-MOLYBDENUM DEPOSIT IN COLOMBIA.pdf"
+        },
+        {
+            "date": "February 26, 2025",
+            "year": "2025",
+            "title": "Libero Copper's Drill Hole Md-045 Hits Two Distinct High- Grade Zones 350 Metres At 0.70% Cueq And 101 Metres At 0.76% Cueq",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Copper's Drill Hole Md-045 Hits Two Distinct High- Grade Zones 350 Metres At 0.70% Cueq And 101 Metres At 0.76% Cueq\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-02-26 LIBERO COPPER'S DRILL HOLE MD-045 HITS TWO DISTINCT HIGH- GRADE ZONES 350 METRES AT 0.70% CUEQ AND 101 METRES AT 0.76% CUEQ.pdf",
+            "readUrl": "Press Release/2025/2025-02-26 LIBERO COPPER'S DRILL HOLE MD-045 HITS TWO DISTINCT HIGH- GRADE ZONES 350 METRES AT 0.70% CUEQ AND 101 METRES AT 0.76% CUEQ.pdf"
+        },
+        {
+            "date": "February 24, 2025",
+            "year": "2025",
+            "title": "Recognized As Top 50 TSX Venture Exchange Company",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Recognized As Top 50 TSX Venture Exchange Company\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-02-24 LIBERO COPPER RECOGNIZED AS TOP 50 TSX VENTURE EXCHANGE COMPANY.pdf",
+            "readUrl": "Press Release/2025/2025-02-24 LIBERO COPPER RECOGNIZED AS TOP 50 TSX VENTURE EXCHANGE COMPANY.pdf"
+        },
+        {
+            "date": "February 19, 2025",
+            "year": "2025",
+            "title": "Strengthens Team With Appointment Of Porphyry Expert Frank Balint",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Strengthens Team With Appointment Of Porphyry Expert Frank Balint\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-02-19 LIBERO COPPER STRENGTHENS TEAM WITH APPOINTMENT OF PORPHYRY EXPERT FRANK BALINT.pdf",
+            "readUrl": "Press Release/2025/2025-02-19 LIBERO COPPER STRENGTHENS TEAM WITH APPOINTMENT OF PORPHYRY EXPERT FRANK BALINT.pdf"
+        },
+        {
+            "date": "February 12, 2025",
+            "year": "2025",
+            "title": "Montclar Bridge, Supporting Expanded Exploration At Mocoa Porphyry Copper- Molybdenum Project, Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Montclar Bridge, Supporting Expanded Exploration At Mocoa Porphyry Copper- Molybdenum Project, Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-02-12 LIBERO COPPER COMPLETES MONTCLAR BRIDGE, SUPPORTING EXPANDED EXPLORATION AT MOCOA PORPHYRY COPPER- MOLYBDENUM PROJECT, COLOMBIA.pdf",
+            "readUrl": "Press Release/2025/2025-02-12 LIBERO COPPER COMPLETES MONTCLAR BRIDGE, SUPPORTING EXPANDED EXPLORATION AT MOCOA PORPHYRY COPPER- MOLYBDENUM PROJECT, COLOMBIA.pdf"
+        },
+        {
+            "date": "January 27, 2025",
+            "year": "2025",
+            "title": "Expands Potential Mocoa Footprint Advancing New Near-deposit Targets",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Expands Potential Mocoa Footprint Advancing New Near-deposit Targets\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-01-27 LIBERO COPPER EXPANDS POTENTIAL MOCOA FOOTPRINT  ADVANCING NEW NEAR-DEPOSIT TARGETS.pdf",
+            "readUrl": "Press Release/2025/2025-01-27 LIBERO COPPER EXPANDS POTENTIAL MOCOA FOOTPRINT  ADVANCING NEW NEAR-DEPOSIT TARGETS.pdf"
+        },
+        {
+            "date": "January 13, 2025",
+            "year": "2025",
+            "title": "Advances 14000-metre Program With Md-045 To Explore Western Potential At The Mocoa Porphyry Copper- Molibdenum Deposit Putumayo - Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Advances 14000-metre Program With Md-045 To Explore Western Potential At The Mocoa Porphyry Copper- Molibdenum Deposit Putumayo - Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2025/2025-01-13 LIBERO COPPER ADVANCES 14000-METRE PROGRAM WITH MD-045 TO EXPLORE WESTERN POTENTIAL AT THE MOCOA PORPHYRY COPPER- MOLIBDENUM DEPOSIT PUTUMAYO - COLOMBIA.pdf",
+            "readUrl": "Press Release/2025/2025-01-13 LIBERO COPPER ADVANCES 14000-METRE PROGRAM WITH MD-045 TO EXPLORE WESTERN POTENTIAL AT THE MOCOA PORPHYRY COPPER- MOLIBDENUM DEPOSIT PUTUMAYO - COLOMBIA.pdf"
+        },
+        {
+            "date": "January 9, 2025",
+            "year": "2025",
+            "title": "Listing On Tradegate Exchange In GERMANY",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Listing On Tradegate Exchange In GERMANY\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-01-09 LIBERO COPPER ANNOUNCES LISTING ON TRADEGATE EXCHANGE IN GERMANY.pdf",
+            "readUrl": "Press Release/2025/2025-01-09 LIBERO COPPER ANNOUNCES LISTING ON TRADEGATE EXCHANGE IN GERMANY.pdf"
+        },
+        {
+            "date": "January 6, 2025",
+            "year": "2025",
+            "title": "Stock Option Grant",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Stock Option Grant\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-01-06 LIBERO COPPER ANNOUNCES STOCK OPTION GRANT.pdf",
+            "readUrl": "Press Release/2025/2025-01-06 LIBERO COPPER ANNOUNCES STOCK OPTION GRANT.pdf"
+        },
+        {
+            "date": "January 2, 2025",
+            "year": "2025",
+            "title": "2024 Achievements And 2025 Vision A Letter From President And CEO Ian Harris",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2024 Achievements And 2025 Vision A Letter From President And CEO Ian Harris\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2025/2025-01-02 LIBERO COPPER 2024 ACHIEVEMENTS AND 2025 VISION A LETTER FROM PRESIDENT AND CEO IAN HARRIS.pdf",
+            "readUrl": "Press Release/2025/2025-01-02 LIBERO COPPER 2024 ACHIEVEMENTS AND 2025 VISION A LETTER FROM PRESIDENT AND CEO IAN HARRIS.pdf"
+        },
+        {
+            "date": "December 12, 2024",
+            "year": "2024",
+            "title": "Closing Of $3 Million Public Offering Of Units",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closing Of $3 Million Public Offering Of Units\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2024/2024-12-12 Libero Copper Announces Closing of $3 Million Public Offering of Units.pdf",
+            "readUrl": "Press Release/2024/2024-12-12 Libero Copper Announces Closing of $3 Million Public Offering of Units.pdf"
+        },
+        {
+            "date": "December 2, 2024",
+            "year": "2024",
+            "title": "$3 Million Public Offering Of Units",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"$3 Million Public Offering Of Units\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2024/2024-12-02 Libero Copper Announces $3 Million Public Offering of Units.pdf",
+            "readUrl": "Press Release/2024/2024-12-02 Libero Copper Announces $3 Million Public Offering of Units.pdf"
+        },
+        {
+            "date": "November 12, 2024",
+            "year": "2024",
+            "title": "Update To Colombias Cadastral Records Enhancing Mocoa Project Potential",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Update To Colombias Cadastral Records Enhancing Mocoa Project Potential\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2024/2024-11-12 LIBERO COPPER ANNOUNCES UPDATE TO COLOMBIAS CADASTRAL RECORDS ENHANCING MOCOA PROJECT POTENTIAL.pdf",
+            "readUrl": "Press Release/2024/2024-11-12 LIBERO COPPER ANNOUNCES UPDATE TO COLOMBIAS CADASTRAL RECORDS ENHANCING MOCOA PROJECT POTENTIAL.pdf"
+        },
+        {
+            "date": "November 6, 2024",
+            "year": "2024",
+            "title": "Details Of Ongoing 14,000-metre Exploration Program At The Mocoa Porphyry Copper- Molybdenum Deposit",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Details Of Ongoing 14,000-metre Exploration Program At The Mocoa Porphyry Copper- Molybdenum Deposit\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2024/2024-11-06 LIBERO COPPER ANNOUNCES DETAILS OF ONGOING 14,000-METRE EXPLORATION PROGRAM AT THE MOCOA PORPHYRY COPPER- MOLYBDENUM DEPOSIT.pdf",
+            "readUrl": "Press Release/2024/2024-11-06 LIBERO COPPER ANNOUNCES DETAILS OF ONGOING 14,000-METRE EXPLORATION PROGRAM AT THE MOCOA PORPHYRY COPPER- MOLYBDENUM DEPOSIT.pdf"
+        },
+        {
+            "date": "October 16, 2024",
+            "year": "2024",
+            "title": "Advances Resource Expansion At The Mocoa Porphyry Copper-molybdenum Deposit",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Advances Resource Expansion At The Mocoa Porphyry Copper-molybdenum Deposit\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2024/2024-10-16 LIBERO COPPER ADVANCES RESOURCE EXPANSION AT THE MOCOA PORPHYRY COPPER-MOLYBDENUM DEPOSIT.pdf",
+            "readUrl": "Press Release/2024/2024-10-16 LIBERO COPPER ADVANCES RESOURCE EXPANSION AT THE MOCOA PORPHYRY COPPER-MOLYBDENUM DEPOSIT.pdf"
+        },
+        {
+            "date": "September 17, 2024",
+            "year": "2024",
+            "title": "Mobilizes For Exploration At The Mocoa Porphyry Copper-molybdenum Deposit",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Mobilizes For Exploration At The Mocoa Porphyry Copper-molybdenum Deposit\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2024/2024-09-17 LIBERO COPPER MOBILIZES FOR EXPLORATION AT THE MOCOA PORPHYRY COPPER-MOLYBDENUM DEPOSIT.pdf",
+            "readUrl": "Press Release/2024/2024-09-17 LIBERO COPPER MOBILIZES FOR EXPLORATION AT THE MOCOA PORPHYRY COPPER-MOLYBDENUM DEPOSIT.pdf"
+        },
+        {
+            "date": "July 31, 2024",
+            "year": "2024",
+            "title": "Putumayos First Ever Mining Forum And Recognition Of Thyana Alvarez As One Of Colombias Most Influential Women",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Putumayos First Ever Mining Forum And Recognition Of Thyana Alvarez As One Of Colombias Most Influential Women\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2024/2024-07-31 LIBERO COPPER ANNOUNCES PUTUMAYOS FIRST EVER MINING FORUM AND RECOGNITION OF THYANA ALVAREZ AS ONE OF COLOMBIaS MOST INFLUENTIAL WOMEN.pdf.pdf",
+            "readUrl": "Press Release/2024/2024-07-31 LIBERO COPPER ANNOUNCES PUTUMAYOS FIRST EVER MINING FORUM AND RECOGNITION OF THYANA ALVAREZ AS ONE OF COLOMBIaS MOST INFLUENTIAL WOMEN.pdf.pdf"
+        },
+        {
+            "date": "July 22, 2024",
+            "year": "2024",
+            "title": "Vice President Investor Relations",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Vice President Investor Relations\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2024/2024-07-22 LIBERO COPPER APPOINTS VICE PRESIDENT INVESTOR RELATIONS.pdf",
+            "readUrl": "Press Release/2024/2024-07-22 LIBERO COPPER APPOINTS VICE PRESIDENT INVESTOR RELATIONS.pdf"
+        },
+        {
+            "date": "June 14, 2024",
+            "year": "2024",
+            "title": "Approval Of Municipality Of Mocoas 4 Year Development Plan",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Approval Of Municipality Of Mocoas 4 Year Development Plan\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2024/2024-06-14 LIBERO COPPER ANNOUNCES APPROVAL OF MUNICIPALITY OF MOCOAS 4 YEAR DEVELOPMENT PLAN.pdf",
+            "readUrl": "Press Release/2024/2024-06-14 LIBERO COPPER ANNOUNCES APPROVAL OF MUNICIPALITY OF MOCOAS 4 YEAR DEVELOPMENT PLAN.pdf"
+        },
+        {
+            "date": "April 5, 2024",
+            "year": "2024",
+            "title": "Q1 ATM Distribution",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Q1 ATM Distribution\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2024/2024-04-05 LIBERO COPPER ANNOUNCES Q1 ATM DISTRIBUTION.pdf",
+            "readUrl": "Press Release/2024/2024-04-05 LIBERO COPPER ANNOUNCES Q1 ATM DISTRIBUTION.pdf"
+        },
+        {
+            "date": "March 26, 2024",
+            "year": "2024",
+            "title": "Stock Option Grant",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Stock Option Grant\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2024/2024-03-26 LIBERO COPPER ANNOUNCES STOCK OPTION GRANT.pdf",
+            "readUrl": "Press Release/2024/2024-03-26 LIBERO COPPER ANNOUNCES STOCK OPTION GRANT.pdf"
+        },
+        {
+            "date": "March 11, 2024",
+            "year": "2024",
+            "title": "$2.86m Financing",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"$2.86m Financing\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2024/2024-03-11 LIBERO COPPER SECURES $2.86M FINANCING.pdf",
+            "readUrl": "Press Release/2024/2024-03-11 LIBERO COPPER SECURES $2.86M FINANCING.pdf"
+        },
+        {
+            "date": "February 23, 2024",
+            "year": "2024",
+            "title": "Upsize To Non Brokered Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Upsize To Non Brokered Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2024/2024-02-23 LIBERO COPPER ANNOUNCES UPSIZE TO NON BROKERED PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2024/2024-02-23 LIBERO COPPER ANNOUNCES UPSIZE TO NON BROKERED PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "February 16, 2024",
+            "year": "2024",
+            "title": "Non Brokered Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Non Brokered Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2024/2024-02-16 LIBERO COPPER ANNOUNCES NON BROKERED PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2024/2024-02-16 LIBERO COPPER ANNOUNCES NON BROKERED PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "January 22, 2024",
+            "year": "2024",
+            "title": "Non Brokered Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Non Brokered Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2024/2024-01-22 LIBERO COPPER ANNOUNCES NON BROKERED PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2024/2024-01-22 LIBERO COPPER ANNOUNCES NON BROKERED PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "January 19, 2024",
+            "year": "2024",
+            "title": "Share Consolidation",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Share Consolidation\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2024/2024-01-19 LIBERO COPPER ANNOUNCES SHARE CONSOLIDATION.pdf",
+            "readUrl": "Press Release/2024/2024-01-19 LIBERO COPPER ANNOUNCES SHARE CONSOLIDATION.pdf"
+        },
+        {
+            "date": "December 28, 2023",
+            "year": "2023",
+            "title": "Closes Rights Offering",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes Rights Offering\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-12-28 LIBERO COPPER CLOSES RIGHTS OFFERING.pdf",
+            "readUrl": "Press Release/2023/2023-12-28 LIBERO COPPER CLOSES RIGHTS OFFERING.pdf"
+        },
+        {
+            "date": "December 21, 2023",
+            "year": "2023",
+            "title": "Terminates The Esperanza Option Agreement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Terminates The Esperanza Option Agreement\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-12-21 LIBERO COPPER TERMINATES THE ESPERANZA OPTION AGREEMENT.pdf",
+            "readUrl": "Press Release/2023/2023-12-21 LIBERO COPPER TERMINATES THE ESPERANZA OPTION AGREEMENT.pdf"
+        },
+        {
+            "date": "December 20, 2023",
+            "year": "2023",
+            "title": "Sells Its Big Bulk Option",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Sells Its Big Bulk Option\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-12-20 LIBERO COPPER SELLS ITS BIG BULK OPTION.pdf",
+            "readUrl": "Press Release/2023/2023-12-20 LIBERO COPPER SELLS ITS BIG BULK OPTION.pdf"
+        },
+        {
+            "date": "November 24, 2023",
+            "year": "2023",
+            "title": "Change Of Auditor",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Change Of Auditor\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-11-24 LIBERO COPPER ANNOUNCES CHANGE OF AUDITOR.pdf",
+            "readUrl": "Press Release/2023/2023-11-24 LIBERO COPPER ANNOUNCES CHANGE OF AUDITOR.pdf"
+        },
+        {
+            "date": "November 22, 2023",
+            "year": "2023",
+            "title": "Rights Offering",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Rights Offering\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-11-22 LIBERO COPPER ANNOUNCES RIGHTS OFFERING.pdf",
+            "readUrl": "Press Release/2023/2023-11-22 LIBERO COPPER ANNOUNCES RIGHTS OFFERING.pdf"
+        },
+        {
+            "date": "August 17, 2023",
+            "year": "2023",
+            "title": "Libero Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-08-17 LIBERO CLOSES PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2023/2023-08-17 LIBERO CLOSES PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "July 17, 2023",
+            "year": "2023",
+            "title": "Libero Announces Private Placement Of Up To $2 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Private Placement Of Up To $2 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-07-17 LIBERO ANNOUNCES PRIVATE PLACEMENT OF UP TO $2 MILLION.pdf",
+            "readUrl": "Press Release/2023/2023-07-17 LIBERO ANNOUNCES PRIVATE PLACEMENT OF UP TO $2 MILLION.pdf"
+        },
+        {
+            "date": "June 27, 2023",
+            "year": "2023",
+            "title": "Projects",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Projects\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-06-27 LIBERO COPPER PROVIDES UPDATE ON PROJECTS.pdf",
+            "readUrl": "Press Release/2023/2023-06-27 LIBERO COPPER PROVIDES UPDATE ON PROJECTS.pdf"
+        },
+        {
+            "date": "May 2, 2023",
+            "year": "2023",
+            "title": "And Anglo Asian Partner To Begin The Design Work On Mocoa For Copper Production In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"And Anglo Asian Partner To Begin The Design Work On Mocoa For Copper Production In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-05-02 LIBERO COPPER AND ANGLO ASIAN PARTNER TO BEGIN THE DESIGN WORK ON MOCOA FOR COPPER PRODUCTION IN COLOMBIA.pdf",
+            "readUrl": "Press Release/2023/2023-05-02 LIBERO COPPER AND ANGLO ASIAN PARTNER TO BEGIN THE DESIGN WORK ON MOCOA FOR COPPER PRODUCTION IN COLOMBIA.pdf"
+        },
+        {
+            "date": "April 27, 2023",
+            "year": "2023",
+            "title": "Selected For The Ifc Source2equal Program In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Selected For The Ifc Source2equal Program In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-04-27 LIBERO COPPER SELECTED FOR THE IFC SOURCE2EQUAL PROGRAM IN COLOMBIA.pdf",
+            "readUrl": "Press Release/2023/2023-04-27 LIBERO COPPER SELECTED FOR THE IFC SOURCE2EQUAL PROGRAM IN COLOMBIA.pdf"
+        },
+        {
+            "date": "April 5, 2023",
+            "year": "2023",
+            "title": "Working In Partnership Supporting The Colombian Government To Develop A Secure And Strategic Source Of Copper For Colombian Sustainable Industries",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Working In Partnership Supporting The Colombian Government To Develop A Secure And Strategic Source Of Copper For Colombian Sustainable Industries\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-04-05 LIBERO COPPER WORKING IN PARTNERSHIP SUPPORTING THE COLOMBIAN GOVERNMENT TO DEVELOP A SECURE AND STRATEGIC SOURCE OF COPPER FOR COLOMBIAN SUSTAINABLE INDUSTRIES.pdf",
+            "readUrl": "Press Release/2023/2023-04-05 LIBERO COPPER WORKING IN PARTNERSHIP SUPPORTING THE COLOMBIAN GOVERNMENT TO DEVELOP A SECURE AND STRATEGIC SOURCE OF COPPER FOR COLOMBIAN SUSTAINABLE INDUSTRIES.pdf"
+        },
+        {
+            "date": "March 23, 2023",
+            "year": "2023",
+            "title": "Establishes At-the- Market Equity Program",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Establishes At-the- Market Equity Program\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2023/2023-03-23 LIBERO COPPER ESTABLISHES AT-THE- MARKET EQUITY PROGRAM.pdf",
+            "readUrl": "Press Release/2023/2023-03-23 LIBERO COPPER ESTABLISHES AT-THE- MARKET EQUITY PROGRAM.pdf"
+        },
+        {
+            "date": "February 17, 2023",
+            "year": "2023",
+            "title": "Closes $2.5m Financing",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes $2.5m Financing\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-02-17 LIBERO COPPER CLOSES $2.5M FINANCING.pdf",
+            "readUrl": "Press Release/2023/2023-02-17 LIBERO COPPER CLOSES $2.5M FINANCING.pdf"
+        },
+        {
+            "date": "February 15, 2023",
+            "year": "2023",
+            "title": "Closes Second Tranche Of Financing",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes Second Tranche Of Financing\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-02-15 LIBERO COPPER CLOSES SECOND TRANCHE OF FINANCING.pdf",
+            "readUrl": "Press Release/2023/2023-02-15 LIBERO COPPER CLOSES SECOND TRANCHE OF FINANCING.pdf"
+        },
+        {
+            "date": "February 13, 2023",
+            "year": "2023",
+            "title": "Closes First Tranche Of Financing And Announces Participation Of Anglo Asian Mining Plc For Subsequent Tranche",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes First Tranche Of Financing And Announces Participation Of Anglo Asian Mining Plc For Subsequent Tranche\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-02-13 LIBERO COPPER CLOSES FIRST TRANCHE OF FINANCING AND ANNOUNCES PARTICIPATION OF ANGLO ASIAN MINING PLC FOR SUBSEQUENT TRANCHE.pdf",
+            "readUrl": "Press Release/2023/2023-02-13 LIBERO COPPER CLOSES FIRST TRANCHE OF FINANCING AND ANNOUNCES PARTICIPATION OF ANGLO ASIAN MINING PLC FOR SUBSEQUENT TRANCHE.pdf"
+        },
+        {
+            "date": "February 10, 2023",
+            "year": "2023",
+            "title": "Increase In Financing Of Up To $2 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Increase In Financing Of Up To $2 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-02-10 LIBERO COPPER ANNOUNCES INCREASE IN FINANCING OF UP TO $2 MILLION.pdf",
+            "readUrl": "Press Release/2023/2023-02-10 LIBERO COPPER ANNOUNCES INCREASE IN FINANCING OF UP TO $2 MILLION.pdf"
+        },
+        {
+            "date": "February 7, 2023",
+            "year": "2023",
+            "title": "Continues To Expand The Potential Of The Mocoa Porphyry Copper Molybdenum Project",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Continues To Expand The Potential Of The Mocoa Porphyry Copper Molybdenum Project\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2023/2023-02-07 LIBERO COPPER CONTINUES TO EXPAND THE POTENTIAL OF THE MOCOA PORPHYRY COPPER MOLYBDENUM PROJECT.pdf",
+            "readUrl": "Press Release/2023/2023-02-07 LIBERO COPPER CONTINUES TO EXPAND THE POTENTIAL OF THE MOCOA PORPHYRY COPPER MOLYBDENUM PROJECT.pdf"
+        },
+        {
+            "date": "February 2, 2023",
+            "year": "2023",
+            "title": "Drill Access To The Mocoa Porphyry Copper Molybdenum Project",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Drill Access To The Mocoa Porphyry Copper Molybdenum Project\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2023/2023-02-02 LIBERO COPPER COMPLETES DRILL ACCESS TO THE MOCOA PORPHYRY COPPER MOLYBDENUM PROJECT.pdf",
+            "readUrl": "Press Release/2023/2023-02-02 LIBERO COPPER COMPLETES DRILL ACCESS TO THE MOCOA PORPHYRY COPPER MOLYBDENUM PROJECT.pdf"
+        },
+        {
+            "date": "January 16, 2023",
+            "year": "2023",
+            "title": "Extends The Terry Porphyry Copper-gold Discovery",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Extends The Terry Porphyry Copper-gold Discovery\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2023/2023-01-16 LIBERO COPPER EXTENDS THE TERRY PORPHYRY COPPER-GOLD DISCOVERY.pdf",
+            "readUrl": "Press Release/2023/2023-01-16 LIBERO COPPER EXTENDS THE TERRY PORPHYRY COPPER-GOLD DISCOVERY.pdf"
+        },
+        {
+            "date": "January 6, 2023",
+            "year": "2023",
+            "title": "Closing Of Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closing Of Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2023/2023-01-06 LIBERO COPPER ANNOUNCES CLOSING OF PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2023/2023-01-06 LIBERO COPPER ANNOUNCES CLOSING OF PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "December 30, 2022",
+            "year": "2022",
+            "title": "Closing Of First Tranche Of Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closing Of First Tranche Of Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2022/2022-12-30 LIBERO COPPER ANNOUNCES CLOSING OF FIRST TRANCHE OF PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2022/2022-12-30 LIBERO COPPER ANNOUNCES CLOSING OF FIRST TRANCHE OF PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "December 15, 2022",
+            "year": "2022",
+            "title": "$2 Million Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"$2 Million Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2022/2022-12-15 LIBERO COPPER ANNOUNCES $2 MILLION PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2022/2022-12-15 LIBERO COPPER ANNOUNCES $2 MILLION PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "December 14, 2022",
+            "year": "2022",
+            "title": "Advances At The Esperanza Porphyry Project In San Juan, Argentina",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Advances At The Esperanza Porphyry Project In San Juan, Argentina\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-12-14 LIBERO COPPER PROVIDES UPDATE ON ADVANCES AT THE ESPERANZA PORPHYRY PROJECT IN SAN JUAN, ARGENTINA.pdf",
+            "readUrl": "Press Release/2022/2022-12-14 LIBERO COPPER PROVIDES UPDATE ON ADVANCES AT THE ESPERANZA PORPHYRY PROJECT IN SAN JUAN, ARGENTINA.pdf"
+        },
+        {
+            "date": "December 6, 2022",
+            "year": "2022",
+            "title": "Extracts Copper Metal From The Mocoa Deposit With The National University Of Colombia, The First Copper Produced In The Country",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Extracts Copper Metal From The Mocoa Deposit With The National University Of Colombia, The First Copper Produced In The Country\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-12-06 LIBERO COPPER EXTRACTS COPPER METAL FROM THE MOCOA DEPOSIT WITH THE NATIONAL UNIVERSITY OF COLOMBIA, THE FIRST COPPER PRODUCED IN THE COUNTRY.pdf",
+            "readUrl": "Press Release/2022/2022-12-06 LIBERO COPPER EXTRACTS COPPER METAL FROM THE MOCOA DEPOSIT WITH THE NATIONAL UNIVERSITY OF COLOMBIA, THE FIRST COPPER PRODUCED IN THE COUNTRY.pdf"
+        },
+        {
+            "date": "November 29, 2022",
+            "year": "2022",
+            "title": "Enters Mutual Benefit Agreement With The Local Community For The Exploration Of The Mocoa Copper Project In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Enters Mutual Benefit Agreement With The Local Community For The Exploration Of The Mocoa Copper Project In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-11-29 LIBERO COPPER ENTERS MUTUAL BENEFIT AGREEMENT WITH THE LOCAL COMMUNITY FOR THE EXPLORATION OF THE MOCOA COPPER PROJECT IN COLOMBIA.pdf",
+            "readUrl": "Press Release/2022/2022-11-29 LIBERO COPPER ENTERS MUTUAL BENEFIT AGREEMENT WITH THE LOCAL COMMUNITY FOR THE EXPLORATION OF THE MOCOA COPPER PROJECT IN COLOMBIA.pdf"
+        },
+        {
+            "date": "November 15, 2022",
+            "year": "2022",
+            "title": "Significantly Expands Potential Size Of The Mocoa Deposit",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Significantly Expands Potential Size Of The Mocoa Deposit\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-11-15 LIBERO COPPER SIGNIFICANTLY EXPANDS POTENTIAL SIZE OF THE MOCOA DEPOSIT.pdf",
+            "readUrl": "Press Release/2022/2022-11-15 LIBERO COPPER SIGNIFICANTLY EXPANDS POTENTIAL SIZE OF THE MOCOA DEPOSIT.pdf"
+        },
+        {
+            "date": "October 14, 2022",
+            "year": "2022",
+            "title": "Reorganizes Executive Team",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Reorganizes Executive Team\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-10-14 LIBERO COPPER REORGANIZES EXECUTIVE TEAM.pdf",
+            "readUrl": "Press Release/2022/2022-10-14 LIBERO COPPER REORGANIZES EXECUTIVE TEAM.pdf"
+        },
+        {
+            "date": "August 15, 2022",
+            "year": "2022",
+            "title": "Libero Appoints Paul Taggar Cfo",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Appoints Paul Taggar Cfo\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-08-15 LIBERO APPOINTS PAUL TAGGAR CFO.pdf",
+            "readUrl": "Press Release/2022/2022-08-15 LIBERO APPOINTS PAUL TAGGAR CFO.pdf"
+        },
+        {
+            "date": "August 9, 2022",
+            "year": "2022",
+            "title": "Lc Initiates Drill Program",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Lc Initiates Drill Program\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-08-09 LC INITIATES DRILL PROGRAM.pdf",
+            "readUrl": "Press Release/2022/2022-08-09 LC INITIATES DRILL PROGRAM.pdf"
+        },
+        {
+            "date": "July 29, 2022",
+            "year": "2022",
+            "title": "Upsizes Financing To 4.5 Million And Announces Closing Of First Tranche Flow Through Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Upsizes Financing To 4.5 Million And Announces Closing Of First Tranche Flow Through Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2022/2022-07-29 LIBERO COPPER UPSIZES FINANCING TO 4.5 MILLION AND ANNOUNCES CLOSING OF FIRST TRANCHE FLOW THROUGH PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2022/2022-07-29 LIBERO COPPER UPSIZES FINANCING TO 4.5 MILLION AND ANNOUNCES CLOSING OF FIRST TRANCHE FLOW THROUGH PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "July 21, 2022",
+            "year": "2022",
+            "title": "Increase To Flow-through Private Placement Of Up To $4.4 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Increase To Flow-through Private Placement Of Up To $4.4 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2022/2022-07-21 LIBERO COPPER ANNOUNCES INCREASE TO FLOW-THROUGH PRIVATE PLACEMENT OF UP TO $4.4 MILLION.pdf",
+            "readUrl": "Press Release/2022/2022-07-21 LIBERO COPPER ANNOUNCES INCREASE TO FLOW-THROUGH PRIVATE PLACEMENT OF UP TO $4.4 MILLION.pdf"
+        },
+        {
+            "date": "July 14, 2022",
+            "year": "2022",
+            "title": "Flow Through Private Placement Of Up To $3 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Flow Through Private Placement Of Up To $3 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2022/2022-07-14 LIBERO COPPER ANNOUNCES FLOW THROUGH PRIVATE PLACEMENT OF UP TO $3 MILLION.pdf",
+            "readUrl": "Press Release/2022/2022-07-14 LIBERO COPPER ANNOUNCES FLOW THROUGH PRIVATE PLACEMENT OF UP TO $3 MILLION.pdf"
+        },
+        {
+            "date": "June 1, 2022",
+            "year": "2022",
+            "title": "Starts Water Quality Baseline Studies With The Technological Institute Of Putumayo And The Colombian National University",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Starts Water Quality Baseline Studies With The Technological Institute Of Putumayo And The Colombian National University\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-06-01 LIBERO COPPER STARTS WATER QUALITY BASELINE STUDIES WITH THE TECHNOLOGICAL INSTITUTE OF PUTUMAYO AND THE COLOMBIAN NATIONAL UNIVERSITY.pdf",
+            "readUrl": "Press Release/2022/2022-06-01 LIBERO COPPER STARTS WATER QUALITY BASELINE STUDIES WITH THE TECHNOLOGICAL INSTITUTE OF PUTUMAYO AND THE COLOMBIAN NATIONAL UNIVERSITY.pdf"
+        },
+        {
+            "date": "May 31, 2022",
+            "year": "2022",
+            "title": "Identifies Significant Potassium Anomaly Immediately Southeast Of The Terry Porphyry Cu Au Discovery At Big Red And Field Crew Mobilized For Summer Drill Program. Pdf",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Identifies Significant Potassium Anomaly Immediately Southeast Of The Terry Porphyry Cu Au Discovery At Big Red And Field Crew Mobilized For Summer Drill Program. Pdf\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-05-31 LIBERO COPPER IDENTIFIES SIGNIFICANT POTASSIUM ANOMALY IMMEDIATELY SOUTHEAST OF THE TERRY PORPHYRY CU AU DISCOVERY AT BIG RED AND FIELD CREW MOBILIZED FOR SUMMER DRILL PROGRAM. pdf.pdf",
+            "readUrl": "Press Release/2022/2022-05-31 LIBERO COPPER IDENTIFIES SIGNIFICANT POTASSIUM ANOMALY IMMEDIATELY SOUTHEAST OF THE TERRY PORPHYRY CU AU DISCOVERY AT BIG RED AND FIELD CREW MOBILIZED FOR SUMMER DRILL PROGRAM. pdf.pdf"
+        },
+        {
+            "date": "May 3, 2022",
+            "year": "2022",
+            "title": "Identifies 9 New Porphyry",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Identifies 9 New Porphyry\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-05-03 LIBERO COPPER IDENTIFIES 9 NEW PORPHYRY.pdf",
+            "readUrl": "Press Release/2022/2022-05-03 LIBERO COPPER IDENTIFIES 9 NEW PORPHYRY.pdf"
+        },
+        {
+            "date": "April 26, 2022",
+            "year": "2022",
+            "title": "Intercepts 557 Metres Grading 0.89% Cueq1 (0.62% Cu And 0.083% Mo) At Mocoa From First Hole",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Intercepts 557 Metres Grading 0.89% Cueq1 (0.62% Cu And 0.083% Mo) At Mocoa From First Hole\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-04-26 LIBERO COPPER INTERCEPTS 557 METRES GRADING 0.89% CUEQ1 (0.62% CU and 0.083% MO) AT MOCOA FROM FIRST HOLE.pdf",
+            "readUrl": "Press Release/2022/2022-04-26 LIBERO COPPER INTERCEPTS 557 METRES GRADING 0.89% CUEQ1 (0.62% CU and 0.083% MO) AT MOCOA FROM FIRST HOLE.pdf"
+        },
+        {
+            "date": "April 22, 2022",
+            "year": "2022",
+            "title": "Responds To Mispresentation In Recent Published Media Article",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Responds To Mispresentation In Recent Published Media Article\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-04-22 LIBERO COPPER RESPONDS TO MISPRESENTATION IN RECENT PUBLISHED MEDIA ARTICLE.pdf",
+            "readUrl": "Press Release/2022/2022-04-22 LIBERO COPPER RESPONDS TO MISPRESENTATION IN RECENT PUBLISHED MEDIA ARTICLE.pdf"
+        },
+        {
+            "date": "April 19, 2022",
+            "year": "2022",
+            "title": "Intercepts 251 Metres Grading 1.13% Cueq1 (0.75% Cu And 0.114% Mo) At Mocoa With Assays Returned For Only The First 450 Metres Of 1,235 Metre Hole",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Intercepts 251 Metres Grading 1.13% Cueq1 (0.75% Cu And 0.114% Mo) At Mocoa With Assays Returned For Only The First 450 Metres Of 1,235 Metre Hole\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-04-19 LIBERO COPPER INTERCEPTS 251 METRES GRADING 1.13% CUEQ1 (0.75% CU and 0.114% MO) AT MOCOA WITH ASSAYS RETURNED FOR ONLY THE FIRST 450 METRES OF 1,235 METRE HOLE.pdf",
+            "readUrl": "Press Release/2022/2022-04-19 LIBERO COPPER INTERCEPTS 251 METRES GRADING 1.13% CUEQ1 (0.75% CU and 0.114% MO) AT MOCOA WITH ASSAYS RETURNED FOR ONLY THE FIRST 450 METRES OF 1,235 METRE HOLE.pdf"
+        },
+        {
+            "date": "March 30, 2022",
+            "year": "2022",
+            "title": "Exploration Drilling At Mocoa",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Exploration Drilling At Mocoa\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-03-30 LIBERO COPPER PROVIDES UPDATE ON EXPLORATION DRILLING AT MOCOA.pdf",
+            "readUrl": "Press Release/2022/2022-03-30 LIBERO COPPER PROVIDES UPDATE ON EXPLORATION DRILLING AT MOCOA.pdf"
+        },
+        {
+            "date": "March 14, 2022",
+            "year": "2022",
+            "title": "Matthew Wunder Vp Exploration",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Matthew Wunder Vp Exploration\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-03-14 Libero Copper Appoints Matthew Wunder VP Exploration.pdf",
+            "readUrl": "Press Release/2022/2022-03-14 Libero Copper Appoints Matthew Wunder VP Exploration.pdf"
+        },
+        {
+            "date": "February 16, 2022",
+            "year": "2022",
+            "title": "Commences Drilling The Mocoa Porphyry Copper- Molybdenum Project In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Commences Drilling The Mocoa Porphyry Copper- Molybdenum Project In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-02-16 LIBERO COPPER COMMENCES DRILLING THE MOCOA PORPHYRY COPPER- MOLYBDENUM PROJECT IN COLOMBIA.pdf",
+            "readUrl": "Press Release/2022/2022-02-16 LIBERO COPPER COMMENCES DRILLING THE MOCOA PORPHYRY COPPER- MOLYBDENUM PROJECT IN COLOMBIA.pdf"
+        },
+        {
+            "date": "January 27, 2022",
+            "year": "2022",
+            "title": "Closes $8,300,000 Financing And Appoints Michael Sununu Director",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes $8,300,000 Financing And Appoints Michael Sununu Director\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2022/2022-01-27 LIBERO Copper CLOSES $8,300,000 FINANCING AND APPOINTS MICHAEL SUNUNU DIRECTOR.pdf",
+            "readUrl": "Press Release/2022/2022-01-27 LIBERO Copper CLOSES $8,300,000 FINANCING AND APPOINTS MICHAEL SUNUNU DIRECTOR.pdf"
+        },
+        {
+            "date": "January 25, 2022",
+            "year": "2022",
+            "title": "Signs Exploration Drilling Contract For The Mocoa Porphyry Copper-molybdenum Project In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Signs Exploration Drilling Contract For The Mocoa Porphyry Copper-molybdenum Project In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2022/2022-01-25 LIBERO COPPER SIGNS EXPLORATION DRILLING CONTRACT FOR THE MOCOA PORPHYRY COPPER-MOLYBDENUM PROJECT IN COLOMBIA.pdf",
+            "readUrl": "Press Release/2022/2022-01-25 LIBERO COPPER SIGNS EXPLORATION DRILLING CONTRACT FOR THE MOCOA PORPHYRY COPPER-MOLYBDENUM PROJECT IN COLOMBIA.pdf"
+        },
+        {
+            "date": "January 4, 2022",
+            "year": "2022",
+            "title": "Intercepts 97 Metres Of 0.34% Copper Equivalent At Big Bulk",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Intercepts 97 Metres Of 0.34% Copper Equivalent At Big Bulk\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2022/2022-01-04 LIBERO COPPER INTERCEPTS 97 METRES OF 0.34% COPPER EQUIVALENT AT BIG BULK.pdf",
+            "readUrl": "Press Release/2022/2022-01-04 LIBERO COPPER INTERCEPTS 97 METRES OF 0.34% COPPER EQUIVALENT AT BIG BULK.pdf"
+        },
+        {
+            "date": "January 1, 2022",
+            "year": "2022",
+            "title": "2022-08005 Libero Copper Closes Flow-through And Common Share Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2022-08005 Libero Copper Closes Flow-through And Common Share Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2022/2022-08005 LIBERO COPPER CLOSES FLOW-THROUGH AND COMMON SHARE PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2022/2022-08005 LIBERO COPPER CLOSES FLOW-THROUGH AND COMMON SHARE PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "December 29, 2021",
+            "year": "2021",
+            "title": "Stock Option Grants",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Stock Option Grants\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-12-29 LIBERO COPPER ANNOUNCES STOCK OPTION GRANTS.pdf",
+            "readUrl": "Press Release/2021/2021-12-29 LIBERO COPPER ANNOUNCES STOCK OPTION GRANTS.pdf"
+        },
+        {
+            "date": "December 22, 2021",
+            "year": "2021",
+            "title": "Upsizes Financing To $8.3 Million And Announces Closing Of Second Tranche",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Upsizes Financing To $8.3 Million And Announces Closing Of Second Tranche\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2021/2021-12-22 LIBERO COPPER UPSIZES FINANCING TO $8.3 MILLION AND ANNOUNCES CLOSING OF SECOND TRANCHE.pdf",
+            "readUrl": "Press Release/2021/2021-12-22 LIBERO COPPER UPSIZES FINANCING TO $8.3 MILLION AND ANNOUNCES CLOSING OF SECOND TRANCHE.pdf"
+        },
+        {
+            "date": "December 7, 2021",
+            "year": "2021",
+            "title": "Upsizes Private Placement To 7 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Upsizes Private Placement To 7 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2021/2021-12-07 Libero Copper Upsizes Private Placement to 7 Million.pdf",
+            "readUrl": "Press Release/2021/2021-12-07 Libero Copper Upsizes Private Placement to 7 Million.pdf"
+        },
+        {
+            "date": "December 1, 2021",
+            "year": "2021",
+            "title": "Libero Copperizes Surface Access And Land Use Agreements For The Mocoa Porphyry Copper Molybdenum Deposit In Putumayo Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Copperizes Surface Access And Land Use Agreements For The Mocoa Porphyry Copper Molybdenum Deposit In Putumayo Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-12-01 Libero Copper Finalizes Surface Access and Land Use Agreements for the Mocoa Porphyry Copper Molybdenum Deposit in Putumayo Colombia.pdf",
+            "readUrl": "Press Release/2021/2021-12-01 Libero Copper Finalizes Surface Access and Land Use Agreements for the Mocoa Porphyry Copper Molybdenum Deposit in Putumayo Colombia.pdf"
+        },
+        {
+            "date": "November 8, 2021",
+            "year": "2021",
+            "title": "Libero Announces Private Placement Of Up To C$5 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Private Placement Of Up To C$5 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2021/2021-11-08 Libero Announces Private Placement of up to C$5 Million.pdf",
+            "readUrl": "Press Release/2021/2021-11-08 Libero Announces Private Placement of up to C$5 Million.pdf"
+        },
+        {
+            "date": "November 1, 2021",
+            "year": "2021",
+            "title": "Consolidates Jurassic Porphyry Belt Around The Mocoa Copper- Molybdenum Project In Colombia",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Consolidates Jurassic Porphyry Belt Around The Mocoa Copper- Molybdenum Project In Colombia\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-11-01 Libero Copper Consolidates Jurassic Porphyry Belt Around the Mocoa Copper- Molybdenum Project in Colombia.pdf",
+            "readUrl": "Press Release/2021/2021-11-01 Libero Copper Consolidates Jurassic Porphyry Belt Around the Mocoa Copper- Molybdenum Project in Colombia.pdf"
+        },
+        {
+            "date": "October 27, 2021",
+            "year": "2021",
+            "title": "Invites Shareholders To Join A Q3 Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Invites Shareholders To Join A Q3 Update\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2021/2021-10-27 Libero Copper Invites Shareholders to Join a Q3 Update.pdf",
+            "readUrl": "Press Release/2021/2021-10-27 Libero Copper Invites Shareholders to Join a Q3 Update.pdf"
+        },
+        {
+            "date": "October 26, 2021",
+            "year": "2021",
+            "title": "Confirms Large Scale Bulk Tonnage Potential At Big Red Intersecting 118 M Of 0.33% Cueq From Surface Within 510 Metres Of Mineralization",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Confirms Large Scale Bulk Tonnage Potential At Big Red Intersecting 118 M Of 0.33% Cueq From Surface Within 510 Metres Of Mineralization\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-10-26 libero Copper Confirms Large Scale Bulk Tonnage Potential at Big Red Intersecting 118 m of 0.33% CuEq from Surface within 510 metres of Mineralization.pdf",
+            "readUrl": "Press Release/2021/2021-10-26 libero Copper Confirms Large Scale Bulk Tonnage Potential at Big Red Intersecting 118 m of 0.33% CuEq from Surface within 510 metres of Mineralization.pdf"
+        },
+        {
+            "date": "October 25, 2021",
+            "year": "2021",
+            "title": "Identifies Second Porphyry Target At Big Red",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Identifies Second Porphyry Target At Big Red\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-10-25 Libero Copper Identifies Second Porphyry Target at Big Red.pdf",
+            "readUrl": "Press Release/2021/2021-10-25 Libero Copper Identifies Second Porphyry Target at Big Red.pdf"
+        },
+        {
+            "date": "October 19, 2021",
+            "year": "2021",
+            "title": "Starts Exploration At Mocoa",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Starts Exploration At Mocoa\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-10-19 Libero Copper Starts Exploration at Mocoa.pdf",
+            "readUrl": "Press Release/2021/2021-10-19 Libero Copper Starts Exploration at Mocoa.pdf"
+        },
+        {
+            "date": "October 6, 2021",
+            "year": "2021",
+            "title": "Retains Red Cloud As Capital Markets Advisor",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Retains Red Cloud As Capital Markets Advisor\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-10-06 LIBERO COPPER RETAINS RED CLOUD AS CAPITAL MARKETS ADVISOR.pdf",
+            "readUrl": "Press Release/2021/2021-10-06 LIBERO COPPER RETAINS RED CLOUD AS CAPITAL MARKETS ADVISOR.pdf"
+        },
+        {
+            "date": "September 7, 2021",
+            "year": "2021",
+            "title": "Libero Provides Big Red Exploration Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Provides Big Red Exploration Update\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-09-07 Libero Provides Big Red Exploration Update.pdf",
+            "readUrl": "Press Release/2021/2021-09-07 Libero Provides Big Red Exploration Update.pdf"
+        },
+        {
+            "date": "July 27, 2021",
+            "year": "2021",
+            "title": "Commences Drilling At Big Red",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Commences Drilling At Big Red\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-07-27 Libero Copper Commences Drilling at Big Red.pdf",
+            "readUrl": "Press Release/2021/2021-07-27 Libero Copper Commences Drilling at Big Red.pdf"
+        },
+        {
+            "date": "July 21, 2021",
+            "year": "2021",
+            "title": "Libero Invites Shareholders To Join A Q2 Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Invites Shareholders To Join A Q2 Update\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2021/2021-07-21 Libero Invites Shareholders to Join a Q2 Update.pdf",
+            "readUrl": "Press Release/2021/2021-07-21 Libero Invites Shareholders to Join a Q2 Update.pdf"
+        },
+        {
+            "date": "July 7, 2021",
+            "year": "2021",
+            "title": "Libero Meets Minister Of Mines & Energy And President Of The National Mining Agency To Jointly Discuss The Development Of The Strategic Mocoa Copper Project",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Meets Minister Of Mines & Energy And President Of The National Mining Agency To Jointly Discuss The Development Of The Strategic Mocoa Copper Project\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-07-07 Libero Meets Minister of Mines & Energy and President of the National Mining Agency to Jointly Discuss the Development of the Strategic Mocoa Copper Project.pdf",
+            "readUrl": "Press Release/2021/2021-07-07 Libero Meets Minister of Mines & Energy and President of the National Mining Agency to Jointly Discuss the Development of the Strategic Mocoa Copper Project.pdf"
+        },
+        {
+            "date": "June 29, 2021",
+            "year": "2021",
+            "title": "Libero Appoints Lisa Peterson As Chief Financial Officer",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Appoints Lisa Peterson As Chief Financial Officer\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-06-29 Libero Appoints Lisa Peterson as Chief Financial Officer.pdf",
+            "readUrl": "Press Release/2021/2021-06-29 Libero Appoints Lisa Peterson as Chief Financial Officer.pdf"
+        },
+        {
+            "date": "May 31, 2021",
+            "year": "2021",
+            "title": "Mobilizes Field Crews To Begin 2021 Bc Exploration Program",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Mobilizes Field Crews To Begin 2021 Bc Exploration Program\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-05-31 Libero Copper Mobilizes Field Crews to Begin 2021 BC Exploration Program.pdf",
+            "readUrl": "Press Release/2021/2021-05-31 Libero Copper Mobilizes Field Crews to Begin 2021 BC Exploration Program.pdf"
+        },
+        {
+            "date": "May 28, 2021",
+            "year": "2021",
+            "title": "Correction Fromsource--libero Copper & Gold Corporation",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Correction Fromsource--libero Copper & Gold Corporation\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-05-28 CORRECTION fromSource--Libero Copper & Gold Corporation.pdf",
+            "readUrl": "Press Release/2021/2021-05-28 CORRECTION fromSource--Libero Copper & Gold Corporation.pdf"
+        },
+        {
+            "date": "May 26, 2021",
+            "year": "2021",
+            "title": "Libero Invites Shareholders To Join A Virtual Investor Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Invites Shareholders To Join A Virtual Investor Update\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2021/2021-05-26 Libero Invites Shareholders to Join a Virtual Investor Update.pdf",
+            "readUrl": "Press Release/2021/2021-05-26 Libero Invites Shareholders to Join a Virtual Investor Update.pdf"
+        },
+        {
+            "date": "May 25, 2021",
+            "year": "2021",
+            "title": "Libero Notes Strong Similarities Between Filo Del Sol And Esperanza Projects In San Juan Province, Argentina",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Notes Strong Similarities Between Filo Del Sol And Esperanza Projects In San Juan Province, Argentina\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-05-25 Libero Notes Strong Similarities Between Filo del Sol and Esperanza Projects in San Juan Province, Argentina.pdf",
+            "readUrl": "Press Release/2021/2021-05-25 Libero Notes Strong Similarities Between Filo del Sol and Esperanza Projects in San Juan Province, Argentina.pdf"
+        },
+        {
+            "date": "May 10, 2021",
+            "year": "2021",
+            "title": "Libero Announces Exploration Programs For The Big Red And Big Bulk Porphyry Copper Projects",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Exploration Programs For The Big Red And Big Bulk Porphyry Copper Projects\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-05-10 Libero Announces Exploration Programs for the Big Red and Big Bulk Porphyry Copper Projects.pdf",
+            "readUrl": "Press Release/2021/2021-05-10 Libero Announces Exploration Programs for the Big Red and Big Bulk Porphyry Copper Projects.pdf"
+        },
+        {
+            "date": "April 13, 2021",
+            "year": "2021",
+            "title": "Libero Announces Stock Option Grant",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Stock Option Grant\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-04-13 LIBERO ANNOUNCES STOCK OPTION GRANT.pdf",
+            "readUrl": "Press Release/2021/2021-04-13 LIBERO ANNOUNCES STOCK OPTION GRANT.pdf"
+        },
+        {
+            "date": "February 23, 2021",
+            "year": "2021",
+            "title": "Libero Closes $7 Million Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes $7 Million Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2021/2021-02-23 Libero Closes $7 Million Private Placement.pdf",
+            "readUrl": "Press Release/2021/2021-02-23 Libero Closes $7 Million Private Placement.pdf"
+        },
+        {
+            "date": "February 18, 2021",
+            "year": "2021",
+            "title": "Libero Announces Effective Date Of Consolidation",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Effective Date Of Consolidation\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-02-18 Libero Announces Effective Date of Consolidation.pdf",
+            "readUrl": "Press Release/2021/2021-02-18 Libero Announces Effective Date of Consolidation.pdf"
+        },
+        {
+            "date": "February 9, 2021",
+            "year": "2021",
+            "title": "Libero Announces Upsize Of Private Placement To $7 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Upsize Of Private Placement To $7 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2021/2021-02-09 Libero Announces Upsize of Private Placement to $7 Million.pdf",
+            "readUrl": "Press Release/2021/2021-02-09 Libero Announces Upsize of Private Placement to $7 Million.pdf"
+        },
+        {
+            "date": "February 8, 2021",
+            "year": "2021",
+            "title": "Libero Announces 2021 Work Program",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces 2021 Work Program\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-02-08 Libero Announces 2021 Work Program.pdf",
+            "readUrl": "Press Release/2021/2021-02-08 Libero Announces 2021 Work Program.pdf"
+        },
+        {
+            "date": "February 3, 2021",
+            "year": "2021",
+            "title": "Libero Announces Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2021/2021-02-03 Libero Announces Private Placement.pdf",
+            "readUrl": "Press Release/2021/2021-02-03 Libero Announces Private Placement.pdf"
+        },
+        {
+            "date": "January 26, 2021",
+            "year": "2021",
+            "title": "Libero Options The Esperanza Porphyry Copper-gold Project - Drilling Includes 232 Metres Of 1% Cueq From Surface",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Options The Esperanza Porphyry Copper-gold Project - Drilling Includes 232 Metres Of 1% Cueq From Surface\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2021/2021-01-26 Libero Options the Esperanza Porphyry Copper-Gold Project - Drilling Includes 232 Metres of 1% Cueq from Surface.pdf",
+            "readUrl": "Press Release/2021/2021-01-26 Libero Options the Esperanza Porphyry Copper-Gold Project - Drilling Includes 232 Metres of 1% Cueq from Surface.pdf"
+        },
+        {
+            "date": "January 25, 2021",
+            "year": "2021",
+            "title": "Libero Strengthens Board And Management Team",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Strengthens Board And Management Team\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2021/2021-01-25 Libero Strengthens Board and Management Team.pdf",
+            "readUrl": "Press Release/2021/2021-01-25 Libero Strengthens Board and Management Team.pdf"
+        },
+        {
+            "date": "January 19, 2021",
+            "year": "2021",
+            "title": "Libero Expands Discovery At Big Red Intersecting 120 M Of 0.41% Cueq. From Surface, Including 12 M Of 1.18% Cueq",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Expands Discovery At Big Red Intersecting 120 M Of 0.41% Cueq. From Surface, Including 12 M Of 1.18% Cueq\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-01-19 Libero Expands Discovery at Big Red Intersecting 120 M of 0.41% Cueq. From Surface, Including 12 M of 1.18% Cueq.pdf",
+            "readUrl": "Press Release/2021/2021-01-19 Libero Expands Discovery at Big Red Intersecting 120 M of 0.41% Cueq. From Surface, Including 12 M of 1.18% Cueq.pdf"
+        },
+        {
+            "date": "January 12, 2021",
+            "year": "2021",
+            "title": "Libero Intersects 80.77 Metres Of 0.43% Copper Equivalent At Big Red From Surface",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Intersects 80.77 Metres Of 0.43% Copper Equivalent At Big Red From Surface\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2021/2021-01-12 Libero Intersects 80.77 Metres of 0.43% Copper Equivalent at Big Red From Surface.pdf",
+            "readUrl": "Press Release/2021/2021-01-12 Libero Intersects 80.77 Metres of 0.43% Copper Equivalent at Big Red From Surface.pdf"
+        },
+        {
+            "date": "December 22, 2020",
+            "year": "2020",
+            "title": "Libero Confirms Porphyry Copper Discovery At Big Red With Initial Drill Hole, Intersecting 0.45% Copper Equivalent Over 24 Metres From Surface",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Confirms Porphyry Copper Discovery At Big Red With Initial Drill Hole, Intersecting 0.45% Copper Equivalent Over 24 Metres From Surface\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2020/2020-12-22 Libero Confirms Porphyry Copper Discovery at Big Red with Initial Drill Hole, Intersecting 0.45% Copper Equivalent over 24 Metres from Surface.pdf",
+            "readUrl": "Press Release/2020/2020-12-22 Libero Confirms Porphyry Copper Discovery at Big Red with Initial Drill Hole, Intersecting 0.45% Copper Equivalent over 24 Metres from Surface.pdf"
+        },
+        {
+            "date": "December 17, 2020",
+            "year": "2020",
+            "title": "Libero Grants Stock Options",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Grants Stock Options\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2020/2020-12-17 LIBERO GRANTS STOCK OPTIONS.pdf",
+            "readUrl": "Press Release/2020/2020-12-17 LIBERO GRANTS STOCK OPTIONS.pdf"
+        },
+        {
+            "date": "December 16, 2020",
+            "year": "2020",
+            "title": "Libero Announces Porphyry Copper Gold Discovery And Drilling Update",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Porphyry Copper Gold Discovery And Drilling Update\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2020/2020-12-16 Libero Announces Porphyry Copper Gold Discovery and Drilling Update.pdf",
+            "readUrl": "Press Release/2020/2020-12-16 Libero Announces Porphyry Copper Gold Discovery and Drilling Update.pdf"
+        },
+        {
+            "date": "September 30, 2020",
+            "year": "2020",
+            "title": "Libero Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-09-30 Libero Closes Private Placement.pdf",
+            "readUrl": "Press Release/2020/2020-09-30 Libero Closes Private Placement.pdf"
+        },
+        {
+            "date": "September 21, 2020",
+            "year": "2020",
+            "title": "Libero Announces Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-09-21 Libero Announces Private Placement.pdf",
+            "readUrl": "Press Release/2020/2020-09-21 Libero Announces Private Placement.pdf"
+        },
+        {
+            "date": "August 24, 2020",
+            "year": "2020",
+            "title": "Libero Announces Surface Samples Up To 104 Grams Per Tonne Gold From Big Red",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Surface Samples Up To 104 Grams Per Tonne Gold From Big Red\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2020/2020-08-24 Libero Announces Surface Samples up to 104 Grams per Tonne Gold from Big Red.pdf",
+            "readUrl": "Press Release/2020/2020-08-24 Libero Announces Surface Samples up to 104 Grams per Tonne Gold from Big Red.pdf"
+        },
+        {
+            "date": "August 10, 2020",
+            "year": "2020",
+            "title": "Libero Commences Drill Program At Big Red",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Commences Drill Program At Big Red\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2020/2020-08-10 Libero Commences Drill Program at Big Red.pdf",
+            "readUrl": "Press Release/2020/2020-08-10 Libero Commences Drill Program at Big Red.pdf"
+        },
+        {
+            "date": "July 27, 2020",
+            "year": "2020",
+            "title": "Libero Announces Initial Results From Terry Target At Big Red",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Initial Results From Terry Target At Big Red\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2020/2020-07-27 Libero Announces Initial Results from Terry Target at Big Red.pdf",
+            "readUrl": "Press Release/2020/2020-07-27 Libero Announces Initial Results from Terry Target at Big Red.pdf"
+        },
+        {
+            "date": "July 21, 2020",
+            "year": "2020",
+            "title": "Libero Expands Ridge Drill Program At Big Red",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Expands Ridge Drill Program At Big Red\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2020/2020-07-21 Libero Expands Ridge Drill Program at Big Red.pdf",
+            "readUrl": "Press Release/2020/2020-07-21 Libero Expands Ridge Drill Program at Big Red.pdf"
+        },
+        {
+            "date": "June 3, 2020",
+            "year": "2020",
+            "title": "Libero Closes $4 Million Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes $4 Million Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-06-03 Libero Closes $4 Million Private Placement.pdf",
+            "readUrl": "Press Release/2020/2020-06-03 Libero Closes $4 Million Private Placement.pdf"
+        },
+        {
+            "date": "May 22, 2020",
+            "year": "2020",
+            "title": "Libero Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-05-22 LIBERO CLOSES PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2020/2020-05-22 LIBERO CLOSES PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "May 13, 2020",
+            "year": "2020",
+            "title": "Libero Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-05-13 Libero Closes Private Placement.pdf",
+            "readUrl": "Press Release/2020/2020-05-13 Libero Closes Private Placement.pdf"
+        },
+        {
+            "date": "May 1, 2020",
+            "year": "2020",
+            "title": "Libero Announces Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-05-01 Libero Announces Private Placement.pdf",
+            "readUrl": "Press Release/2020/2020-05-01 Libero Announces Private Placement.pdf"
+        },
+        {
+            "date": "April 14, 2020",
+            "year": "2020",
+            "title": "Libero Announces Ztem Results And 2020 Work Programs",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Ztem Results And 2020 Work Programs\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2020/2020-04-14 Libero Announces ZTEM Results and 2020 Work Programs.pdf",
+            "readUrl": "Press Release/2020/2020-04-14 Libero Announces ZTEM Results and 2020 Work Programs.pdf"
+        },
+        {
+            "date": "March 18, 2020",
+            "year": "2020",
+            "title": "Libero Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-03-18 LIBERO CLOSES PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2020/2020-03-18 LIBERO CLOSES PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "March 12, 2020",
+            "year": "2020",
+            "title": "Libero Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-03-12 LIBERO CLOSES PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2020/2020-03-12 LIBERO CLOSES PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "February 26, 2020",
+            "year": "2020",
+            "title": "Libero Announces Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-02-26 Libero Announces Private Placement.pdf",
+            "readUrl": "Press Release/2020/2020-02-26 Libero Announces Private Placement.pdf"
+        },
+        {
+            "date": "January 14, 2020",
+            "year": "2020",
+            "title": "Libero Announces 19 Target Areas From Initial Work Program At Big Red In The Golden Triangle",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces 19 Target Areas From Initial Work Program At Big Red In The Golden Triangle\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2020/2020-01-14 Libero Announces 19 Target Areas From Initial Work Program at Big Red in the Golden Triangle.pdf",
+            "readUrl": "Press Release/2020/2020-01-14 Libero Announces 19 Target Areas From Initial Work Program at Big Red in the Golden Triangle.pdf"
+        },
+        {
+            "date": "January 1, 2020",
+            "year": "2020",
+            "title": "2020-05.06 Libero Announces Upsize Of Private Placement To $4 Million",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"2020-05.06 Libero Announces Upsize Of Private Placement To $4 Million\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2020/2020-05.06 Libero Announces Upsize of Private Placement to $4 Million.pdf",
+            "readUrl": "Press Release/2020/2020-05.06 Libero Announces Upsize of Private Placement to $4 Million.pdf"
+        },
+        {
+            "date": "October 31, 2019",
+            "year": "2019",
+            "title": "Libero Completes Initial Work Program At Big Red In The Golden Triangle",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Completes Initial Work Program At Big Red In The Golden Triangle\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-10-31 Libero Completes Initial Work Program at Big Red in the Golden Triangle.pdf",
+            "readUrl": "Press Release/2019/2019-10-31 Libero Completes Initial Work Program at Big Red in the Golden Triangle.pdf"
+        },
+        {
+            "date": "October 3, 2019",
+            "year": "2019",
+            "title": "Libero Grants Stock Options",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Grants Stock Options\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-10-03 LIBERO GRANTS STOCK OPTIONS.pdf",
+            "readUrl": "Press Release/2019/2019-10-03 LIBERO GRANTS STOCK OPTIONS.pdf"
+        },
+        {
+            "date": "September 23, 2019",
+            "year": "2019",
+            "title": "Libero Grants Stock Options",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Grants Stock Options\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-09-23 LIBERO GRANTS STOCK OPTIONS.pdf",
+            "readUrl": "Press Release/2019/2019-09-23 LIBERO GRANTS STOCK OPTIONS.pdf"
+        },
+        {
+            "date": "September 19, 2019",
+            "year": "2019",
+            "title": "Libero Commences Initial Exploration Drill Program At Big Red In The Golden Triangle",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Commences Initial Exploration Drill Program At Big Red In The Golden Triangle\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2019/2019-09-19 Libero Commences Initial Exploration Drill Program at Big Red in the Golden Triangle.pdf",
+            "readUrl": "Press Release/2019/2019-09-19 Libero Commences Initial Exploration Drill Program at Big Red in the Golden Triangle.pdf"
+        },
+        {
+            "date": "September 13, 2019",
+            "year": "2019",
+            "title": "Name Change",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Name Change\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-09-13 LIBERO COPPER ANNOUNCES NAME CHANGE.pdf",
+            "readUrl": "Press Release/2019/2019-09-13 LIBERO COPPER ANNOUNCES NAME CHANGE.pdf"
+        },
+        {
+            "date": "September 5, 2019",
+            "year": "2019",
+            "title": "Libero Announces New Discovery At Big Red In Initial Sampling",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces New Discovery At Big Red In Initial Sampling\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-09-05 Libero Announces New Discovery at Big Red in Initial Sampling.pdf",
+            "readUrl": "Press Release/2019/2019-09-05 Libero Announces New Discovery at Big Red in Initial Sampling.pdf"
+        },
+        {
+            "date": "August 29, 2019",
+            "year": "2019",
+            "title": "Grants Stock Options",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Grants Stock Options\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-08-29 LIBERO COPPER GRANTS STOCK OPTIONS.pdf",
+            "readUrl": "Press Release/2019/2019-08-29 LIBERO COPPER GRANTS STOCK OPTIONS.pdf"
+        },
+        {
+            "date": "August 16, 2019",
+            "year": "2019",
+            "title": "Closing Of Oversubscribed Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closing Of Oversubscribed Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2019/2019-08-16 Libero Copper Announces Closing of Oversubscribed Private Placement .pdf",
+            "readUrl": "Press Release/2019/2019-08-16 Libero Copper Announces Closing of Oversubscribed Private Placement .pdf"
+        },
+        {
+            "date": "August 8, 2019",
+            "year": "2019",
+            "title": "Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2019/2019-08-08 LIBERO COPPER CLOSES PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2019/2019-08-08 LIBERO COPPER CLOSES PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "July 12, 2019",
+            "year": "2019",
+            "title": "Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2019/2019-07-12 LIBERO COPPER CLOSES PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2019/2019-07-12 LIBERO COPPER CLOSES PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "July 8, 2019",
+            "year": "2019",
+            "title": "Commencement Of Field Work At The Big Red Gold Copper Property In The Golden Triangle",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Commencement Of Field Work At The Big Red Gold Copper Property In The Golden Triangle\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-07-08 Libero Copper Announces Commencement of Field Work at the Big Red Gold Copper Property in the Golden Triangle.pdf",
+            "readUrl": "Press Release/2019/2019-07-08 Libero Copper Announces Commencement of Field Work at the Big Red Gold Copper Property in the Golden Triangle.pdf"
+        },
+        {
+            "date": "July 3, 2019",
+            "year": "2019",
+            "title": "Cfo",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Cfo\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2019/2019-07-03 LIBERO COPPER APPOINTS CFO.pdf",
+            "readUrl": "Press Release/2019/2019-07-03 LIBERO COPPER APPOINTS CFO.pdf"
+        },
+        {
+            "date": "June 17, 2019",
+            "year": "2019",
+            "title": "New Board Member",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"New Board Member\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2019/2019-06-17 Libero Copper Announces New Board Member.pdf",
+            "readUrl": "Press Release/2019/2019-06-17 Libero Copper Announces New Board Member.pdf"
+        },
+        {
+            "date": "June 7, 2019",
+            "year": "2019",
+            "title": "Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2019/2019-06-07 Libero Copper Closes Private Placement.pdf",
+            "readUrl": "Press Release/2019/2019-06-07 Libero Copper Closes Private Placement.pdf"
+        },
+        {
+            "date": "May 28, 2019",
+            "year": "2019",
+            "title": "Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2019/2019-05-28 Libero Copper Announces Private Placement.pdf",
+            "readUrl": "Press Release/2019/2019-05-28 Libero Copper Announces Private Placement.pdf"
+        },
+        {
+            "date": "May 27, 2019",
+            "year": "2019",
+            "title": "Additional Gold-copper Target On The Big Red Porphyry Property In The Golden Triangle",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Additional Gold-copper Target On The Big Red Porphyry Property In The Golden Triangle\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2019/2019-05-27 Libero Copper Announces Additional Gold-Copper Target on the Big Red Porphyry Property in the Golden Triangle.pdf",
+            "readUrl": "Press Release/2019/2019-05-27 Libero Copper Announces Additional Gold-Copper Target on the Big Red Porphyry Property in the Golden Triangle.pdf"
+        },
+        {
+            "date": "February 11, 2019",
+            "year": "2019",
+            "title": "Closes Option To Acquire The Big Red Porphyry",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes Option To Acquire The Big Red Porphyry\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2019/2019-02-11 LIBERO COPPER CLOSES OPTION TO ACQUIRE THE BIG RED PORPHYRY.pdf",
+            "readUrl": "Press Release/2019/2019-02-11 LIBERO COPPER CLOSES OPTION TO ACQUIRE THE BIG RED PORPHYRY.pdf"
+        },
+        {
+            "date": "February 8, 2019",
+            "year": "2019",
+            "title": "Vice President Of Exploration",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Vice President Of Exploration\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2019/2019-02-08 LIBERO COPPER APPOINTS VICE PRESIDENT OF EXPLORATION.pdf",
+            "readUrl": "Press Release/2019/2019-02-08 LIBERO COPPER APPOINTS VICE PRESIDENT OF EXPLORATION.pdf"
+        },
+        {
+            "date": "January 27, 2019",
+            "year": "2019",
+            "title": "To Option The Big Red Porphyry Copper-gold Property In The Golden Triangle",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"To Option The Big Red Porphyry Copper-gold Property In The Golden Triangle\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2019/2019-01-27 Libero Copper to Option The Big Red Porphyry Copper-Gold Property in the Golden Triangle.pdf",
+            "readUrl": "Press Release/2019/2019-01-27 Libero Copper to Option The Big Red Porphyry Copper-Gold Property in the Golden Triangle.pdf"
+        },
+        {
+            "date": "December 20, 2018",
+            "year": "2018",
+            "title": "Grants Stock Options",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Grants Stock Options\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2018/2018-12-20 LIBERO COPPER GRANTS STOCK OPTIONS.pdf",
+            "readUrl": "Press Release/2018/2018-12-20 LIBERO COPPER GRANTS STOCK OPTIONS.pdf"
+        },
+        {
+            "date": "December 7, 2018",
+            "year": "2018",
+            "title": "Closes Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Closes Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2018/2018-12-07 Libero Copper Closes Private Placement.pdf",
+            "readUrl": "Press Release/2018/2018-12-07 Libero Copper Closes Private Placement.pdf"
+        },
+        {
+            "date": "November 27, 2018",
+            "year": "2018",
+            "title": "Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2018/2018-11-27 Libero Copper Announces Private Placement.pdf",
+            "readUrl": "Press Release/2018/2018-11-27 Libero Copper Announces Private Placement.pdf"
+        },
+        {
+            "date": "November 13, 2018",
+            "year": "2018",
+            "title": "Director Resigns",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Director Resigns\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2018/2018-11-13 LIBERO COPPER DIRECTOR RESIGNS.pdf",
+            "readUrl": "Press Release/2018/2018-11-13 LIBERO COPPER DIRECTOR RESIGNS.pdf"
+        },
+        {
+            "date": "July 18, 2018",
+            "year": "2008",
+            "title": "Preliminary Prospectus",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Preliminary Prospectus\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2008/2018-07-18 Preliminary prospectus English.pdf",
+            "readUrl": "Press Release/2008/2018-07-18 Preliminary prospectus English.pdf"
+        },
+        {
+            "date": "June 15, 2018",
+            "year": "2018",
+            "title": "Acquires The Mocoa Porphyry Copper Deposit From B2gold",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Acquires The Mocoa Porphyry Copper Deposit From B2gold\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2018/2018-06-15 Libero Copper Acquires the Mocoa Porphyry Copper Deposit From B2Gold.pdf",
+            "readUrl": "Press Release/2018/2018-06-15 Libero Copper Acquires the Mocoa Porphyry Copper Deposit From B2Gold.pdf"
+        },
+        {
+            "date": "May 9, 2018",
+            "year": "2018",
+            "title": "To Acquire The Mocoa Porphyry Copper Deposit From B2 Gold",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"To Acquire The Mocoa Porphyry Copper Deposit From B2 Gold\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2018/2018-05-09 Libero Copper to Acquire the Mocoa Porphyry Copper Deposit From B2 Gold.pdf",
+            "readUrl": "Press Release/2018/2018-05-09 Libero Copper to Acquire the Mocoa Porphyry Copper Deposit From B2 Gold.pdf"
+        },
+        {
+            "date": "April 9, 2018",
+            "year": "2018",
+            "title": "Grants Stock Options",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Grants Stock Options\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2018/2018-04-09 LIBERO COPPER GRANTS STOCK OPTIONS.pdf",
+            "readUrl": "Press Release/2018/2018-04-09 LIBERO COPPER GRANTS STOCK OPTIONS.pdf"
+        },
+        {
+            "date": "December 15, 2017",
+            "year": "2017",
+            "title": "Libero Announces Stock Options Granted",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Stock Options Granted\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2017/2017-12-15 LIBERO ANNOUNCES STOCK OPTIONS GRANTED.pdf",
+            "readUrl": "Press Release/2017/2017-12-15 LIBERO ANNOUNCES STOCK OPTIONS GRANTED.pdf"
+        },
+        {
+            "date": "December 5, 2017",
+            "year": "2017",
+            "title": "Board Resignation",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Board Resignation\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2017/2017-12-05 LIBERO COPPER ANNOUNCES BOARD RESIGNATION.pdf",
+            "readUrl": "Press Release/2017/2017-12-05 LIBERO COPPER ANNOUNCES BOARD RESIGNATION.pdf"
+        },
+        {
+            "date": "November 1, 2017",
+            "year": "2017",
+            "title": "Libero Mining Changes Name To Libero Copper",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Changes Name To Libero Copper\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2017/2017-11-01 LIBERO MINING CHANGES NAME TO LIBERO COPPER.pdf",
+            "readUrl": "Press Release/2017/2017-11-01 LIBERO MINING CHANGES NAME TO LIBERO COPPER.pdf"
+        },
+        {
+            "date": "October 20, 2017",
+            "year": "2017",
+            "title": "Libero Mining Changes Name To Libero Copper",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Changes Name To Libero Copper\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2017/2017-10-20 LIBERO MINING CHANGES NAME TO LIBERO COPPER.pdf",
+            "readUrl": "Press Release/2017/2017-10-20 LIBERO MINING CHANGES NAME TO LIBERO COPPER.pdf"
+        },
+        {
+            "date": "October 17, 2017",
+            "year": "2017",
+            "title": "Libero Mining Announces New Otc Listing",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Announces New Otc Listing\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2017/2017-10-17 Libero Mining Announces New OTC Listing.pdf",
+            "readUrl": "Press Release/2017/2017-10-17 Libero Mining Announces New OTC Listing.pdf"
+        },
+        {
+            "date": "July 10, 2017",
+            "year": "2017",
+            "title": "Libero Mining Announces Tomichi Technical Report Filing",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Announces Tomichi Technical Report Filing\". Review the full document details in the attached PDF release.",
+            "category": "Technical",
+            "pdfUrl": "Press Release/2017/2017-07-10 LIBERO MINING ANNOUNCES TOMICHI TECHNICAL REPORT FILING.pdf",
+            "readUrl": "Press Release/2017/2017-07-10 LIBERO MINING ANNOUNCES TOMICHI TECHNICAL REPORT FILING.pdf"
+        },
+        {
+            "date": "June 1, 2017",
+            "year": "2017",
+            "title": "Libero Mining Announces Tomichi Copper Deposit Resource Estimate Of 711 Million Tonnes At 0.33% Copper Equivalent",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Announces Tomichi Copper Deposit Resource Estimate Of 711 Million Tonnes At 0.33% Copper Equivalent\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2017/2017-06-01 LIBERO MINING ANNOUNCES TOMICHI COPPER DEPOSIT RESOURCE ESTIMATE OF 711 MILLION TONNES AT 0.33% COPPER EQUIVALENT.pdf",
+            "readUrl": "Press Release/2017/2017-06-01 LIBERO MINING ANNOUNCES TOMICHI COPPER DEPOSIT RESOURCE ESTIMATE OF 711 MILLION TONNES AT 0.33% COPPER EQUIVALENT.pdf"
+        },
+        {
+            "date": "December 19, 2016",
+            "year": "2016",
+            "title": "Libero Mining Options The Tomichi Porphyry Copper Deposit",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Options The Tomichi Porphyry Copper Deposit\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2016/2016-12-19 LIBERO MINING OPTIONS THE TOMICHI PORPHYRY COPPER DEPOSIT.pdf",
+            "readUrl": "Press Release/2016/2016-12-19 LIBERO MINING OPTIONS THE TOMICHI PORPHYRY COPPER DEPOSIT.pdf"
+        },
+        {
+            "date": "December 12, 2016",
+            "year": "2016",
+            "title": "Libero Mining Appoints Corporate Secretary",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Appoints Corporate Secretary\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2016/2016-12-12 LIBERO MINING APPOINTS CORPORATE SECRETARY.pdf",
+            "readUrl": "Press Release/2016/2016-12-12 LIBERO MINING APPOINTS CORPORATE SECRETARY.pdf"
+        },
+        {
+            "date": "August 15, 2016",
+            "year": "2016",
+            "title": "Libero Mining Appoints Leo Hathaway Evp Exploration",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Appoints Leo Hathaway Evp Exploration\". Review the full document details in the attached PDF release.",
+            "category": "Exploration",
+            "pdfUrl": "Press Release/2016/2016-08-15 LIBERO MINING APPOINTS LEO HATHAWAY EVP EXPLORATION.pdf",
+            "readUrl": "Press Release/2016/2016-08-15 LIBERO MINING APPOINTS LEO HATHAWAY EVP EXPLORATION.pdf"
+        },
+        {
+            "date": "June 3, 2016",
+            "year": "2016",
+            "title": "Libero Mining Announces Departure Of General Counsel",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Announces Departure Of General Counsel\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2016/2016-06-03 LIBERO MINING ANNOUNCES DEPARTURE OF GENERAL COUNSEL.pdf",
+            "readUrl": "Press Release/2016/2016-06-03 LIBERO MINING ANNOUNCES DEPARTURE OF GENERAL COUNSEL.pdf"
+        },
+        {
+            "date": "May 18, 2016",
+            "year": "2016",
+            "title": "Libero Mining Announces Strategic Initiative",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Announces Strategic Initiative\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2016/2016-05-18 LIBERO MINING ANNOUNCES STRATEGIC INITIATIVE.pdf",
+            "readUrl": "Press Release/2016/2016-05-18 LIBERO MINING ANNOUNCES STRATEGIC INITIATIVE.pdf"
+        },
+        {
+            "date": "May 16, 2016",
+            "year": "2016",
+            "title": "Libero Mining Appoints Rob Pease To The Board Of Directors",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Appoints Rob Pease To The Board Of Directors\". Review the full document details in the attached PDF release.",
+            "category": "Governance",
+            "pdfUrl": "Press Release/2016/2016-05-16 LIBERO MINING APPOINTS ROB PEASE TO THE BOARD OF DIRECTORS.pdf",
+            "readUrl": "Press Release/2016/2016-05-16 LIBERO MINING APPOINTS ROB PEASE TO THE BOARD OF DIRECTORS.pdf"
+        },
+        {
+            "date": "April 8, 2016",
+            "year": "2016",
+            "title": "Libero Mining Closes Tranche Of Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Closes Tranche Of Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2016/2016-04-08 LIBERO MINING CLOSES FINAL TRANCHE OF PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2016/2016-04-08 LIBERO MINING CLOSES FINAL TRANCHE OF PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "March 16, 2016",
+            "year": "2016",
+            "title": "Libero Mining Grants Stock Options",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Grants Stock Options\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2016/2016-03-16 LIBERO MINING GRANTS STOCK OPTIONS.pdf",
+            "readUrl": "Press Release/2016/2016-03-16 LIBERO MINING GRANTS STOCK OPTIONS.pdf"
+        },
+        {
+            "date": "March 1, 2016",
+            "year": "2016",
+            "title": "Libero Mining Appoints Matthew Howorth General Counsel",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Appoints Matthew Howorth General Counsel\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2016/2016-03-01 LIBERO MINING APPOINTS MATTHEW HOWORTH GENERAL COUNSEL.pdf",
+            "readUrl": "Press Release/2016/2016-03-01 LIBERO MINING APPOINTS MATTHEW HOWORTH GENERAL COUNSEL.pdf"
+        },
+        {
+            "date": "February 29, 2016",
+            "year": "2016",
+            "title": "Libero Mining Closes First Tranche Of Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Mining Closes First Tranche Of Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2016/2016-02-29 LIBERO MINING CLOSES FIRST TRANCHE OF PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2016/2016-02-29 LIBERO MINING CLOSES FIRST TRANCHE OF PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "February 25, 2016",
+            "year": "2016",
+            "title": "Libero Announces Private Placement",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Libero Announces Private Placement\". Review the full document details in the attached PDF release.",
+            "category": "Financial",
+            "pdfUrl": "Press Release/2016/2016-02-25 LIBERO ANNOUNCES PRIVATE PLACEMENT.pdf",
+            "readUrl": "Press Release/2016/2016-02-25 LIBERO ANNOUNCES PRIVATE PLACEMENT.pdf"
+        },
+        {
+            "date": "February 4, 2016",
+            "year": "2016",
+            "title": "Slater Mining Corporation Announces Name Change And Consolidation",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Slater Mining Corporation Announces Name Change And Consolidation\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2016/2016-02-04 SLATER MINING CORPORATION ANNOUNCES NAME CHANGE AND CONSOLIDATION.pdf",
+            "readUrl": "Press Release/2016/2016-02-04 SLATER MINING CORPORATION ANNOUNCES NAME CHANGE AND CONSOLIDATION.pdf"
+        },
+        {
+            "date": "May 25, 2015",
+            "year": "2015",
+            "title": "Chui Wong Appointed Chief Financial Officer",
+            "summary": "Copper Giant Resources Corp. has released an official update regarding \"Chui Wong Appointed Chief Financial Officer\". Review the full document details in the attached PDF release.",
+            "category": "Corporate",
+            "pdfUrl": "Press Release/2015/2015-05-25 CHUI WONG APPOINTED CHIEF FINANCIAL OFFICER.pdf",
+            "readUrl": "Press Release/2015/2015-05-25 CHUI WONG APPOINTED CHIEF FINANCIAL OFFICER.pdf"
+        }
+    ]
 }
