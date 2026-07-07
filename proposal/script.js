@@ -1124,7 +1124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = el.querySelector('img');
         if (img) {
             mapCollection.push({
-                src: img.getAttribute('src') || '',
+                src: img.getAttribute('data-highres') || img.getAttribute('src') || '',
                 alt: img.getAttribute('alt') || '',
                 caption: img.getAttribute('alt') || ''
             });
