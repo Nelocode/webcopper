@@ -1829,6 +1829,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     };
 
+    window.closeNewsModal = function() {
+        const modal = document.getElementById('news-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
     // ---------------------------------------------------------
     // Deposit Metrics Modal Implementation (Dynamic Injection & Overlay)
     // ---------------------------------------------------------
