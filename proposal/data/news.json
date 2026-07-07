@@ -1,107 +1,107 @@
 {
   "items": [
     {
-      "title": "Copper Giant Reports First Quarter Financial Results",
-      "date": "May 29, 2026",
-      "category": "financial",
-      "featured": false,
-      "summary": "Copper Giant Resources Corp. reports interim financial results for the three-month period ended March 31, 2026.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Announces Additional Showings at Mocoa",
-      "date": "May 5, 2026",
+      "title": "Copper Giant Extends Mineralization Below the Conceptual Pit at Mocoa and Confirms a Third Mineralized Corridor",
+      "date": "June 22, 2026",
+      "year": "2026",
       "category": "exploration",
-      "featured": true,
-      "summary": "Drilling intersected thick intervals of strongly mineralized porphyry and breccia at depth, approximately 750 meters southeast of La Estrella.",
-      "readUrl": "https://www.coppergiant.co"
+      "summary": "Deep infill hole MD-064 returns 1,052 metres of mineralization, including 486 m of 0.57% CuEq* (0.41% Cu and 0.029% Mo), exceeding the 0.51% resource average.",
+      "readUrl": "https://www.coppergiant.co/news/copper-giant-extends-mineralization-below-the-conceptual-pit-at-mocoa-and-confirms-a-third"
     },
     {
-      "title": "Copper Giant Announces AGM Results",
-      "date": "Apr 28, 2026",
-      "category": "corporate",
-      "featured": true,
-      "summary": "Copper Giant Resources Corp. announces voting results from its 2026 Annual General Meeting of Shareholders.",
-      "readUrl": "https://www.coppergiant.co"
+      "title": "Copper Giant Expands Mocoa Resource Footprint and Advances Connector Zone Toward The La Estrella With Three Drill Rigs Turning",
+      "date": "May 20, 2026",
+      "year": "2026",
+      "category": "exploration",
+      "summary": "Copper Giant Resources Corp. today reports that three drill rigs are operational at Mocoa, focusing on expanding the mineralized footprint and connecting historical zones.",
+      "readUrl": "https://www.coppergiant.co/news/copper-giant-expands-mocoa-resource-footprint-and-advances-connector-zone-toward-the-la-es"
     },
     {
-      "title": "Copper Giant Announces Granting of Stock Options",
-      "date": "Apr 22, 2026",
-      "category": "corporate",
-      "featured": false,
-      "summary": "Copper Giant Resources Corp. announces the granting of stock options to certain directors, officers, and consultants.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Files Preliminary Economic Assessment",
-      "date": "Apr 7, 2026",
+      "title": "Copper Giant Begins Planned Comprehensive PEA for the Mocoa Copper-Molybdenum System with Globally Recognized Development Team",
+      "date": "May 5, 2026",
+      "year": "2026",
       "category": "technical",
-      "featured": true,
-      "summary": "Copper Giant files a Preliminary Economic Assessment for the Mocoa Copper-Molybdenum Project in accordance with NI 43-101.",
-      "readUrl": "https://www.coppergiant.co"
+      "summary": "Copper Giant has launched a planned NI 43-101 Preliminary Economic Assessment for Mocoa, appointing SLR as lead consultant alongside INTERA, Frank Wright Consulting, SGS Canada, and APEX Geoscience.",
+      "readUrl": "https://www.coppergiant.co/news/copper-giant-begins-planned-comprehensive-pea-for-the-mocoa-copper-molybdenum-system-with-globally-recognized-development-team"
+    },
+    {
+      "title": "Copper Giant, Working with the Colombian Government, Secures Long-Term Development Framework at Mocoa; Third Drill Rig Now Operational",
+      "date": "April 28, 2026",
+      "year": "2026",
+      "category": "governance",
+      "summary": "A cooperative long-term development framework has been established with local authorities and the Colombian government to support sustainable infrastructure and environmental planning.",
+      "readUrl": "https://www.coppergiant.co/news/copper-giant-working-with-the-colombian-government-secures-long-term-development-framework"
+    },
+    {
+      "title": "Copper Giant's First Directional Daughter Holes Beat Resource Model at Mocoa, Returning 0.97% CuEq Over 68m",
+      "date": "April 14, 2026",
+      "year": "2026",
+      "category": "exploration",
+      "summary": "First daughter hole returns 0.97% CuEq (0.70% Cu and 0.051% Mo) over 68m within a broader interval of 371m of 0.53% CuEq, beating resource model projections.",
+      "readUrl": "https://www.coppergiant.co/news/copper-giant-s-first-directional-daughter-holes-beat-resource-model-at-mocoa-returning-0-9"
     },
     {
       "title": "Copper Giant Announces Appointment of New Director",
-      "date": "Feb 10, 2026",
+      "date": "February 10, 2026",
+      "year": "2026",
       "category": "corporate",
-      "featured": false,
-      "summary": "Copper Giant Resources Corp. is pleased to announce the appointment of Mr. Jamie Sokalsky as a Director of the Company.",
-      "readUrl": "https://www.coppergiant.co"
-    },
-    {
-      "title": "Copper Giant Reports Expiry of Options",
-      "date": "Jan 27, 2026",
-      "category": "corporate",
-      "featured": false,
-      "summary": "Copper Giant Resources Corp. reports that 1,800,000 stock options previously issued to a former officer have expired unexercised.",
+      "summary": "Copper Giant Resources Corp. is pleased to announce the appointment of Mr. Jamie Sokalsky, former CEO of Barrick Gold, as a Director of the Company.",
       "readUrl": "https://www.coppergiant.co"
     },
     {
       "title": "Copper Giant Announces Filing of Preliminary Economic Assessment",
-      "date": "Dec 16, 2025",
+      "date": "December 16, 2025",
+      "year": "2025",
       "category": "technical",
-      "featured": false,
-      "summary": "Copper Giant Resources Corp. announces filing of a Preliminary Economic Assessment for the Mocoa Copper-Molybdenum Project.",
+      "summary": "Copper Giant Resources Corp. announces filing of a technical report detailing the Preliminary Economic Assessment for the Mocoa Copper-Molybdenum Project.",
       "readUrl": "https://www.coppergiant.co"
     },
     {
       "title": "Copper Giant Drills Highest Grade Interval to Date at Mocoa",
-      "date": "Dec 9, 2025",
+      "date": "December 9, 2025",
+      "year": "2025",
       "category": "exploration",
-      "featured": true,
       "summary": "Massive sulphide intercepts found in the Mocoa Deposit's Central Porphyry continue to expand along the recently discovered Connector Zone.",
       "readUrl": "https://www.coppergiant.co"
     },
     {
-      "title": "Copper Giant Files MD&A",
-      "date": "Nov 28, 2025",
+      "title": "Copper Giant Files MD&A and Interim Financial Statements",
+      "date": "November 28, 2025",
+      "year": "2025",
       "category": "financial",
-      "featured": false,
       "summary": "Copper Giant Resources Corp. has filed its interim management's discussion and analysis for the three and nine months ended September 30, 2025.",
       "readUrl": "https://www.coppergiant.co"
     },
     {
       "title": "Copper Giant Discovers Major New Target at Mocoa",
-      "date": "Oct 29, 2025",
+      "date": "October 29, 2025",
+      "year": "2025",
       "category": "exploration",
-      "featured": false,
-      "summary": "High-grade copper-molybdenum breccia mineralization discovered approximately 1.5 km southeast from the Mocoa deposit.",
+      "summary": "High-grade copper-molybdenum breccia mineralization discovered approximately 1.5 km southeast from the main Mocoa deposit footprint.",
       "readUrl": "https://www.coppergiant.co"
     },
     {
-      "title": "Copper Giant Signs Drilling Contract at Mocoa",
-      "date": "Aug 22, 2025",
+      "title": "Copper Giant Commences Regional Mapping and Geochemical Program",
+      "date": "August 22, 2024",
+      "year": "2024",
       "category": "exploration",
-      "featured": false,
-      "summary": "Major drilling campaign to commence at Mocoa Copper-Molybdenum Project. Building on the largest undeveloped resource in the Americas.",
+      "summary": "Exploration crews mobilize to conduct district-scale mapping and soil sampling across newly acquired concession areas adjacent to the Mocoa deposit.",
       "readUrl": "https://www.coppergiant.co"
     },
     {
       "title": "Copper Giant Completes First Tranche of Private Placement",
-      "date": "Jul 21, 2025",
+      "date": "June 14, 2024",
+      "year": "2024",
       "category": "financial",
-      "featured": false,
-      "summary": "Copper Giant closes first tranche of non-brokered private placement for gross proceeds of approximately $3.2 million.",
+      "summary": "Copper Giant closes the initial tranche of its previously announced non-brokered private placement, raising gross proceeds of C$4.5 million.",
+      "readUrl": "https://www.coppergiant.co"
+    },
+    {
+      "title": "Copper Giant Enters Option Agreement to Acquire Mocoa Project",
+      "date": "September 5, 2023",
+      "year": "2023",
+      "category": "corporate",
+      "summary": "Copper Giant Resources Corp. enters into a definitive agreement to acquire a 100% interest in the Mocoa Copper-Molybdenum Project in Putumayo, Colombia.",
       "readUrl": "https://www.coppergiant.co"
     }
   ]

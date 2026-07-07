@@ -435,6 +435,10 @@ body.header-hovered .page-backdrop {
     position: relative; /* Crucial so that the overlay centers relative to the video frame */
 }
 
+.hero-video-wrapper.hero-half-height {
+    aspect-ratio: 2520 / 486; /* Half of original height */
+}
+
 .hero-video-bg {
     width: 100%;
     height: 100%;
@@ -5483,5 +5487,176 @@ div.response {
 .playlist-item.active {
     background: rgba(255, 255, 255, 0.08) !important;
     border-color: var(--copper-primary) !important;
+}
+
+/* ---------------------------------------------------------
+   News Room (Blog Integration) Styles
+   --------------------------------------------------------- */
+.year-filter-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 10px 24px;
+    font-size: 0.8rem;
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+}
+
+.year-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.year-filter-btn.active {
+    background: var(--copper-primary);
+    border-color: var(--copper-primary);
+    color: white;
+}
+
+.news-grid-two-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .news-grid-two-col {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.news-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-left: 4px solid var(--copper-primary);
+    padding: 36px;
+    border-radius: var(--radius-card);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.news-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 85, 34, 0.03) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.news-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.news-card:hover::before {
+    opacity: 1;
+}
+
+.news-card-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+    font-family: var(--font-sans);
+    margin-bottom: 16px;
+}
+
+.news-card-date svg {
+    color: var(--copper-primary);
+    opacity: 0.8;
+}
+
+.news-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin: 0 0 16px 0;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.news-card-title a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.news-card-title a:hover {
+    color: var(--copper-primary);
+}
+
+.news-card-summary {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 28px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card-links {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.news-read-more {
+    color: var(--copper-primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.news-read-more:hover {
+    gap: 12px;
+    color: white;
+}
+
+.news-source-link {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.news-source-link:hover {
+    color: var(--copper-primary);
 }
 
