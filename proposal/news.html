@@ -137,51 +137,10 @@
             </div>
         </div>
 
-        <!-- News PDF Modal Overlay -->
-        <div class="modal-overlay" id="news-pdf-modal">
-            <button class="modal-close-pdf" id="btn-close-news-pdf" aria-label="Close PDF Viewer">&times;</button>
-            <div class="modal-content-pdf">
-                <iframe id="news-pdf-iframe" src="" style="width: 100%; height: 100%; border: none; border-radius: var(--radius-card);" title="News Release PDF"></iframe>
-            </div>
-        </div>
-
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const listContainer = document.getElementById('press-list');
                 const yearFiltersContainer = document.querySelector('.year-filters');
-                
-                window.openNewsPdfModal = function(pdfPath) {
-                    const modal = document.getElementById('news-pdf-modal');
-                    const iframe = document.getElementById('news-pdf-iframe');
-                    if (!modal || !iframe) return;
-                    
-                    iframe.setAttribute('src', pdfPath);
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                };
-
-                window.closeNewsPdfModal = function() {
-                    const modal = document.getElementById('news-pdf-modal');
-                    const iframe = document.getElementById('news-pdf-iframe');
-                    if (!modal || !iframe) return;
-                    
-                    modal.classList.remove('active');
-                    iframe.setAttribute('src', ''); // Unload to save memory
-                    document.body.style.overflow = '';
-                };
-
-                // Bind PDF modal close events
-                document.getElementById('btn-close-news-pdf')?.addEventListener('click', window.closeNewsPdfModal);
-                document.getElementById('news-pdf-modal')?.addEventListener('click', (e) => {
-                    if (e.target === document.getElementById('news-pdf-modal')) {
-                        window.closeNewsPdfModal();
-                    }
-                });
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && document.getElementById('news-pdf-modal')?.classList.contains('active')) {
-                        window.closeNewsPdfModal();
-                    }
-                });
                 
                 function renderNews(items) {
                     if (!listContainer) return;
@@ -466,7 +425,7 @@
     </div>
 
 
-<script src="script.js?v=3.0"></script>
+<script src="script.js?v=5.0"></script>
 
     
 

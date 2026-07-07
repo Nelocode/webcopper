@@ -548,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newsGrid = document.querySelector('.news-hub-grid');
         if (!newsGrid) return;
 
-        fetch('data/news.json')
+        fetch('data/news.json?v=' + new Date().getTime())
             .then(res => res.json())
             .then(data => {
                 const items = data.items || [];
@@ -569,7 +569,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="card-brand-date">${dateStr}</div>
                             </div>
                             <p class="news-card-body">${item.summary}</p>
-                            <button class="btn-rect btn-rect-primary" onclick="window.openHomeNewsModal(${index})">READ MORE</button>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                                <button class="btn-rect btn-rect-primary" onclick="window.openHomeNewsModal(${index})">READ MORE</button>
+                                <button class="btn-rect" style="background: transparent; border: 1px solid rgba(255,255,255,0.15); color: white; cursor: pointer; transition: all 0.25s;" onmouseover="this.style.background='var(--copper-primary)'; this.style.borderColor='var(--copper-primary)';" onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,0.15)';" onclick="window.openNewsPdfModal('${item.pdfUrl}')">VIEW PDF</button>
+                            </div>
                         </div>
                     `;
                 }).join('');
@@ -1697,6 +1700,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    // --- News PDF Modal Implementation ---
+    function initNewsPdfModal() {
+        if (document.getElementById('news-pdf-modal')) return;
+
+        const modalHTML = `
+        <div class="modal-overlay" id="news-pdf-modal">
+            <button class="modal-close-pdf" id="btn-close-news-pdf" aria-label="Close PDF Viewer">&times;</button>
+            <div class="modal-content-pdf">
+                <iframe id="news-pdf-iframe" src="" style="width: 100%; height: 100%; border: none; border-radius: var(--radius-card);" title="News Release PDF"></iframe>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        const modal = document.getElementById('news-pdf-modal');
+        const iframe = document.getElementById('news-pdf-iframe');
+        const closeBtn = document.getElementById('btn-close-news-pdf');
+
+        window.openNewsPdfModal = function(pdfPath) {
+            if (iframe) iframe.setAttribute('src', pdfPath);
+            if (modal) modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeNewsPdfModal = function() {
+            if (modal) modal.classList.remove('active');
+            if (iframe) iframe.setAttribute('src', ''); // Unload to save memory
+            document.body.style.overflow = '';
+        };
+
+        if (closeBtn) closeBtn.addEventListener('click', window.closeNewsPdfModal);
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) window.closeNewsPdfModal();
+            });
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+                window.closeNewsPdfModal();
+            }
+        });
+    }
+
     // ---------------------------------------------------------
     // News Modal Implementation (Dynamic Injection & Overlay)
     // ---------------------------------------------------------
@@ -2272,4 +2317,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initPresentationModal();
+    initNewsPdfModal();
 });
