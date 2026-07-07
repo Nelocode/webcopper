@@ -22,18 +22,11 @@
       "bio": "Edwin Naranjo Sierra is a professional geologist and expert in mineral exploration with extensive experience in the Colombian Andes. He has served as Exploration Manager for Libero Copper, leading programs at the Mocoa copper-molybdenum project. He holds an MSc in Earth Sciences and is a Fellow of the Australasian Institute of Mining and Metallurgy (FAusIMM), serving as the Qualified Person (QP) for technical disclosure."
     },
     {
-      "name": "Robert Van Egmond",
+      "name": "Ernest Mast",
       "role": "Director",
       "category": "board",
-      "img": "assets/robert-van-egmond.webp",
-      "bio": "Robert Van Egmond is a professional geologist with 35 years of international exploration experience spanning North America, South America, and Africa. He has held senior roles at Dolly Varden Silver Corp and served as a director for West Red Lake Gold Mines Ltd. He brings deep technical expertise in resource expansion and porphyry copper systems."
-    },
-    {
-      "name": "Mark Gibson",
-      "role": "Director",
-      "category": "board",
-      "img": "assets/mark-gibson.webp",
-      "bio": "Mark Gibson is a geophysicist and mining executive with over 35 years of global experience in exploration, operations, and project development. He previously served as Chief Operating Officer of Ivanhoe Electric Inc. and Kaizen Discovery, and as COO of Cordoba Minerals, where he was key in advancing the Alacran copper-gold project in Colombia. He is currently CEO of FeCycle Technologies Group."
+      "img": "assets/ernest-mast.webp",
+      "bio": "Ernest Mast has over 30 years of technical and executive experience in the mining sector. He previously served as President and CEO of Primero Mining Corp. and Minera Panama S.A., where he led the development of the world-class Cobre Panama project. He also served as VP of Operations at New Gold Inc. He holds Bachelor’s and Master’s degrees in metallurgical engineering from McGill University."
     },
     {
       "name": "Jay Sujir",
@@ -50,11 +43,18 @@
       "bio": "Ian Harris is a seasoned mining engineer and executive with over 20 years of experience in the mining industry, including more than a decade of leadership roles in South America. He has a proven track record of advancing major projects from discovery to construction and production. Notably, he played a key role in the development of the Mirador mine in Ecuador, contributing to the sale of Corriente Resources for $690 million. He has also served as CEO of Al Masane Al Kobra Mining Co. and President of Soma Gold Corp."
     },
     {
-      "name": "Ernest Mast",
+      "name": "Mark Gibson",
       "role": "Director",
       "category": "board",
-      "img": "assets/ernest-mast.webp",
-      "bio": "Ernest Mast has over 30 years of technical and executive experience in the mining sector. He previously served as President and CEO of Primero Mining Corp. and Minera Panama S.A., where he led the development of the world-class Cobre Panama project. He also served as VP of Operations at New Gold Inc. He holds Bachelor’s and Master’s degrees in metallurgical engineering from McGill University."
+      "img": "assets/mark-gibson.webp",
+      "bio": "Mark Gibson is a geophysicist and mining executive with over 35 years of global experience in exploration, operations, and project development. He previously served as Chief Operating Officer of Ivanhoe Electric Inc. and Kaizen Discovery, and as COO of Cordoba Minerals, where he was key in advancing the Alacran copper-gold project in Colombia. He is currently CEO of FeCycle Technologies Group."
+    },
+    {
+      "name": "Robert Van Egmond",
+      "role": "Director",
+      "category": "board",
+      "img": "assets/robert-van-egmond.webp",
+      "bio": "Robert Van Egmond is a professional geologist with 35 years of international exploration experience spanning North America, South America, and Africa. He has held senior roles at Dolly Varden Silver Corp and served as a director for West Red Lake Gold Mines Ltd. He brings deep technical expertise in resource expansion and porphyry copper systems."
     }
   ]
 }
