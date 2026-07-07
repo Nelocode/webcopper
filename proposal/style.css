@@ -436,7 +436,17 @@ body.header-hovered .page-backdrop {
 }
 
 .hero-video-wrapper.hero-half-height {
-    aspect-ratio: 2520 / 486; /* Half of original height */
+    aspect-ratio: 2520 / 300; /* Much thinner height (less than a third of original 972) */
+}
+
+/* Adjust font sizes and vertical positioning inside half-height hero to keep it clean and readable */
+.hero-half-height .hero-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem) !important;
+    line-height: 1.15 !important;
+}
+
+.hero-half-height .hero-text-container {
+    padding-top: 40px; /* Offset the absolute navigation menu */
 }
 
 .hero-video-bg {
