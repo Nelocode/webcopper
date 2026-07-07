@@ -49,34 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------------------------------------------------------
 
 
-    // ---------------------------------------------------------
-    // 0.3. Mocoa Page Dynamic Loader (Metrics)
-    // ---------------------------------------------------------
-    function initMocoaPage() {
-        const metricsDesc = document.getElementById('mocoa-metrics-desc');
-        const metricsContainer = document.getElementById('mocoa-metrics-container');
 
-        if (!metricsDesc && !metricsContainer) return;
-
-        fetch('data/site.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data.metrics_banner && data.metrics_banner.mocoa) {
-                    const m = data.metrics_banner.mocoa;
-                    if (metricsDesc) metricsDesc.innerHTML = m.description;
-                    if (metricsContainer && m.metrics) {
-                        metricsContainer.innerHTML = m.metrics.map(met => `
-                            <div class="metric-item" style="text-align: left;">
-                                <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">${met.value}</div>
-                                <div class="metric-label" style="font-size: 0.75rem; margin-top: 8px; line-height: 1.4;">${formatMetricLabel(met.label)}</div>
-                            </div>
-                        `).join('');
-                    }
-                }
-            })
-            .catch(err => console.warn('Mocoa page loader: could not load site.json', err));
-    }
-    initMocoaPage();
 
     // ---------------------------------------------------------
     // 0.4. Live Hero Section Loader (Dynamic from site.json)
