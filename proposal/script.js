@@ -47,36 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------------------------------------------------------
     // 0.2. Corporate Page Dynamic Loader (Metrics, Values, ESG)
     // ---------------------------------------------------------
-    function initCorporatePage() {
-        const metricsDesc = document.getElementById('corporate-metrics-desc');
-        const metricsContainer = document.getElementById('corporate-metrics-container');
 
-        if (!metricsDesc) return;
-
-        fetch('data/site.json')
-            .then(res => res.json())
-            .then(data => {
-                // 1. Metrics Banner
-                if (metricsDesc && metricsContainer && data.metrics_banner && data.metrics_banner.corporate) {
-                    const c = data.metrics_banner.corporate;
-                    metricsDesc.innerHTML = c.description;
-                    if (c.metrics) {
-                        metricsContainer.innerHTML = c.metrics.map(m => `
-                            <div class="metric-item" style="text-align: left;">
-                                <div class="metric-val" style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 700; color: white; line-height: 1;">${m.value}</div>
-                                <div class="metric-label" style="font-size: 0.75rem; margin-top: 8px; line-height: 1.4;">${formatMetricLabel(m.label)}</div>
-                            </div>
-                        `).join('');
-                    }
-                }
-
-
-
-
-            })
-            .catch(err => console.warn('Corporate page loader: could not load site.json', err));
-    }
-    initCorporatePage();
 
     // ---------------------------------------------------------
     // 0.3. Mocoa Page Dynamic Loader (Metrics)
