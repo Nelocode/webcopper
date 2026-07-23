@@ -964,10 +964,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentCollection = [];
     let currentIndex = 0;
+    let lightboxShowCaption = true;
 
-    function openLightbox(collection, index) {
+    function openLightbox(collection, index, showCaption = true) {
         currentCollection = collection;
         currentIndex = index;
+        lightboxShowCaption = showCaption;
         
         if (currentCollection && currentCollection.length > 0) {
             const item = currentCollection[currentIndex];
@@ -976,7 +978,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightboxImg.alt = item.alt;
             }
             if (lightboxCaption) {
-                lightboxCaption.textContent = item.caption;
+                if (lightboxShowCaption) {
+                    lightboxCaption.textContent = item.caption;
+                    lightboxCaption.style.display = 'block';
+                } else {
+                    lightboxCaption.textContent = '';
+                    lightboxCaption.style.display = 'none';
+                }
             }
         }
 
@@ -1025,7 +1033,13 @@ document.addEventListener('DOMContentLoaded', () => {
             lightboxImg.src = item.src;
             lightboxImg.alt = item.alt;
             if (lightboxCaption) {
-                lightboxCaption.textContent = item.caption;
+                if (lightboxShowCaption) {
+                    lightboxCaption.textContent = item.caption;
+                    lightboxCaption.style.display = 'block';
+                } else {
+                    lightboxCaption.textContent = '';
+                    lightboxCaption.style.display = 'none';
+                }
             }
 
             lightboxImg.animate([
@@ -1101,7 +1115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             });
-            openLightbox(visiblePhotos, clickedIndexInVisible);
+            openLightbox(visiblePhotos, clickedIndexInVisible, false);
         });
     });
 

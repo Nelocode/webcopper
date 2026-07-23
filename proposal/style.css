@@ -3971,10 +3971,7 @@ section[id] {
 }
 
 .photos-grid .photo-card-caption {
-    color: #ffffff;
-    font-size: 0.85rem;
-    font-weight: 500;
-    margin: 0;
+    display: none;
 }
 
 /* Load More Button style */
