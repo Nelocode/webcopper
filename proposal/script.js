@@ -971,6 +971,15 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = index;
         lightboxShowCaption = showCaption;
         
+        // Hide navigation buttons if there is only 1 item in the collection
+        if (currentCollection && currentCollection.length > 1) {
+            if (btnLightboxPrev) btnLightboxPrev.style.display = '';
+            if (btnLightboxNext) btnLightboxNext.style.display = '';
+        } else {
+            if (btnLightboxPrev) btnLightboxPrev.style.display = 'none';
+            if (btnLightboxNext) btnLightboxNext.style.display = 'none';
+        }
+        
         if (currentCollection && currentCollection.length > 0) {
             const item = currentCollection[currentIndex];
             if (lightboxImg) {
@@ -1154,15 +1163,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Expose property map lightbox trigger globally
     window.openPropertyMapLightbox = function() {
         if (typeof openLightbox === 'function') {
+            let propertyMapItem = null;
             if (mapCollection && mapCollection.length > 0) {
-                openLightbox(mapCollection, 0);
-            } else {
-                openLightbox([{
+                propertyMapItem = mapCollection.find(item => item.src.includes('property-map-cgnt.webp'));
+            }
+            if (!propertyMapItem) {
+                propertyMapItem = {
                     src: 'assets/property-map-cgnt.webp',
                     alt: 'Property Map',
                     caption: 'Property Map'
-                }], 0);
+                };
             }
+            // Pass a single-item collection to automatically hide next/prev buttons
+            openLightbox([propertyMapItem], 0);
         }
     };
 
