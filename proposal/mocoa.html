@@ -747,7 +747,7 @@
                     position: relative;
                     margin: 30px 0;
                     padding-left: 50px;
-                    padding-bottom: 30px;
+                    padding-bottom: 45px;
                 }
 
                 /* Vertical Depth Meter Axis */
@@ -755,7 +755,7 @@
                     position: absolute;
                     left: 0;
                     top: 0;
-                    bottom: 30px;
+                    bottom: 45px;
                     width: 45px;
                     display: flex;
                     flex-direction: column;
@@ -783,7 +783,8 @@
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    width: 45px;
+                    flex: 1;
+                    max-width: 80px;
                     height: 100%;
                     position: relative;
                     justify-content: flex-end;
@@ -831,7 +832,8 @@
 
                 /* Landmarks */
                 .vis-landmark-column {
-                    width: 45px;
+                    flex: 1;
+                    max-width: 80px;
                     position: relative;
                     display: flex;
                     flex-direction: column;
@@ -878,11 +880,11 @@
                     color: var(--text-tertiary);
                     text-align: center;
                     position: absolute;
-                    bottom: -22px;
-                    width: 60px;
+                    bottom: -36px;
+                    width: 70px;
                     left: 50%;
                     transform: translateX(-50%);
-                    white-space: nowrap;
+                    line-height: 1.2;
                 }
 
                 /* Explanatory visual callout */
@@ -1031,13 +1033,13 @@
 
                             <!-- 10 Soccer Fields -->
                             <div class="vis-landmark-column" title="10 Soccer Fields end-to-end: 1,050m">
-                                <span class="vis-landmark-icon">
-                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <rect x="2" y="6" width="13" height="11" rx="1.5" />
-                                        <line x1="8.5" y1="6" x2="8.5" y2="17" />
-                                        <circle cx="8.5" cy="11.5" r="2.5" />
-                                        <text x="19" y="15" font-size="8.5" font-weight="900" fill="currentColor" text-anchor="middle" font-family="'JetBrains Mono', monospace">10x</text>
+                                <span class="vis-landmark-icon" style="position: relative;">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <rect x="2" y="4" width="20" height="16" rx="2" />
+                                        <line x1="12" y1="4" x2="12" y2="20" />
+                                        <circle cx="12" cy="12" r="3" />
                                     </svg>
+                                    <span style="position: absolute; right: -12px; top: -6px; font-family: var(--font-mono); font-size: 0.6rem; font-weight: 800; background: var(--copper-primary); color: white; padding: 1px 4px; border-radius: 4px; line-height: 1; box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 5;">10x</span>
                                 </span>
                                 <div class="vis-landmark-bar soccer10"></div>
                                 <span class="vis-landmark-name">10 Soccer Fields</span>
