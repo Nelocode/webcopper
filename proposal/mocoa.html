@@ -127,23 +127,10 @@
             <div class="section-subtitle">Geological Context</div>
         </div>
 
-        <p class="hero-subtitle" style="margin-left: auto; margin-right: auto; text-align: center; max-width: 800px; margin-bottom: 30px;">
+        <p class="hero-subtitle" style="margin-left: auto; margin-right: auto; text-align: center; max-width: 800px; margin-bottom: 50px;">
             Located in the Putumayo Department of southern Colombia, the Mocoa project is one of the largest undeveloped copper-molybdenum porphyry deposits in the Americas. 
             Mineralization is associated with dacite porphyry stocks intruding a thick sequence of volcanic rocks, creating a highly stable and consistent orebody.
         </p>
-
-        <div style="display: flex; justify-content: center; margin-bottom: 45px;" class="fade-up">
-            <button class="btn-outline" onclick="if(window.openPropertyMapLightbox) { window.openPropertyMapLightbox(); } return false;">
-                <span>
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px; vertical-align: middle;">
-                        <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
-                        <line x1="9" y1="3" x2="9" y2="18" />
-                        <line x1="15" y1="6" x2="15" y2="21" />
-                    </svg>
-                    View Property Map
-                </span>
-            </button>
-        </div>
 
         <!-- Bento Grid for Mocoa Details -->
         <div class="photo-bento">
@@ -168,12 +155,19 @@
             </div>
 
             <!-- Medium Card 2 -->
-            <div class="photo-card medium fade-up">
+            <div class="photo-card medium fade-up" onclick="if(window.openPropertyMapLightbox) { window.openPropertyMapLightbox(); } return false;" style="cursor: pointer;">
                 <div class="photo-card-img" style="background-image: url('assets/libero/card_potential.webp');"></div>
                 <div class="photo-card-content">
                     <div class="text-eyebrow" style="margin-bottom: 10px;">Upside</div>
                     <h3>District Potential</h3>
                     <p>The 1,283 km² land package covers most of the mineralized belt, with multiple untested porphyry targets already identified.</p>
+                    <div class="card-link-icon" style="margin-top: 15px; width: 36px; height: 36px;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
+                            <line x1="9" y1="3" x2="9" y2="18" />
+                            <line x1="15" y1="6" x2="15" y2="21" />
+                        </svg>
+                    </div>
                 </div>
             </div>
 
