@@ -1151,6 +1151,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Expose property map lightbox trigger globally
+    window.openPropertyMapLightbox = function() {
+        if (typeof openLightbox === 'function') {
+            if (mapCollection && mapCollection.length > 0) {
+                openLightbox(mapCollection, 0);
+            } else {
+                openLightbox([{
+                    src: 'assets/property-map-cgnt.webp',
+                    alt: 'Property Map',
+                    caption: 'Property Map'
+                }], 0);
+            }
+        }
+    };
+
+    // Auto-open Property Map if URL parameter is present
+    if (window.location.search.includes('openPropertyMap=true') || window.location.hash === '#open-property-map') {
+        setTimeout(() => {
+            if (window.openPropertyMapLightbox) {
+                window.openPropertyMapLightbox();
+                if (history.replaceState) {
+                    const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.replaceState({path: cleanUrl}, '', cleanUrl);
+                }
+            }
+        }, 400);
+    }
+
     // Gallery Video Modal (used for news.html and mocoa.html)
     const galleryVideoModal = document.getElementById('gallery-video-modal');
     const galleryVideoIframe = document.getElementById('gallery-video-iframe');
