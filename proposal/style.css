@@ -5717,4 +5717,18 @@ div.response {
     }
 }
 
+.interactive-geochem-card {
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.interactive-geochem-card:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-2px);
+}
+.interactive-geochem-card:hover .card-link-icon {
+    background: var(--copper-primary) !important;
+    color: white !important;
+    transform: scale(1.1);
+}
+
 

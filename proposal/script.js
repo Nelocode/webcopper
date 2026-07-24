@@ -1179,6 +1179,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Expose geochem map lightbox trigger globally
+    window.openGeochemMapLightbox = function() {
+        if (typeof openLightbox === 'function') {
+            let geochemMapItem = null;
+            if (mapCollection && mapCollection.length > 0) {
+                geochemMapItem = mapCollection.find(item => item.src.includes('cu-as.webp'));
+            }
+            if (!geochemMapItem) {
+                geochemMapItem = {
+                    src: 'assets/cu-as.webp',
+                    alt: 'Copper Soil Geochemistry',
+                    caption: 'Copper Soil Geochemistry'
+                };
+            }
+            // Pass a single-item collection to automatically hide next/prev buttons
+            openLightbox([geochemMapItem], 0);
+        }
+    };
+
     // Auto-open Property Map if URL parameter is present
     if (window.location.search.includes('openPropertyMap=true') || window.location.hash === '#open-property-map') {
         setTimeout(() => {
