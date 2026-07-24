@@ -621,33 +621,456 @@
             <p class="hero-subtitle fade-up" style="margin-left: auto; margin-right: auto; text-align: center; margin-bottom: 40px;">Exceptional results across the system. MD-043 yielded 1,235m at 0.42% Cu & 0.05% Mo.</p>
 
 
-            <div class="drill-table">
-                <div class="drill-row">
-                    <div class="drill-id font-mono">MD-043</div>
-                    <div class="drill-result font-mono">840m @ 0.83% CuEq*</div>
-                    <div class="drill-length font-mono">incl. 251m @ 1.32% CuEq*</div>
+            <!-- Styles for interactive scale -->
+            <style>
+                .drill-interactive-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 40px;
+                    margin-top: 40px;
+                    align-items: start;
+                }
+
+                @media (max-width: 991px) {
+                    .drill-interactive-container {
+                        grid-template-columns: 1fr;
+                        gap: 50px;
+                    }
+                }
+
+                /* Drill Cards */
+                .drill-cards-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                }
+
+                .drill-card {
+                    background: rgba(255, 255, 255, 0.02);
+                    border: 1px solid var(--border-glass);
+                    border-radius: var(--radius-card);
+                    padding: 20px 24px;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    position: relative;
+                    overflow: hidden;
+                    text-align: left;
+                }
+
+                .drill-card::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    width: 4px;
+                    background: transparent;
+                    transition: background-color 0.3s ease;
+                }
+
+                .drill-card:hover {
+                    background: rgba(255, 255, 255, 0.04);
+                    transform: translateX(5px);
+                    border-color: rgba(235, 94, 40, 0.3);
+                }
+
+                .drill-card.active {
+                    background: rgba(235, 94, 40, 0.05);
+                    border-color: var(--copper-primary);
+                    box-shadow: 0 4px 20px rgba(235, 94, 40, 0.1);
+                }
+
+                .drill-card.active::before {
+                    background: var(--copper-primary);
+                }
+
+                .drill-card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 8px;
+                }
+
+                .drill-card-id {
+                    font-family: var(--font-mono);
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: white;
+                }
+
+                .drill-card-grade {
+                    font-size: 1.15rem;
+                    font-weight: 700;
+                    color: var(--copper-primary);
+                }
+
+                .drill-card-details {
+                    font-size: 0.875rem;
+                    color: var(--text-secondary);
+                }
+
+                /* Visualization Panel */
+                .drill-vis-panel {
+                    background: rgba(12, 12, 12, 0.6);
+                    border: 1px solid var(--border-glass);
+                    border-radius: var(--radius-card);
+                    padding: 30px;
+                    backdrop-filter: blur(12px);
+                    position: relative;
+                }
+
+                .drill-vis-header {
+                    margin-bottom: 25px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    padding-bottom: 15px;
+                    text-align: left;
+                }
+
+                .drill-vis-title {
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: white;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    margin: 0 0 5px 0;
+                }
+
+                .drill-vis-subtitle {
+                    font-size: 0.85rem;
+                    color: var(--text-secondary);
+                    margin: 0;
+                }
+
+                .drill-vis-comparison-box {
+                    display: flex;
+                    height: 480px;
+                    position: relative;
+                    margin: 30px 0;
+                    padding-left: 50px;
+                    padding-bottom: 30px;
+                }
+
+                /* Vertical Depth Meter Axis */
+                .drill-vis-axis {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 30px;
+                    width: 45px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    font-family: var(--font-mono);
+                    font-size: 0.75rem;
+                    color: rgba(255, 255, 255, 0.3);
+                    border-right: 1px dashed rgba(255, 255, 255, 0.1);
+                    padding-right: 10px;
+                    box-sizing: border-box;
+                }
+
+                /* Column representations */
+                .drill-vis-columns {
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: flex-end;
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+                }
+
+                .vis-column-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 45px;
+                    height: 100%;
+                    position: relative;
+                    justify-content: flex-end;
+                }
+
+                /* The active copper core */
+                .vis-core-shaft {
+                    width: 20px;
+                    background: linear-gradient(180deg, var(--copper-primary) 0%, #a23c14 100%);
+                    border-radius: 10px 10px 0 0;
+                    box-shadow: 0 0 15px rgba(235, 94, 40, 0.4);
+                    height: 64.6%; /* Initial: MD-043 */
+                    transition: height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+                    position: relative;
+                }
+
+                .vis-core-label {
+                    position: absolute;
+                    bottom: 100%;
+                    margin-bottom: 10px;
+                    font-family: var(--font-mono);
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    color: white;
+                    background: var(--copper-primary);
+                    padding: 3px 8px;
+                    border-radius: 4px;
+                    white-space: nowrap;
+                    z-index: 10;
+                    transform: translateX(-50%);
+                    left: 50%;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                }
+
+                .vis-core-label::after {
+                    content: '';
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: var(--copper-primary) transparent transparent transparent;
+                }
+
+                /* Landmarks */
+                .vis-landmark-column {
+                    width: 45px;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    align-items: center;
+                    height: 100%;
+                }
+
+                .vis-landmark-bar {
+                    width: 10px;
+                    background: rgba(255, 255, 255, 0.08);
+                    border-radius: 5px 5px 0 0;
+                    transition: background-color 0.3s ease;
+                }
+
+                .vis-landmark-bar.soccer { height: 8.1%; background: rgba(76, 217, 100, 0.2); }
+                .vis-landmark-bar.eiffel { height: 25.4%; background: rgba(52, 152, 219, 0.2); }
+                .vis-landmark-bar.empire { height: 29.3%; background: rgba(155, 89, 182, 0.2); }
+                .vis-landmark-bar.burj { height: 63.7%; background: rgba(241, 196, 15, 0.2); }
+                .vis-landmark-bar.soccer10 { height: 80.8%; background: rgba(46, 204, 113, 0.3); }
+
+                /* Hover highlights landmark bar */
+                .vis-landmark-column:hover .vis-landmark-bar {
+                    background-color: rgba(255, 255, 255, 0.25);
+                }
+
+                .vis-landmark-icon {
+                    font-size: 1.25rem;
+                    margin-bottom: 5px;
+                }
+
+                .vis-landmark-name {
+                    font-size: 0.65rem;
+                    font-weight: 600;
+                    color: var(--text-tertiary);
+                    text-align: center;
+                    position: absolute;
+                    bottom: -22px;
+                    width: 60px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;
+                }
+
+                /* Explanatory visual callout */
+                .drill-vis-callout {
+                    background: rgba(255, 255, 255, 0.02);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    border-radius: 8px;
+                    padding: 16px 20px;
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                    color: rgba(255, 255, 255, 0.85);
+                    display: flex;
+                    gap: 15px;
+                    align-items: center;
+                    min-height: 80px;
+                    text-align: left;
+                }
+
+                .drill-vis-callout-icon {
+                    font-size: 2rem;
+                    flex-shrink: 0;
+                    color: var(--copper-primary);
+                }
+
+                .drill-vis-callout-text {
+                    margin: 0;
+                }
+            </style>
+
+            <div class="drill-interactive-container">
+                <!-- Left: List of drill holes -->
+                <div class="drill-cards-list">
+                    <div class="drill-card active" data-hole="MD-043" onclick="window.selectDrillHole('MD-043')">
+                        <div class="drill-card-header">
+                            <span class="drill-card-id">MD-043</span>
+                            <span class="drill-card-grade">840m @ 0.83% CuEq*</span>
+                        </div>
+                        <div class="drill-card-details">incl. 251m @ 1.32% CuEq*</div>
+                    </div>
+                    <div class="drill-card" data-hole="MD-044" onclick="window.selectDrillHole('MD-044')">
+                        <div class="drill-card-header">
+                            <span class="drill-card-id">MD-044</span>
+                            <span class="drill-card-grade">1,141m @ 0.40% CuEq*</span>
+                        </div>
+                        <div class="drill-card-details">incl. 382m @ 0.62% CuEq*</div>
+                    </div>
+                    <div class="drill-card" data-hole="MD-045" onclick="window.selectDrillHole('MD-045')">
+                        <div class="drill-card-header">
+                            <span class="drill-card-id">MD-045</span>
+                            <span class="drill-card-grade">1,166m @ 0.45% CuEq*</span>
+                        </div>
+                        <div class="drill-card-details">incl. 250m @ 0.72% CuEq*</div>
+                    </div>
+                    <div class="drill-card" data-hole="MD-046" onclick="window.selectDrillHole('MD-046')">
+                        <div class="drill-card-header">
+                            <span class="drill-card-id">MD-046</span>
+                            <span class="drill-card-grade">1,007m @ 0.38% CuEq*</span>
+                        </div>
+                        <div class="drill-card-details">0.28% Cu, 0.02% Mo</div>
+                    </div>
+                    <div class="drill-card" data-hole="MD-047" onclick="window.selectDrillHole('MD-047')">
+                        <div class="drill-card-header">
+                            <span class="drill-card-id">MD-047</span>
+                            <span class="drill-card-grade">1,004m @ 0.55% CuEq*</span>
+                        </div>
+                        <div class="drill-card-details">incl. 282m @ 0.76% CuEq*</div>
+                    </div>
                 </div>
-                <div class="drill-row">
-                    <div class="drill-id font-mono">MD-044</div>
-                    <div class="drill-result font-mono">1,141m @ 0.40% CuEq*</div>
-                    <div class="drill-length font-mono">incl. 382m @ 0.62% CuEq*</div>
-                </div>
-                <div class="drill-row">
-                    <div class="drill-id font-mono">MD-045</div>
-                    <div class="drill-result font-mono">1,166m @ 0.45% CuEq*</div>
-                    <div class="drill-length font-mono">incl. 250m @ 0.72% CuEq*</div>
-                </div>
-                <div class="drill-row">
-                    <div class="drill-id font-mono">MD-046</div>
-                    <div class="drill-result font-mono">1,007m @ 0.38% CuEq*</div>
-                    <div class="drill-length font-mono">0.28% Cu, 0.02% Mo</div>
-                </div>
-                <div class="drill-row" style="border-bottom: none;">
-                    <div class="drill-id font-mono">MD-047</div>
-                    <div class="drill-result font-mono">1,004m @ 0.55% CuEq*</div>
-                    <div class="drill-length font-mono">incl. 282m @ 0.76% CuEq*</div>
+
+                <!-- Right: Interactive scale comparison -->
+                <div class="drill-vis-panel">
+                    <div class="drill-vis-header">
+                        <h4 class="drill-vis-title">Landmark Scale Comparison</h4>
+                        <p class="drill-vis-subtitle">See how continuous mineralization intercepts dwarf world landmarks</p>
+                    </div>
+
+                    <div class="drill-vis-comparison-box">
+                        <!-- Depth Scale Axis -->
+                        <div class="drill-vis-axis">
+                            <span>0m</span>
+                            <span>300m</span>
+                            <span>600m</span>
+                            <span>900m</span>
+                            <span>1200m</span>
+                        </div>
+
+                        <!-- Columns representing Core and Landmarks -->
+                        <div class="drill-vis-columns">
+                            <!-- Glowing Copper Core -->
+                            <div class="vis-column-wrapper">
+                                <div id="active-core-shaft" class="vis-core-shaft">
+                                    <div id="active-core-label" class="vis-core-label">840m</div>
+                                </div>
+                                <span class="vis-landmark-name" style="color: var(--copper-primary); font-weight: 700;">Copper Core</span>
+                            </div>
+
+                            <!-- Soccer Field -->
+                            <div class="vis-landmark-column" title="FIFA Soccer Field length: 105m">
+                                <span class="vis-landmark-icon">⚽</span>
+                                <div class="vis-landmark-bar soccer"></div>
+                                <span class="vis-landmark-name">1 Soccer Field</span>
+                            </div>
+
+                            <!-- Eiffel Tower -->
+                            <div class="vis-landmark-column" title="Eiffel Tower height: 330m">
+                                <span class="vis-landmark-icon">🗼</span>
+                                <div class="vis-landmark-bar eiffel"></div>
+                                <span class="vis-landmark-name">Eiffel Tower</span>
+                            </div>
+
+                            <!-- Empire State -->
+                            <div class="vis-landmark-column" title="Empire State Building height: 381m">
+                                <span class="vis-landmark-icon">🏢</span>
+                                <div class="vis-landmark-bar empire"></div>
+                                <span class="vis-landmark-name">Empire State</span>
+                            </div>
+
+                            <!-- Burj Khalifa -->
+                            <div class="vis-landmark-column" title="Burj Khalifa height: 828m">
+                                <span class="vis-landmark-icon">🏙️</span>
+                                <div class="vis-landmark-bar burj"></div>
+                                <span class="vis-landmark-name">Burj Khalifa</span>
+                            </div>
+
+                            <!-- 10 Soccer Fields -->
+                            <div class="vis-landmark-column" title="10 Soccer Fields end-to-end: 1,050m">
+                                <span class="vis-landmark-icon">⚽×10</span>
+                                <div class="vis-landmark-bar soccer10"></div>
+                                <span class="vis-landmark-name">10 Soccer Fields</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Explanatory callout -->
+                    <div class="drill-vis-callout">
+                        <div class="drill-vis-callout-icon">💡</div>
+                        <div id="drill-vis-desc" class="drill-vis-callout-text">
+                            The continuous mineralized intercept of <strong>840m</strong> in MD-043 is longer than the height of the <strong>Burj Khalifa (828m)</strong>, the tallest building in the world!
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Javascript for interaction -->
+            <script>
+                const drillData = {
+                    'MD-043': {
+                        length: 840,
+                        heightPercent: 64.6,
+                        desc: "The continuous mineralized intercept of <strong>840m</strong> in MD-043 is longer than the height of the <strong>Burj Khalifa (828m)</strong>, the tallest building in the world!"
+                    },
+                    'MD-044': {
+                        length: 1141,
+                        heightPercent: 87.7,
+                        desc: "MD-044 drilled through <strong>1,141m</strong> of continuous mineralization—longer than <strong>10 FIFA soccer fields (1,050m)</strong> laid end-to-end!"
+                    },
+                    'MD-045': {
+                        length: 1166,
+                        heightPercent: 89.7,
+                        desc: "The massive <strong>1,166m</strong> intercept in MD-045 is equivalent to stacking more than <strong>3.5 Eiffel Towers (330m)</strong> or <strong>3 Empire State Buildings (381m)</strong>!"
+                    },
+                    'MD-046': {
+                        length: 1007,
+                        heightPercent: 77.5,
+                        desc: "A continuous intercept of <strong>1,007m</strong> in MD-046 is equivalent to nearly <strong>10 soccer fields (1,050m)</strong> of copper mineralization!"
+                    },
+                    'MD-047': {
+                        length: 1004,
+                        heightPercent: 77.2,
+                        desc: "The <strong>1,004m</strong> intercept in MD-047 is nearly <strong>3 times the height of the Eiffel Tower</strong>, representing a massive vertical mineralized zone."
+                    }
+                };
+
+                window.selectDrillHole = function(holeId) {
+                    // Update active card class
+                    const cards = document.querySelectorAll('.drill-card');
+                    cards.forEach(card => {
+                        if (card.getAttribute('data-hole') === holeId) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+
+                    // Update visual elements
+                    const data = drillData[holeId];
+                    if (data) {
+                        const shaft = document.getElementById('active-core-shaft');
+                        const label = document.getElementById('active-core-label');
+                        const desc = document.getElementById('drill-vis-desc');
+
+                        if (shaft) shaft.style.height = data.heightPercent + '%';
+                        if (label) label.textContent = data.length + 'm';
+                        if (desc) desc.innerHTML = data.desc;
+                    }
+                };
+            </script>
             
             <p style="color: var(--text-tertiary); font-size: 0.75rem; margin-top: 30px; line-height: 1.4;">
                 <em>*Copper equivalent (CuEq) for drill hole interceptions is calculated as: CuEq (%) = Cu (%) + 5.278 × Mo (%), utilizing metal prices of Cu - US$4.00/lb and Mo - US$20.00/lb and metal recoveries of 90% Cu and 95% Mo.*</em> For further information about MRE, refer to <a href="investors.html#presentation" class="text-copper-500 hover:text-copper-400 transition-colors underline">corporate presentation</a>
