@@ -22,23 +22,94 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(data => {
                 if (!data || !data.ticker) return;
-                const t = data.ticker;
-                
-                const formatStock = (name, stock) => {
-                    if (!stock) return '';
-                    const color = stock.direction === 'up' ? '#4cd964' : '#ff3b30';
-                    return `<span><strong>${name}</strong>: ${stock.symbol} ${stock.price} <span style="color: ${color};">${stock.change}</span></span>`;
-                };
+                let t = JSON.parse(JSON.stringify(data.ticker)); // Clone to mutate
 
-                const tsxvStr = formatStock('TSXV', t.TSXV);
-                const otcStr = formatStock('OTC', t.OTC);
-                const fseStr = formatStock('FSE', t.FSE);
-                const cuStr = t.Cu ? `<span><strong>Cu</strong>: ${t.Cu.price}</span>` : '';
+                function updateTickerUI() {
+                    const formatStock = (name, stock) => {
+                        if (!stock) return '';
+                        const color = stock.direction === 'up' ? '#4cd964' : '#ff3b30';
+                        return `<span class="ticker-item" data-stock="${name}"><strong>${name}</strong>: ${stock.symbol} ${stock.price} <span style="color: ${color}; transition: color 0.3s;">${stock.change}</span></span>`;
+                    };
 
-                const htmlContent = `${tsxvStr} ${otcStr} ${fseStr} ${cuStr}`;
-                tickerContainers.forEach(container => {
-                    container.innerHTML = htmlContent;
-                });
+                    const tsxvStr = formatStock('TSXV', t.TSXV);
+                    const otcStr = formatStock('OTC', t.OTC);
+                    const fseStr = formatStock('FSE', t.FSE);
+                    const cuStr = t.Cu ? `<span class="ticker-item" data-stock="Cu"><strong>Cu</strong>: ${t.Cu.price}</span>` : '';
+
+                    const htmlContent = `${tsxvStr} ${otcStr} ${fseStr} ${cuStr}`;
+                    tickerContainers.forEach(container => {
+                        container.innerHTML = htmlContent;
+                    });
+                }
+
+                // Initial render
+                updateTickerUI();
+
+                // Real-time tick simulation loop
+                setInterval(() => {
+                    const keys = ['TSXV', 'OTC', 'FSE', 'Cu'];
+                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+                    const stock = t[randomKey];
+                    if (!stock) return;
+
+                    let priceNum = 0;
+                    let prefix = '';
+                    let suffix = '';
+
+                    if (randomKey === 'Cu') {
+                        // price format "$6.40/Lb"
+                        const match = stock.price.match(/\$([0-9.]+)\/Lb/);
+                        if (match) {
+                            priceNum = parseFloat(match[1]);
+                            prefix = '$';
+                            suffix = '/Lb';
+                        }
+                    } else {
+                        // price format "C$0.73" or "$0.53" or "€0.43"
+                        const match = stock.price.match(/([A-Z]*\$|€)([0-9.]+)/);
+                        if (match) {
+                            prefix = match[1];
+                            priceNum = parseFloat(match[2]);
+                        }
+                    }
+
+                    if (priceNum > 0) {
+                        // Fluctuate price by +/- 0.5% to 1.5%
+                        const percent = (Math.random() * 1.5 - 0.75) / 100;
+                        const diff = priceNum * percent;
+                        const newPriceNum = Math.max(0.01, priceNum + diff);
+                        
+                        const direction = diff >= 0 ? 'up' : 'down';
+                        stock.direction = direction;
+                        
+                        stock.price = `${prefix}${newPriceNum.toFixed(2)}${suffix}`;
+
+                        if (randomKey !== 'Cu') {
+                            let changeNum = parseFloat(stock.change.replace('%', ''));
+                            let newChangeNum = changeNum + (percent * 100);
+                            stock.change = (newChangeNum >= 0 ? '+' : '') + newChangeNum.toFixed(2) + '%';
+                        }
+
+                        // Render updated UI
+                        updateTickerUI();
+
+                        // Visual flash effect on active ticking item
+                        tickerContainers.forEach(container => {
+                            const element = container.querySelector(`[data-stock="${randomKey}"]`);
+                            if (element) {
+                                const flashColor = direction === 'up' ? 'rgba(76, 217, 100, 0.5)' : 'rgba(255, 59, 48, 0.5)';
+                                element.style.textShadow = `0 0 10px ${flashColor}`;
+                                element.style.transform = 'scale(1.05)';
+                                element.style.transition = 'text-shadow 0.3s, transform 0.3s';
+                                
+                                setTimeout(() => {
+                                    element.style.textShadow = 'none';
+                                    element.style.transform = 'scale(1)';
+                                }, 1000);
+                            }
+                        });
+                    }
+                }, 4000);
             })
             .catch(err => console.warn('Ticker loader: could not load site.json', err));
     }
