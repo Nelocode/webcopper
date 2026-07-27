@@ -1611,6 +1611,19 @@ body.header-hovered .page-backdrop {
     .footer-bottom-container {
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
+    }
+    .footer-bottom-copyright {
+        flex: 1;
+        text-align: left;
+    }
+    .footer-powered-by {
+        flex: 1;
+        justify-content: center;
+    }
+    .footer-bottom-links {
+        flex: 1;
+        justify-content: flex-end;
     }
 }
 
@@ -1618,6 +1631,28 @@ body.header-hovered .page-backdrop {
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     color: #888888;
+}
+
+.footer-powered-by {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: #666666;
+}
+
+.footer-powered-by img {
+    height: 16px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.65;
+    transition: opacity 0.2s ease;
+}
+
+.footer-powered-by img:hover {
+    opacity: 1;
 }
 
 .footer-bottom-links {
