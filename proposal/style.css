@@ -2913,7 +2913,7 @@ section[id] {
 }
 
 /* Add a gradient overlay from bottom to make text legible */
-.photo-card::after {
+.photo-card:not(.full)::after {
     content: '';
     position: absolute;
     bottom: 0;
