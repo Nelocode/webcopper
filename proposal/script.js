@@ -551,7 +551,13 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('data/news.json?v=' + new Date().getTime())
             .then(res => res.json())
             .then(data => {
-                const items = data.items || [];
+                const now = new Date();
+                const items = (data.items || []).filter(item => {
+                    if (item.publishDate) {
+                        return new Date(item.publishDate) <= now;
+                    }
+                    return true;
+                });
                 const recentItems = items.slice(0, 6);
                 window.homeNewsItems = recentItems; // Store globally
 

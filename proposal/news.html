@@ -198,7 +198,13 @@
                     .then(res => res.json())
                     .then(data => {
                         if (!data.items) return;
-                        window.allNewsItems = data.items;
+                        const now = new Date();
+                        window.allNewsItems = data.items.filter(item => {
+                            if (item.publishDate) {
+                                return new Date(item.publishDate) <= now;
+                            }
+                            return true;
+                        });
                         
                         // Dynamically render filters based on unique years in the JSON file
                         if (yearFiltersContainer) {
