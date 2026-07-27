@@ -2647,49 +2647,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetIdleTimer();
     }
 
-    // 3. Floating Compass on Maps Section (Fades in on hover and points North)
-    function initCompassAnomaly() {
-        const mapsSection = document.getElementById('maps');
-        if (!mapsSection) return;
-
-        const compass = mapsSection.querySelector('.compass-container');
-        if (!compass) return;
-
-        const needle = compass.querySelector('.compass-needle');
-        if (!needle) return;
-
-        let mapsHoverTimer = null;
-        let isCompassVisible = false;
-
-        mapsSection.addEventListener('mouseenter', () => {
-            mapsHoverTimer = setTimeout(() => {
-                isCompassVisible = true;
-                compass.classList.add('visible');
-                
-                needle.style.transform = 'rotate(180deg)'; 
-                setTimeout(() => {
-                    needle.classList.add('magnetic-anomaly');
-                }, 100);
-            }, 4000); 
-        });
-
-        mapsSection.addEventListener('mouseleave', () => {
-            if (mapsHoverTimer) {
-                clearTimeout(mapsHoverTimer);
-                mapsHoverTimer = null;
-            }
-            if (isCompassVisible) {
-                isCompassVisible = false;
-                compass.classList.remove('visible');
-                setTimeout(() => {
-                    needle.classList.remove('magnetic-anomaly');
-                    needle.style.transform = 'rotate(180deg)';
-                }, 800);
-            }
-        });
-    }
-
-    // 4. Logo Conductive Flash (Hover 5s)
+    // 3. Logo Conductive Flash (Hover 5s)
     function initLogoFlash() {
         const logo = document.querySelector('.logo');
         if (!logo) return;
@@ -2716,7 +2674,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Run easter egg initializers
     initCursorSparks();
     initMalachiteOxidation();
-    initCompassAnomaly();
     initLogoFlash();
 
     initPresentationModal();
