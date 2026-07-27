@@ -2398,6 +2398,250 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
 
+    // =========================================================================
+    // EASTER EGGS IMPLEMENTATION
+    // =========================================================================
+
+    // 1. Conductivity Cursor Sparks (Mousedown 2s hold)
+    function initCursorSparks() {
+        let mousedownTimer = null;
+        let isSparksActive = false;
+        let canvas = null;
+        let ctx = null;
+        let particles = [];
+        let mouseX = 0;
+        let mouseY = 0;
+        let animationFrameId = null;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 4;
+                this.vy = (Math.random() - 0.5) * 4 - 1.2;
+                this.size = Math.random() * 3 + 1;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+                
+                const isMalachite = document.body.classList.contains('malachite-mode');
+                if (isMalachite) {
+                    const colors = ['#00B48A', '#00e1ab', '#a2ffd0', '#ffffff'];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                } else {
+                    const colors = ['#FF002C', '#ffaa44', '#ffc080', '#ffffff'];
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                }
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.05;
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function createParticles() {
+            if (!isSparksActive) return;
+            for (let i = 0; i < 3; i++) {
+                particles.push(new Particle(mouseX, mouseY));
+            }
+        }
+
+        function loop() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            createParticles();
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                if (p.alpha <= 0) {
+                    particles.splice(i, 1);
+                } else {
+                    p.draw();
+                }
+            }
+
+            if (isSparksActive || particles.length > 0) {
+                animationFrameId = requestAnimationFrame(loop);
+            } else {
+                cleanupSparks();
+            }
+        }
+
+        function startSparks(e) {
+            isSparksActive = true;
+            particles = [];
+            
+            canvas = document.createElement('canvas');
+            canvas.className = 'cursor-sparks-canvas';
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100vw';
+            canvas.style.height = '100vh';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '99999';
+            document.body.appendChild(canvas);
+            
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            window.addEventListener('mousemove', updateMousePosition);
+            loop();
+        }
+
+        function updateMousePosition(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }
+
+        function resizeCanvas() {
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        }
+
+        function cleanupSparks() {
+            isSparksActive = false;
+            window.removeEventListener('resize', resizeCanvas);
+            window.removeEventListener('mousemove', updateMousePosition);
+            if (canvas && canvas.parentNode) {
+                canvas.parentNode.removeChild(canvas);
+            }
+            canvas = null;
+            ctx = null;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        }
+
+        window.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            const target = e.target;
+            if (target.closest('a') || target.closest('button') || target.closest('input') || target.closest('textarea') || target.closest('.map-card') || target.closest('.split-card') || target.closest('.coreshack-thumb')) return;
+
+            mousedownTimer = setTimeout(() => {
+                startSparks(e);
+            }, 2000);
+        });
+
+        const stopHold = () => {
+            if (mousedownTimer) {
+                clearTimeout(mousedownTimer);
+                mousedownTimer = null;
+            }
+            isSparksActive = false;
+        };
+
+        window.addEventListener('mouseup', stopHold);
+        window.addEventListener('mouseleave', stopHold);
+    }
+
+    // 2. Malachite Theme Toggle injection
+    function initMalachiteMode() {
+        const copyrights = document.querySelectorAll('.footer-bottom-copyright');
+        copyrights.forEach(bar => {
+            if (bar.querySelector('.malachite-toggle')) return;
+            
+            const separator = document.createElement('span');
+            separator.innerHTML = ' | ';
+            separator.style.opacity = '0.3';
+            bar.appendChild(separator);
+
+            const toggle = document.createElement('span');
+            toggle.className = 'malachite-toggle';
+            toggle.title = 'Malachite Mode (Oxidation)';
+            toggle.style.cursor = 'pointer';
+            toggle.style.marginLeft = '8px';
+            toggle.style.fontSize = '0.9rem';
+            toggle.style.transition = 'all 0.3s';
+            toggle.innerHTML = '💎';
+            
+            toggle.addEventListener('click', () => {
+                const isMalachite = document.body.classList.toggle('malachite-mode');
+                localStorage.setItem('malachite-mode', isMalachite ? 'true' : 'false');
+                
+                const logo = document.querySelector('.logo');
+                if (logo) {
+                    logo.classList.add('conductive-flash');
+                    setTimeout(() => logo.classList.remove('conductive-flash'), 1200);
+                }
+            });
+
+            bar.appendChild(toggle);
+        });
+
+        if (localStorage.getItem('malachite-mode') === 'true') {
+            document.body.classList.add('malachite-mode');
+        }
+    }
+
+    // 3. Compass Anomaly (Spin on hover)
+    function initCompassAnomaly() {
+        const compass = document.querySelector('.compass-container');
+        if (!compass) return;
+
+        const needle = compass.querySelector('.compass-needle');
+        if (!needle) return;
+
+        compass.addEventListener('mouseenter', () => {
+            if (needle.classList.contains('magnetic-anomaly')) return;
+            
+            needle.classList.add('magnetic-anomaly');
+            setTimeout(() => {
+                needle.classList.remove('magnetic-anomaly');
+            }, 3000);
+        });
+    }
+
+    // 4. Logo Conductive Flash (Hover 5s)
+    function initLogoFlash() {
+        const logo = document.querySelector('.logo');
+        if (!logo) return;
+
+        let hoverTimer = null;
+
+        logo.addEventListener('mouseenter', () => {
+            hoverTimer = setTimeout(() => {
+                logo.classList.add('conductive-flash');
+                setTimeout(() => {
+                    logo.classList.remove('conductive-flash');
+                }, 1200);
+            }, 5000);
+        });
+
+        logo.addEventListener('mouseleave', () => {
+            if (hoverTimer) {
+                clearTimeout(hoverTimer);
+                hoverTimer = null;
+            }
+        });
+    }
+
+    // Run easter egg initializers
+    initCursorSparks();
+    initMalachiteMode();
+    initCompassAnomaly();
+    initLogoFlash();
+
     initPresentationModal();
     initNewsPdfModal();
 });
