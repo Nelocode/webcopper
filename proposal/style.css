@@ -1617,12 +1617,14 @@ body.header-hovered .page-backdrop {
         flex: 1;
         text-align: left;
     }
-    .footer-powered-by {
-        flex: 1;
-        justify-content: center;
-    }
     .footer-bottom-links {
         flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+    .footer-powered-by {
+        flex: 1;
+        display: flex;
         justify-content: flex-end;
     }
 }
@@ -1640,14 +1642,14 @@ body.header-hovered .page-backdrop {
     gap: 8px;
     font-family: 'Inter', sans-serif;
     font-size: 0.72rem;
-    color: #666666;
+    color: #999999;
 }
 
 .footer-powered-by img {
-    height: 16px;
+    height: 20px;
     width: auto;
     filter: brightness(0) invert(1);
-    opacity: 0.65;
+    opacity: 0.8;
     transition: opacity 0.2s ease;
 }
 
