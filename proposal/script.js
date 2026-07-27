@@ -2555,60 +2555,137 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('mouseleave', stopHold);
     }
 
-    // 2. Malachite Theme Toggle injection
-    function initMalachiteMode() {
-        const copyrights = document.querySelectorAll('.footer-bottom-copyright');
-        copyrights.forEach(bar => {
-            if (bar.querySelector('.malachite-toggle')) return;
-            
-            const separator = document.createElement('span');
-            separator.innerHTML = ' | ';
-            separator.style.opacity = '0.3';
-            bar.appendChild(separator);
+    // 2. Malachite Theme (Oxidation on idle, reset on action)
+    function initMalachiteOxidation() {
+        let idleTimer = null;
+        let isOxidized = false;
+        
+        // 15 minutes = 15 * 60 * 1000 ms. 
+        // For testing, if the URL contains 'testOxidation', set to 5 seconds.
+        const urlParams = new URLSearchParams(window.location.search);
+        const idleTimeout = urlParams.has('testOxidation') ? 5000 : 15 * 60 * 1000;
 
-            const toggle = document.createElement('span');
-            toggle.className = 'malachite-toggle';
-            toggle.title = 'Malachite Mode (Oxidation)';
-            toggle.style.cursor = 'pointer';
-            toggle.style.marginLeft = '8px';
-            toggle.style.fontSize = '0.9rem';
-            toggle.style.transition = 'all 0.3s';
-            toggle.innerHTML = '💎';
-            
-            toggle.addEventListener('click', () => {
-                const isMalachite = document.body.classList.toggle('malachite-mode');
-                localStorage.setItem('malachite-mode', isMalachite ? 'true' : 'false');
-                
-                const logo = document.querySelector('.logo');
-                if (logo) {
-                    logo.classList.add('conductive-flash');
-                    setTimeout(() => logo.classList.remove('conductive-flash'), 1200);
-                }
-            });
+        function showOxidationToast() {
+            if (document.getElementById('oxidation-toast')) return;
 
-            bar.appendChild(toggle);
+            const toast = document.createElement('div');
+            toast.id = 'oxidation-toast';
+            toast.style.position = 'fixed';
+            toast.style.bottom = '30px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%) translateY(20px)';
+            toast.style.background = 'rgba(10, 10, 10, 0.95)';
+            toast.style.border = '1px solid #00B48A';
+            toast.style.boxShadow = '0 10px 30px rgba(0, 180, 138, 0.2)';
+            toast.style.color = 'white';
+            toast.style.padding = '16px 24px';
+            toast.style.borderRadius = '4px';
+            toast.style.fontFamily = 'sans-serif';
+            toast.style.zIndex = '100000';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s, transform 0.5s';
+            toast.style.pointerEvents = 'none';
+            toast.style.textAlign = 'center';
+            toast.style.maxWidth = '90%';
+            toast.style.width = '350px';
+
+            toast.innerHTML = `
+                <div style="font-size: 0.75rem; font-family: monospace; color: #00B48A; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 6px;">
+                    Reacción Química
+                </div>
+                <div style="font-size: 0.85rem; line-height: 1.5; font-weight: 500;">
+                    El cobre inactivo se ha oxidado en malaquita verde.<br>
+                    <span style="color: rgba(255,255,255,0.5); font-size: 0.75rem; display: block; margin-top: 4px;">Mueve el cursor para pulir el metal.</span>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+            }, 50);
+        }
+
+        function removeOxidationToast() {
+            const toast = document.getElementById('oxidation-toast');
+            if (toast) {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 500);
+            }
+        }
+
+        function triggerOxidation() {
+            isOxidized = true;
+            document.body.classList.add('malachite-mode');
+            showOxidationToast();
+        }
+
+        function resetIdleTimer() {
+            if (isOxidized) {
+                isOxidized = false;
+                document.body.classList.remove('malachite-mode');
+                removeOxidationToast();
+            }
+
+            if (idleTimer) {
+                clearTimeout(idleTimer);
+            }
+            idleTimer = setTimeout(triggerOxidation, idleTimeout);
+        }
+
+        const activityEvents = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
+        activityEvents.forEach(evt => {
+            window.addEventListener(evt, resetIdleTimer, { passive: true });
         });
 
-        if (localStorage.getItem('malachite-mode') === 'true') {
-            document.body.classList.add('malachite-mode');
-        }
+        resetIdleTimer();
     }
 
-    // 3. Compass Anomaly (Spin on hover)
+    // 3. Floating Compass on Maps Section (Fades in on hover and points North)
     function initCompassAnomaly() {
-        const compass = document.querySelector('.compass-container');
+        const mapsSection = document.getElementById('maps');
+        if (!mapsSection) return;
+
+        const compass = mapsSection.querySelector('.compass-container');
         if (!compass) return;
 
         const needle = compass.querySelector('.compass-needle');
         if (!needle) return;
 
-        compass.addEventListener('mouseenter', () => {
-            if (needle.classList.contains('magnetic-anomaly')) return;
-            
-            needle.classList.add('magnetic-anomaly');
-            setTimeout(() => {
-                needle.classList.remove('magnetic-anomaly');
-            }, 3000);
+        let mapsHoverTimer = null;
+        let isCompassVisible = false;
+
+        mapsSection.addEventListener('mouseenter', () => {
+            mapsHoverTimer = setTimeout(() => {
+                isCompassVisible = true;
+                compass.classList.add('visible');
+                
+                needle.style.transform = 'rotate(180deg)'; 
+                setTimeout(() => {
+                    needle.classList.add('magnetic-anomaly');
+                }, 100);
+            }, 4000); 
+        });
+
+        mapsSection.addEventListener('mouseleave', () => {
+            if (mapsHoverTimer) {
+                clearTimeout(mapsHoverTimer);
+                mapsHoverTimer = null;
+            }
+            if (isCompassVisible) {
+                isCompassVisible = false;
+                compass.classList.remove('visible');
+                setTimeout(() => {
+                    needle.classList.remove('magnetic-anomaly');
+                    needle.style.transform = 'rotate(180deg)';
+                }, 800);
+            }
         });
     }
 
@@ -2638,7 +2715,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Run easter egg initializers
     initCursorSparks();
-    initMalachiteMode();
+    initMalachiteOxidation();
     initCompassAnomaly();
     initLogoFlash();
 
