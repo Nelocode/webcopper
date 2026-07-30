@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tickerContainers = document.querySelectorAll('.ticker-stocks');
         if (tickerContainers.length === 0) return;
 
-        fetch('data/site.json')
+        fetch('data/site.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 if (!data || !data.ticker) return;

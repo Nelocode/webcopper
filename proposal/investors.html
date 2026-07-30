@@ -15,7 +15,7 @@
     
     <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/apple-icon.png">
-    <link rel="stylesheet" href="style.css?v=10.2">
+    <link rel="stylesheet" href="style.css?v=11.0">
 </head>
 <body>
 
@@ -354,7 +354,7 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
-                    fetch('data/downloads.json')
+                    fetch('data/downloads.json?t=' + Date.now())
                         .then(res => res.json())
                         .then(data => {
                             const investorGrid = document.getElementById('investor-downloads-grid');
@@ -599,7 +599,7 @@
         </div>
     </div>
 
-<script src="script.js?v=5.1"></script>
+<script src="script.js?v=11.0"></script>
 
     <!-- jQuery and Mailchimp validation scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

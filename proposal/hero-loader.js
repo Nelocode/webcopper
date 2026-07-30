@@ -19,7 +19,7 @@
         : 'home';
 
     try {
-        const res = await fetch('data/site.json');
+        const res = await fetch('data/site.json?t=' + Date.now());
         const data = await res.json();
 
         // Look for the hero matching this page
