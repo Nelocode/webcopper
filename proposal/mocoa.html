@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+          for (var r of regs) { r.unregister(); }
+        });
+      }
+      if ('caches' in window) {
+        caches.keys().then(function(names) {
+          for (var n of names) { caches.delete(n); }
+        });
+      }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
@@ -15,7 +30,7 @@
     
     <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/apple-icon.png">
-    <link rel="stylesheet" href="style.css?v=12.0">
+    <link rel="stylesheet" href="style.css?v=99.0">
 </head>
 <body>
 
@@ -1894,7 +1909,7 @@
     </div>
 
 
-<script src="script.js?v=12.0"></script>
+<script src="script.js?v=99.0"></script>
 
     <!-- jQuery and Mailchimp validation scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
