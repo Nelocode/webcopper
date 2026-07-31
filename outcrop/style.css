@@ -221,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo-img {
-    height: 44px;
+    height: 53px;
     display: block;
     transition: filter var(--transition-normal), height var(--transition-normal);
     filter: brightness(0) invert(1); /* Default transparent state: logo is white */
