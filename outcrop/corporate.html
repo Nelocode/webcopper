@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate | Outcrop Silver Corp.</title>
+    <meta name="description" content="Meet the management team, board of directors, and review the corporate governance and strengths of Outcrop Silver Corporation.">
+    
+    <!-- Google Fonts: Figtree for Headings, Inter for Body, JetBrains Mono for Tickers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Apple-style hover backdrop blur overlay -->
+    <div class="page-backdrop"></div>
+
+    <!-- Header & Navigation Group -->
+    <div class="top-header-group">
+        <!-- Live Ticker Bar (Stocks & Silver Price) -->
+        <div class="ticker-bar">
+            <div class="ticker-wrapper">
+                <div class="ticker-stocks font-mono">
+                    <span><strong>TSX</strong>: OCG <span class="stock-price">C$0.24</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +4.35%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>OTCQX</strong>: OCGSF <span class="stock-price">$0.18</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +2.86%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>FSE</strong>: MRG <span class="stock-price">€0.16</span> <span class="stock-change change-down"><i class="fa-solid fa-caret-down"></i> -0.62%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>Silver Spot</strong>: <span class="silver-price">$28.45/Oz</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +1.12%</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Header Navigation -->
+        <header class="nav-header">
+            <nav class="main-nav">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver" class="logo-img">
+                </a>
+                
+                <div class="nav-links-left">
+                    <a href="index.html" class="nav-link">Home</a>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="corporate.html" class="nav-link active">Corporate <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="corporate.html#overview">Overview</a>
+                            <a href="corporate.html#management">Management & Directors</a>
+                            <a href="corporate.html#governance">Governance</a>
+                            <a href="corporate.html#disclaimer">Disclaimer</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="projects.html" class="nav-link">Projects <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="santa-ana.html">Santa Ana (Flagship)</a>
+                            <a href="mallama.html">Mallama Project</a>
+                            <a href="oribella.html">Oribella Project</a>
+                            <a href="argelia.html">Argelia Project</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="investors.html" class="nav-link">Investors <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="investors.html#stock-info">Stock Info & Share Structure</a>
+                            <a href="investors.html#financials">Financial Statements</a>
+                            <a href="investors.html#presentations">Presentations & Downloads</a>
+                            <a href="investors.html#events">Upcoming Events</a>
+                        </div>
+                    </div>
+
+                    <a href="index.html#esg-section" class="nav-link">ESG</a>
+                </div>
+
+                <div class="nav-links-right">
+                    <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="nav-btn-outline"><i class="fa-solid fa-file-pdf"></i> View Presentation</a>
+                    <a href="index.html#newsletter-section" class="nav-btn-outline"><i class="fa-regular fa-bell"></i> Get Updates</a>
+                    <a href="index.html#news-hub" class="nav-btn-solid">News</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="corporate.html" class="mobile-link active">Corporate</a>
+            <a href="santa-ana.html" class="mobile-link">Santa Ana Project</a>
+            <a href="investors.html" class="mobile-link">Investors</a>
+            <a href="index.html#esg-section" class="mobile-link">ESG</a>
+            <a href="index.html#news-hub" class="mobile-link">News</a>
+            <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="mobile-link"><i class="fa-solid fa-file-pdf"></i> Presentation</a>
+        </div>
+    </div>
+
+    <!-- Internal Hero Banner -->
+    <section class="internal-hero" style="background-image: url('assets/meet_the_team.jpg?v=3');">
+        <div class="internal-hero-overlay"></div>
+        <div class="internal-hero-content">
+            <h1 class="internal-title">Corporate</h1>
+            <p class="internal-subtitle">Overview, Leadership & Governance</p>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="internal-content-section">
+        <div class="container-main">
+            <!-- Tabs Navigation Sticky Wrapper -->
+            <div class="tabs-nav-wrapper">
+                <div class="tabs-container" style="border-bottom: none; margin-bottom: 0;">
+                    <button class="tab-btn active" data-tab="overview">Overview</button>
+                    <button class="tab-btn" data-tab="management">Management & Directors</button>
+                    <button class="tab-btn" data-tab="governance">Governance</button>
+                    <button class="tab-btn" data-tab="disclaimer">Disclaimer</button>
+                </div>
+            </div>
+
+            <!-- Tab Content 1: Overview -->
+            <div class="tab-content active" id="overview">
+                <div class="section-intro">
+                    <p>Outcrop Silver is a Canadian company actively exploring for precious metals in Colombia. With corporate offices in Vancouver, Canada and operational offices in Medellin, Colombia, we are focused on identifying and expanding high-grade mineral deposits.</p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-column">
+                        <h2>Operational Focus</h2>
+                        <p>Outcrop Silver is rapidly advancing the Santa Ana high-grade silver deposit with ongoing expansion and exploration drilling. Exploration work is conducted by a highly disciplined professional team with decades of experience in Colombia.</p>
+                        <p>Our primary listing is on the Toronto Stock Exchange (TSX) under the symbol <strong>OCG</strong>. In addition, our shares are traded in the United States (OTCQX: <strong>OCGSF</strong>) and in Germany (FSE: <strong>MRG</strong>).</p>
+                    </div>
+                    <div class="info-column">
+                        <h2>Key Strengths</h2>
+                        <ul class="document-list">
+                            <li class="document-item" style="border-radius: 0; padding: 15px; margin-bottom: 8px;">
+                                <div class="document-name"><i class="fa-solid fa-helmet-safety" style="color: var(--brand-primary); margin-right: 10px;"></i> Experienced Management</div>
+                            </li>
+                            <li class="document-item" style="border-radius: 0; padding: 15px; margin-bottom: 8px;">
+                                <div class="document-name"><i class="fa-solid fa-map-location-dot" style="color: var(--brand-primary); margin-right: 10px;"></i> High Discovery Rate Areas</div>
+                            </li>
+                            <li class="document-item" style="border-radius: 0; padding: 15px; margin-bottom: 8px;">
+                                <div class="document-name"><i class="fa-solid fa-chart-line" style="color: var(--brand-primary); margin-right: 10px;"></i> Drill-Ready Outcrops</div>
+                            </li>
+                            <li class="document-item" style="border-radius: 0; padding: 15px; margin-bottom: 8px;">
+                                <div class="document-name"><i class="fa-solid fa-handshake" style="color: var(--brand-primary); margin-right: 10px;"></i> Strong Local Communities Support</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Management & Directors -->
+            <div class="tab-content" id="management">
+                <div class="section-intro">
+                    <p>Our team brings together decades of global exploration, mining operations, corporate finance, and community relations expertise, with a proven track record in Colombia.</p>
+                </div>
+
+                <div class="leadership-section">
+                    <div class="leadership-title">
+                        Strong <strong>Experienced Leadership</strong>
+                    </div>
+
+                    <div class="leadership-layout">
+                        <!-- Left Navigation List -->
+                        <div class="leadership-nav-panel">
+                            <div class="leadership-group-section">
+                                <h4 class="leadership-group-title">Management & Consultants</h4>
+                                <div class="leadership-nav-list">
+                                    <button class="leadership-nav-item active" 
+                                            data-name="Rob Bruggeman" 
+                                            data-role="President, CEO & Director" 
+                                            data-img="assets/rob_bruggeman.jpg" 
+                                            data-bio="Over 15 years of mining sector experience in executive and advisory capacities. Previously served as Director and Chairman of AbraSilver Resource Corp, leading the Diablillos asset in Argentina. Spent a decade in equities research and trading in Toronto, including TD Securities. Holds a B.Eng from McMaster and an MBA from Schulich School of Business. CFA Charterholder.">
+                                        <img src="assets/rob_bruggeman.jpg" alt="Rob Bruggeman" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Rob Bruggeman</h5>
+                                            <p>President, CEO & Director</p>
+                                        </div>
+                                    </button>
+                                    
+                                    <button class="leadership-nav-item" 
+                                            data-name="Carlos Torres" 
+                                            data-role="VP Exploration" 
+                                            data-img="assets/carlos_torres.png" 
+                                            data-bio="Accomplished geologist with 20+ years of experience across mining, exploration, and project evaluation. Formerly VP of Exploration at Sun Valley Investments and Technical Team Leader with the Colombian Ministry of Mines, where he designed national frameworks for ethnic community engagement. Holds an M.Sc in Applied Economic Geology from Queen's University. Licensed P.Geo.">
+                                        <img src="assets/carlos_torres.png" alt="Carlos Torres" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Carlos Torres</h5>
+                                            <p>VP Exploration</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Thyana Alvarez" 
+                                            data-role="VP Corporate Relations" 
+                                            data-img="assets/thyana_alvarez.jpg" 
+                                            data-bio="Social leader with over 20 years of experience in CSR, stakeholder management, and corporate communications in mining. Previously Sustainability Manager for Outcrop Silver and Country Manager for Libero Copper. Honored in 2024 as one of Colombia's most influential women in social leadership.">
+                                        <img src="assets/thyana_alvarez.jpg" alt="Thyana Alvarez" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Thyana Alvarez</h5>
+                                            <p>VP Corporate Relations</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Oscar Villada" 
+                                            data-role="Exploration Manager" 
+                                            data-img="assets/oscar_villada.png" 
+                                            data-bio="Oscar Villada is a geologist and the Exploration Manager and Head of the Field Team for Outcrop Silver. He has been part of the Santa Ana project since its inception, leading field work with extensive metal exploration experience in Colombia and Nicaragua.">
+                                        <img src="assets/oscar_villada.png" alt="Oscar Villada" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Oscar Villada</h5>
+                                            <p>Exploration Manager</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Dan McIntyre" 
+                                            data-role="IR Consultant" 
+                                            data-img="assets/dan_mcintyre.png" 
+                                            data-bio="Daniel McIntyre has been engaged as an investor relations consultant for Outcrop Silver, providing communications support, media engagement, and digital communications strategies for the company.">
+                                        <img src="assets/dan_mcintyre.png" alt="Dan McIntyre" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Dan McIntyre</h5>
+                                            <p>IR Consultant</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Robert Scott" 
+                                            data-role="Chief Financial Officer" 
+                                            data-img="assets/robert_scott.jpg" 
+                                            data-bio="CPA, CA and CFA Charterholder with 20+ years of professional experience in accounting, corporate compliance, and merchant banking. Has spent the last 18 years as Senior Officer and Director of TSX-V listed issuers, raising over $200M in equity and gaining extensive experience in corporate restructurings and M&As.">
+                                        <img src="assets/robert_scott.jpg" alt="Robert Scott" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Robert Scott</h5>
+                                            <p>Chief Financial Officer</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Melissa Martensen" 
+                                            data-role="Corporate Secretary" 
+                                            data-img="assets/melissa_martensen.png" 
+                                            data-bio="More than 12 years of administrative experience as a corporate secretary in junior mining companies. Prior to junior mining, worked in private banking at RBC. Graduated with a degree in finance from UNBC and is a member of the Governance Professionals of Canada.">
+                                        <img src="assets/melissa_martensen.png" alt="Melissa Martensen" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Melissa Martensen</h5>
+                                            <p>Corporate Secretary</p>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="leadership-group-section" style="margin-top: 30px;">
+                                <h4 class="leadership-group-title">Board of Directors</h4>
+                                <div class="leadership-nav-list">
+                                    <button class="leadership-nav-item" 
+                                            data-name="Ian Harris" 
+                                            data-role="Executive Chairman" 
+                                            data-img="assets/ian_harris.jpg" 
+                                            data-bio="Mining engineer with 25+ years of South American experience. Guided Corriente Resources' Mirador copper project from feasibility into construction, culminating in a US$690 million acquisition. Previously CEO of AMAK Mining in Saudi Arabia and President of Soma Gold in Colombia.">
+                                        <img src="assets/ian_harris.jpg" alt="Ian Harris" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Ian Harris</h5>
+                                            <p>Executive Chairman</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Jay Sujir" 
+                                            data-role="Director" 
+                                            data-img="assets/jay_sujir.png" 
+                                            data-bio="Securities and natural resources lawyer with 23+ years of experience advising public natural resource companies. Senior partner with Farris, Vaughan, Wills & Murphy LLP. Member of the BC Advisory Committee of the TSX Venture Exchange.">
+                                        <img src="assets/jay_sujir.png" alt="Jay Sujir" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Jay Sujir</h5>
+                                            <p>Director</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Joe Hebert" 
+                                            data-role="Director" 
+                                            data-img="assets/joe_hebert.png" 
+                                            data-bio="30 years of mineral exploration and geology experience. Senior exploration geologist for Cortez Joint Venture in Nevada, part of the Cortez Hills and Goldrush discoveries. progress from VP Exploration to President & CEO of Miranda (now Outcrop Silver) from 2005 to 2016.">
+                                        <img src="assets/joe_hebert.png" alt="Joe Hebert" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Joe Hebert</h5>
+                                            <p>Director</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Ana Milena Vasquez" 
+                                            data-role="Director" 
+                                            data-img="assets/ana_milena_vasquez.png" 
+                                            data-bio="18+ years of mining sector experience, specializing in project permitting, ESG, external affairs, and community relations. Formerly Executive VP of Collective Mining and President of CB Gold. Co-founder of Women in Mining Colombia and selected as one of the 100 Global Inspirational Women in Mining.">
+                                        <img src="assets/ana_milena_vasquez.png" alt="Ana Milena Vasquez" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Ana Milena Vasquez</h5>
+                                            <p>Director</p>
+                                        </div>
+                                    </button>
+
+                                    <button class="leadership-nav-item" 
+                                            data-name="Kevin Nishi" 
+                                            data-role="Director" 
+                                            data-img="assets/kevin_nishi.png" 
+                                            data-bio="Chartered Professional Accountant with Simon Fraser BBA. Partner with Smythe LLP working with public exploration stage mining companies listed on the TSX, TSX Venture, and US exchanges. Has served on several public mining boards.">
+                                        <img src="assets/kevin_nishi.png" alt="Kevin Nishi" class="leadership-nav-avatar">
+                                        <div class="leadership-nav-info">
+                                            <h5>Kevin Nishi</h5>
+                                            <p>Director</p>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Detail Panel -->
+                        <div class="leadership-detail-panel" id="leadership-detail-view">
+                            <div class="leadership-detail-header">
+                                <div class="leadership-detail-photo" id="detail-photo" style="background-image: url('assets/rob_bruggeman.jpg');"></div>
+                                <div class="leadership-detail-title-block">
+                                    <h3 id="detail-name">Rob Bruggeman</h3>
+                                    <span class="role-badge" id="detail-role">President, CEO & Director</span>
+                                </div>
+                            </div>
+                            <div class="leadership-detail-body">
+                                <p id="detail-bio">Over 15 years of mining sector experience in executive and advisory capacities. Previously served as Director and Chairman of AbraSilver Resource Corp, leading the Diablillos asset in Argentina. Spent a decade in equities research and trading in Toronto, including TD Securities. Holds a B.Eng from McMaster and an MBA from Schulich School of Business. CFA Charterholder.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 15px; text-align: right;">* Full biographies are available. Click on any member to read.</div>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: Governance -->
+            <div class="tab-content" id="governance">
+                <div class="section-intro">
+                    <p>Outcrop Silver is committed to the highest standards of corporate governance, business integrity, and environmental stewardship in all our operations.</p>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h2 style="font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 10px;">Corporate Governance Files</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 0.95rem;">Please find below the official mandates and policy documents outlining Outcrop Silver's corporate accountability and code of ethics.</p>
+                    <div class="document-grid">
+                        <a href="https://outcropsilver.com/site/assets/files/1025/ocg_ethics_policy_final_july2020.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Code of Business Conduct and Ethics</h4>
+                                <span class="download-meta">Published: July 2020 • 182 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/1025/ocg_audit_committee_charter_final_july2020.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Audit Committee Charter</h4>
+                                <span class="download-meta">Published: July 2020 • 145 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/1025/ocg_board_mandate_final_july2020.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Board of Directors Mandate</h4>
+                                <span class="download-meta">Published: July 2020 • 210 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/6296/incorporation-documents.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Incorporation Documents</h4>
+                                <span class="download-meta">Corporate Mandate • 1.2 MB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/6296/2025-articles-outcrop.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Articles of the Corporation</h4>
+                                <span class="download-meta">Bylaws and Constitution • 850 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/6296/2025-insider-trading-and-blackout-period-policy.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Insider Trading and Blackout Policy</h4>
+                                <span class="download-meta">Governance Mandate • 320 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/6296/2025-compensation-committee-charter-outcrop.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Compensation Committee Charter</h4>
+                                <span class="download-meta">Committee Guidelines • 180 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/6296/majority-voting-policy.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Majority Voting Policy</h4>
+                                <span class="download-meta">Elections Standard • 120 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 4: Disclaimer -->
+            <div class="tab-content" id="disclaimer">
+                <div class="section-intro">
+                    <h2 style="font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.6rem; color: var(--text-primary); margin-bottom: 20px;">Legal Disclaimer & Safe Harbor</h2>
+                </div>
+                <div class="readability-column">
+                    <p>This website and the documents hosted on it contain "forward-looking statements" within the meaning of applicable Canadian securities legislation. Such forward-looking statements include, but are not limited to, statements regarding future exploration plans, mineralization potential, drilling results, and economic evaluations of Outcrop Silver Corporation's mineral properties.</p>
+                    <p>Forward-looking statements involve significant known and unknown risks, uncertainties, and other factors that could cause actual results or events to differ materially from those expressed or implied. Risks include, but are not limited to, fluctuations in commodity prices, exploration hazards, operational delays, permitting issues, changes in environmental regulations, and political risks in Colombia.</p>
+                    <p>Readers are cautioned not to place undue reliance on forward-looking statements, which speak only as of the date they are made. Outcrop Silver Corporation undertakes no obligation to release publicly any revisions to these forward-looking statements to reflect events or circumstances after the date hereof, except as required by securities laws.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="newsletter-section">
+        <div class="footer-grid">
+            <!-- Column 1: Brand & Social -->
+            <div class="footer-column brand-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver Logo" class="footer-logo">
+                </a>
+                <p class="footer-about-text">
+                    Outcrop Silver & Gold Corp. is a Canadian exploration company advancing the Santa Ana Project, a high-grade primary silver district in Colombia's historic mining region.
+                </p>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com/OutcropSilverGold" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/OCG_Silver" target="_blank" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://youtube.com/channel/UCaDQsP2iI7X1TsXpvv7vqNw/videos" target="_blank" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://linkedin.com/company/outcrop-silver-gold" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/outcropsilvergold" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column links-col">
+                <h4 class="footer-title">Explore</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="corporate.html">Corporate Overview</a></li>
+                    <li><a href="santa-ana.html">Santa Ana Project</a></li>
+                    <li><a href="index.html#news-hub">Latest News</a></li>
+                    <li><a href="investors.html">Stock Info & Share Structure</a></li>
+                    <li><a href="index.html#esg-section">ESG & Reforestation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: Secure Contact Info -->
+            <div class="footer-column contact-col">
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-contact-details">
+                    <li><i class="fa-solid fa-phone"></i> +1 (604) 609-6110</li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@outcropsilver.com">info@outcropsilver.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Suite 906 – 1111 Melville St,<br>Vancouver, BC V6E 3V6, Canada</li>
+                </ul>
+            </div>
+            
+            <!-- Column 4: Newsletter Form -->
+            <div class="footer-column signup-col">
+                <h4 class="footer-title">Newsletter Sign-Up</h4>
+                <p class="newsletter-sub">Get direct email alerts with our latest drilling results and company updates.</p>
+                <form class="footer-signup-form" action="https://outcropgoldcorp.us20.list-manage.com/subscribe/post?u=8d2ee82d96b592c11443ded47&amp;id=ead3eb597a" method="post" target="_blank">
+                    <input type="email" name="EMAIL" placeholder="Your Email Address" required class="signup-input">
+                    <button type="submit" class="signup-btn" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Bottom copyright bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-container">
+                <div class="copyright-text">
+                    © 2026 Outcrop Silver Corporation. All Rights Reserved.
+                </div>
+                <div class="footer-legal-links">
+                    <a href="https://outcropsilver.com/legal/privacy-policy/">Privacy Policy</a>
+                    <a href="corporate.html#disclaimer">Legal Disclaimer</a>
+                    <a href="https://adnetinc.com/" target="_blank" rel="noopener">Website by Adnet</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="btn-back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Script connection -->
+    <script src="script.js"></script>
+</body>
+</html>

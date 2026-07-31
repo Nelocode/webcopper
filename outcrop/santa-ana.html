@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Ana Project | Outcrop Silver Corp.</title>
+    <meta name="description" content="Discover Outcrop Silver's Santa Ana high-grade primary silver project in Tolima, Colombia. Review resources estimates, metallurgy and geology.">
+    
+    <!-- Google Fonts: Figtree for Headings, Inter for Body, JetBrains Mono for Tickers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Apple-style hover backdrop blur overlay -->
+    <div class="page-backdrop"></div>
+
+    <!-- Header & Navigation Group -->
+    <div class="top-header-group">
+        <!-- Live Ticker Bar (Stocks & Silver Price) -->
+        <div class="ticker-bar">
+            <div class="ticker-wrapper">
+                <div class="ticker-stocks font-mono">
+                    <span><strong>TSX</strong>: OCG <span class="stock-price">C$0.24</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +4.35%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>OTCQX</strong>: OCGSF <span class="stock-price">$0.18</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +2.86%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>FSE</strong>: MRG <span class="stock-price">€0.16</span> <span class="stock-change change-down"><i class="fa-solid fa-caret-down"></i> -0.62%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>Silver Spot</strong>: <span class="silver-price">$28.45/Oz</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +1.12%</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Header Navigation -->
+        <header class="nav-header">
+            <nav class="main-nav">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver" class="logo-img">
+                </a>
+                
+                <div class="nav-links-left">
+                    <a href="index.html" class="nav-link">Home</a>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="corporate.html" class="nav-link">Corporate <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="corporate.html#overview">Overview</a>
+                            <a href="corporate.html#management">Management & Directors</a>
+                            <a href="corporate.html#governance">Governance</a>
+                            <a href="corporate.html#disclaimer">Disclaimer</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="projects.html" class="nav-link active">Projects <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="santa-ana.html">Santa Ana (Flagship)</a>
+                            <a href="mallama.html">Mallama Project</a>
+                            <a href="oribella.html">Oribella Project</a>
+                            <a href="argelia.html">Argelia Project</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="investors.html" class="nav-link">Investors <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="investors.html#stock-info">Stock Info & Share Structure</a>
+                            <a href="investors.html#financials">Financial Statements</a>
+                            <a href="investors.html#presentations">Presentations & Downloads</a>
+                            <a href="investors.html#events">Upcoming Events</a>
+                        </div>
+                    </div>
+
+                    <a href="index.html#esg-section" class="nav-link">ESG</a>
+                </div>
+
+                <div class="nav-links-right">
+                    <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="nav-btn-outline"><i class="fa-solid fa-file-pdf"></i> View Presentation</a>
+                    <a href="index.html#newsletter-section" class="nav-btn-outline"><i class="fa-regular fa-bell"></i> Get Updates</a>
+                    <a href="index.html#news-hub" class="nav-btn-solid">News</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="corporate.html" class="mobile-link">Corporate</a>
+            <a href="santa-ana.html" class="mobile-link active">Santa Ana Project</a>
+            <a href="investors.html" class="mobile-link">Investors</a>
+            <a href="index.html#esg-section" class="mobile-link">ESG</a>
+            <a href="index.html#news-hub" class="mobile-link">News</a>
+            <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="mobile-link"><i class="fa-solid fa-file-pdf"></i> Presentation</a>
+        </div>
+    </div>
+
+    <!-- Internal Hero Banner -->
+    <section class="internal-hero" style="background-image: url('assets/project_overview.jpg?v=3');">
+        <div class="internal-hero-overlay"></div>
+        <div class="internal-hero-content">
+            <h1 class="internal-title">Santa Ana Project</h1>
+            <p class="internal-subtitle">Our flagship high-grade primary silver district in Tolima</p>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="internal-content-section">
+        <div class="container-main">
+            <!-- Tabs Navigation Sticky Wrapper -->
+            <div class="tabs-nav-wrapper">
+                <div class="tabs-container" style="border-bottom: none; margin-bottom: 0;">
+                    <button class="tab-btn active" data-tab="overview">Project Overview</button>
+                    <button class="tab-btn" data-tab="geology">Geology & Metallurgy</button>
+                    <button class="tab-btn" data-tab="resource">NI 43-101 Resource</button>
+                    <button class="tab-btn" data-tab="coreshack">Core Shack</button>
+                </div>
+            </div>
+
+            <!-- Tab Content 1: Project Overview -->
+            <div class="tab-content active" id="overview">
+                <div class="section-intro">
+                    <p>The Santa Ana Project comprises over 36,000 hectares located in the department of Tolima, Colombia, 190 km west of Bogota. It covers the historic Mariquita Silver District, the highest-grade silver district in Colombia with mining records dating back to 1585.</p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-column">
+                        <h2>Historic Significance</h2>
+                        <p>Mariquita was the most important colonial silver production area in the New Kingdom of Granada (now Colombia). Historical reports indicate that operations achieved exceptional grades, sometimes exceeding thousands of grams of silver per tonne from narrow veins.</p>
+                        <p>Outcrop Silver is the first modern exploration company to consolidate this historic district. We control 100% of the project and have identified multiple high-grade shoot systems that remain open for exploration.</p>
+                    </div>
+                    <div class="info-column">
+                        <h2>Project Snapshot</h2>
+                        <div class="premium-table-container">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ownership</td>
+                                        <td>100% Controlled</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td>Falan Municipality, Tolima, Colombia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Land Package</td>
+                                        <td>36,000+ Hectares</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Target Deposit Type</td>
+                                        <td>Low-to-Intermediate Sulfidation Epithermal Veins</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Stage</td>
+                                        <td>Advanced Resource Stage & Exploration Expansion</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Geology & Metallurgy -->
+            <div class="tab-content" id="geology">
+                <div class="section-intro">
+                    <p>Mineralization at Santa Ana is hosted within low-to-intermediate sulfidation epithermal quartz veins that cut metamorphic rocks of the Cajamarca formation.</p>
+                </div>
+
+                <div class="geology-grid">
+                    <!-- Geology Card 1: Cajamarca Metamorphic Belt -->
+                    <div class="geology-card">
+                        <span class="geology-card-badge">District Scale</span>
+                        <h3>30+ km Strike Length</h3>
+                        <p>Quartz veins cut the metamorphic rocks of the regional Cajamarca formation, with parallel vein systems mapped across 30 kilometers. Only a small fraction has been drill-tested to date.</p>
+                    </div>
+                    
+                    <!-- Geology Card 2: Vein System Geometry -->
+                    <div class="geology-card">
+                        <span class="geology-card-badge">Vein Geometry</span>
+                        <h3>0.5m to 4m Widths</h3>
+                        <p>High-grade silver-gold mineralization is concentrated in steeply dipping quartz vein systems. Exceptionally high mineral concentration is found within defined localized shoots.</p>
+                    </div>
+                    
+                    <!-- Geology Card 3: Conventional Metallurgy -->
+                    <div class="geology-card">
+                        <span class="geology-card-badge">Metallurgy</span>
+                        <h3>No Refractory Treatment</h3>
+                        <p>Metallurgical testing proves outstanding recovery rates using standard flotation and gravity separation. Simple, conventional processing reduces capital costs.</p>
+                    </div>
+                </div>
+
+                <div class="metric-card-group" style="margin-bottom: 20px;">
+                    <div class="metric-card">
+                        <div class="metric-value">96.3%</div>
+                        <div class="metric-label">Silver Recovery (Ag)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">98.5%</div>
+                        <div class="metric-label">Gold Recovery (Au)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">96% +</div>
+                        <div class="metric-label">Concentrate Recoveries</div>
+                    </div>
+                </div>
+
+                <!-- Toggle Button for Metallurgy Table -->
+                <button class="collapsible-table-trigger" data-target="metallurgy-drawer" data-label="Metallurgy Grid">
+                    <span class="trigger-text">View Detailed Metallurgy Grid</span> <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <!-- Drawer Container -->
+                <div class="table-drawer" id="metallurgy-drawer">
+                    <h2 class="section-header-title" style="margin-bottom: 25px; font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.6rem; color: var(--text-primary);">2024 Metallurgical Test Results</h2>
+                    <div class="premium-table-container">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Process / Method</th>
+                                    <th>Silver Recovery (Ag)</th>
+                                    <th>Gold Recovery (Au)</th>
+                                    <th>Concentrate Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Gravimetric Pre-Concentration</td>
+                                    <td>42.5%</td>
+                                    <td>48.0%</td>
+                                    <td>High-Grade Gravity Concentrates</td>
+                                </tr>
+                                <tr>
+                                    <td>Flotation (Rougher + Cleaner)</td>
+                                    <td>53.8%</td>
+                                    <td>50.5%</td>
+                                    <td>Sulfide Clean Concentrates</td>
+                                </tr>
+                                <tr class="table-highlight-row">
+                                    <td>Combined Overall Recovery</td>
+                                    <td>96.3%</td>
+                                    <td>98.5%</td>
+                                    <td>Premium High-Grade Concentrates</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: NI 43-101 Resource -->
+            <div class="tab-content" id="resource">
+                <div class="section-intro">
+                    <p>In April 2023, Outcrop Silver published its Maiden Resource Estimate (MRE) for the Santa Ana project. The estimate was prepared in accordance with NI 43-101 standards and is based on 320 drill holes.</p>
+                </div>
+
+                <div class="metric-card-group" style="margin-bottom: 20px;">
+                    <div class="metric-card">
+                        <div class="metric-value">24.1 Moz</div>
+                        <div class="metric-label">Indicated Resource (AgEq)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">30.3 Moz</div>
+                        <div class="metric-label">Inferred Resource (AgEq)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">614 g/t</div>
+                        <div class="metric-label">Average Indicated Grade</div>
+                    </div>
+                </div>
+
+                <!-- Toggle Button for Resource Table -->
+                <button class="collapsible-table-trigger" data-target="resource-drawer" data-label="Resource Table">
+                    <span class="trigger-text">View Detailed Resource Table</span> <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <!-- Drawer Container -->
+                <div class="table-drawer" id="resource-drawer">
+                    <h2 class="section-header-title" style="margin-bottom: 25px; font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.6rem; color: var(--text-primary);">Maiden Resource Estimate (April 2023)</h2>
+                    <div class="premium-table-container">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Tonnes (Mt)</th>
+                                    <th>AgEq Grade (g/t)</th>
+                                    <th>Ag Grade (g/t)</th>
+                                    <th>Au Grade (g/t)</th>
+                                    <th>Contained AgEq (Moz)</th>
+                                    <th>Contained Ag (Moz)</th>
+                                    <th>Contained Au (koz)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-highlight-row">
+                                    <td>Indicated</td>
+                                    <td>1.22</td>
+                                    <td>614</td>
+                                    <td>329</td>
+                                    <td>2.76</td>
+                                    <td>24.1</td>
+                                    <td>12.9</td>
+                                    <td>108.0</td>
+                                </tr>
+                                <tr>
+                                    <td>Inferred</td>
+                                    <td>1.97</td>
+                                    <td>479</td>
+                                    <td>290</td>
+                                    <td>1.48</td>
+                                    <td>30.3</td>
+                                    <td>18.4</td>
+                                    <td>94.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 25px; font-size: 0.85rem; color: var(--text-tertiary); line-height: 1.6;">
+                        <p>*Notes on Resource Estimate: Mineral resources are estimated at a cut-off grade of 200 g/t AgEq. AgEq (Silver Equivalent) is calculated based on metal prices of $22.00/oz Ag and $1,800/oz Au. Figures are rounded. Prepared by independent qualified persons.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 4: Core Shack -->
+            <div class="tab-content" id="coreshack">
+                <div class="section-intro">
+                    <p>Real photos of high-grade drill core samples recovered from the Santa Ana veins, showcasing rich native silver and sulfide mineralization.</p>
+                </div>
+
+                <div class="info-grid" style="grid-template-columns: 1fr;">
+                    <div style="background-color: var(--bg-card); border: 1px solid var(--border-subtle); padding: 20px; text-align: center;">
+                        <img src="assets/coreshack_veins.jpg?v=3" alt="Drill Core Sample - Santa Ana Veins" style="max-width: 100%; height: auto; border: 1px solid var(--border-subtle);">
+                        <p style="margin-top: 15px; color: var(--text-secondary); font-style: italic;">Sulfide-rich quartz vein core showing prominent argentite and native silver aggregates (Santa Ana veins).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="newsletter-section">
+        <div class="footer-grid">
+            <!-- Column 1: Brand & Social -->
+            <div class="footer-column brand-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver Logo" class="footer-logo">
+                </a>
+                <p class="footer-about-text">
+                    Outcrop Silver & Gold Corp. is a Canadian exploration company advancing the Santa Ana Project, a high-grade primary silver district in Colombia's historic mining region.
+                </p>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com/OutcropSilverGold" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/OCG_Silver" target="_blank" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://youtube.com/channel/UCaDQsP2iI7X1TsXpvv7vqNw/videos" target="_blank" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://linkedin.com/company/outcrop-silver-gold" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/outcropsilvergold" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column links-col">
+                <h4 class="footer-title">Explore</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="corporate.html">Corporate Overview</a></li>
+                    <li><a href="santa-ana.html">Santa Ana Project</a></li>
+                    <li><a href="index.html#news-hub">Latest News</a></li>
+                    <li><a href="investors.html">Stock Info & Share Structure</a></li>
+                    <li><a href="index.html#esg-section">ESG & Reforestation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: Secure Contact Info -->
+            <div class="footer-column contact-col">
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-contact-details">
+                    <li><i class="fa-solid fa-phone"></i> +1 (604) 609-6110</li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@outcropsilver.com">info@outcropsilver.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Suite 906 – 1111 Melville St,<br>Vancouver, BC V6E 3V6, Canada</li>
+                </ul>
+            </div>
+            
+            <!-- Column 4: Newsletter Form -->
+            <div class="footer-column signup-col">
+                <h4 class="footer-title">Newsletter Sign-Up</h4>
+                <p class="newsletter-sub">Get direct email alerts with our latest drilling results and company updates.</p>
+                <form class="footer-signup-form" action="https://outcropgoldcorp.us20.list-manage.com/subscribe/post?u=8d2ee82d96b592c11443ded47&amp;id=ead3eb597a" method="post" target="_blank">
+                    <input type="email" name="EMAIL" placeholder="Your Email Address" required class="signup-input">
+                    <button type="submit" class="signup-btn" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Bottom copyright bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-container">
+                <div class="copyright-text">
+                    © 2026 Outcrop Silver Corporation. All Rights Reserved.
+                </div>
+                <div class="footer-legal-links">
+                    <a href="https://outcropsilver.com/legal/privacy-policy/">Privacy Policy</a>
+                    <a href="corporate.html#disclaimer">Legal Disclaimer</a>
+                    <a href="https://adnetinc.com/" target="_blank" rel="noopener">Website by Adnet</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="btn-back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Script connection -->
+    <script src="script.js"></script>
+</body>
+</html>

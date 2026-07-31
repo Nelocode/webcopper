@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Outcrop Silver Corp.</title>
+    <meta name="description" content="Contact Outcrop Silver Corporation. Direct email forms, corporate office addresses in Vancouver and Medellin.">
+    
+    <!-- Google Fonts: Figtree for Headings, Inter for Body, JetBrains Mono for Tickers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Apple-style hover backdrop blur overlay -->
+    <div class="page-backdrop"></div>
+
+    <!-- Header & Navigation Group -->
+    <div class="top-header-group">
+        <!-- Live Ticker Bar (Stocks & Silver Price) -->
+        <div class="ticker-bar">
+            <div class="ticker-wrapper">
+                <div class="ticker-stocks font-mono">
+                    <span><strong>TSX</strong>: OCG <span class="stock-price">C$0.24</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +4.35%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>OTCQX</strong>: OCGSF <span class="stock-price">$0.18</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +2.86%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>FSE</strong>: MRG <span class="stock-price">€0.16</span> <span class="stock-change change-down"><i class="fa-solid fa-caret-down"></i> -0.62%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>Silver Spot</strong>: <span class="silver-price">$28.45/Oz</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +1.12%</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Header Navigation -->
+        <header class="nav-header">
+            <nav class="main-nav">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver" class="logo-img">
+                </a>
+                
+                <div class="nav-links-left">
+                    <a href="index.html" class="nav-link">Home</a>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="corporate.html" class="nav-link">Corporate <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="corporate.html#overview">Overview</a>
+                            <a href="corporate.html#management">Management & Directors</a>
+                            <a href="corporate.html#governance">Governance</a>
+                            <a href="corporate.html#disclaimer">Disclaimer</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="projects.html" class="nav-link">Projects <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="santa-ana.html">Santa Ana (Flagship)</a>
+                            <a href="mallama.html">Mallama Project</a>
+                            <a href="oribella.html">Oribella Project</a>
+                            <a href="argelia.html">Argelia Project</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="investors.html" class="nav-link">Investors <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="investors.html#stock-info">Stock Info & Share Structure</a>
+                            <a href="investors.html#financials">Financial Statements</a>
+                            <a href="investors.html#presentations">Presentations & Downloads</a>
+                            <a href="investors.html#events">Upcoming Events</a>
+                        </div>
+                    </div>
+
+                    <a href="index.html#esg-section" class="nav-link">ESG</a>
+                </div>
+
+                <div class="nav-links-right">
+                    <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="nav-btn-outline"><i class="fa-solid fa-file-pdf"></i> View Presentation</a>
+                    <a href="index.html#newsletter-section" class="nav-btn-outline"><i class="fa-regular fa-bell"></i> Get Updates</a>
+                    <a href="index.html#news-hub" class="nav-btn-solid">News</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="corporate.html" class="mobile-link">Corporate</a>
+            <a href="santa-ana.html" class="mobile-link">Santa Ana Project</a>
+            <a href="investors.html" class="mobile-link">Investors</a>
+            <a href="index.html#esg-section" class="mobile-link">ESG</a>
+            <a href="index.html#news-hub" class="mobile-link">News</a>
+            <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="mobile-link"><i class="fa-solid fa-file-pdf"></i> Presentation</a>
+        </div>
+    </div>
+
+    <!-- Internal Hero Banner -->
+    <section class="internal-hero" style="background-image: url('assets/presentations.jpg?v=3');">
+        <div class="internal-hero-overlay"></div>
+        <div class="internal-hero-content">
+            <h1 class="internal-title">Contact Us</h1>
+            <p class="internal-subtitle">Connect with our corporate or operational headquarters</p>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="internal-content-section">
+        <div class="container-main">
+            <div class="info-grid">
+                <!-- Column 1: Contact Form -->
+                <div class="info-column">
+                    <h2>Get in Touch</h2>
+                    <p style="margin-bottom: 25px;">Please fill out the form below and our investor relations representative will respond to your inquiry shortly.</p>
+                    
+                    <div class="contact-form-container">
+                        <form action="#" method="POST" onsubmit="alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.'); return false;">
+                            <div class="form-group">
+                                <label for="contact-name">Your Name</label>
+                                <input type="text" id="contact-name" class="form-control" required placeholder="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email Address</label>
+                                <input type="email" id="contact-email" class="form-control" required placeholder="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-subject">Subject</label>
+                                <input type="text" id="contact-subject" class="form-control" required placeholder="Investor Inquiry">
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-message">Message</label>
+                                <textarea id="contact-message" class="form-control" required placeholder="Type your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-card-action" style="margin-top: 10px; width: 100%; justify-content: center; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Column 2: Directory -->
+                <div class="info-column">
+                    <h2>Office Directory</h2>
+                    
+                    <div class="directory-grid" style="grid-template-columns: 1fr; gap: 20px;">
+                        <div class="directory-card">
+                            <h3>Corporate Head Office</h3>
+                            <div class="directory-details">
+                                <p><i class="fa-solid fa-location-dot"></i> Suite 906 – 1111 Melville St,<br>Vancouver, BC V6E 3V6, Canada</p>
+                                <p><i class="fa-solid fa-phone"></i> +1 (604) 609-6110</p>
+                                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@outcropsilver.com">info@outcropsilver.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="directory-card">
+                            <h3>Operations Office</h3>
+                            <div class="directory-details">
+                                <p><i class="fa-solid fa-location-dot"></i> Medellín, Colombia</p>
+                                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:colombia@outcropsilver.com">colombia@outcropsilver.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="directory-card">
+                            <h3>Service Partners</h3>
+                            <div class="directory-details">
+                                <p><strong>Auditors:</strong> Smythe LLP, Vancouver, BC</p>
+                                <p><strong>Transfer Agent:</strong> Computershare Investor Services, Vancouver, BC</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="newsletter-section">
+        <div class="footer-grid">
+            <!-- Column 1: Brand & Social -->
+            <div class="footer-column brand-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver Logo" class="footer-logo">
+                </a>
+                <p class="footer-about-text">
+                    Outcrop Silver & Gold Corp. is a Canadian exploration company advancing the Santa Ana Project, a high-grade primary silver district in Colombia's historic mining region.
+                </p>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com/OutcropSilverGold" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/OCG_Silver" target="_blank" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://youtube.com/channel/UCaDQsP2iI7X1TsXpvv7vqNw/videos" target="_blank" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://linkedin.com/company/outcrop-silver-gold" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/outcropsilvergold" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column links-col">
+                <h4 class="footer-title">Explore</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="corporate.html">Corporate Overview</a></li>
+                    <li><a href="santa-ana.html">Santa Ana Project</a></li>
+                    <li><a href="index.html#news-hub">Latest News</a></li>
+                    <li><a href="investors.html">Stock Info & Share Structure</a></li>
+                    <li><a href="index.html#esg-section">ESG & Reforestation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: Secure Contact Info -->
+            <div class="footer-column contact-col">
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-contact-details">
+                    <li><i class="fa-solid fa-phone"></i> +1 (604) 609-6110</li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@outcropsilver.com">info@outcropsilver.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Suite 906 – 1111 Melville St,<br>Vancouver, BC V6E 3V6, Canada</li>
+                </ul>
+            </div>
+            
+            <!-- Column 4: Newsletter Form -->
+            <div class="footer-column signup-col">
+                <h4 class="footer-title">Newsletter Sign-Up</h4>
+                <p class="newsletter-sub">Get direct email alerts with our latest drilling results and company updates.</p>
+                <form class="footer-signup-form" action="https://outcropgoldcorp.us20.list-manage.com/subscribe/post?u=8d2ee82d96b592c11443ded47&amp;id=ead3eb597a" method="post" target="_blank">
+                    <input type="email" name="EMAIL" placeholder="Your Email Address" required class="signup-input">
+                    <button type="submit" class="signup-btn" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Bottom copyright bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-container">
+                <div class="copyright-text">
+                    © 2026 Outcrop Silver Corporation. All Rights Reserved.
+                </div>
+                <div class="footer-legal-links">
+                    <a href="https://outcropsilver.com/legal/privacy-policy/">Privacy Policy</a>
+                    <a href="corporate.html#disclaimer">Legal Disclaimer</a>
+                    <a href="https://adnetinc.com/" target="_blank" rel="noopener">Website by Adnet</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="btn-back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Script connection -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investors | Outcrop Silver Corp.</title>
+    <meta name="description" content="View Outcrop Silver's share structure, stock tickers, financial reports, corporate presentation, and upcoming events.">
+    
+    <!-- Google Fonts: Figtree for Headings, Inter for Body, JetBrains Mono for Tickers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Apple-style hover backdrop blur overlay -->
+    <div class="page-backdrop"></div>
+
+    <!-- Header & Navigation Group -->
+    <div class="top-header-group">
+        <!-- Live Ticker Bar (Stocks & Silver Price) -->
+        <div class="ticker-bar">
+            <div class="ticker-wrapper">
+                <div class="ticker-stocks font-mono">
+                    <span><strong>TSX</strong>: OCG <span class="stock-price">C$0.24</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +4.35%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>OTCQX</strong>: OCGSF <span class="stock-price">$0.18</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +2.86%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>FSE</strong>: MRG <span class="stock-price">€0.16</span> <span class="stock-change change-down"><i class="fa-solid fa-caret-down"></i> -0.62%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>Silver Spot</strong>: <span class="silver-price">$28.45/Oz</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +1.12%</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Header Navigation -->
+        <header class="nav-header">
+            <nav class="main-nav">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver" class="logo-img">
+                </a>
+                
+                <div class="nav-links-left">
+                    <a href="index.html" class="nav-link">Home</a>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="corporate.html" class="nav-link">Corporate <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="corporate.html#overview">Overview</a>
+                            <a href="corporate.html#management">Management & Directors</a>
+                            <a href="corporate.html#governance">Governance</a>
+                            <a href="corporate.html#disclaimer">Disclaimer</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="projects.html" class="nav-link">Projects <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="santa-ana.html">Santa Ana (Flagship)</a>
+                            <a href="mallama.html">Mallama Project</a>
+                            <a href="oribella.html">Oribella Project</a>
+                            <a href="argelia.html">Argelia Project</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="investors.html" class="nav-link active">Investors <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="investors.html#stock-info">Stock Info & Share Structure</a>
+                            <a href="investors.html#financials">Financial Statements</a>
+                            <a href="investors.html#presentations">Presentations & Downloads</a>
+                            <a href="investors.html#events">Upcoming Events</a>
+                        </div>
+                    </div>
+
+                    <a href="index.html#esg-section" class="nav-link">ESG</a>
+                </div>
+
+                <div class="nav-links-right">
+                    <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="nav-btn-outline"><i class="fa-solid fa-file-pdf"></i> View Presentation</a>
+                    <a href="index.html#newsletter-section" class="nav-btn-outline"><i class="fa-regular fa-bell"></i> Get Updates</a>
+                    <a href="index.html#news-hub" class="nav-btn-solid">News</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="corporate.html" class="mobile-link">Corporate</a>
+            <a href="santa-ana.html" class="mobile-link">Santa Ana Project</a>
+            <a href="investors.html" class="mobile-link active">Investors</a>
+            <a href="index.html#esg-section" class="mobile-link">ESG</a>
+            <a href="index.html#news-hub" class="mobile-link">News</a>
+            <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="mobile-link"><i class="fa-solid fa-file-pdf"></i> Presentation</a>
+        </div>
+    </div>
+
+    <!-- Internal Hero Banner -->
+    <section class="internal-hero" style="background-image: url('assets/silver_markets.jpg?v=3');">
+        <div class="internal-hero-overlay"></div>
+        <div class="internal-hero-content">
+            <h1 class="internal-title">Investors</h1>
+            <p class="internal-subtitle">Share Structure, Financials & Resources</p>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="internal-content-section">
+        <div class="container-main">
+            <!-- Tabs Navigation Sticky Wrapper -->
+            <div class="tabs-nav-wrapper">
+                <div class="tabs-container" style="border-bottom: none; margin-bottom: 0;">
+                    <button class="tab-btn active" data-tab="stock-info">Stock Info</button>
+                    <button class="tab-btn" data-tab="financials">Financials</button>
+                    <button class="tab-btn" data-tab="presentations">Presentations</button>
+                    <button class="tab-btn" data-tab="events">Events</button>
+                </div>
+            </div>
+
+            <!-- Tab Content 1: Stock Info & Share Structure -->
+            <div class="tab-content active" id="stock-info">
+                <div class="section-intro">
+                    <p>Outcrop Silver is well-funded to execute its exploration campaigns, with a strong cash position, no debt, and key institutional and corporate shareholders.</p>
+                </div>
+                <div class="metric-card-group">
+                    <div class="metric-card">
+                        <div class="metric-value">196.4M</div>
+                        <div class="metric-label">Common Shares Issued</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">C$5.2M</div>
+                        <div class="metric-label">Working Capital / Cash</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">236.2M</div>
+                        <div class="metric-label">Fully Diluted Capital</div>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-column">
+                        <h2 style="margin-bottom: 10px;">Share Capital Breakdown</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem;">Outcrop Silver maintains a clean capital structure with a high percentage of institutional ownership, zero debt, and robust working capital reserves.</p>
+                        
+                        <!-- Toggle Button for Share Table -->
+                        <button class="collapsible-table-trigger" data-target="share-drawer" data-label="Capital Structure" style="margin: 20px 0;">
+                            <span class="trigger-text">View Detailed Capital Structure</span> <i class="fa-solid fa-plus"></i>
+                        </button>
+
+                        <!-- Drawer Container -->
+                        <div class="table-drawer" id="share-drawer">
+                            <div class="premium-table-container">
+                                <table class="premium-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Share Class</th>
+                                            <th>Number of Securities</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Common Shares Issued</td>
+                                            <td>196,450,122</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Warrants</td>
+                                            <td>25,600,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Options & RSUs</td>
+                                            <td>14,200,000</td>
+                                        </tr>
+                                        <tr class="table-highlight-row">
+                                            <td>Fully Diluted Capital</td>
+                                            <td>236,250,122</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Working Capital / Cash</td>
+                                            <td>Approx. C$5.2 Million</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Debt</td>
+                                            <td>Nil</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-column">
+                        <h2>TSX: OCG Live Market Chart</h2>
+                        <!-- TradingView Widget BEGIN -->
+                        <div class="tradingview-widget-container" style="border: 1px solid var(--border-subtle); background: var(--bg-card); padding: 15px; min-height: 400px; display: flex; flex-direction: column;">
+                            <div id="tradingview_chart" style="flex: 1; width: 100%;">
+                                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 350px; color: var(--text-tertiary);">
+                                    <i class="fa-solid fa-chart-line" style="font-size: 3rem; margin-bottom: 15px; color: var(--brand-primary);"></i>
+                                    <span style="font-weight: 700; text-transform: uppercase; color: var(--text-primary);">TSX: OCG Market Data</span>
+                                    <span style="font-size: 0.85rem; margin-top: 5px;">Connecting to market servers...</span>
+                                </div>
+                            </div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                            <script type="text/javascript">
+                            try {
+                                new TradingView.MediumWidget({
+                                    "symbols": [["TSX:OCG|1D"]],
+                                    "chartOnly": false,
+                                    "width": "100%",
+                                    "height": 380,
+                                    "locale": "en",
+                                    "colorTheme": "dark",
+                                    "gridLineColor": "rgba(42, 46, 57, 0.08)",
+                                    "fontColor": "#787B86",
+                                    "underLineColor": "rgba(0, 223, 223, 0.15)",
+                                    "underLineBottomColor": "rgba(0, 223, 223, 0.0)",
+                                    "isHotlist": false,
+                                    "calendar": false,
+                                    "showSymbolLogo": true,
+                                    "trendLineColor": "#00dfdf",
+                                    "container_id": "tradingview_chart"
+                                });
+                            } catch(e) {
+                                console.log("TradingView widget error:", e);
+                            }
+                            </script>
+                        </div>
+                        <!-- TradingView Widget END -->
+                    </div>
+                </div>
+                
+                <!-- Analyst Coverage Section -->
+                <div style="margin-top: 50px; border-top: 1px solid var(--border-subtle); padding-top: 40px;">
+                    <h2 style="font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 10px; text-align: center;">Analyst Coverage</h2>
+                    <p style="color: var(--text-secondary); max-width: 800px; margin: 0 auto 30px auto; font-size: 0.92rem; text-align: center; line-height: 1.6;">The following analysts provide research coverage on Outcrop Silver. Copies of reports may be requested directly from the respective institutions.</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 700px; margin: 0 auto;">
+                        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 20px; text-align: center;">
+                            <h4 style="font-family: 'Futura', sans-serif; font-size: 1.1rem; color: var(--text-primary); margin: 0 0 5px 0;">Alliance Global Partners</h4>
+                            <p style="font-size: 0.9rem; color: var(--brand-primary); font-weight: 700; margin: 0 0 5px 0;">Jake Sekelsky</p>
+                            <span style="font-size: 0.8rem; color: var(--text-tertiary);">Equity Research Analyst</span>
+                        </div>
+                        <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 20px; text-align: center;">
+                            <h4 style="font-family: 'Futura', sans-serif; font-size: 1.1rem; color: var(--text-primary); margin: 0 0 5px 0;">Research Capital</h4>
+                            <p style="font-size: 0.9rem; color: var(--brand-primary); font-weight: 700; margin: 0 0 5px 0;">Stuart McDougall</p>
+                            <span style="font-size: 0.8rem; color: var(--text-tertiary);">Equity Research Analyst</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Financial Statements -->
+            <div class="tab-content" id="financials">
+                <div class="section-intro">
+                    <p>Access Outcrop Silver's regulatory filings, quarterly financial statements, and Management Discussion & Analysis (MD&A) reports.</p>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h2 style="font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 10px;">Financial Filings</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 0.95rem;">Download quarterly financial statements and Management Discussion & Analysis (MD&A) reports. All documents are filed under the company profile at SEDAR+.</p>
+                    <div class="document-grid">
+                        <a href="https://outcropsilver.com/site/assets/files/1026/ocg_2025_annual_financial_statements.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2025 Annual Financial Statements</h4>
+                                <span class="download-meta">Audit Report • 245 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/1026/ocg_2025_annual_mda.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2025 Annual Management Discussion (MD&A)</h4>
+                                <span class="download-meta">Operational Review • 320 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/1026/ocg_q3_2025_financial_statements.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2025 Q3 Interim Financial Statements</h4>
+                                <span class="download-meta">Unaudited Review • 198 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                    </div>
+                    <p style="margin-top: 30px; text-align: center; font-size: 0.9rem; color: var(--text-tertiary);">All regulatory documents are filed and available under the company profile at <a href="https://www.sedarplus.ca" target="_blank" style="color: var(--brand-primary); text-decoration: underline;">SEDAR+</a>.</p>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: Presentations -->
+            <div class="tab-content" id="presentations">
+                <div class="section-intro">
+                    <p>Download our latest corporate presentation, fact sheets, and technical handouts for detailed project assessments.</p>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h2 style="font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 10px;">Downloads Hub</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 0.95rem;">Download corporate fact sheets and slideshow updates for detailed presentations of Santa Ana's targets.</p>
+                    <div class="document-grid">
+                        <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Corporate Presentation</h4>
+                                <span class="download-meta">July 2026 Edition • 6.4 MB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/1028/ocg_fact_sheet_santa_ana.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Santa Ana Project Fact Sheet</h4>
+                                <span class="download-meta">Maiden Resource Summary • 1.8 MB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/5461/outcrop_-_agm_circular_2026_final.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2026 AGM Information Circular</h4>
+                                <span class="download-meta">AGM Proxy Circular • 2.4 MB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/5461/outcrop_-_notice_of_meeting_2026.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2026 Notice of AGM</h4>
+                                <span class="download-meta">Meeting Notice & Agenda • 410 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/5461/outcrop_proxy_2026.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2026 AGM Proxy Form</h4>
+                                <span class="download-meta">Shareholder Vote Sheet • 180 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/5273/miranda-estma-reporting-2018-final.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2018 ESTMA Report</h4>
+                                <span class="download-meta">Transparency Measures Act • 210 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                        <a href="https://outcropsilver.com/site/assets/files/5273/2017-08-31-mad-estma.pdf" target="_blank" class="download-card">
+                            <div class="download-badge">PDF</div>
+                            <div class="download-info">
+                                <h4 class="download-title">2017 ESTMA Report</h4>
+                                <span class="download-meta">Transparency Measures Act • 190 KB</span>
+                            </div>
+                            <div class="download-action"><i class="fa-solid fa-chevron-right"></i></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 4: Upcoming Events -->
+            <div class="tab-content" id="events">
+                <div class="section-intro">
+                    <p>Stay up to date with Outcrop Silver's roadshows, upcoming webinars, and mining investment conference presentations.</p>
+                </div>
+
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2 style="font-family: 'Futura', sans-serif; text-transform: uppercase; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 20px;">Event Calendar 2026</h2>
+                    <div class="document-list">
+                        <div class="document-item">
+                            <div>
+                                <span class="document-name" style="display: block;">Precious Metals Summit Beaver Creek</span>
+                                <span style="font-size: 0.8rem; color: var(--text-tertiary);">Beaver Creek, Colorado (1-on-1 Investor Meetings)</span>
+                            </div>
+                            <span style="color: var(--brand-primary); font-weight: 700;">Sept 15 - 18, 2026</span>
+                        </div>
+                        <div class="document-item">
+                            <div>
+                                <span class="document-name" style="display: block;">The Denver Gold Forum 2026</span>
+                                <span style="font-size: 0.8rem; color: var(--text-tertiary);">Colorado Springs (Corporate Presentation Slot)</span>
+                            </div>
+                            <span style="color: var(--brand-primary); font-weight: 700;">Sept 20 - 23, 2026</span>
+                        </div>
+                        <div class="document-item">
+                            <div>
+                                <span class="document-name" style="display: block;">Annual General & Special Meeting (AGM)</span>
+                                <span style="font-size: 0.8rem; color: var(--text-tertiary);">Vancouver corporate office (and virtual feed)</span>
+                            </div>
+                            <span style="color: var(--brand-primary); font-weight: 700;">Dec 10, 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="newsletter-section">
+        <div class="footer-grid">
+            <!-- Column 1: Brand & Social -->
+            <div class="footer-column brand-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver Logo" class="footer-logo">
+                </a>
+                <p class="footer-about-text">
+                    Outcrop Silver & Gold Corp. is a Canadian exploration company advancing the Santa Ana Project, a high-grade primary silver district in Colombia's historic mining region.
+                </p>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com/OutcropSilverGold" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/OCG_Silver" target="_blank" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://youtube.com/channel/UCaDQsP2iI7X1TsXpvv7vqNw/videos" target="_blank" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://linkedin.com/company/outcrop-silver-gold" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/outcropsilvergold" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2: Quick Links -->
+            <div class="footer-column links-col">
+                <h4 class="footer-title">Explore</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="corporate.html">Corporate Overview</a></li>
+                    <li><a href="santa-ana.html">Santa Ana Project</a></li>
+                    <li><a href="index.html#news-hub">Latest News</a></li>
+                    <li><a href="investors.html">Stock Info & Share Structure</a></li>
+                    <li><a href="index.html#esg-section">ESG & Reforestation</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: Secure Contact Info -->
+            <div class="footer-column contact-col">
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-contact-details">
+                    <li><i class="fa-solid fa-phone"></i> +1 (604) 609-6110</li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:info@outcropsilver.com">info@outcropsilver.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> Suite 906 – 1111 Melville St,<br>Vancouver, BC V6E 3V6, Canada</li>
+                </ul>
+            </div>
+            
+            <!-- Column 4: Newsletter Form -->
+            <div class="footer-column signup-col">
+                <h4 class="footer-title">Newsletter Sign-Up</h4>
+                <p class="newsletter-sub">Get direct email alerts with our latest drilling results and company updates.</p>
+                <form class="footer-signup-form" action="https://outcropgoldcorp.us20.list-manage.com/subscribe/post?u=8d2ee82d96b592c11443ded47&amp;id=ead3eb597a" method="post" target="_blank">
+                    <input type="email" name="EMAIL" placeholder="Your Email Address" required class="signup-input">
+                    <button type="submit" class="signup-btn" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Bottom copyright bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-bottom-container">
+                <div class="copyright-text">
+                    © 2026 Outcrop Silver Corporation. All Rights Reserved.
+                </div>
+                <div class="footer-legal-links">
+                    <a href="https://outcropsilver.com/legal/privacy-policy/">Privacy Policy</a>
+                    <a href="corporate.html#disclaimer">Legal Disclaimer</a>
+                    <a href="https://adnetinc.com/" target="_blank" rel="noopener">Website by Adnet</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="btn-back-to-top" aria-label="Back to Top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Script connection -->
+    <script src="script.js"></script>
+</body>
+</html>

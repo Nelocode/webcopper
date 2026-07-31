@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects | Outcrop Silver Corp.</title>
+    <meta name="description" content="Discover Outcrop Silver's portfolio of high-grade silver and gold projects in Colombia, including our flagship Santa Ana project and Mallama, Oribella, and Argelia.">
+    
+    <!-- Google Fonts: Figtree for Headings, Inter for Body, JetBrains Mono for Tickers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons for UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Apple-style hover backdrop blur overlay -->
+    <div class="page-backdrop"></div>
+
+    <!-- Header & Navigation Group -->
+    <div class="top-header-group">
+        <!-- Live Ticker Bar (Stocks & Silver Price) -->
+        <div class="ticker-bar">
+            <div class="ticker-wrapper">
+                <div class="ticker-stocks font-mono">
+                    <span><strong>TSX</strong>: OCG <span class="stock-price">C$0.24</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +4.35%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>OTCQX</strong>: OCGSF <span class="stock-price">$0.18</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +2.86%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>FSE</strong>: MRG <span class="stock-price">€0.16</span> <span class="stock-change change-down"><i class="fa-solid fa-caret-down"></i> -0.62%</span></span>
+                    <span class="ticker-divider">|</span>
+                    <span><strong>Silver Spot</strong>: <span class="silver-price">$28.45/Oz</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +1.12%</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Header Navigation -->
+        <header class="nav-header">
+            <nav class="main-nav">
+                <a href="index.html" class="logo-link">
+                    <img src="assets/logo.svg" alt="Outcrop Silver" class="logo-img">
+                </a>
+                
+                <div class="nav-links-left">
+                    <a href="index.html" class="nav-link">Home</a>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="corporate.html" class="nav-link">Corporate <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="corporate.html#overview">Overview</a>
+                            <a href="corporate.html#management">Management & Directors</a>
+                            <a href="corporate.html#governance">Governance</a>
+                            <a href="corporate.html#disclaimer">Disclaimer</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="projects.html" class="nav-link active">Projects <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="santa-ana.html">Santa Ana (Flagship)</a>
+                            <a href="mallama.html">Mallama Project</a>
+                            <a href="oribella.html">Oribella Project</a>
+                            <a href="argelia.html">Argelia Project</a>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item-dropdown">
+                        <a href="investors.html" class="nav-link">Investors <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="investors.html#stock-info">Stock Info & Share Structure</a>
+                            <a href="investors.html#financials">Financial Statements</a>
+                            <a href="investors.html#presentations">Presentations & Downloads</a>
+                            <a href="investors.html#events">Upcoming Events</a>
+                        </div>
+                    </div>
+                    
+                    <a href="index.html#esg-section" class="nav-link">ESG</a>
+                </div>
+
+                <div class="nav-links-right">
+                    <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="nav-btn-outline"><i class="fa-solid fa-file-pdf"></i> View Presentation</a>
+                    <a href="index.html#newsletter-section" class="nav-btn-outline"><i class="fa-regular fa-bell"></i> Get Updates</a>
+                    <a href="index.html#news-hub" class="nav-btn-solid">News</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-toggle" id="btn-mobile-menu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </header>
+        
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="corporate.html" class="mobile-link">Corporate</a>
+            <a href="projects.html" class="mobile-link active">Projects</a>
+            <a href="santa-ana.html" class="mobile-sub-link">— Santa Ana (Flagship)</a>
+            <a href="mallama.html" class="mobile-sub-link">— Mallama Project</a>
+            <a href="oribella.html" class="mobile-sub-link">— Oribella Project</a>
+            <a href="argelia.html" class="mobile-sub-link">— Argelia Project</a>
+            <a href="investors.html" class="mobile-link">Investors</a>
+            <a href="index.html#esg-section" class="mobile-link">ESG</a>
+            <a href="index.html#news-hub" class="mobile-link">News</a>
+            <a href="https://outcropsilver.com/site/assets/files/1/corporate_presentation_-_outcropsilver_-_july_2026_-_digital_new.pdf" target="_blank" class="mobile-link"><i class="fa-solid fa-file-pdf"></i> Presentation</a>
+        </div>
+    </div>
+
+    <!-- Internal Hero Banner -->
+    <section class="internal-hero" style="background-image: url('assets/project_overview.jpg');">
+        <div class="internal-hero-overlay"></div>
+        <div class="internal-hero-content">
+            <h1 class="internal-title">Our Projects</h1>
+            <p class="internal-subtitle">Building value through exploration and development of high-grade districts</p>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <section class="internal-content-section">
+        <div class="projects-container">
+            
+            <div class="projects-section-title">
+                Flagship <strong>Project</strong>
+            </div>
+
+            <!-- Featured Card: Santa Ana -->
+            <div class="projects-featured-card">
+                <div class="projects-featured-img" style="background-image: url('assets/project_overview.jpg');"></div>
+                <div class="projects-featured-content">
+                    <span class="project-badge">Flagship Asset</span>
+                    <h3>Santa Ana Project</h3>
+                    <p>Santa Ana covers over 36,000 hectares in Tolima, consolidating the historic Mariquita Silver District—the highest-grade primary silver district in Colombia. With a Maiden Resource Estimate declaring significant indicated and inferred resources, it represents our primary development asset.</p>
+                    
+                    <table class="project-card-table">
+                        <tbody>
+                            <tr>
+                                <td>Location</td>
+                                <td>Falan, Tolima, Colombia</td>
+                            </tr>
+                            <tr>
+                                <td>Ownership</td>
+                                <td>100% Owned</td>
+                            </tr>
+                            <tr>
+                                <td>Primary Minerals</td>
+                                <td>Silver - Gold (Ag-Au)</td>
+                            </tr>
+                            <tr>
+                                <td>Resource Estimate</td>
+                                <td>24.2 Moz AgEq Indicated & Inferred</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a href="santa-ana.html" class="project-link-btn">Explore Santa Ana Project <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="projects-section-title">
+                Regional <strong>Exploration Portfolio</strong>
+            </div>
+
+            <!-- Grid of 3 subprojects -->
+            <div class="projects-grid">
+                
+                <!-- Mallama -->
+                <div class="project-card">
+                    <div class="project-card-img" style="background-image: url('assets/coreshack_veins.jpg');"></div>
+                    <div class="project-card-content">
+                        <span class="project-badge">Advanced Stage</span>
+                        <h3>Mallama Project</h3>
+                        <p>Located in Nariño, Mallama covers 9,036 hectares of the Piedrancha epithermal vein district. It hosts more than 35 mapped veins with active artisanal mining on high-grade veins (up to 23.3 g Au/t).</p>
+                        
+                        <table class="project-card-table">
+                            <tbody>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>Piedrancha District, Nariño</td>
+                                </tr>
+                                <tr>
+                                    <td>Ownership</td>
+                                    <td>100% Owned</td>
+                                </tr>
+                                <tr>
+                                    <td>Stage</td>
+                                    <td>Advanced Exploration (Consulta Previa)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="mallama.html" class="project-link-btn">Explore Mallama <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Oribella -->
+                <div class="project-card">
+                    <div class="project-card-img" style="background-image: url('assets/esg_initiatives.jpg');"></div>
+                    <div class="project-card-content">
+                        <span class="project-badge">Porphyry Target</span>
+                        <h3>Oribella Project</h3>
+                        <p>Oribella comprises 20,000 hectares in the prospective Middle Cauca Belt. Geochemical soil anomalies and trenching suggest the presence of a blind gold-copper porphyry system.</p>
+                        
+                        <table class="project-card-table">
+                            <tbody>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>Betulia & Concordia, Antioquia</td>
+                                </tr>
+                                <tr>
+                                    <td>Ownership</td>
+                                    <td>100% Owned</td>
+                                </tr>
+                                <tr>
+                                    <td>Stage</td>
+                                    <td>Early Prospecting (Partner Seeking)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="oribella.html" class="project-link-btn">Explore Oribella <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Argelia -->
+                <div class="project-card">
+                    <div class="project-card-img" style="background-image: url('assets/silver_markets.jpg');"></div>
+                    <div class="project-card-content">
+                        <span class="project-badge">Vein System</span>
+                        <h3>Argelia Project</h3>
+                        <p>Argelia covers 4,355 hectares of mineral applications. Hosts intermediate sulfidation veins within a 2.5 km fault corridor. Features pre-1950 British company historical workings.</p>
+                        
+                        <table class="project-card-table">
+                            <tbody>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>Argelia, Antioquia</td>
+                                </tr>
+                                <tr>
+                                    <td>Ownership</td>
+                                    <td>100% Owned (Applications)</td>
+                                </tr>
+                                <tr>
+                                    <td>Stage</td>
+                                    <td>Reconnaissance & Mapping</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="argelia.html" class="project-link-btn">Explore Argelia <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <img src="assets/logo.svg" alt="Outcrop Silver Logo" style="height: 32px; filter: brightness(0.95);">
+                <p class="footer-about-text">Outcrop Silver is a mineral exploration company focused on locating and developing high-grade silver deposits in Colombia.</p>
+            </div>
+            <div>
+                <h4 class="footer-title">Corporate</h4>
+                <ul style="list-style: none; padding: 0; line-height: 2;">
+                    <li><a href="corporate.html#overview" style="color: var(--text-secondary); text-decoration: none;">Overview</a></li>
+                    <li><a href="corporate.html#management" style="color: var(--text-secondary); text-decoration: none;">Management</a></li>
+                    <li><a href="corporate.html#governance" style="color: var(--text-secondary); text-decoration: none;">Governance</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Projects</h4>
+                <ul style="list-style: none; padding: 0; line-height: 2;">
+                    <li><a href="santa-ana.html" style="color: var(--text-secondary); text-decoration: none;">Santa Ana</a></li>
+                    <li><a href="mallama.html" style="color: var(--text-secondary); text-decoration: none;">Mallama</a></li>
+                    <li><a href="oribella.html" style="color: var(--text-secondary); text-decoration: none;">Oribella</a></li>
+                    <li><a href="argelia.html" style="color: var(--text-secondary); text-decoration: none;">Argelia</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Contact</h4>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">Vancouver Corporate Office:<br>900 - 570 Granville Street<br>Vancouver, BC V6C 3P1</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
