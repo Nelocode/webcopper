@@ -2141,67 +2141,67 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             src: "assets/coreshack/copper-giant-the-coreshack-1.jpg",
             caption: "Hydrothermal breccia with porphyritic quartzdiorite (Early 1) clasts embedded in a K-feldspar and chalcopyrite matrix.",
-            categories: ["all", "breccia"]
+            categories: ["all", "best", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-2.jpg",
             caption: "Microdiorite (Early 0) with A-type veinlets, disseminated chalcopyrite and C-type veinlets.",
-            categories: ["all", "copper"]
+            categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-3.webp",
             caption: "Porphyry dacite (Intramineral) with pervasive phyllic alteration and disseminated chalcocite and chalcopyrite.",
-            categories: ["all", "moly"]
+            categories: ["all", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-4.webp",
             caption: "Hydrothermal breccia with clasts of porphyritic quartzdiorite (Early 1) in a sulfide matrix (pyrite and chalcopyrite) ± anhydrite.",
-            categories: ["all", "moly"]
+            categories: ["all", "best", "copper", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-5.webp",
             caption: "Porphyry dacite (Intramineral) with abundant disseminated pyrite and chalcopyrite.",
-            categories: ["all", "best", "copper", "breccia"]
+            categories: ["all", "best"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-6.webp",
             caption: "Porphyritic quartzdiorite (Early 1) with patchy potassic alteration, pyrite in D-type veinlets, and disseminated chalcopyrite.",
-            categories: ["all", "copper"]
+            categories: ["all", "best", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-7.webp",
             caption: "Crackle breccia with potassic alteration in clasts and a chalcopyrite ± quartz matrix.",
-            categories: ["all", "breccia"]
+            categories: ["all", "best", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-8.jpg",
             caption: "Porphyry quartzdiorite (Early 1) with patchy potassic alteration, disseminated chalcopyrite, and molybdenite in BMQ-type veinlets.",
-            categories: ["all", "best", "copper"]
+            categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-9.webp",
             caption: "Chalcopyrite and pyrite patches forming the matrix of a hydrothermal breccia with pervasive, high-intensity phyllic alteration.",
-            categories: ["all", "moly"]
+            categories: ["all", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-10.webp",
             caption: "Banded quartz and chalcopyrite in microdiorite (Early 0) with pervasive potassic alteration defined by secondary biotite.",
-            categories: ["all", "best", "moly"]
+            categories: ["all", "best", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-11.webp",
             caption: "Chalcopyrite in C-type veinlets in a porphyry dacite (Intramineral) with pervasive phyllic alteration.",
-            categories: ["all", "breccia"]
+            categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-12.webp",
             caption: "Molybdenite in QM-type veinlets and abundant disseminated chalcopyrite in a porphyry dacite (Intramineral).",
-            categories: ["all", "copper"]
+            categories: ["all", "copper", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-13.webp",
             caption: "Porphyry dacite (Intramineral) with A-type veinlets and disseminated chalcopyrite and molybdenite.",
-            categories: ["all", "moly"]
+            categories: ["all", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-14.webp",
@@ -2211,17 +2211,17 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             src: "assets/coreshack/copper-giant-the-coreshack-15.webp",
             caption: "Molybdenite ± chalcopyrite in BMQ-type veinlets in a porphyritic quartzdiorite (Early 1).",
-            categories: ["all", "best", "copper", "breccia"]
+            categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-16.webp",
             caption: "Disseminated chalcopyrite and C-type veinlets in a porphyry dacite (Intramineral).",
-            categories: ["all", "best", "moly"]
+            categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-17.webp",
             caption: "Molybdenite in QM-type veinlets crosscutting C-type veinlets in a porphyry dacite (Intramineral).",
-            categories: ["all", "copper"]
+            categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-18.webp",
@@ -2236,12 +2236,12 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             src: "assets/coreshack/copper-giant-the-coreshack-20.webp",
             caption: "Porphyry dacite (Intramineral) with patchy potassic alteration and molybdenite in BMQ-type veinlets.",
-            categories: ["all", "breccia"]
+            categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-21.webp",
             caption: "Hydrothermal breccia with patchy potassic alteration in clasts and a quartz–chalcopyrite-pyrite matrix.",
-            categories: ["all", "best", "copper"]
+            categories: ["all", "best", "copper", "breccia"]
         }
     ];
 
