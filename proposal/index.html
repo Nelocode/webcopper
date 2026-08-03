@@ -28,7 +28,7 @@
     
     <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="assets/apple-icon.png">
-    <link rel="stylesheet" href="style.css?v=109.0">
+    <link rel="stylesheet" href="style.css?v=110.0">
 </head>
 <body>
 
@@ -121,10 +121,20 @@
     <!-- Hero / Video Banner Section (Replacing the Slider) -->
     <section class="hero-video-section">
         <div class="hero-video-wrapper">
-            <video autoplay loop muted playsinline preload="metadata" poster="assets/hero-poster.jpg" class="hero-video-bg">
-                <source src="assets/Video Web.mp4" type="video/mp4">
+            <video autoplay loop muted playsinline poster="assets/hero-poster.jpg" id="hero-bg-video" class="hero-video-bg" data-src="assets/Video Web.mp4">
                 Your browser does not support the video tag.
             </video>
+            <script>
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    var v = document.getElementById('hero-bg-video');
+                    if (v && v.getAttribute('data-src') && !v.src) {
+                        v.src = v.getAttribute('data-src');
+                        v.play().catch(function(){});
+                    }
+                }, 300);
+            });
+            </script>
             <!-- Hero Text Overlay -->
             <div class="hero-video-overlay">
                 <div class="hero-text-container">
@@ -439,7 +449,7 @@
         </svg>
     </button>
 
-    <script src="script.js?v=109.0" defer></script>
+    <script src="script.js?v=110.0" defer></script>
 
                 <!-- Get Updates Modal -->
     <div class="modal-overlay" id="updates-modal">
@@ -497,88 +507,21 @@
     </div>
 
     
-    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-    <script type="text/javascript">
-    (function($) {
-      window.fnames = new Array(); 
-      window.ftypes = new Array();
-      fnames[0]='EMAIL'; ftypes[0]='email';
-      fnames[1]='FNAME'; ftypes[1]='text';
-      fnames[2]='LNAME'; ftypes[2]='text';
-      fnames[3]='MMERGE3'; ftypes[3]='text';
-      fnames[4]='MMERGE4'; ftypes[4]='text';
-      fnames[5]='MMERGE5'; ftypes[5]='text';
-      fnames[6]='MMERGE6'; ftypes[6]='text';
-      fnames[10]='MMERGE10'; ftypes[10]='text';
-      fnames[11]='MMERGE11'; ftypes[11]='text';
-      fnames[12]='MMERGE12'; ftypes[12]='text';
-      fnames[13]='MMERGE13'; ftypes[13]='text';
-    }(jQuery));
-    var $mcj = jQuery.noConflict(true);
-    </script>
-
-    
-    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-    <script type="text/javascript">
-    (function($) {
-      window.fnames = new Array(); 
-      window.ftypes = new Array();
-      fnames[0]='EMAIL'; ftypes[0]='email';
-      fnames[1]='FNAME'; ftypes[1]='text';
-      fnames[2]='LNAME'; ftypes[2]='text';
-      fnames[3]='MMERGE3'; ftypes[3]='text';
-      fnames[4]='MMERGE4'; ftypes[4]='text';
-      fnames[5]='MMERGE5'; ftypes[5]='text';
-      fnames[6]='MMERGE6'; ftypes[6]='text';
-      fnames[10]='MMERGE10'; ftypes[10]='text';
-      fnames[11]='MMERGE11'; ftypes[11]='text';
-      fnames[12]='MMERGE12'; ftypes[12]='text';
-      fnames[13]='MMERGE13'; ftypes[13]='text';
-    }(jQuery));
-    var $mcj = jQuery.noConflict(true);
-    </script>
-
-    
-    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-    <script type="text/javascript">
-    (function($) {
-      window.fnames = new Array(); 
-      window.ftypes = new Array();
-      fnames[0]='EMAIL'; ftypes[0]='email';
-      fnames[1]='FNAME'; ftypes[1]='text';
-      fnames[2]='LNAME'; ftypes[2]='text';
-      fnames[3]='MMERGE3'; ftypes[3]='text';
-      fnames[4]='MMERGE4'; ftypes[4]='text';
-      fnames[5]='MMERGE5'; ftypes[5]='text';
-      fnames[6]='MMERGE6'; ftypes[6]='text';
-      fnames[10]='MMERGE10'; ftypes[10]='text';
-      fnames[11]='MMERGE11'; ftypes[11]='text';
-      fnames[12]='MMERGE12'; ftypes[12]='text';
-      fnames[13]='MMERGE13'; ftypes[13]='text';
-    }(jQuery));
-    var $mcj = jQuery.noConflict(true);
-    </script>
-
-    <!-- jQuery and Mailchimp validation scripts -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-    <script type="text/javascript">
-    (function($) {
-      window.fnames = new Array(); 
-      window.ftypes = new Array();
-      fnames[0]='EMAIL'; ftypes[0]='email';
-      fnames[1]='FNAME'; ftypes[1]='text';
-      fnames[2]='LNAME'; ftypes[2]='text';
-      fnames[3]='MMERGE3'; ftypes[3]='text';
-      fnames[4]='MMERGE4'; ftypes[4]='text';
-      fnames[5]='MMERGE5'; ftypes[5]='text';
-      fnames[6]='MMERGE6'; ftypes[6]='text';
-      fnames[10]='MMERGE10'; ftypes[10]='text';
-      fnames[11]='MMERGE11'; ftypes[11]='text';
-      fnames[12]='MMERGE12'; ftypes[12]='text';
-      fnames[13]='MMERGE13'; ftypes[13]='text';
-    }(jQuery));
-    var $mcj = jQuery.noConflict(true);
+    <!-- jQuery and Mailchimp validation scripts (Deferred for non-blocking load) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+    <script type="text/javascript" src="https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js" defer></script>
+    <script type="text/javascript" defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof jQuery !== 'undefined') {
+        (function($) {
+          window.fnames = new Array(); 
+          window.ftypes = new Array();
+          fnames[0]='EMAIL'; ftypes[0]='email';
+          fnames[1]='FNAME'; ftypes[1]='text';
+          fnames[2]='LNAME'; ftypes[2]='text';
+        })(jQuery);
+      }
+    });
     </script>
 </body>
 </html>
