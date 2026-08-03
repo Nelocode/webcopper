@@ -5737,25 +5737,54 @@ div.response {
     /* Prevent hero container from shrinking to unusable heights on narrow screens */
     .hero-video-section:not(#overview) .hero-video-wrapper {
         aspect-ratio: auto !important;
-        height: 380px !important;
+        height: auto !important;
+        min-height: 320px !important;
     }
     .hero-video-section#overview .hero-video-wrapper {
         aspect-ratio: auto !important;
-        height: 220px !important;
+        height: auto !important;
+        min-height: 350px !important;
     }
     
-    /* Ensure hero content starts below the fixed navigation and ticker bar (96px height) */
+    /* Ensure hero content starts cleanly below fixed navigation/ticker bar */
     .hero-video-overlay {
-        padding-top: 110px !important;
-        align-items: flex-start !important;
+        padding-top: 100px !important;
+        padding-bottom: 30px !important;
+        align-items: center !important;
         justify-content: flex-start !important;
+        box-sizing: border-box !important;
     }
     
-    /* Adjust text alignments for readability */
+    /* Adjust text alignments and font sizes for mobile readability */
     .hero-text-container {
-        padding-top: 0 !important;
+        padding: 0 20px !important;
         text-align: left !important;
         align-items: flex-start !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .hero-text-container .hero-title,
+    .hero-title {
+        font-size: clamp(1.8rem, 6.5vw, 2.8rem) !important;
+        line-height: 1.15 !important;
+        word-break: break-word !important;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.75rem !important;
+        letter-spacing: 0.15em !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-video-section#overview .hero-video-wrapper {
+        min-height: 310px !important;
+    }
+    .hero-text-container .hero-title,
+    .hero-title {
+        font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
+        line-height: 1.15 !important;
     }
 }
 
