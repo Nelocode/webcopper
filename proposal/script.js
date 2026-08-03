@@ -1852,7 +1852,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- News PDF Modal Implementation ---
-    // --- News PDF / Full Document Modal Implementation ---
+    // --- News PDF / Document Viewer Modal Implementation ---
     function initNewsPdfModal() {
         if (document.getElementById('news-pdf-modal')) return;
 
@@ -1861,7 +1861,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="position: absolute; top: 16px; right: 24px; z-index: 10010; display: flex; gap: 12px; align-items: center;">
                 <a id="news-pdf-download-link" href="" download target="_blank" rel="noopener noreferrer" style="background: var(--copper-primary, #d97736); color: white; border: none; padding: 10px 18px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    <span>OPEN DOCUMENT</span>
+                    <span>OPEN PDF</span>
                 </a>
                 <button class="modal-close-pdf" id="btn-close-news-pdf" aria-label="Close Document Viewer" style="position: static; margin: 0;">&times;</button>
             </div>
@@ -1883,22 +1883,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'hidden';
         };
 
-        window.openNewsModal = function(item) {
-            if (item) {
-                const targetUrl = item.pdfUrl || item.readUrl;
-                if (targetUrl) {
-                    window.openNewsPdfModal(targetUrl);
-                }
-            }
-        };
-
         window.closeNewsPdfModal = function() {
             if (modal) modal.classList.remove('active');
             if (iframe) iframe.setAttribute('src', ''); // Unload to save memory
             document.body.style.overflow = '';
         };
-
-        window.closeNewsModal = window.closeNewsPdfModal;
 
         if (closeBtn) closeBtn.addEventListener('click', window.closeNewsPdfModal);
         if (modal) {
@@ -1913,10 +1902,109 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- News Full Text HTML Modal Implementation ---
     function injectNewsModal() {
-        // Obsolete summary modal replaced by full document viewer
-        initNewsPdfModal();
+        if (document.getElementById('news-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'news-modal';
+        modal.style.zIndex = '9999';
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 860px; width: 92%; padding: 36px; border-bottom: 3px solid var(--copper-primary); position: relative; background: #0c0c0c; border: 1px solid var(--border-glass); border-radius: var(--radius-card); max-height: 90vh; display: flex; flex-direction: column;">
+                <button class="modal-close" style="position: absolute; top: 18px; right: 20px; font-size: 2.2rem; background: none; border: none; color: var(--text-secondary); cursor: pointer; transition: color 0.2s; z-index: 10;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--text-secondary)'" onclick="window.closeNewsModal()">&times;</button>
+                
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px; padding-right: 40px;">
+                    <span id="news-modal-date" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--copper-primary); font-weight: 700;"></span>
+                    <span id="news-modal-category" style="font-size: 0.75rem; background: var(--copper-primary); color: white; padding: 3px 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; border-radius: 3px;"></span>
+                </div>
+                
+                <h2 id="news-modal-title" style="font-size: clamp(1.4rem, 4vw, 1.8rem); line-height: 1.3; color: white; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.01em; text-align: left; padding-right: 20px;"></h2>
+                
+                <div style="height: 1px; background: rgba(255, 255, 255, 0.12); margin-bottom: 20px;"></div>
+                
+                <div class="modal-scroll-area" id="news-modal-scroll" style="overflow-y: auto; flex: 1; padding-right: 15px; margin-bottom: 20px; -webkit-overflow-scrolling: touch;">
+                    <div id="news-modal-body" style="color: var(--text-secondary); line-height: 1.75; font-size: 1.02rem; display: flex; flex-direction: column; gap: 16px; text-align: left;">
+                        <!-- Full release text paragraphs will be inserted here -->
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 18px; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
+                    <a id="news-modal-pdf" href="#" class="btn-rect btn-rect-primary" style="display: none; padding: 10px 22px; font-size: 0.78rem; text-decoration: none; border-radius: 4px; font-weight: 700; letter-spacing: 0.05em;">VIEW ORIGINAL PDF</a>
+                    <button class="btn-rect" style="background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 10px 24px; font-size: 0.78rem; cursor: pointer; transition: all 0.3s; border-radius: 4px; font-weight: 700;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='transparent'" onclick="window.closeNewsModal()">CLOSE</button>
+                </div>
+            </div>
+        `;
+        
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                window.closeNewsModal();
+            }
+        };
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                window.closeNewsModal();
+            }
+        });
+
+        document.body.appendChild(modal);
     }
+
+    window.openNewsModal = function(item) {
+        injectNewsModal();
+        initNewsPdfModal();
+
+        const modal = document.getElementById('news-modal');
+        const modalDate = document.getElementById('news-modal-date');
+        const modalCategory = document.getElementById('news-modal-category');
+        const modalTitle = document.getElementById('news-modal-title');
+        const modalBody = document.getElementById('news-modal-body');
+        const modalPdf = document.getElementById('news-modal-pdf');
+        const modalScroll = document.getElementById('news-modal-scroll');
+
+        if (!modal) return;
+
+        if (modalDate) modalDate.textContent = (item.date || '').toUpperCase();
+        if (modalCategory) modalCategory.textContent = item.category || 'PRESS RELEASE';
+        if (modalTitle) modalTitle.textContent = item.title || '';
+
+        let bodyHtml = '';
+        if (item.paragraphs && item.paragraphs.length > 0) {
+            bodyHtml = item.paragraphs.map(p => {
+                const trimmed = p.trim();
+                if (trimmed.length < 90 && trimmed.toUpperCase() === trimmed && !trimmed.endsWith('.')) {
+                    return `<h4 style="color: #ffffff; font-weight: 700; font-size: 1.1rem; margin-top: 18px; margin-bottom: 6px; letter-spacing: -0.01em;">${trimmed}</h4>`;
+                }
+                return `<p style="margin-bottom: 12px; line-height: 1.75; color: var(--text-secondary);">${trimmed}</p>`;
+            }).join('');
+        } else if (item.fullText) {
+            bodyHtml = `<p style="line-height: 1.75; color: var(--text-secondary);">${item.fullText}</p>`;
+        } else if (item.summary) {
+            bodyHtml = `<p style="line-height: 1.75; color: var(--text-secondary);"><strong>${item.summary}</strong></p>`;
+        }
+
+        if (modalBody) modalBody.innerHTML = bodyHtml;
+
+        if (modalPdf) {
+            if (item.pdfUrl) {
+                modalPdf.style.display = 'inline-flex';
+                modalPdf.onclick = function(e) {
+                    e.preventDefault();
+                    window.closeNewsModal();
+                    window.openNewsPdfModal(item.pdfUrl);
+                };
+            } else {
+                modalPdf.style.display = 'none';
+            }
+        }
+
+        if (modalScroll) modalScroll.scrollTop = 0;
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
 
     window.closeNewsModal = function() {
         const modal = document.getElementById('news-modal');
