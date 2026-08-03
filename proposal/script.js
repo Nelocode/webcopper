@@ -2139,108 +2139,108 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---------------------------------------------------------
     const coreshackCollection = [
         {
-            src: "assets/coreshack/copper-giant-the-coreshack-1.webp",
-            caption: "Hydrothermal breccia containing high-density chalcopyrite-pyrite stockwork matrix.",
+            src: "assets/coreshack/copper-giant-the-coreshack-1.jpg",
+            caption: "Hydrothermal breccia with porphyritic quartzdiorite (Early 1) clasts embedded in a K-feldspar and chalcopyrite matrix.",
             categories: ["all", "breccia"]
         },
         {
-            src: "assets/coreshack/copper-giant-the-coreshack-2.webp",
-            caption: "Dacite porphyry with significant disseminated chalcopyrite and secondary bornite.",
+            src: "assets/coreshack/copper-giant-the-coreshack-2.jpg",
+            caption: "Microdiorite (Early 0) with A-type veinlets, disseminated chalcopyrite and C-type veinlets.",
             categories: ["all", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-3.webp",
-            caption: "Porphyritic dacite showing quartz-molybdenite stockwork and potassic alteration.",
+            caption: "Porphyry dacite (Intramineral) with pervasive phyllic alteration and disseminated chalcocite and chalcopyrite.",
             categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-4.webp",
-            caption: "Intense molybdenite paint on shear planes with associated pyrite.",
+            caption: "Hydrothermal breccia with clasts of porphyritic quartzdiorite (Early 1) in a sulfide matrix (pyrite and chalcopyrite) ± anhydrite.",
             categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-5.webp",
-            caption: "Stunning bornite-chalcopyrite replacement in hydrothermal breccia (Best of the Best).",
+            caption: "Porphyry dacite (Intramineral) with abundant disseminated pyrite and chalcopyrite.",
             categories: ["all", "best", "copper", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-6.webp",
-            caption: "Intense chalcopyrite dissemination in silicified dacite porphyry.",
+            caption: "Porphyritic quartzdiorite (Early 1) with patchy potassic alteration, pyrite in D-type veinlets, and disseminated chalcopyrite.",
             categories: ["all", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-7.webp",
-            caption: "Multi-directional stockwork of quartz-chalcopyrite veinlets in potassic alteration.",
+            caption: "Crackle breccia with potassic alteration in clasts and a chalcopyrite ± quartz matrix.",
             categories: ["all", "breccia"]
         },
         {
-            src: "assets/coreshack/copper-giant-the-coreshack-8.webp",
-            caption: "Stellar chalcopyrite veinlets cutting potassic alteration zone (Best of the Best).",
+            src: "assets/coreshack/copper-giant-the-coreshack-8.jpg",
+            caption: "Porphyry quartzdiorite (Early 1) with patchy potassic alteration, disseminated chalcopyrite, and molybdenite in BMQ-type veinlets.",
             categories: ["all", "best", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-9.webp",
-            caption: "Quartz-molybdenite-chalcopyrite vein showing classical symmetrical bands.",
+            caption: "Chalcopyrite and pyrite patches forming the matrix of a hydrothermal breccia with pervasive, high-intensity phyllic alteration.",
             categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-10.webp",
-            caption: "High-grade molybdenite stockwork in silica-rich core section (Best of the Best).",
+            caption: "Banded quartz and chalcopyrite in microdiorite (Early 0) with pervasive potassic alteration defined by secondary biotite.",
             categories: ["all", "best", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-11.webp",
-            caption: "Hydrothermal breccia with mineralized copper sulfide matrix.",
+            caption: "Chalcopyrite in C-type veinlets in a porphyry dacite (Intramineral) with pervasive phyllic alteration.",
             categories: ["all", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-12.webp",
-            caption: "Fine-grained disseminated bornite and chalcopyrite in dacite porphyry.",
+            caption: "Molybdenite in QM-type veinlets and abundant disseminated chalcopyrite in a porphyry dacite (Intramineral).",
             categories: ["all", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-13.webp",
-            caption: "Thick quartz-molybdenite vein with sericitic alteration halo.",
+            caption: "Porphyry dacite (Intramineral) with A-type veinlets and disseminated chalcopyrite and molybdenite.",
             categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-14.webp",
-            caption: "Dacite porphyry showing strong sericitic alteration with pyrite-chalcopyrite.",
+            caption: "Hydrothermal breccia with aphanitic clasts in a silica matrix with chalcopyrite patches.",
             categories: ["all", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-15.webp",
-            caption: "Hydrothermal breccia with massive chalcopyrite aggregates (Best of the Best).",
+            caption: "Molybdenite ± chalcopyrite in BMQ-type veinlets in a porphyritic quartzdiorite (Early 1).",
             categories: ["all", "best", "copper", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-16.webp",
-            caption: "Stunning quartz-molybdenite veins showing excellent sulfide density (Best of the Best).",
+            caption: "Disseminated chalcopyrite and C-type veinlets in a porphyry dacite (Intramineral).",
             categories: ["all", "best", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-17.webp",
-            caption: "Chalcopyrite-bornite mineralization in core showing strong potassic alteration.",
+            caption: "Molybdenite in QM-type veinlets crosscutting C-type veinlets in a porphyry dacite (Intramineral).",
             categories: ["all", "copper"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-18.webp",
-            caption: "Quartz-chalcopyrite stockwork cutting potassic altered dacite porphyry.",
+            caption: "Hydrothermal breccia with disseminated chalcopyrite and molybdenite in the clasts and open-space infill within the matrix.",
             categories: ["all", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-19.webp",
-            caption: "Molybdenite and minor chalcopyrite inside thick quartz veins.",
+            caption: "Porphyry dacite (Intramineral) with pervasive potassic alteration, disseminated chalcopyrite, and molybdenite in BMQ-type veinlets.",
             categories: ["all", "moly"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-20.webp",
-            caption: "Hydrothermal breccia with quartz-sericite-pyrite-chalcopyrite matrix.",
+            caption: "Porphyry dacite (Intramineral) with patchy potassic alteration and molybdenite in BMQ-type veinlets.",
             categories: ["all", "breccia"]
         },
         {
             src: "assets/coreshack/copper-giant-the-coreshack-21.webp",
-            caption: "Outstanding high-grade bornite-chalcopyrite core box from target drill hole (Best of the Best).",
+            caption: "Hydrothermal breccia with patchy potassic alteration in clasts and a quartz–chalcopyrite-pyrite matrix.",
             categories: ["all", "best", "copper"]
         }
     ];
