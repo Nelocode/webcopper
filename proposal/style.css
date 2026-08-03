@@ -3846,6 +3846,9 @@ section[id] {
     height: auto;
     display: block;
     object-fit: contain;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
     transition: transform 0.5s var(--ease-cinematic);
 }
 
@@ -3857,8 +3860,8 @@ section[id] {
 .map-card-overlay, .coreshack-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 40%, transparent 100%);
-    opacity: 0.85;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.15) 30%, transparent 65%);
+    opacity: 1;
     transition: opacity 0.4s var(--ease-cinematic);
     display: flex;
     align-items: end;
