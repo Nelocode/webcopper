@@ -1852,26 +1852,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- News PDF Modal Implementation ---
+    // --- News PDF / Full Document Modal Implementation ---
     function initNewsPdfModal() {
         if (document.getElementById('news-pdf-modal')) return;
 
         const modalHTML = `
-        <div class="modal-overlay" id="news-pdf-modal">
-            <button class="modal-close-pdf" id="btn-close-news-pdf" aria-label="Close PDF Viewer">&times;</button>
-            <div class="modal-content-pdf">
-                <iframe id="news-pdf-iframe" src="" style="width: 100%; height: 100%; border: none; border-radius: var(--radius-card);" title="News Release PDF"></iframe>
+        <div class="modal-overlay" id="news-pdf-modal" style="z-index: 9999;">
+            <div style="position: absolute; top: 16px; right: 24px; z-index: 10010; display: flex; gap: 12px; align-items: center;">
+                <a id="news-pdf-download-link" href="" download target="_blank" rel="noopener noreferrer" style="background: var(--copper-primary, #d97736); color: white; border: none; padding: 10px 18px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>OPEN DOCUMENT</span>
+                </a>
+                <button class="modal-close-pdf" id="btn-close-news-pdf" aria-label="Close Document Viewer" style="position: static; margin: 0;">&times;</button>
+            </div>
+            <div class="modal-content-pdf" style="width: 95%; max-width: 1100px; height: 90vh; max-height: 90vh; border-radius: var(--radius-card); overflow: hidden; position: relative; background: #111;">
+                <iframe id="news-pdf-iframe" src="" style="width: 100%; height: 100%; border: none; background: #fff;" title="Full News Release Document"></iframe>
             </div>
         </div>`;
         document.body.insertAdjacentHTML('beforeend', modalHTML);
 
         const modal = document.getElementById('news-pdf-modal');
         const iframe = document.getElementById('news-pdf-iframe');
+        const downloadLink = document.getElementById('news-pdf-download-link');
         const closeBtn = document.getElementById('btn-close-news-pdf');
 
         window.openNewsPdfModal = function(pdfPath) {
             if (iframe) iframe.setAttribute('src', pdfPath);
+            if (downloadLink) downloadLink.setAttribute('href', pdfPath);
             if (modal) modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+        };
+
+        window.openNewsModal = function(item) {
+            if (item) {
+                const targetUrl = item.pdfUrl || item.readUrl;
+                if (targetUrl) {
+                    window.openNewsPdfModal(targetUrl);
+                }
+            }
         };
 
         window.closeNewsPdfModal = function() {
@@ -1879,6 +1897,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (iframe) iframe.setAttribute('src', ''); // Unload to save memory
             document.body.style.overflow = '';
         };
+
+        window.closeNewsModal = window.closeNewsPdfModal;
 
         if (closeBtn) closeBtn.addEventListener('click', window.closeNewsPdfModal);
         if (modal) {
@@ -1893,92 +1913,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------------------------------------------------------
-    // News Modal Implementation (Dynamic Injection & Overlay)
-    // ---------------------------------------------------------
     function injectNewsModal() {
-        if (document.getElementById('news-modal')) return;
-
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.id = 'news-modal';
-        modal.innerHTML = `
-            <div class="modal-content" style="max-width: 800px; width: 90%; padding: 40px; border-bottom: 3px solid var(--copper-primary);">
-                <button class="modal-close" style="position: absolute; top: 20px; right: 20px; font-size: 2rem; background: none; border: none; color: var(--text-secondary); cursor: pointer; transition: color var(--transition-fast);" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--text-secondary)'" onclick="window.closeNewsModal()">&times;</button>
-                
-                <div class="modal-scroll-area" style="overflow-y: auto; max-height: 55vh; padding-right: 15px; margin-top: 10px;">
-                    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 15px;">
-                        <span id="news-modal-date" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--copper-primary); font-weight: 700;"></span>
-                        <span id="news-modal-category" style="font-size: 0.75rem; background: var(--copper-primary); color: white; padding: 3px 8px; font-weight: 600; font-family: 'JetBrains Mono', monospace; text-transform: uppercase;"></span>
-                    </div>
-                    
-                    <h2 id="news-modal-title" style="font-size: 1.8rem; line-height: 1.35; color: white; font-weight: 700; margin-bottom: 20px; letter-spacing: -0.01em; text-align: left;"></h2>
-                    
-                    <div style="height: 1px; background: rgba(255, 255, 255, 0.1); margin-bottom: 25px;"></div>
-                    
-                    <div id="news-modal-body" style="color: var(--text-secondary); line-height: 1.7; font-size: 1.05rem; display: flex; flex-direction: column; gap: 15px; text-align: left;">
-                        <!-- Paragraphs will be inserted here -->
-                    </div>
-                </div>
-                
-                <div style="display: flex; gap: 16px; margin-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; justify-content: flex-end;">
-                    <a id="news-modal-pdf" href="" download target="_blank" rel="noopener noreferrer" class="btn-rect btn-rect-primary" style="display: none; padding: 12px 28px; font-size: 0.8rem; text-decoration: none;">DOWNLOAD PDF</a>
-                    <button class="btn-rect" style="background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 12px 28px; font-size: 0.8rem; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'" onclick="window.closeNewsModal()">CLOSE</button>
-                </div>
-            </div>
-        `;
-        
-        modal.onclick = function(e) {
-            if (e.target === modal) {
-                window.closeNewsModal();
-            }
-        };
-
-        // Close on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                window.closeNewsModal();
-            }
-        });
-
-        document.body.appendChild(modal);
+        // Obsolete summary modal replaced by full document viewer
+        initNewsPdfModal();
     }
-
-    window.openNewsModal = function(item) {
-        injectNewsModal();
-        const modal = document.getElementById('news-modal');
-        const modalDate = document.getElementById('news-modal-date');
-        const modalCategory = document.getElementById('news-modal-category');
-        const modalTitle = document.getElementById('news-modal-title');
-        const modalBody = document.getElementById('news-modal-body');
-        const modalPdf = document.getElementById('news-modal-pdf');
-
-        if (!modal) return;
-
-        if (modalDate) modalDate.textContent = item.date.toUpperCase();
-        if (modalCategory) modalCategory.textContent = item.category || 'PRESS RELEASE';
-        if (modalTitle) modalTitle.textContent = item.title;
-
-        // Build full content from summary and general template
-        let bodyHtml = `<p><strong>${item.summary}</strong></p>`;
-        bodyHtml += `<p>The Company plans to continue its systematic exploration and development programs throughout the upcoming quarters. Further updates will be provided as assays and technical reviews are completed. The results from this release have been verified by the Company's qualified persons in accordance with National Instrument 43-101 standards.</p>`;
-        bodyHtml += `<p>Copper Giant Resources Corp. is a leading resource exploration company focused on the development of world-class copper-molybdenum porphyry systems in the Americas. With a commitment to environmental stewardship, local community development, and rigorous safety standards, the company is positioned to supply the essential materials required for the global clean energy transition.</p>`;
-        bodyHtml += `<p style="margin-top: 15px;"><em>On Behalf of the Board of Directors,<br><strong>Ian Harris</strong><br>Chief Executive Officer</em></p>`;
-        
-        if (modalBody) modalBody.innerHTML = bodyHtml;
-
-        if (modalPdf) {
-            if (item.pdfUrl) {
-                modalPdf.href = item.pdfUrl;
-                modalPdf.style.display = 'inline-block';
-            } else {
-                modalPdf.style.display = 'none';
-            }
-        }
-
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    };
 
     window.closeNewsModal = function() {
         const modal = document.getElementById('news-modal');
