@@ -5806,47 +5806,6 @@ div.response {
 }
 
 /* =========================================================================
-   EASTER EGGS STYLES
-   ========================================================================= */
-
-/* 1. Malachite Theme (Oxidation) Mode */
-body.malachite-mode {
-    --copper-primary: #00B48A !important;
-    --copper-primary-hover: #009975 !important;
-    --copper-glow: rgba(0, 180, 138, 0.25) !important;
-}
-body.malachite-mode .logo img,
-body.malachite-mode .footer-logo-svg path,
-body.malachite-mode .site-logo-svg path,
-body.malachite-mode .footer-logo-link svg path {
-    filter: hue-rotate(176deg) saturate(1.2) !important;
-}
-
-/* 2. Logo Conductive Flash Animation */
-.logo {
-    position: relative;
-    overflow: hidden;
-}
-.logo::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
-    transform: skewX(-25deg);
-    pointer-events: none;
-}
-.logo.conductive-flash::after {
-    animation: logo-shine 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-@keyframes logo-shine {
-    0% { left: -150%; }
-    100% { left: 200%; }
-}
-
-/* =========================================================================
    CORPORATE INTERNAL PAGE RESPONSIVE REFINEMENTS
    ========================================================================= */
 
