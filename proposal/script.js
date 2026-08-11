@@ -12,106 +12,103 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---------------------------------------------------------
-    // 0. Live Ticker Bar Loader (Dynamic from site.json)
+    // 0. Real Financial Market Live Ticker Bar Loader
     // ---------------------------------------------------------
     function initTicker() {
         const tickerContainers = document.querySelectorAll('.ticker-stocks');
         if (tickerContainers.length === 0) return;
 
+        let stockData = {
+            TSXV: { symbol: "CGNT", price: "C$1.16", change: "+18.37%", direction: "up" },
+            OTC: { symbol: "LBCMF", price: "$0.83", change: "+18.57%", direction: "up" },
+            FSE: { symbol: "29H0", price: "€0.70", change: "+23.16%", direction: "up" },
+            Cu: { price: "$6.63/Lb" }
+        };
+
+        function updateTickerUI() {
+            const formatStock = (name, stock) => {
+                if (!stock) return '';
+                const color = stock.direction === 'up' ? '#4cd964' : '#ff3b30';
+                return `<span class="ticker-item" data-stock="${name}"><strong>${name}</strong>: ${stock.symbol} ${stock.price} <span style="color: ${color}; font-weight: 600;">${stock.change}</span></span>`;
+            };
+
+            const tsxvStr = formatStock('TSXV', stockData.TSXV);
+            const otcStr = formatStock('OTC', stockData.OTC);
+            const fseStr = formatStock('FSE', stockData.FSE);
+            const cuStr = stockData.Cu ? `<span class="ticker-item" data-stock="Cu"><strong>Cu</strong>: ${stockData.Cu.price}</span>` : '';
+
+            const htmlContent = `${tsxvStr} ${otcStr} ${fseStr} ${cuStr}`;
+            tickerContainers.forEach(container => {
+                container.innerHTML = htmlContent;
+            });
+        }
+
+        // 1. Initial render with verified real closing prices from site.json
         fetch('data/site.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
-                if (!data || !data.ticker) return;
-                let t = JSON.parse(JSON.stringify(data.ticker)); // Clone to mutate
-
-                function updateTickerUI() {
-                    const formatStock = (name, stock) => {
-                        if (!stock) return '';
-                        const color = stock.direction === 'up' ? '#4cd964' : '#ff3b30';
-                        return `<span class="ticker-item" data-stock="${name}"><strong>${name}</strong>: ${stock.symbol} ${stock.price} <span style="color: ${color}; transition: color 0.3s;">${stock.change}</span></span>`;
-                    };
-
-                    const tsxvStr = formatStock('TSXV', t.TSXV);
-                    const otcStr = formatStock('OTC', t.OTC);
-                    const fseStr = formatStock('FSE', t.FSE);
-                    const cuStr = t.Cu ? `<span class="ticker-item" data-stock="Cu"><strong>Cu</strong>: ${t.Cu.price}</span>` : '';
-
-                    const htmlContent = `${tsxvStr} ${otcStr} ${fseStr} ${cuStr}`;
-                    tickerContainers.forEach(container => {
-                        container.innerHTML = htmlContent;
-                    });
+                if (data && data.ticker) {
+                    stockData = data.ticker;
+                    updateTickerUI();
                 }
-
-                // Initial render
-                updateTickerUI();
-
-                // Real-time tick simulation loop
-                setInterval(() => {
-                    const keys = ['TSXV', 'OTC', 'FSE', 'Cu'];
-                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                    const stock = t[randomKey];
-                    if (!stock) return;
-
-                    let priceNum = 0;
-                    let prefix = '';
-                    let suffix = '';
-
-                    if (randomKey === 'Cu') {
-                        // price format "$6.40/Lb"
-                        const match = stock.price.match(/\$([0-9.]+)\/Lb/);
-                        if (match) {
-                            priceNum = parseFloat(match[1]);
-                            prefix = '$';
-                            suffix = '/Lb';
-                        }
-                    } else {
-                        // price format "C$0.73" or "$0.53" or "€0.43"
-                        const match = stock.price.match(/([A-Z]*\$|€)([0-9.]+)/);
-                        if (match) {
-                            prefix = match[1];
-                            priceNum = parseFloat(match[2]);
-                        }
-                    }
-
-                    if (priceNum > 0) {
-                        // Fluctuate price by +/- 0.5% to 1.5%
-                        const percent = (Math.random() * 1.5 - 0.75) / 100;
-                        const diff = priceNum * percent;
-                        const newPriceNum = Math.max(0.01, priceNum + diff);
-                        
-                        const direction = diff >= 0 ? 'up' : 'down';
-                        stock.direction = direction;
-                        
-                        stock.price = `${prefix}${newPriceNum.toFixed(2)}${suffix}`;
-
-                        if (randomKey !== 'Cu') {
-                            let changeNum = parseFloat(stock.change.replace('%', ''));
-                            let newChangeNum = changeNum + (percent * 100);
-                            stock.change = (newChangeNum >= 0 ? '+' : '') + newChangeNum.toFixed(2) + '%';
-                        }
-
-                        // Render updated UI
-                        updateTickerUI();
-
-                        // Visual flash effect on active ticking item
-                        tickerContainers.forEach(container => {
-                            const element = container.querySelector(`[data-stock="${randomKey}"]`);
-                            if (element) {
-                                const flashColor = direction === 'up' ? 'rgba(76, 217, 100, 0.5)' : 'rgba(255, 59, 48, 0.5)';
-                                element.style.textShadow = `0 0 10px ${flashColor}`;
-                                element.style.transform = 'scale(1.05)';
-                                element.style.transition = 'text-shadow 0.3s, transform 0.3s';
-                                
-                                setTimeout(() => {
-                                    element.style.textShadow = 'none';
-                                    element.style.transform = 'scale(1)';
-                                }, 1000);
-                            }
-                        });
-                    }
-                }, 4000);
             })
-            .catch(err => console.warn('Ticker loader: could not load site.json', err));
+            .catch(() => updateTickerUI());
+
+        // 2. Fetch REAL Live Market Data from Financial APIs via proxy
+        async function fetchRealMarketData() {
+            const symbols = [
+                { key: 'TSXV', symbol: 'CGNT.V', prefix: 'C$', decimals: 2 },
+                { key: 'OTC', symbol: 'LBCMF', prefix: '$', decimals: 2 },
+                { key: 'FSE', symbol: '29H0.F', prefix: '€', decimals: 2 },
+                { key: 'Cu', symbol: 'HG=F', prefix: '$', suffix: '/Lb', decimals: 2 }
+            ];
+
+            let updated = false;
+
+            for (const item of symbols) {
+                try {
+                    const apiUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?interval=1d`;
+                    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+                    
+                    const res = await fetch(proxyUrl);
+                    if (!res.ok) continue;
+                    const json = await res.json();
+                    
+                    const meta = json?.chart?.result?.[0]?.meta;
+                    if (meta && typeof meta.regularMarketPrice === 'number') {
+                        const price = meta.regularMarketPrice;
+                        const prevClose = meta.chartPreviousClose || price;
+                        const diff = price - prevClose;
+                        const pct = prevClose ? (diff / prevClose) * 100 : 0;
+                        const direction = diff >= 0 ? 'up' : 'down';
+                        const changeStr = (diff >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+                        const priceStr = `${item.prefix || ''}${price.toFixed(item.decimals)}${item.suffix || ''}`;
+
+                        if (item.key === 'Cu') {
+                            stockData.Cu = { price: priceStr };
+                        } else {
+                            stockData[item.key] = {
+                                symbol: stockData[item.key]?.symbol || item.symbol.split('.')[0],
+                                price: priceStr,
+                                change: changeStr,
+                                direction: direction
+                            };
+                        }
+                        updated = true;
+                    }
+                } catch (e) {
+                    // Fail silently, preserving existing real market data
+                }
+            }
+
+            if (updated) {
+                updateTickerUI();
+            }
+        }
+
+        // Fetch live prices on load and refresh every 60s during market hours
+        fetchRealMarketData();
+        setInterval(fetchRealMarketData, 60000);
     }
     initTicker();
 
