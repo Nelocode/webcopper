@@ -631,13 +631,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 newsGrid.innerHTML = recentItems.map((item, index) => {
                     const dateStr = item.date.toUpperCase();
+                    const maxLen = 95;
+                    let displayTitle = item.title || '';
+                    if (displayTitle.length > maxLen) {
+                        const cutoff = displayTitle.lastIndexOf(' ', maxLen);
+                        displayTitle = (cutoff > 40 ? displayTitle.substring(0, cutoff) : displayTitle.substring(0, maxLen)).trim() + '...';
+                    }
 
                     return `
                         <div class="news-hub-card">
                             <div class="card-brand-lockup">
                                 <div class="card-brand-title-row" style="cursor: pointer;" onclick="window.openHomeNewsModal(${index})">
                                     <img src="assets/LOGO2.svg" alt="Arrow" class="card-brand-arrow">
-                                    <h4 class="card-news-title">${item.title}</h4>
+                                    <h4 class="card-news-title" title="${item.title.replace(/"/g, '&quot;')}">${displayTitle}</h4>
                                 </div>
                                 <div class="card-brand-line"></div>
                                 <div class="card-brand-date">${dateStr}</div>

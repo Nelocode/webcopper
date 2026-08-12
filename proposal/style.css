@@ -718,6 +718,10 @@ body.header-hovered .page-backdrop {
     text-transform: uppercase;
     letter-spacing: -0.01em;
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .card-brand-line {
