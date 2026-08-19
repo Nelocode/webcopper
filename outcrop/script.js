@@ -264,4 +264,265 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ---------------------------------------------------------
+    // OUTCROP SILVER — THE CORESHACK CAROUSEL MODAL (LIGHTBOX)
+    // ---------------------------------------------------------
+    const outcropCoreshackCollection = [
+        {
+            src: "assets/coreshack/outcrop-coreshack-1.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-1-thumb.jpg",
+            caption: "High-grade silver-gold quartz vein core with abundant coarse argentite (silver sulfide) and electrum from Santa Ana drilling.",
+            categories: ["all", "best", "silver", "aguilar"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-2.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-2-thumb.jpg",
+            caption: "Banded quartz-sulfide vein showing prominent native silver aggregates and freibergite in Santa Ana drill core.",
+            categories: ["all", "silver", "aguilar"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-3.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-3-thumb.jpg",
+            caption: "Sulfide-rich hydrothermal breccia containing high-grade silver mineralization along the Aguilar vein system.",
+            categories: ["all", "best", "breccia", "aguilar"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-4.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-4-thumb.jpg",
+            caption: "Massive quartz vein with visible native silver wire and pyrargyrite (ruby silver) mineralization.",
+            categories: ["all", "silver", "best"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-5.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-5-thumb.jpg",
+            caption: "Santa Ana core tray intersection showcasing high-density quartz-carbonate veinlets carrying electrum and galena.",
+            categories: ["all", "aguilar"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-6.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-6-thumb.jpg",
+            caption: "Polyphase quartz vein core with silver sulfosalts and fine-grained sphalerite-galena mineralization.",
+            categories: ["all", "silver"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-7.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-7-thumb.jpg",
+            caption: "High-grade vein shoot core sample displaying intense argentite stringers and native silver flakes.",
+            categories: ["all", "best", "silver", "aguilar"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-8.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-8-thumb.jpg",
+            caption: "Santa Ana exploration drill core box displaying continuous high-grade quartz vein intervals.",
+            categories: ["all", "best", "aguilar"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-9.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-9-thumb.jpg",
+            caption: "High-resolution core photo showcasing bladed quartz textures with argentite and chalcopyrite.",
+            categories: ["all", "silver"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-10.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-10-thumb.jpg",
+            caption: "Drill core sample of hydrothermal breccia with intrusive clasts matrix-filled with silver-bearing sulfides.",
+            categories: ["all", "breccia"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-11.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-11-thumb.jpg",
+            caption: "Epidote-chlorite altered wallrock with crosscutting quartz-argentite-electrum veinlets.",
+            categories: ["all", "aguilar"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-12.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-12-thumb.jpg",
+            caption: "High-grade primary silver drill core with coarse metallic argentite patches and free gold.",
+            categories: ["all", "best", "silver"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-13.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-13-thumb.jpg",
+            caption: "Close-up of mineralized drill core showcasing quartz-sulfide vein margin with rich silver grades.",
+            categories: ["all", "silver"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-14.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-14-thumb.jpg",
+            caption: "Santa Ana vein field drill core showing crustiform quartz banding and silver sulfosalt infill.",
+            categories: ["all", "aguilar", "silver"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-15.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-15-thumb.jpg",
+            caption: "Hydrothermal breccia core interval displaying semi-massive sulfide matrix with high-grade silver values.",
+            categories: ["all", "breccia", "best"]
+        },
+        {
+            src: "assets/coreshack/outcrop-coreshack-16.jpg",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-16-thumb.jpg",
+            caption: "Detailed drill core section featuring thick quartz-carbonate vein carrying visible native silver and electrum.",
+            categories: ["all", "best", "silver"]
+        }
+    ];
+
+    let currentOutcropFilter = 'all';
+    let activeOutcropCoreshackImages = [...outcropCoreshackCollection];
+    let outcropCoreshackActiveIndex = 0;
+
+    function renderCoreshackThumbs() {
+        return activeOutcropCoreshackImages.map((item, i) => `
+            <div class="coreshack-thumb ${i === outcropCoreshackActiveIndex ? 'active' : ''}" data-index="${i}" onclick="window.coreshackSetSlide(${i})">
+                <img src="${item.thumb}" alt="Thumb ${i + 1}">
+            </div>
+        `).join('');
+    }
+
+    function injectOutcropCoreshackModal() {
+        if (document.getElementById('coreshack-carousel-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'coreshack-carousel-modal';
+        modal.innerHTML = `
+            <div class="modal-content coreshack-modal-box">
+                <button class="modal-close" onclick="window.closeCoreshackCarouselModal()">&times;</button>
+                
+                <div class="coreshack-modal-header">
+                    <div class="coreshack-modal-pretitle">Santa Ana Silver-Gold Project</div>
+                    <h2 class="coreshack-modal-title">The Coreshack Gallery</h2>
+                </div>
+                
+                <div class="coreshack-filters">
+                    <button class="coreshack-filter-btn active" data-filter="all" onclick="window.coreshackFilter('all')">All Core Samples</button>
+                    <button class="coreshack-filter-btn" data-filter="best" onclick="window.coreshackFilter('best')">High-Grade Highlights ⭐</button>
+                    <button class="coreshack-filter-btn" data-filter="silver" onclick="window.coreshackFilter('silver')">Primary Silver Veins</button>
+                    <button class="coreshack-filter-btn" data-filter="aguilar" onclick="window.coreshackFilter('aguilar')">Aguilar System</button>
+                    <button class="coreshack-filter-btn" data-filter="breccia" onclick="window.coreshackFilter('breccia')">Breccias</button>
+                </div>
+
+                <div id="coreshack-caption-bar" class="coreshack-caption-bar">
+                    ${activeOutcropCoreshackImages[0].caption}
+                </div>
+                
+                <div class="coreshack-carousel-container">
+                    <img id="coreshack-active-img" src="${activeOutcropCoreshackImages[0].src}" alt="Outcrop Silver Drill Core">
+                    <button class="carousel-nav-btn prev" onclick="event.stopPropagation(); window.coreshackPrevSlide()">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-nav-btn next" onclick="event.stopPropagation(); window.coreshackNextSlide()">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="coreshack-thumbnails-wrapper" id="coreshack-thumbs-container">
+                    ${renderCoreshackThumbs()}
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                window.closeCoreshackCarouselModal();
+            }
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    window.closeCoreshackCarouselModal();
+                } else if (e.key === 'ArrowRight') {
+                    window.coreshackNextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    window.coreshackPrevSlide();
+                }
+            }
+        });
+    }
+
+    window.openCoreshackCarouselModal = function(startIndex = 0) {
+        injectOutcropCoreshackModal();
+        const modal = document.getElementById('coreshack-carousel-modal');
+        if (modal) {
+            window.coreshackSetSlide(startIndex);
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+
+    window.closeCoreshackCarouselModal = function() {
+        const modal = document.getElementById('coreshack-carousel-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    window.coreshackSetSlide = function(index) {
+        if (!activeOutcropCoreshackImages.length) return;
+        outcropCoreshackActiveIndex = (index + activeOutcropCoreshackImages.length) % activeOutcropCoreshackImages.length;
+        
+        const activeImg = document.getElementById('coreshack-active-img');
+        const captionBar = document.getElementById('coreshack-caption-bar');
+        const currentItem = activeOutcropCoreshackImages[outcropCoreshackActiveIndex];
+
+        if (activeImg) {
+            activeImg.style.opacity = '0';
+            setTimeout(() => {
+                activeImg.src = currentItem.src;
+                activeImg.style.opacity = '1';
+            }, 120);
+        }
+
+        if (captionBar) {
+            captionBar.textContent = currentItem.caption;
+        }
+
+        const thumbs = document.querySelectorAll('.coreshack-thumb');
+        thumbs.forEach((t, i) => {
+            if (i === outcropCoreshackActiveIndex) {
+                t.classList.add('active');
+                t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                t.classList.remove('active');
+            }
+        });
+    };
+
+    window.coreshackNextSlide = function() {
+        window.coreshackSetSlide(outcropCoreshackActiveIndex + 1);
+    };
+
+    window.coreshackPrevSlide = function() {
+        window.coreshackSetSlide(outcropCoreshackActiveIndex - 1);
+    };
+
+    window.coreshackFilter = function(filter) {
+        currentOutcropFilter = filter;
+        if (filter === 'all') {
+            activeOutcropCoreshackImages = [...outcropCoreshackCollection];
+        } else {
+            activeOutcropCoreshackImages = outcropCoreshackCollection.filter(img => img.categories.includes(filter));
+        }
+        
+        const filterBtns = document.querySelectorAll('.coreshack-filter-btn');
+        filterBtns.forEach(btn => {
+            if (btn.getAttribute('data-filter') === filter) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        const thumbsContainer = document.getElementById('coreshack-thumbs-container');
+        if (thumbsContainer) {
+            thumbsContainer.innerHTML = renderCoreshackThumbs();
+        }
+
+        window.coreshackSetSlide(0);
+    };
+
 });

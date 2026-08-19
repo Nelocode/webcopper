@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css?v=18.0">
+    <link rel="stylesheet" href="style.css?v=19.0">
 </head>
 <body>
 
@@ -110,7 +110,7 @@
     </div>
 
     <!-- Internal Hero Banner -->
-    <section class="internal-hero" style="background-image: url('assets/santa_ana_cover.jpg?v=18.0');">
+    <section class="internal-hero" style="background-image: url('assets/santa_ana_cover.jpg?v=19.0');">
         <div class="internal-hero-overlay"></div>
         <div class="internal-hero-content">
             <h1 class="internal-title">Santa Ana Project</h1>
@@ -344,14 +344,113 @@
 
             <!-- Tab Content 4: Core Shack -->
             <div class="tab-content" id="coreshack">
-                <div class="section-intro">
-                    <p>Real photos of high-grade drill core samples recovered from the Santa Ana veins, showcasing rich native silver and sulfide mineralization.</p>
+                <div class="section-intro" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 24px;">
+                    <div>
+                        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-primary); margin-bottom: 6px;">Santa Ana Drill Core Photo Gallery</h3>
+                        <p style="margin: 0; color: var(--text-secondary);">Real photos of high-grade drill core samples recovered from Santa Ana veins, showcasing rich argentite, electrum, and native silver mineralization.</p>
+                    </div>
+                    <button class="btn-rect btn-rect-primary" onclick="window.openCoreshackCarouselModal(0)" style="border-radius: 4px; padding: 12px 24px;">
+                        <i class="fa-solid fa-expand" style="margin-right: 8px;"></i> Launch Full Coreshack Lightbox (16 Photos)
+                    </button>
                 </div>
 
-                <div class="info-grid" style="grid-template-columns: 1fr;">
-                    <div style="background-color: var(--bg-card); border: 1px solid var(--border-subtle); padding: 20px; text-align: center;">
-                        <img src="assets/coreshack_veins.jpg?v=18.0" alt="Drill Core Sample - Santa Ana Veins" style="max-width: 100%; height: auto; border: 1px solid var(--border-subtle);">
-                        <p style="margin-top: 15px; color: var(--text-secondary); font-style: italic;">Sulfide-rich quartz vein core showing prominent argentite and native silver aggregates (Santa Ana veins).</p>
+                <div class="coreshack-gallery-grid">
+
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(0)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-1-thumb.jpg" alt="Santa Ana Core Sample 1">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 1</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(1)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-2-thumb.jpg" alt="Santa Ana Core Sample 2">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 2</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(2)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-3-thumb.jpg" alt="Santa Ana Core Sample 3">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 3</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(3)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-4-thumb.jpg" alt="Santa Ana Core Sample 4">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 4</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(4)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-5-thumb.jpg" alt="Santa Ana Core Sample 5">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 5</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(5)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-6-thumb.jpg" alt="Santa Ana Core Sample 6">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 6</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(6)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-7-thumb.jpg" alt="Santa Ana Core Sample 7">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 7</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(7)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-8-thumb.jpg" alt="Santa Ana Core Sample 8">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 8</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(8)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-9-thumb.jpg" alt="Santa Ana Core Sample 9">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 9</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(9)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-10-thumb.jpg" alt="Santa Ana Core Sample 10">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 10</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(10)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-11-thumb.jpg" alt="Santa Ana Core Sample 11">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 11</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(11)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-12-thumb.jpg" alt="Santa Ana Core Sample 12">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 12</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(12)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-13-thumb.jpg" alt="Santa Ana Core Sample 13">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 13</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(13)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-14-thumb.jpg" alt="Santa Ana Core Sample 14">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 14</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(14)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-15-thumb.jpg" alt="Santa Ana Core Sample 15">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 15</span>
+                        </div>
+                    </div>
+                    <div class="coreshack-grid-card" onclick="window.openCoreshackCarouselModal(15)">
+                        <img src="assets/coreshack/thumbs/outcrop-coreshack-16-thumb.jpg" alt="Santa Ana Core Sample 16">
+                        <div class="coreshack-grid-overlay">
+                            <span class="coreshack-grid-badge"><i class="fa-solid fa-expand"></i> Inspect Sample 16</span>
+                        </div>
                     </div>
                 </div>
             </div>
