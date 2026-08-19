@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btnMobileMenu.classList.toggle('active');
             mobileMenu.classList.toggle('active');
             
-            // Adjust hamburger button layout
             const spans = btnMobileMenu.querySelectorAll('span');
             if (btnMobileMenu.classList.contains('active')) {
                 spans[0].style.transform = 'rotate(45deg) translate(6px, 5px)';
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. SHRINKING HEADER - UNIFIED ROBUST SCROLL TRIGGER
+    // 3. SHRINKING HEADER
     const header = document.querySelector('.nav-header');
     if (header) {
         window.addEventListener('scroll', () => {
@@ -58,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. STOCK & METAL TICKER SIMULATOR
-    // Periodically simulates tiny changes in prices to represent "dynamic live feed"
     const animateStockTicker = () => {
         const stockPrices = {
             ocg: 0.24,
@@ -82,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         setInterval(() => {
-            // Pick a random index to change (0: TSX, 1: OTC, 2: FSE, 3: Silver Spot)
             const index = Math.floor(Math.random() * 4);
             let key, basePrice, prefix = '';
             
@@ -95,14 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const changeEl = changeElements[key];
 
             if (el && changeEl) {
-                // Generate a small change (-0.5% to +0.8%)
                 const changePct = (Math.random() * 1.3 - 0.5) / 100;
                 const newPrice = basePrice * (1 + changePct);
                 
-                // Format price text
                 el.textContent = `${prefix}${newPrice.toFixed(2)}${key === 'silver' ? '/Oz' : ''}`;
                 
-                // Format change percentage
                 const finalPct = (changePct * 100).toFixed(2);
                 if (parseFloat(finalPct) >= 0) {
                     changeEl.className = 'stock-change change-up';
@@ -112,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     changeEl.innerHTML = `<i class="fa-solid fa-caret-down"></i> ${finalPct}%`;
                 }
             }
-        }, 8000); // changes a value every 8 seconds
+        }, 8000);
     };
 
     animateStockTicker();
@@ -127,11 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const switchTab = (tabId) => {
             if (!tabId) return;
 
-            // Remove active state from all buttons and contents
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
 
-            // Add active class to matching button and content block
             const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
             const targetContent = document.getElementById(tabId);
 
@@ -141,23 +133,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        // Click handler for tab buttons
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const tabId = button.getAttribute('data-tab');
                 switchTab(tabId);
-                // Update URL hash without scrolling
                 history.pushState(null, null, `#${tabId}`);
             });
         });
 
-        // Initialize tab based on URL hash
         const handleHash = () => {
             const hash = window.location.hash.substring(1);
             if (hash) {
                 switchTab(hash);
-                
-                // Scroll to tabs container if requested from another page/session
                 const tabContainer = document.querySelector('.tabs-container');
                 if (tabContainer && window.scrollY < 200) {
                     setTimeout(() => {
@@ -165,20 +152,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 100);
                 }
             } else {
-                // If no hash, activate first tab
                 const firstTabId = tabButtons[0].getAttribute('data-tab');
                 switchTab(firstTabId);
             }
         };
 
         window.addEventListener('hashchange', handleHash);
-        // Run once on load
         handleHash();
     };
 
     initializeTabs();
 
-    // 8. INTERACTIVE LEADERSHIP SHOWCASE FUNCTIONALITY
+    // 8. LEADERSHIP SHOWCASE
     const leadershipItems = document.querySelectorAll('.leadership-nav-item');
     const detailPhoto = document.getElementById('detail-photo');
     const detailName = document.getElementById('detail-name');
@@ -189,22 +174,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (leadershipItems.length > 0 && detailView) {
         leadershipItems.forEach(item => {
             item.addEventListener('click', () => {
-                // Remove active class from all items
                 leadershipItems.forEach(i => i.classList.remove('active'));
-                // Add active class to clicked item
                 item.classList.add('active');
 
-                // Extract data attributes
                 const name = item.getAttribute('data-name');
                 const role = item.getAttribute('data-role');
                 const img = item.getAttribute('data-img');
                 const bio = item.getAttribute('data-bio');
 
-                // Cross-fade animation: Fade out
                 detailView.style.opacity = '0';
 
                 setTimeout(() => {
-                    // Update content
                     if (detailName) detailName.textContent = name;
                     if (detailRole) detailRole.textContent = role;
                     if (detailBio) detailBio.textContent = bio;
@@ -215,12 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             detailPhoto.style.backgroundImage = 'none';
                         }
                     }
-
-                    // Fade in
                     detailView.style.opacity = '1';
                 }, 200);
 
-                // Auto-scroll on mobile viewports
                 if (window.innerWidth <= 992) {
                     detailView.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
@@ -238,31 +215,27 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetDrawer) {
                 const isOpen = targetDrawer.classList.contains('open');
                 
-                // Toggle active state
                 if (isOpen) {
                     targetDrawer.classList.remove('open');
                     trigger.classList.remove('active');
-                    
-                    // Reset text
                     const textNode = trigger.querySelector('.trigger-text');
                     const labelType = trigger.getAttribute('data-label') || 'Table';
                     if (textNode) textNode.textContent = `View Detailed ${labelType}`;
                 } else {
                     targetDrawer.classList.add('open');
                     trigger.classList.add('active');
-                    
-                    // Update text
                     const textNode = trigger.querySelector('.trigger-text');
                     const labelType = trigger.getAttribute('data-label') || 'Table';
                     if (textNode) textNode.textContent = `Hide Detailed ${labelType}`;
                     
-                    // Scroll container into view after animation starts
                     setTimeout(() => {
                         targetDrawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }, 150);
                 }
             }
         });
+    });
+
 });
 
 // =========================================================
@@ -391,8 +364,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="modal-close" onclick="window.closeCoreshackCarouselModal()">&times;</button>
                 
                 <div class="coreshack-modal-header">
-                    <div class="coreshack-modal-pretitle">Santa Ana Silver-Gold Project</div>
-                    <h2 class="coreshack-modal-title">The Coreshack Gallery</h2>
+                    <div class="coreshack-modal-pretitle">SANTA ANA PROJECT</div>
+                    <h2 class="coreshack-modal-title">THE CORESHACK GALLERY</h2>
                 </div>
                 
                 <div class="coreshack-filters">
