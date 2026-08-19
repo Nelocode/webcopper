@@ -263,11 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    });
+});
 
-    // ---------------------------------------------------------
-    // OUTCROP SILVER — THE CORESHACK CAROUSEL MODAL (LIGHTBOX)
-    // ---------------------------------------------------------
+// =========================================================
+// OUTCROP SILVER — THE CORESHACK CAROUSEL MODAL (GLOBAL SCOPE)
+// =========================================================
+(function() {
     const outcropCoreshackCollection = [
         {
             src: "assets/coreshack/outcrop-coreshack-1.jpg",
@@ -524,5 +525,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.coreshackSetSlide(0);
     };
-
-});
+})();
