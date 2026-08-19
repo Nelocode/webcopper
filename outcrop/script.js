@@ -244,98 +244,98 @@ document.addEventListener('DOMContentLoaded', () => {
 (function() {
     const outcropCoreshackCollection = [
         {
-            src: "assets/coreshack/outcrop-coreshack-1.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-1-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-1.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-1-thumb.webp",
             caption: "High-grade silver-gold quartz vein core with abundant coarse argentite (silver sulfide) and electrum from Santa Ana drilling.",
             categories: ["all", "best", "silver", "aguilar"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-2.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-2-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-2.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-2-thumb.webp",
             caption: "Banded quartz-sulfide vein showing prominent native silver aggregates and freibergite in Santa Ana drill core.",
             categories: ["all", "silver", "aguilar"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-3.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-3-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-3.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-3-thumb.webp",
             caption: "Sulfide-rich hydrothermal breccia containing high-grade silver mineralization along the Aguilar vein system.",
             categories: ["all", "best", "breccia", "aguilar"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-4.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-4-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-4.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-4-thumb.webp",
             caption: "Massive quartz vein with visible native silver wire and pyrargyrite (ruby silver) mineralization.",
             categories: ["all", "silver", "best"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-5.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-5-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-5.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-5-thumb.webp",
             caption: "Santa Ana core tray intersection showcasing high-density quartz-carbonate veinlets carrying electrum and galena.",
             categories: ["all", "aguilar"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-6.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-6-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-6.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-6-thumb.webp",
             caption: "Polyphase quartz vein core with silver sulfosalts and fine-grained sphalerite-galena mineralization.",
             categories: ["all", "silver"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-7.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-7-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-7.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-7-thumb.webp",
             caption: "High-grade vein shoot core sample displaying intense argentite stringers and native silver flakes.",
             categories: ["all", "best", "silver", "aguilar"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-8.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-8-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-8.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-8-thumb.webp",
             caption: "Santa Ana exploration drill core box displaying continuous high-grade quartz vein intervals.",
             categories: ["all", "best", "aguilar"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-9.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-9-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-9.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-9-thumb.webp",
             caption: "High-resolution core photo showcasing bladed quartz textures with argentite and chalcopyrite.",
             categories: ["all", "silver"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-10.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-10-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-10.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-10-thumb.webp",
             caption: "Drill core sample of hydrothermal breccia with intrusive clasts matrix-filled with silver-bearing sulfides.",
             categories: ["all", "breccia"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-11.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-11-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-11.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-11-thumb.webp",
             caption: "Epidote-chlorite altered wallrock with crosscutting quartz-argentite-electrum veinlets.",
             categories: ["all", "aguilar"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-12.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-12-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-12.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-12-thumb.webp",
             caption: "High-grade primary silver drill core with coarse metallic argentite patches and free gold.",
             categories: ["all", "best", "silver"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-13.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-13-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-13.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-13-thumb.webp",
             caption: "Close-up of mineralized drill core showcasing quartz-sulfide vein margin with rich silver grades.",
             categories: ["all", "silver"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-14.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-14-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-14.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-14-thumb.webp",
             caption: "Santa Ana vein field drill core showing crustiform quartz banding and silver sulfosalt infill.",
             categories: ["all", "aguilar", "silver"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-15.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-15-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-15.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-15-thumb.webp",
             caption: "Hydrothermal breccia core interval displaying semi-massive sulfide matrix with high-grade silver values.",
             categories: ["all", "breccia", "best"]
         },
         {
-            src: "assets/coreshack/outcrop-coreshack-16.jpg",
-            thumb: "assets/coreshack/thumbs/outcrop-coreshack-16-thumb.jpg",
+            src: "assets/coreshack/outcrop-coreshack-16.webp",
+            thumb: "assets/coreshack/thumbs/outcrop-coreshack-16-thumb.webp",
             caption: "Detailed drill core section featuring thick quartz-carbonate vein carrying visible native silver and electrum.",
             categories: ["all", "best", "silver"]
         }
