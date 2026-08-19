@@ -404,7 +404,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
 
                 <div id="coreshack-caption-bar" class="coreshack-caption-bar">
-                    ${activeOutcropCoreshackImages[0].caption}
+                    <div class="coreshack-caption-text"><strong>Core Box #1:</strong> ${activeOutcropCoreshackImages[0].caption}</div>
+                    <div class="coreshack-caption-counter">(1 of ${activeOutcropCoreshackImages.length} in view)</div>
                 </div>
                 
                 <div class="coreshack-carousel-container">
@@ -479,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (captionBar) {
-            captionBar.textContent = currentItem.caption;
+            captionBar.innerHTML = `<div class="coreshack-caption-text"><strong>Core Box #${outcropCoreshackActiveIndex + 1}:</strong> ${currentItem.caption}</div><div class="coreshack-caption-counter">(${outcropCoreshackActiveIndex + 1} of ${activeOutcropCoreshackImages.length} in view)</div>`;
         }
 
         const thumbs = document.querySelectorAll('.coreshack-thumb');
