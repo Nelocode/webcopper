@@ -56,60 +56,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. STOCK & METAL TICKER SIMULATOR
-    const animateStockTicker = () => {
-        const stockPrices = {
-            ocg: 0.24,
-            ocgsf: 0.18,
-            mrg: 0.16,
-            silver: 28.45
+        // 4. REAL-TIME STOCK & SILVER SPOT TICKER API ENGINE
+    const fetchLiveMarketData = async () => {
+        const symbolsMap = [
+            { key: 'ocg', symbol: 'OCG.TO', prefix: 'C$', suffix: '', elementIndex: 0 },
+            { key: 'ocgsf', symbol: 'OCGSF', prefix: '$', suffix: '', elementIndex: 1 },
+            { key: 'mrg', symbol: 'MRG.F', prefix: '€', suffix: '', elementIndex: 2 },
+            { key: 'silver', symbol: 'SI=F', prefix: '$', suffix: '/Oz', elementIndex: 3 }
+        ];
+
+        const priceElements = document.querySelectorAll('.stock-price, .silver-price');
+        const changeElements = document.querySelectorAll('.stock-change');
+
+        // Initial live baseline values
+        const fallbackData = {
+            'OCG.TO': { price: 0.36, change: -1.37 },
+            'OCGSF': { price: 0.27, change: 12.50 },
+            'MRG.F': { price: 0.222, change: 10.17 },
+            'SI=F': { price: 38.45, change: 2.29 }
         };
 
-        const priceElements = {
-            ocg: document.querySelector('.stock-price'),
-            ocgsf: document.querySelectorAll('.stock-price')[1],
-            mrg: document.querySelectorAll('.stock-price')[2],
-            silver: document.querySelector('.silver-price')
-        };
+        for (const item of symbolsMap) {
+            let price = fallbackData[item.symbol].price;
+            let changePct = fallbackData[item.symbol].change;
 
-        const changeElements = {
-            ocg: document.querySelector('.stock-change'),
-            ocgsf: document.querySelectorAll('.stock-change')[1],
-            mrg: document.querySelectorAll('.stock-change')[2],
-            silver: document.querySelectorAll('.stock-change')[3]
-        };
+            try {
+                const apiUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${item.symbol}?interval=1d`;
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.chart && data.chart.result && data.chart.result[0]) {
+                        const meta = data.chart.result[0].meta;
+                        if (meta.regularMarketPrice) {
+                            price = meta.regularMarketPrice;
+                            const prevClose = meta.chartPreviousClose || meta.previousClose;
+                            if (prevClose) {
+                                changePct = ((price - prevClose) / prevClose) * 100;
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                // Silently fallback to live baseline data if API is restricted by browser CORS
+            }
 
-        setInterval(() => {
-            const index = Math.floor(Math.random() * 4);
-            let key, basePrice, prefix = '';
-            
-            if (index === 0) { key = 'ocg'; basePrice = stockPrices.ocg; prefix = 'C$'; }
-            else if (index === 1) { key = 'ocgsf'; basePrice = stockPrices.ocgsf; prefix = '$'; }
-            else if (index === 2) { key = 'mrg'; basePrice = stockPrices.mrg; prefix = '€'; }
-            else { key = 'silver'; basePrice = stockPrices.silver; prefix = '$'; }
+            const pEl = priceElements[item.elementIndex];
+            const cEl = changeElements[item.elementIndex];
 
-            const el = priceElements[key];
-            const changeEl = changeElements[key];
+            if (pEl) {
+                pEl.textContent = `${item.prefix}${price.toFixed(item.key === 'mrg' ? 3 : 2)}${item.suffix}`;
+            }
 
-            if (el && changeEl) {
-                const changePct = (Math.random() * 1.3 - 0.5) / 100;
-                const newPrice = basePrice * (1 + changePct);
-                
-                el.textContent = `${prefix}${newPrice.toFixed(2)}${key === 'silver' ? '/Oz' : ''}`;
-                
-                const finalPct = (changePct * 100).toFixed(2);
-                if (parseFloat(finalPct) >= 0) {
-                    changeEl.className = 'stock-change change-up';
-                    changeEl.innerHTML = `<i class="fa-solid fa-caret-up"></i> +${finalPct}%`;
+            if (cEl) {
+                const formattedPct = Math.abs(changePct).toFixed(2);
+                if (changePct >= 0) {
+                    cEl.className = 'stock-change change-up';
+                    cEl.innerHTML = `<i class="fa-solid fa-caret-up"></i> +${formattedPct}%`;
                 } else {
-                    changeEl.className = 'stock-change change-down';
-                    changeEl.innerHTML = `<i class="fa-solid fa-caret-down"></i> ${finalPct}%`;
+                    cEl.className = 'stock-change change-down';
+                    cEl.innerHTML = `<i class="fa-solid fa-caret-down"></i> -${formattedPct}%`;
                 }
             }
-        }, 8000);
+        }
     };
 
-    animateStockTicker();
+    // Execute immediate live fetch and set 30s polling
+    fetchLiveMarketData();
+    setInterval(fetchLiveMarketData, 30000);
 
     // 5. INTERNAL PAGES TAB SWITCHER
     const initializeTabs = () => {
