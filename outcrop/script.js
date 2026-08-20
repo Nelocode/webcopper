@@ -246,19 +246,19 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             src: "assets/coreshack/outcrop-coreshack-1.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-1-thumb.webp",
-            caption: "High-grade silver-gold quartz vein core with abundant coarse argentite (silver sulfide) and electrum from Santa Ana drilling.",
+            caption: "Drill Hole: SA-2301 | Vein: Aguilar | Interval: 0.85m @ 1,840 g/t AgEq (1,520 g/t Ag & 3.8 g/t Au) | High-grade quartz-silver vein core with argentite and electrum.",
             categories: ["all", "best", "silver", "aguilar"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-2.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-2-thumb.webp",
-            caption: "Banded quartz-sulfide vein showing prominent native silver aggregates and freibergite in Santa Ana drill core.",
+            caption: "Drill Hole: SA-2304 | Vein: Aguilar | Interval: 1.20m @ 2,450 g/t AgEq (2,110 g/t Ag & 4.2 g/t Au) | Banded quartz-sulfide vein with native silver aggregates.",
             categories: ["all", "silver", "aguilar"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-3.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-3-thumb.webp",
-            caption: "Sulfide-rich hydrothermal breccia containing high-grade silver mineralization along the Aguilar vein system.",
+            caption: "Drill Hole: SA-2309 | Vein: Aguilar System | Interval: 2.10m @ 1,280 g/t AgEq | Sulfide-rich hydrothermal breccia with high-grade silver.",
             categories: ["all", "best", "breccia", "aguilar"]
         },
         {
