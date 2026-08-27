@@ -821,12 +821,11 @@
     <!-- Header Bar -->
     <header class="portal-header">
         <a href="index.html" class="brand-logo">
-            <img src="Recurso 1.svg" alt="Copper Giant Logo">
-            <div class="brand-title">COPPER <span>GIANT</span></div>
+            <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 42px;">
         </a>
         <div class="header-actions">
             <button class="lang-btn" onclick="toggleLanguage()">
-                <i class="fa-solid fa-globe"></i> <span id="langLabel">English</span>
+                <i class="fa-solid fa-globe"></i> <span id="langLabel">Español</span>
             </button>
             <a href="admin-visitors.html" class="admin-link">
                 <i class="fa-solid fa-user-shield"></i> <span id="txtAdminLink">Admin Portal</span>
@@ -1144,7 +1143,7 @@
     <!-- JavaScript Logic -->
     <script>
         // State & Translations
-        let currentLanguage = 'es'; // 'es' or 'en'
+        let currentLanguage = 'en'; // Default to English ('en' or 'es')
         let activeStep = 1;
         let selectedAllergy = 'No';
         let selectedMeds = 'No';
@@ -1247,6 +1246,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initSignatureCanvas();
             checkVisitorAuth();
+            applyTranslations();
         });
 
         function checkVisitorAuth() {
