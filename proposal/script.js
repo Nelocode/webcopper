@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tickerContainers.length === 0) return;
 
         let stockData = {
-            TSXV: { symbol: "CGNT", price: "C$1.28", change: "+18.37%", direction: "up" },
-            OTC: { symbol: "LBCMF", price: "$0.83", change: "+18.57%", direction: "up" },
-            FSE: { symbol: "29H0", price: "€0.70", change: "+23.16%", direction: "up" },
-            Cu: { price: "$6.63/Lb" }
+            TSXV: { symbol: "CGNT", price: "C$1.31", change: "+0.77%", direction: "up" },
+            OTC: { symbol: "LBCMF", price: "$0.96", change: "+0.54%", direction: "up" },
+            FSE: { symbol: "29H0", price: "€0.80", change: "+6.69%", direction: "up" },
+            Cu: { price: "$4.42/Lb" }
         };
 
         function updateTickerUI() {
@@ -65,6 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ];
 
             const proxies = [
+                'https://proxy.cors.sh/',
+                'https://corsproxy.org/?',
                 'https://corsproxy.io/?url=',
                 'https://api.allorigins.win/raw?url='
             ];
@@ -72,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let updated = false;
 
             for (const item of symbols) {
-                const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?interval=1d`;
+                const targetUrl = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?interval=1d`;
                 for (const proxy of proxies) {
                     try {
                         const res = await fetch(proxy + encodeURIComponent(targetUrl), { cache: 'no-cache' });
