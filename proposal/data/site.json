@@ -1,6 +1,6 @@
 {
   "ticker": {
-    "TSXV": { "symbol": "CGNT", "price": "C$1.16", "change": "+18.37%", "direction": "up" },
+    "TSXV": { "symbol": "CGNT", "price": "C$1.28", "change": "+18.37%", "direction": "up" },
     "OTC": { "symbol": "LBCMF", "price": "$0.83", "change": "+18.57%", "direction": "up" },
     "FSE": { "symbol": "29H0", "price": "€0.70", "change": "+23.16%", "direction": "up" },
     "Cu": { "price": "$6.63/Lb" }
