@@ -626,6 +626,10 @@
                     <div class="inspect-value" id="insHost"></div>
                 </div>
                 <div class="inspect-field">
+                    <div class="inspect-label">Contacto de Emergencia</div>
+                    <div class="inspect-value" id="insEmergency" style="color: #ef4444;"></div>
+                </div>
+                <div class="inspect-field">
                     <div class="inspect-label">Talla de Botas (EPP)</div>
                     <div class="inspect-value" id="insBoot"></div>
                 </div>
@@ -735,10 +739,10 @@
             document.getElementById('insId').innerText = selectedRecord.id;
             document.getElementById('insDate').innerText = selectedRecord.date;
             document.getElementById('insName').innerText = selectedRecord.name;
-            document.getElementById('insIdNum').innerText = selectedRecord.idNumber;
             document.getElementById('insEmail').innerText = selectedRecord.email;
             document.getElementById('insPhone').innerText = selectedRecord.phone;
             document.getElementById('insHost').innerText = selectedRecord.host;
+            document.getElementById('insEmergency').innerText = selectedRecord.emergencyContact || 'No especificado';
             document.getElementById('insBoot').innerText = selectedRecord.bootSize;
             document.getElementById('insAllergy').innerText = selectedRecord.allergy === 'Yes' ? `Sí: ${selectedRecord.allergyDetail || ''}` : 'No';
             document.getElementById('insMeds').innerText = selectedRecord.meds === 'Yes' ? `Sí: ${selectedRecord.medsDetail || ''}` : 'No';
@@ -760,8 +764,8 @@
             zip.file("visitor_details.json", JSON.stringify(selectedRecord, null, 2));
 
             // 2. Details CSV
-            const csv = `ID,Fecha,Nombre,Cedula,Email,Telefono,Anfitrion,Talla_Botas,Alergias,Medicacion\n` +
-                        `"${selectedRecord.id}","${selectedRecord.date}","${selectedRecord.name}","${selectedRecord.idNumber}","${selectedRecord.email}","${selectedRecord.phone}","${selectedRecord.host}","${selectedRecord.bootSize}","${selectedRecord.allergy}","${selectedRecord.meds}"`;
+            const csv = `ID,Fecha,Nombre,Cedula,Email,Telefono,Anfitrion,Contacto_Emergencia,Talla_Botas,Alergias,Medicacion\n` +
+                        `"${selectedRecord.id}","${selectedRecord.date}","${selectedRecord.name}","${selectedRecord.idNumber}","${selectedRecord.email}","${selectedRecord.phone}","${selectedRecord.host}","${selectedRecord.emergencyContact || ''}","${selectedRecord.bootSize}","${selectedRecord.allergy}","${selectedRecord.meds}"`;
             zip.file("visitor_summary.csv", csv);
 
             // 3. Signature Image PNG
@@ -786,9 +790,9 @@
             const zip = new JSZip();
             zip.file("all_visitors_master.json", JSON.stringify(currentRecords, null, 2));
 
-            let csv = `ID,Fecha,Nombre,Cedula,Email,Telefono,Anfitrion,Talla_Botas,Alergias,Medicacion\n`;
+            let csv = `ID,Fecha,Nombre,Cedula,Email,Telefono,Anfitrion,Contacto_Emergencia,Talla_Botas,Alergias,Medicacion\n`;
             currentRecords.forEach(r => {
-                csv += `"${r.id}","${r.date}","${r.name}","${r.idNumber}","${r.email}","${r.phone}","${r.host}","${r.bootSize}","${r.allergy}","${r.meds}"\n`;
+                csv += `"${r.id}","${r.date}","${r.name}","${r.idNumber}","${r.email}","${r.phone}","${r.host}","${r.emergencyContact || ''}","${r.bootSize}","${r.allergy}","${r.meds}"\n`;
 
                 if (r.signature) {
                     const base64Data = r.signature.replace(/^data:image\/png;base64,/, "");

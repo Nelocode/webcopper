@@ -1172,6 +1172,11 @@
                     <input type="text" id="inputHostName" placeholder="Ej: Ing. Edwin Naranjo - Geología Mocoa">
                 </div>
 
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-phone-volume" style="color: #ef4444;"></i> <span id="t_lblEmergency">Contacto de Emergencia (Nombre y Teléfono)</span> <span class="required">*</span></label>
+                    <input type="text" id="inputEmergencyContact" placeholder="Ej: María Pérez (Esposa) - 3101234567">
+                </div>
+
                 <!-- Hand-Drawn Signature Pad (ABSOLUTELY CRITICAL) -->
                 <div class="form-group full-width">
                     <label><i class="fa-solid fa-pen-nib" style="color: var(--copper-primary);"></i> <span id="t_lblSig">Firma Digital Dibujada (MANDATORIA)</span> <span class="required">*</span></label>
@@ -1273,7 +1278,7 @@
                 btnNext4: 'Siguiente: Datos & Firma Digital',
                 s5Title: 'Paso 5: Datos Personales & Firma Digital Obligatoria',
                 s5Desc: 'Ingresa tus datos personales y dibuja tu firma a mano en el recuadro interactivo.',
-                lblName: 'Nombre Completo', lblId: 'Cédula / Pasaporte No.', lblEmail: 'Correo Electrónico', lblPhone: 'Número de Teléfono', lblHost: 'Persona a Visitar en Campo / Anfitrión (Host)',
+                lblName: 'Nombre Completo', lblId: 'Cédula / Pasaporte No.', lblEmail: 'Correo Electrónico', lblPhone: 'Número de Teléfono', lblHost: 'Persona a Visitar en Campo / Anfitrión (Host)', lblEmergency: 'Contacto de Emergencia (Nombre y Teléfono)',
                 lblSig: 'Firma Digital Dibujada (MANDATORIA)', sigHint: 'Dibuja tu firma con el dedo o ratón dentro del recuadro blanco', btnClearSig: 'Limpiar Firma',
                 btnSubmit: 'Finalizar & Guardar Registro',
                 succTitle: '¡Registro de Visitante Completado!', succDesc: 'Tus documentos, declaración de salud y firma digital han sido registrados exitosamente para el ingreso a campo.',
@@ -1317,7 +1322,7 @@
                 btnNext4: 'Next: Details & Digital Signature',
                 s5Title: 'Step 5: Personal Details & Mandatory Digital Signature',
                 s5Desc: 'Enter your contact details and draw your signature by hand on the interactive canvas.',
-                lblName: 'Full Name', lblId: 'ID / Passport Number', lblEmail: 'Email Address', lblPhone: 'Phone Number', lblHost: 'Host / Person Visited On Site',
+                lblName: 'Full Name', lblId: 'ID / Passport Number', lblEmail: 'Email Address', lblPhone: 'Phone Number', lblHost: 'Host / Person Visited On Site', lblEmergency: 'Emergency Contact (Name & Phone Number)',
                 lblSig: 'Hand-Drawn Digital Signature (MANDATORY)', sigHint: 'Draw your signature using finger touch or mouse inside the white box', btnClearSig: 'Clear Signature',
                 btnSubmit: 'Complete & Save Record',
                 succTitle: 'Visitor Registration Complete!', succDesc: 'Your documents, health declaration, and hand-drawn signature have been registered successfully for site access.',
@@ -1409,6 +1414,7 @@
             document.getElementById('t_lblEmail').innerText = t.lblEmail;
             document.getElementById('t_lblPhone').innerText = t.lblPhone;
             document.getElementById('t_lblHost').innerText = t.lblHost;
+            document.getElementById('t_lblEmergency').innerText = t.lblEmergency;
             document.getElementById('t_lblSig').innerText = t.lblSig;
             document.getElementById('t_sigHint').innerHTML = `<i class="fa-solid fa-hand-pointer"></i> ${t.sigHint}`;
             document.getElementById('t_btnClearSig').innerText = t.btnClearSig;
@@ -1682,9 +1688,10 @@
             const email = document.getElementById('inputEmail').value.trim();
             const phone = document.getElementById('inputPhone').value.trim();
             const host = document.getElementById('inputHostName').value.trim();
+            const emergency = document.getElementById('inputEmergencyContact').value.trim();
             const boot = document.getElementById('selectBootSize').value;
 
-            if (!name || !idNum || !email || !phone || !host || !boot) {
+            if (!name || !idNum || !email || !phone || !host || !emergency || !boot) {
                 alert(currentLanguage === 'es' ? 'Por favor completa todos los campos obligatorios (*).' : 'Please complete all required fields (*).');
                 return;
             }
@@ -1706,6 +1713,7 @@
                 email: email,
                 phone: phone,
                 host: host,
+                emergencyContact: emergency,
                 allergy: selectedAllergy,
                 allergyDetail: document.getElementById('inputAllergyDetail').value,
                 meds: selectedMeds,
