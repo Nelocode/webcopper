@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---------------------------------------------------------
-    // 0. Real Financial Market Live Ticker Bar Loader
+    // ---------------------------------------------------------
+    // 0. Real Financial Market Live Ticker Engine
     // ---------------------------------------------------------
     function initTicker() {
         const tickerContainers = document.querySelectorAll('.ticker-stocks');
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function updateTickerUI() {
             const formatStock = (name, stock) => {
                 if (!stock) return '';
-                const color = stock.direction === 'up' ? '#4cd964' : '#ff3b30';
+                const color = stock.direction === 'down' ? '#ff3b30' : '#4cd964';
                 return `<span class="ticker-item" data-stock="${name}"><strong>${name}</strong>: ${stock.symbol} ${stock.price} <span style="color: ${color}; font-weight: 600;">${stock.change}</span></span>`;
             };
 
@@ -43,16 +44,77 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Initial render with verified prices from site.json
+        // 1. Initial render from site.json baseline
         fetch('data/site.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 if (data && data.ticker) {
-                    stockData = data.ticker;
+                    stockData = Object.assign({}, stockData, data.ticker);
                     updateTickerUI();
                 }
             })
             .catch(() => updateTickerUI());
+
+        // 2. Resilient Real-Time Financial Market API Fetcher
+        async function fetchLiveMarketData() {
+            const symbols = [
+                { key: 'TSXV', symbol: 'CGNT.V', prefix: 'C$', decimals: 2 },
+                { key: 'OTC', symbol: 'LBCMF', prefix: '$', decimals: 2 },
+                { key: 'FSE', symbol: '29H0.F', prefix: '€', decimals: 2 },
+                { key: 'Cu', symbol: 'HG=F', prefix: '$', suffix: '/Lb', decimals: 2 }
+            ];
+
+            const proxies = [
+                'https://corsproxy.io/?url=',
+                'https://api.allorigins.win/raw?url='
+            ];
+
+            let updated = false;
+
+            for (const item of symbols) {
+                const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?interval=1d`;
+                for (const proxy of proxies) {
+                    try {
+                        const res = await fetch(proxy + encodeURIComponent(targetUrl), { cache: 'no-cache' });
+                        if (!res.ok) continue;
+                        const json = await res.json();
+                        const meta = json?.chart?.result?.[0]?.meta;
+                        if (meta && typeof meta.regularMarketPrice === 'number' && meta.regularMarketPrice > 0) {
+                            const price = meta.regularMarketPrice;
+                            const prevClose = meta.chartPreviousClose || price;
+                            const diff = price - prevClose;
+                            const pct = prevClose ? (diff / prevClose) * 100 : 0;
+                            const direction = diff >= 0 ? 'up' : 'down';
+                            const changeStr = (diff >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+                            const priceStr = `${item.prefix || ''}${price.toFixed(item.decimals)}${item.suffix || ''}`;
+
+                            if (item.key === 'Cu') {
+                                stockData.Cu = { price: priceStr };
+                            } else {
+                                stockData[item.key] = {
+                                    symbol: stockData[item.key]?.symbol || item.symbol.split('.')[0],
+                                    price: priceStr,
+                                    change: changeStr,
+                                    direction: direction
+                                };
+                            }
+                            updated = true;
+                            break; // Successfully got quote for this symbol
+                        }
+                    } catch (e) {
+                        // Failover to next proxy cleanly
+                    }
+                }
+            }
+
+            if (updated) {
+                updateTickerUI();
+            }
+        }
+
+        // Fetch live market quotes 2 seconds after initial load and refresh every 60s
+        setTimeout(fetchLiveMarketData, 2000);
+        setInterval(fetchLiveMarketData, 60000);
     }
     initTicker();
 
