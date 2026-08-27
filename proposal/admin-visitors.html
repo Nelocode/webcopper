@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Compliance Administration Panel | Copper Giant</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- JSZip & FileSaver CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0b0f14;
+            --bg-card: rgba(18, 24, 32, 0.9);
+            --bg-input: #141c26;
+            --border-card: rgba(217, 119, 54, 0.25);
+            --copper-primary: #d97736;
+            --copper-hover: #f08c4a;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --danger: #ef4444;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        /* Admin Navbar */
+        .admin-nav {
+            background: rgba(18, 24, 32, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .admin-logo img {
+            height: 34px;
+        }
+
+        .admin-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .admin-title span {
+            color: var(--copper-primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-export-all {
+            background: linear-gradient(135deg, var(--copper-primary) 0%, var(--copper-hover) 100%);
+            border: none;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(217, 119, 54, 0.3);
+            transition: all 0.2s;
+        }
+
+        .btn-export-all:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 119, 54, 0.5);
+        }
+
+        .btn-logout {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--danger);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Container & Grid */
+        .admin-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(217, 119, 54, 0.15);
+            color: var(--copper-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .metric-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .metric-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* Table Card */
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .search-box {
+            background: var(--bg-input);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 300px;
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            color: #fff;
+            outline: none;
+            font-size: 0.88rem;
+            width: 100%;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .custom-table th {
+            padding: 14px 16px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            text-transform: uppercase;
+        }
+
+        .custom-table td {
+            padding: 16px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .custom-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-approved {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-action {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: var(--copper-primary);
+            border-color: var(--copper-primary);
+        }
+
+        /* Inspect Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .inspect-card {
+            background: #121820;
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .inspect-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .inspect-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .inspect-field {
+            background: var(--bg-input);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .inspect-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .inspect-value {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .signature-preview-box {
+            background: #ffffff;
+            border: 2px solid var(--copper-primary);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .signature-preview-box img {
+            max-height: 120px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Security Lock Modal -->
+    <div id="adminLockModal" class="modal-overlay">
+        <div class="inspect-card" style="max-width: 400px; text-align: center;">
+            <div style="font-size: 2.2rem; color: var(--copper-primary); margin-bottom: 14px;"><i class="fa-solid fa-lock"></i></div>
+            <h2 style="font-family: 'Outfit', sans-serif; color: #fff; margin-bottom: 8px;">Panel Administrativo</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Ingresa la contraseña de administrador de visitantes.</p>
+            <input type="password" id="inputAdminPin" placeholder="Contraseña de Admin" style="width: 100%; padding: 12px; border-radius: 8px; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 16px;">
+            <button onclick="unlockAdmin()" class="btn-export-all" style="width: 100%; justify-content: center;">Desbloquear Panel</button>
+            <p id="adminPinError" style="color: var(--danger); font-size: 0.8rem; margin-top: 10px; display: none;">Contraseña incorrecta.</p>
+        </div>
+    </div>
+
+    <!-- Top Admin Nav -->
+    <nav class="admin-nav">
+        <a href="index.html" class="admin-logo">
+            <img src="Recurso 1.svg" alt="Copper Giant Logo">
+            <div class="admin-title">COPPER <span>GIANT</span> | Visitor Admin</div>
+        </a>
+        <div class="nav-actions">
+            <button class="btn-export-all" onclick="exportAllVisitorsZip()">
+                <i class="fa-solid fa-file-zipper"></i> Descargar Todo en ZIP
+            </button>
+            <a href="visitor.html" class="btn-action" style="text-decoration: none;">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Portal Visitantes
+            </a>
+            <button class="btn-logout" onclick="logoutAdmin()"><i class="fa-solid fa-lock"></i> Salir</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="admin-container">
+
+        <!-- Metrics Cards -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
+                <div>
+                    <div class="metric-value" id="valTotalVisitors">0</div>
+                    <div class="metric-label">Visitantes Registrados</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-file-circle-check"></i></div>
+                <div>
+                    <div class="metric-value" id="valSignatures">0</div>
+                    <div class="metric-label">Firmas Digitales Verificadas</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                <div>
+                    <div class="metric-value" id="valAllergiesCount">0</div>
+                    <div class="metric-label">Alertas de Alergia / Salud</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Directory -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.2rem; color: #fff;">Directorio de Registro de Visitantes</h3>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
+                    <input type="text" id="inputSearch" placeholder="Buscar por Nombre, ID, Anfitrión..." onkeyup="filterVisitorsTable()">
+                </div>
+            </div>
+
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>ID Visitante</th>
+                        <th>Nombre Completo</th>
+                        <th>Cédula / Pasaporte</th>
+                        <th>Anfitrión (Host)</th>
+                        <th>Talla Botas</th>
+                        <th>Alergia / Salud</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableVisitorBody">
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Inspect Modal -->
+    <div id="inspectModal" class="modal-overlay hidden">
+        <div class="inspect-card">
+            <div class="inspect-title">
+                <span>Detalle de Declaración de Visitante</span>
+                <button onclick="closeInspectModal()" style="background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="inspect-grid">
+                <div class="inspect-field">
+                    <div class="inspect-label">ID Registro Visitante</div>
+                    <div class="inspect-value" id="insId" style="color: var(--copper-primary);"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Fecha de Registro</div>
+                    <div class="inspect-value" id="insDate"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Nombre Completo</div>
+                    <div class="inspect-value" id="insName"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Cédula / Pasaporte</div>
+                    <div class="inspect-value" id="insIdNum"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Correo Electrónico</div>
+                    <div class="inspect-value" id="insEmail"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Teléfono de Contacto</div>
+                    <div class="inspect-value" id="insPhone"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Persona a Visitar (Host)</div>
+                    <div class="inspect-value" id="insHost"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Talla de Botas (EPP)</div>
+                    <div class="inspect-value" id="insBoot"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Alergias Declaradas</div>
+                    <div class="inspect-value" id="insAllergy"></div>
+                </div>
+                <div class="inspect-field">
+                    <div class="inspect-label">Medicación Diaria</div>
+                    <div class="inspect-value" id="insMeds"></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <div class="inspect-label">Firma Digital Dibujada a Mano</div>
+                <div class="signature-preview-box">
+                    <img id="insSignatureImg" src="" alt="Firma Digital">
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-export-all" id="btnSingleZip" onclick="exportSingleVisitorZip()"><i class="fa-solid fa-file-zipper"></i> Descargar ZIP de este Visitante</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let currentRecords = [];
+        let selectedRecord = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminAuth();
+        });
+
+        function checkAdminAuth() {
+            if (localStorage.getItem('cgnt_visitor_admin_auth') === 'true') {
+                document.getElementById('adminLockModal').classList.add('hidden');
+                loadVisitorData();
+            }
+        }
+
+        function unlockAdmin() {
+            const pin = document.getElementById('inputAdminPin').value.trim();
+            if (pin === 'copper2026' || pin === 'i212345678' || pin === 'visitor2026') {
+                localStorage.setItem('cgnt_visitor_admin_auth', 'true');
+                document.getElementById('adminLockModal').classList.add('hidden');
+                loadVisitorData();
+            } else {
+                document.getElementById('adminPinError').style.display = 'block';
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('cgnt_visitor_admin_auth');
+            window.location.reload();
+        }
+
+        function loadVisitorData() {
+            currentRecords = JSON.parse(localStorage.getItem('cgnt_visitor_records') || '[]');
+            
+            // Render metrics
+            document.getElementById('valTotalVisitors').innerText = currentRecords.length;
+            document.getElementById('valSignatures').innerText = currentRecords.filter(r => r.signature).length;
+            document.getElementById('valAllergiesCount').innerText = currentRecords.filter(r => r.allergy === 'Yes' || r.meds === 'Yes').length;
+
+            renderTable(currentRecords);
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tableVisitorBody');
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de visitantes aún.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map((item, idx) => `
+                <tr>
+                    <td>${item.date || '2026-08-27'}</td>
+                    <td style="font-family: monospace; color: var(--copper-primary);">${item.id}</td>
+                    <td><strong>${item.name}</strong></td>
+                    <td>${item.idNumber}</td>
+                    <td>${item.host}</td>
+                    <td>${item.bootSize}</td>
+                    <td>${item.allergy === 'Yes' ? '<span class="badge-status" style="background: rgba(239,68,68,0.15); color: #ef4444;">Sí (' + (item.allergyDetail || 'Alergia') + ')</span>' : '<span style="color: var(--text-muted);">Sin Alertas</span>'}</td>
+                    <td>
+                        <button class="btn-action" onclick="inspectRecord(${idx})"><i class="fa-solid fa-eye"></i> Inspeccionar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function filterVisitorsTable() {
+            const q = document.getElementById('inputSearch').value.toLowerCase();
+            const filtered = currentRecords.filter(r => 
+                (r.name && r.name.toLowerCase().includes(q)) ||
+                (r.idNumber && r.idNumber.toLowerCase().includes(q)) ||
+                (r.host && r.host.toLowerCase().includes(q)) ||
+                (r.id && r.id.toLowerCase().includes(q))
+            );
+            renderTable(filtered);
+        }
+
+        function inspectRecord(idx) {
+            selectedRecord = currentRecords[idx];
+            document.getElementById('insId').innerText = selectedRecord.id;
+            document.getElementById('insDate').innerText = selectedRecord.date;
+            document.getElementById('insName').innerText = selectedRecord.name;
+            document.getElementById('insIdNum').innerText = selectedRecord.idNumber;
+            document.getElementById('insEmail').innerText = selectedRecord.email;
+            document.getElementById('insPhone').innerText = selectedRecord.phone;
+            document.getElementById('insHost').innerText = selectedRecord.host;
+            document.getElementById('insBoot').innerText = selectedRecord.bootSize;
+            document.getElementById('insAllergy').innerText = selectedRecord.allergy === 'Yes' ? `Sí: ${selectedRecord.allergyDetail || ''}` : 'No';
+            document.getElementById('insMeds').innerText = selectedRecord.meds === 'Yes' ? `Sí: ${selectedRecord.medsDetail || ''}` : 'No';
+            document.getElementById('insSignatureImg').src = selectedRecord.signature || '';
+
+            document.getElementById('inspectModal').classList.remove('hidden');
+        }
+
+        function closeInspectModal() {
+            document.getElementById('inspectModal').classList.add('hidden');
+        }
+
+        // Single Visitor ZIP Export Engine
+        function exportSingleVisitorZip() {
+            if (!selectedRecord) return;
+            const zip = new JSZip();
+            
+            // 1. Details JSON
+            zip.file("visitor_details.json", JSON.stringify(selectedRecord, null, 2));
+
+            // 2. Details CSV
+            const csv = `ID,Fecha,Nombre,Cedula,Email,Telefono,Anfitrion,Talla_Botas,Alergias,Medicacion\n` +
+                        `"${selectedRecord.id}","${selectedRecord.date}","${selectedRecord.name}","${selectedRecord.idNumber}","${selectedRecord.email}","${selectedRecord.phone}","${selectedRecord.host}","${selectedRecord.bootSize}","${selectedRecord.allergy}","${selectedRecord.meds}"`;
+            zip.file("visitor_summary.csv", csv);
+
+            // 3. Signature Image PNG
+            if (selectedRecord.signature) {
+                const base64Data = selectedRecord.signature.replace(/^data:image\/png;base64,/, "");
+                zip.file("digital_signature.png", base64Data, { base64: true });
+            }
+
+            // Generate ZIP file
+            zip.generateAsync({ type: "blob" }).then(function(content) {
+                saveAs(content, `${selectedRecord.id}_${selectedRecord.name.replace(/\s+/g, '_')}_Package.zip`);
+            });
+        }
+
+        // Batch All Visitors ZIP Export Engine
+        function exportAllVisitorsZip() {
+            if (currentRecords.length === 0) {
+                alert("No hay registros para exportar.");
+                return;
+            }
+
+            const zip = new JSZip();
+            zip.file("all_visitors_master.json", JSON.stringify(currentRecords, null, 2));
+
+            let csv = `ID,Fecha,Nombre,Cedula,Email,Telefono,Anfitrion,Talla_Botas,Alergias,Medicacion\n`;
+            currentRecords.forEach(r => {
+                csv += `"${r.id}","${r.date}","${r.name}","${r.idNumber}","${r.email}","${r.phone}","${r.host}","${r.bootSize}","${r.allergy}","${r.meds}"\n`;
+
+                if (r.signature) {
+                    const base64Data = r.signature.replace(/^data:image\/png;base64,/, "");
+                    zip.file(`signatures/${r.id}_${r.name.replace(/\s+/g, '_')}_sig.png`, base64Data, { base64: true });
+                }
+            });
+
+            zip.file("visitors_summary.csv", csv);
+
+            zip.generateAsync({ type: "blob" }).then(function(content) {
+                saveAs(content, `CopperGiant_Visitor_Compliance_Batch_${new Date().toISOString().split('T')[0]}.zip`);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Onboarding & Compliance Portal | Copper Giant</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- JSZip & FileSaver for Zip Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0b0f14;
+            --bg-card: rgba(18, 24, 32, 0.85);
+            --bg-input: #141c26;
+            --border-card: rgba(217, 119, 54, 0.25);
+            --border-focus: #d97736;
+            --copper-primary: #d97736;
+            --copper-hover: #f08c4a;
+            --copper-glow: rgba(217, 119, 54, 0.35);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-glass: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(217, 119, 54, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(217, 119, 54, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(74, 144, 226, 0.06) 0%, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Header */
+        .portal-header {
+            width: 100%;
+            max-width: 900px;
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-logo img {
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-title span {
+            color: var(--copper-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(217, 119, 54, 0.2);
+            border-color: var(--copper-primary);
+        }
+
+        .admin-link {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .admin-link:hover {
+            color: var(--copper-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Container & Cards */
+        .portal-container {
+            width: 100%;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(217, 119, 54, 0.15) 0%, rgba(18, 24, 32, 0.9) 100%);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-glass);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(217, 119, 54, 0.1));
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-title i {
+            color: var(--copper-primary);
+        }
+
+        .hero-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Step Navigation Bar */
+        .step-progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(18, 24, 32, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 8px 12px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .step-pill {
+            flex: 1;
+            text-align: center;
+            padding: 10px 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-pill.active {
+            background: var(--copper-primary);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(217, 119, 54, 0.4);
+        }
+
+        .step-pill.completed {
+            color: var(--success);
+        }
+
+        .step-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+
+        .step-pill.active .step-num {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        /* Form Card Containers */
+        .form-section {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            box-shadow: var(--shadow-glass);
+            backdrop-filter: blur(16px);
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--copper-primary);
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-top: 6px;
+        }
+
+        /* PDF Safety Documents Grid */
+        .pdf-docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .pdf-doc-card {
+            background: var(--bg-input);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .pdf-doc-card:hover {
+            border-color: var(--copper-primary);
+            transform: translateY(-2px);
+        }
+
+        .doc-icon {
+            font-size: 2.2rem;
+            color: #ef4444;
+            margin-bottom: 12px;
+        }
+
+        .doc-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .doc-meta {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .read-pdf-btn {
+            background: rgba(217, 119, 54, 0.15);
+            border: 1px solid var(--border-card);
+            color: var(--copper-primary);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .read-pdf-btn:hover {
+            background: var(--copper-primary);
+            color: #fff;
+        }
+
+        .doc-status-badge {
+            margin-top: 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-dim);
+        }
+
+        .doc-status-badge.read {
+            color: var(--success);
+        }
+
+        /* Input Groups */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        label .required {
+            color: var(--danger);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            background: var(--bg-input);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: #ffffff;
+            font-size: 0.92rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px var(--copper-glow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Choice Pill Group (Yes / No) */
+        .choice-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .choice-btn {
+            flex: 1;
+            background: var(--bg-input);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .choice-btn.selected {
+            background: rgba(217, 119, 54, 0.2);
+            border-color: var(--copper-primary);
+            color: var(--copper-primary);
+        }
+
+        /* File Uploader Box */
+        .file-upload-box {
+            border: 2px dashed rgba(255, 255, 255, 0.18);
+            border-radius: var(--radius-md);
+            padding: 24px 20px;
+            text-align: center;
+            background: rgba(20, 28, 38, 0.5);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            position: relative;
+        }
+
+        .file-upload-box:hover {
+            border-color: var(--copper-primary);
+            background: rgba(217, 119, 54, 0.05);
+        }
+
+        .file-upload-box input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 1.8rem;
+            color: var(--copper-primary);
+            margin-bottom: 8px;
+        }
+
+        .upload-text {
+            font-size: 0.88rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .upload-subtext {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .uploaded-file-name {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--success);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Compliance Checklist Card (Matching Physical Document Reference) */
+        .declaration-box {
+            background: rgba(217, 119, 54, 0.08);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            margin-bottom: 24px;
+        }
+
+        .declaration-header {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--copper-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(217, 119, 54, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .declaration-text {
+            font-size: 0.88rem;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--copper-primary);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .checkbox-label {
+            font-size: 0.88rem;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        /* Digital Signature Canvas Pad (CRITICAL) */
+        .signature-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .signature-canvas-container {
+            background: #ffffff;
+            border: 2px solid var(--copper-primary);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        canvas#signatureCanvas {
+            width: 100%;
+            height: 180px;
+            display: block;
+            cursor: crosshair;
+        }
+
+        .signature-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .signature-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-clear-sig {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--danger);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-clear-sig:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        /* Form Footer Actions */
+        .form-footer-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-prev:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--copper-primary) 0%, var(--copper-hover) 100%);
+            border: none;
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(217, 119, 54, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 119, 54, 0.6);
+        }
+
+        /* Passcode Security Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .passcode-card {
+            background: #121820;
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-lg);
+            padding: 36px 30px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: var(--shadow-glass);
+        }
+
+        .lock-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(217, 119, 54, 0.15);
+            color: var(--copper-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 18px;
+        }
+
+        /* PDF Viewer Modal */
+        .pdf-modal-container {
+            background: #18202a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            width: 92%;
+            max-width: 900px;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .pdf-modal-header {
+            padding: 16px 20px;
+            background: #121820;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pdf-modal-body {
+            flex: 1;
+            background: #2a3442;
+        }
+
+        .pdf-modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .pdf-modal-footer {
+            padding: 16px 20px;
+            background: #121820;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Success Confirmation Modal */
+        .success-card {
+            background: #121820;
+            border: 1px solid var(--success);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 20px;
+        }
+
+        /* Guided Tour Overlay */
+        .tour-popover {
+            position: absolute;
+            background: #1e2734;
+            border: 2px solid var(--copper-primary);
+            border-radius: 12px;
+            padding: 18px 20px;
+            width: 300px;
+            z-index: 10000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            display: none;
+        }
+
+        .tour-popover-title {
+            font-weight: 700;
+            color: var(--copper-primary);
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .tour-popover-desc {
+            font-size: 0.85rem;
+            color: #d1d5db;
+            line-height: 1.4;
+            margin-bottom: 14px;
+        }
+
+        .tour-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Passcode Modal Lock -->
+    <div id="passcodeModal" class="modal-overlay">
+        <div class="passcode-card">
+            <div class="lock-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.4rem; color: #fff; margin-bottom: 8px;" id="txtLockTitle">Portal de Visitantes</h2>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;" id="txtLockDesc">Por favor ingresa la clave de acceso de visitante para continuar.</p>
+            <input type="password" id="inputVisitorPin" placeholder="PIN de Acceso" style="width: 100%; text-align: center; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 16px;">
+            <button onclick="unlockVisitorPortal()" class="btn-next" style="width: 100%; justify-content: center;" id="btnUnlock">Ingresar al Portal</button>
+            <p id="lockError" style="color: var(--danger); font-size: 0.82rem; margin-top: 10px; display: none;">PIN incorrecto. Intenta de nuevo.</p>
+        </div>
+    </div>
+
+    <!-- Header Bar -->
+    <header class="portal-header">
+        <a href="index.html" class="brand-logo">
+            <img src="Recurso 1.svg" alt="Copper Giant Logo">
+            <div class="brand-title">COPPER <span>GIANT</span></div>
+        </a>
+        <div class="header-actions">
+            <button class="lang-btn" onclick="toggleLanguage()">
+                <i class="fa-solid fa-globe"></i> <span id="langLabel">English</span>
+            </button>
+            <a href="admin-visitors.html" class="admin-link">
+                <i class="fa-solid fa-user-shield"></i> <span id="txtAdminLink">Admin Portal</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="portal-container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <div class="hero-title">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span id="t_heroTitle">Declaración de Cumplimiento e Ingreso de Visitantes</span>
+            </div>
+            <div class="hero-subtitle" id="t_heroSub">
+                Bienvenido al Proyecto Mocoa. Por favor completa los 5 pasos obligatorios de seguridad, salud y firma digital antes de ingresar a campo.
+            </div>
+        </div>
+
+        <!-- Step Navigation Progress Bar -->
+        <div class="step-progress-bar">
+            <div class="step-pill active" id="stepPill1" onclick="jumpToStep(1)">
+                <span class="step-num">1</span> <span id="t_step1Label">Seguridad</span>
+            </div>
+            <div class="step-pill" id="stepPill2" onclick="jumpToStep(2)">
+                <span class="step-num">2</span> <span id="t_step2Label">Documentos</span>
+            </div>
+            <div class="step-pill" id="stepPill3" onclick="jumpToStep(3)">
+                <span class="step-num">3</span> <span id="t_step3Label">Salud & Botas</span>
+            </div>
+            <div class="step-pill" id="stepPill4" onclick="jumpToStep(4)">
+                <span class="step-num">4</span> <span id="t_step4Label">Términos</span>
+            </div>
+            <div class="step-pill" id="stepPill5" onclick="jumpToStep(5)">
+                <span class="step-num">5</span> <span id="t_step5Label">Datos & Firma</span>
+            </div>
+        </div>
+
+        <!-- STEP 1: SAFETY DOCUMENTS -->
+        <div class="form-section active" id="stepSection1">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-book-medical"></i> <span id="t_s1Title">Paso 1: Lectura de Protocolos de Seguridad</span></div>
+                <div class="section-desc" id="t_s1Desc">Es obligatorio leer y aceptar los documentos de inducción de seguridad de Copper Giant antes de ingresar a campo.</div>
+            </div>
+
+            <div class="pdf-docs-grid">
+                <div class="pdf-doc-card">
+                    <div>
+                        <i class="fa-solid fa-file-pdf doc-icon"></i>
+                        <div class="doc-name" id="t_doc1Name">Manual de Inducción de Seguridad HSE</div>
+                        <div class="doc-meta" id="t_doc1Meta">Normas generales de seguridad en perforación y terreno.</div>
+                    </div>
+                    <button class="read-pdf-btn" onclick="openPdfModal('Manual_Seguridad_HSE.pdf', 'Manual de Inducción de Seguridad HSE')">
+                        <i class="fa-solid fa-eye"></i> <span id="t_btnRead1">Leer Documento</span>
+                    </button>
+                    <div class="doc-status-badge" id="badgeDoc1"><i class="fa-regular fa-circle"></i> <span id="t_statusUnread1">Pendiente de Lectura</span></div>
+                </div>
+
+                <div class="pdf-doc-card">
+                    <div>
+                        <i class="fa-solid fa-file-pdf doc-icon"></i>
+                        <div class="doc-name" id="t_doc2Name">Código de Conducta & Emergencias</div>
+                        <div class="doc-meta" id="t_doc2Meta">Protocolos de respuesta inmediata y relaciones comunitarias.</div>
+                    </div>
+                    <button class="read-pdf-btn" onclick="openPdfModal('Codigo_Conducta_Emergencias.pdf', 'Código de Conducta & Emergencias')">
+                        <i class="fa-solid fa-eye"></i> <span id="t_btnRead2">Leer Documento</span>
+                    </button>
+                    <div class="doc-status-badge" id="badgeDoc2"><i class="fa-regular fa-circle"></i> <span id="t_statusUnread2">Pendiente de Lectura</span></div>
+                </div>
+            </div>
+
+            <div class="form-footer-actions">
+                <div></div>
+                <button class="btn-next" onclick="nextStep(2)"><span id="t_btnNext1">Siguiente: Carga de Documentos</span> <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- STEP 2: DOCUMENT UPLOADS -->
+        <div class="form-section" id="stepSection2">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-cloud-arrow-up"></i> <span id="t_s2Title">Paso 2: Carga de Documentación de Ingreso</span></div>
+                <div class="section-desc" id="t_s2Desc">Adjunta los carnets de vacunación requeridos y la copia de tu documento para la afiliación a la póliza de visitante.</div>
+            </div>
+
+            <div class="form-grid">
+                <!-- Vaccination Uploader -->
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-syringe" style="color: var(--copper-primary);"></i> <span id="t_lblVac">Carnet de Vacunación (Fiebre Amarilla, Tétanos, Influenza para >60 años)</span> <span class="required">*</span></label>
+                    <div class="file-upload-box">
+                        <input type="file" id="fileVaccine" accept="image/*,application/pdf" onchange="handleFileSelect(this, 'txtVacFileName')">
+                        <div class="upload-icon"><i class="fa-solid fa-file-medical"></i></div>
+                        <div class="upload-text" id="t_upVacText">Arrastra o haz clic para subir tu Carnet de Vacunación</div>
+                        <div class="upload-subtext">Formatos permitidos: PDF, JPG, PNG (Máx 10MB)</div>
+                        <div class="uploaded-file-name" id="txtVacFileName"></div>
+                    </div>
+                </div>
+
+                <!-- Passport/ID Uploader -->
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-id-card" style="color: var(--copper-primary);"></i> <span id="t_lblPass">Copia de Pasaporte / Cédula (Afiliación a Póliza de Visitante)</span> <span class="required">*</span></label>
+                    <div class="file-upload-box">
+                        <input type="file" id="filePassport" accept="image/*,application/pdf" onchange="handleFileSelect(this, 'txtPassFileName')">
+                        <div class="upload-icon"><i class="fa-solid fa-passport"></i></div>
+                        <div class="upload-text" id="t_upPassText">Arrastra o haz clic para subir tu Cédula / Pasaporte</div>
+                        <div class="upload-subtext">Requerido para la activación de seguro de accidentes en terreno</div>
+                        <div class="uploaded-file-name" id="txtPassFileName"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-footer-actions">
+                <button class="btn-prev" onclick="prevStep(1)"><i class="fa-solid fa-arrow-left"></i> <span id="t_btnPrev2">Anterior</span></button>
+                <button class="btn-next" onclick="nextStep(3)"><span id="t_btnNext2">Siguiente: Salud & Botas</span> <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- STEP 3: HEALTH & SAFETY DECLARATION -->
+        <div class="form-section" id="stepSection3">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-heart-pulse"></i> <span id="t_s3Title">Paso 3: Verificación de Estado de Salud & Talla de Botas</span></div>
+                <div class="section-desc" id="t_s3Desc">Informa sobre alergias o medicamentos de uso diario para la respuesta del personal médico en campo.</div>
+            </div>
+
+            <div class="form-grid">
+                <!-- Allergies -->
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-wheat-awn-circle-exclamation" style="color: var(--copper-primary);"></i> <span id="t_lblAllergies">¿Presenta algún tipo de alergia? (Medicamento, alimento o planta)</span> <span class="required">*</span></label>
+                    <div class="choice-group">
+                        <div class="choice-btn" id="btnAllergyNo" onclick="setChoice('allergy', 'No')">No</div>
+                        <div class="choice-btn" id="btnAllergyYes" onclick="setChoice('allergy', 'Yes')">Sí</div>
+                    </div>
+                </div>
+                <div class="form-group full-width" id="boxAllergyDetail" style="display: none;">
+                    <label><span id="t_lblAllergyDetail">Especifique el tipo de alergia y sustancia:</span></label>
+                    <input type="text" id="inputAllergyDetail" placeholder="Ej: Penicilina, Mariscos, Polvo...">
+                </div>
+
+                <!-- Daily Medication -->
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-pills" style="color: var(--copper-primary);"></i> <span id="t_lblMeds">¿Presenta alguna enfermedad que requiera medicación diaria?</span> <span class="required">*</span></label>
+                    <div class="choice-group">
+                        <div class="choice-btn" id="btnMedsNo" onclick="setChoice('meds', 'No')">No</div>
+                        <div class="choice-btn" id="btnMedsYes" onclick="setChoice('meds', 'Yes')">Sí</div>
+                    </div>
+                </div>
+                <div class="form-group full-width" id="boxMedsDetail" style="display: none;">
+                    <label><span id="t_lblMedsDetail">Especifique medicamento y dosis:</span></label>
+                    <input type="text" id="inputMedsDetail" placeholder="Ej: Losartán 50mg diario...">
+                </div>
+
+                <!-- Pregnancy (From Document Reference) -->
+                <div class="form-group">
+                    <label><i class="fa-solid fa-person-pregnant" style="color: var(--copper-primary);"></i> <span id="t_lblPregnancy">Estado de Embarazo</span></label>
+                    <select id="selectPregnancy">
+                        <option value="No">No</option>
+                        <option value="Yes">Sí</option>
+                        <option value="N/A">N/A</option>
+                    </select>
+                </div>
+
+                <!-- Social Security / ARL -->
+                <div class="form-group">
+                    <label><i class="fa-solid fa-hospital-user" style="color: var(--copper-primary);"></i> <span id="t_lblArl">Seguro Médico / EPS / ARL</span></label>
+                    <input type="text" id="inputArlProvider" placeholder="Nombre de EPS / ARL / Seguro">
+                </div>
+
+                <!-- Boot Size -->
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-shoe-prints" style="color: var(--copper-primary);"></i> <span id="t_lblBoot">Talla de Botas de Seguridad (EPP Terreno)</span> <span class="required">*</span></label>
+                    <select id="selectBootSize">
+                        <option value="">Seleccione su talla...</option>
+                        <option value="36 US 5">36 EU / 5 US (23 cm)</option>
+                        <option value="37 US 5.5">37 EU / 5.5 US (23.5 cm)</option>
+                        <option value="38 US 6">38 EU / 6 US (24 cm)</option>
+                        <option value="39 US 7">39 EU / 7 US (25 cm)</option>
+                        <option value="40 US 7.5">40 EU / 7.5 US (25.5 cm)</option>
+                        <option value="41 US 8.5">41 EU / 8.5 US (26.5 cm)</option>
+                        <option value="42 US 9">42 EU / 9 US (27 cm)</option>
+                        <option value="43 US 10">43 EU / 10 US (28 cm)</option>
+                        <option value="44 US 11">44 EU / 11 US (29 cm)</option>
+                        <option value="45 US 12">45 EU / 12 US (30 cm)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-footer-actions">
+                <button class="btn-prev" onclick="prevStep(2)"><i class="fa-solid fa-arrow-left"></i> <span id="t_btnPrev3">Anterior</span></button>
+                <button class="btn-next" onclick="nextStep(4)"><span id="t_btnNext3">Siguiente: Términos & Habeas Data</span> <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- STEP 4: TERMS & HABEAS DATA CONSENT -->
+        <div class="form-section" id="stepSection4">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-file-contract"></i> <span id="t_s4Title">Paso 4: Declaración de Cumplimiento & Habeas Data</span></div>
+                <div class="section-desc" id="t_s4Desc">Revisa y acepta la declaración oficial de visitante y el tratamiento de datos personales.</div>
+            </div>
+
+            <!-- Declaration Text Box (Matching Physical Reference Document Image) -->
+            <div class="declaration-box">
+                <div class="declaration-header" id="t_decHeader">VISITOR COMPLIANCE DECLARATION / DECLARACIÓN DE VISITANTE</div>
+                <div class="declaration-text" id="t_decBody">
+                    Certifico que he leído, comprendido y aceptado la información de seguridad provista por Copper Giant Resources Corp., comprometiéndome a cumplir con todos los requerimientos de la compañía y normas de seguridad en terreno durante mi visita al Proyecto Mocoa.
+                </div>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="chkSafetyCompliance">
+                <label for="chkSafetyCompliance" class="checkbox-label" id="t_chk1Label">
+                    <strong>Acepto la Declaración de Cumplimiento de Seguridad:</strong> Confirmo haber recibido la inducción y me comprometo a usar el Equipo de Protección Personal (EPP) completo en las instalaciones. <span class="required">*</span>
+                </label>
+            </div>
+
+            <div class="checkbox-container">
+                <input type="checkbox" id="chkHabeasData">
+                <label for="chkHabeasData" class="checkbox-label" id="t_chk2Label">
+                    <strong>Autorización de Tratamiento de Datos Personales (Habeas Data Ley 1581 / GDPR):</strong> Autorizo a Copper Giant a recolectar y procesar mis datos de salud, contacto y documentos para la activación de la póliza de visitantes y protocolos de seguridad. <span class="required">*</span>
+                </label>
+            </div>
+
+            <div class="form-footer-actions">
+                <button class="btn-prev" onclick="prevStep(3)"><i class="fa-solid fa-arrow-left"></i> <span id="t_btnPrev4">Anterior</span></button>
+                <button class="btn-next" onclick="nextStep(5)"><span id="t_btnNext4">Siguiente: Datos & Firma Digital</span> <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- STEP 5: PERSONAL DATA & CANVAS SIGNATURE (CRITICAL) -->
+        <div class="form-section" id="stepSection5">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-signature"></i> <span id="t_s5Title">Paso 5: Datos Personales & Firma Digital Obligatoria</span></div>
+                <div class="section-desc" id="t_s5Desc">Ingresa tus datos personales y dibuja tu firma a mano en el recuadro interactivo.</div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-user"></i> <span id="t_lblName">Nombre Completo</span> <span class="required">*</span></label>
+                    <input type="text" id="inputFullName" placeholder="Ej: Juan Carlos Pérez">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-address-card"></i> <span id="t_lblId">Cédula / Pasaporte No.</span> <span class="required">*</span></label>
+                    <input type="text" id="inputIdNumber" placeholder="Ej: 1020304050">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-envelope"></i> <span id="t_lblEmail">Correo Electrónico</span> <span class="required">*</span></label>
+                    <input type="email" id="inputEmail" placeholder="juan.perez@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-phone"></i> <span id="t_lblPhone">Número de Teléfono</span> <span class="required">*</span></label>
+                    <input type="tel" id="inputPhone" placeholder="+57 300 123 4567">
+                </div>
+
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-user-tie"></i> <span id="t_lblHost">Persona a Visitar en Campo / Anfitrión (Host)</span> <span class="required">*</span></label>
+                    <input type="text" id="inputHostName" placeholder="Ej: Ing. Edwin Naranjo - Geología Mocoa">
+                </div>
+
+                <!-- Hand-Drawn Signature Pad (ABSOLUTELY CRITICAL) -->
+                <div class="form-group full-width">
+                    <label><i class="fa-solid fa-pen-nib" style="color: var(--copper-primary);"></i> <span id="t_lblSig">Firma Digital Dibujada (MANDATORIA)</span> <span class="required">*</span></label>
+                    <div class="signature-wrapper">
+                        <div class="signature-canvas-container">
+                            <canvas id="signatureCanvas"></canvas>
+                        </div>
+                        <div class="signature-actions">
+                            <div class="signature-hint" id="t_sigHint"><i class="fa-solid fa-hand-pointer"></i> Dibuja tu firma con el dedo o ratón dentro del recuadro blanco</div>
+                            <button type="button" class="btn-clear-sig" onclick="clearSignature()"><i class="fa-solid fa-eraser"></i> <span id="t_btnClearSig">Limpiar Firma</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-footer-actions">
+                <button class="btn-prev" onclick="prevStep(4)"><i class="fa-solid fa-arrow-left"></i> <span id="t_btnPrev5">Anterior</span></button>
+                <button class="btn-next" onclick="submitVisitorForm()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fa-solid fa-circle-check"></i> <span id="t_btnSubmit">Finalizar & Guardar Registro</span></button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdfModal" class="modal-overlay hidden">
+        <div class="pdf-modal-container">
+            <div class="pdf-modal-header">
+                <div style="font-weight: 700; color: #fff; font-size: 1.05rem;" id="pdfModalTitle">Documento de Seguridad</div>
+                <button onclick="closePdfModal()" style="background: none; border: none; color: #9ca3af; font-size: 1.4rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="pdf-modal-body">
+                <iframe id="pdfIframe" src=""></iframe>
+            </div>
+            <div class="pdf-modal-footer">
+                <div style="color: var(--text-muted); font-size: 0.85rem;" id="t_pdfFooterHint">Por favor confirma que leíste y entendiste el documento.</div>
+                <button class="btn-next" onclick="confirmPdfRead()"><i class="fa-solid fa-check"></i> <span id="t_btnConfirmRead">Confirmar Lectura</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Confirmation Modal -->
+    <div id="successModal" class="modal-overlay hidden">
+        <div class="success-card">
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 10px;" id="t_succTitle">¡Registro de Visitante Completado!</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 24px;" id="t_succDesc">Tus documentos, declaración de salud y firma digital han sido registrados exitosamente para el ingreso a campo.</p>
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 14px; border-radius: 8px; font-family: monospace; font-size: 0.95rem; color: var(--copper-primary); margin-bottom: 24px;" id="txtVisitorCode">
+                ID VISITANTE: CG-VIS-2026-9042
+            </div>
+            <button class="btn-next" onclick="window.location.reload()" style="width: 100%; justify-content: center;"><i class="fa-solid fa-house"></i> <span id="t_btnFinish">Finalizar</span></button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // State & Translations
+        let currentLanguage = 'es'; // 'es' or 'en'
+        let activeStep = 1;
+        let selectedAllergy = 'No';
+        let selectedMeds = 'No';
+        let readDocs = { doc1: false, doc2: false };
+        let activePdfKey = '';
+        let isSigned = false;
+
+        const translations = {
+            es: {
+                lockTitle: 'Portal de Visitantes',
+                lockDesc: 'Por favor ingresa la clave de acceso de visitante para continuar.',
+                unlock: 'Ingresar al Portal',
+                adminLink: 'Panel Admin',
+                heroTitle: 'Declaración de Cumplimiento e Ingreso de Visitantes',
+                heroSub: 'Bienvenido al Proyecto Mocoa. Por favor completa los 5 pasos obligatorios de seguridad, salud y firma digital antes de ingresar a campo.',
+                step1: 'Seguridad', step2: 'Documentos', step3: 'Salud & Botas', step4: 'Términos', step5: 'Datos & Firma',
+                s1Title: 'Paso 1: Lectura de Protocolos de Seguridad',
+                s1Desc: 'Es obligatorio leer y aceptar los documentos de inducción de seguridad de Copper Giant antes de ingresar a campo.',
+                btnRead: 'Leer Documento', statusUnread: 'Pendiente de Lectura', statusRead: 'Leído & Aceptado',
+                btnNext1: 'Siguiente: Carga de Documentos',
+                s2Title: 'Paso 2: Carga de Documentación de Ingreso',
+                s2Desc: 'Adjunta los carnets de vacunación requeridos y la copia de tu documento para la afiliación a la póliza de visitante.',
+                lblVac: 'Carnet de Vacunación (Fiebre Amarilla, Tétanos, Influenza para >60 años)',
+                upVacText: 'Arrastra o haz clic para subir tu Carnet de Vacunación',
+                lblPass: 'Copia de Pasaporte / Cédula (Afiliación a Póliza de Visitante)',
+                upPassText: 'Arrastra o haz clic para subir tu Cédula / Pasaporte',
+                btnNext2: 'Siguiente: Salud & Botas', btnPrev: 'Anterior',
+                s3Title: 'Paso 3: Verificación de Estado de Salud & Talla de Botas',
+                s3Desc: 'Informa sobre alergias o medicamentos de uso diario para la respuesta del personal médico en campo.',
+                lblAllergies: '¿Presenta algún tipo de alergia? (Medicamento, alimento o planta)',
+                lblAllergyDetail: 'Especifique el tipo de alergia y sustancia:',
+                lblMeds: '¿Presenta alguna enfermedad que requiera medicación diaria?',
+                lblMedsDetail: 'Especifique medicamento y dosis:',
+                lblPregnancy: 'Estado de Embarazo',
+                lblArl: 'Seguro Médico / EPS / ARL',
+                lblBoot: 'Talla de Botas de Seguridad (EPP Terreno)',
+                btnNext3: 'Siguiente: Términos & Habeas Data',
+                s4Title: 'Paso 4: Declaración de Cumplimiento & Habeas Data',
+                s4Desc: 'Revisa y acepta la declaración oficial de visitante y el tratamiento de datos personales.',
+                decHeader: 'VISITOR COMPLIANCE DECLARATION / DECLARACIÓN DE VISITANTE',
+                decBody: 'Certifico que he leído, comprendido y aceptado la información de seguridad provista por Copper Giant Resources Corp., comprometiéndome a cumplir con todos los requerimientos de la compañía y normas de seguridad en terreno durante mi visita al Proyecto Mocoa.',
+                chk1Label: 'Acepto la Declaración de Cumplimiento de Seguridad: Confirmo haber recibido la inducción y me comprometo a usar el Equipo de Protección Personal (EPP) completo en las instalaciones.',
+                chk2Label: 'Autorización de Tratamiento de Datos Personales (Habeas Data Ley 1581 / GDPR): Autorizo a Copper Giant a recolectar y procesar mis datos de salud, contacto y documentos para la activación de la póliza de visitantes y protocolos de seguridad.',
+                btnNext4: 'Siguiente: Datos & Firma Digital',
+                s5Title: 'Paso 5: Datos Personales & Firma Digital Obligatoria',
+                s5Desc: 'Ingresa tus datos personales y dibuja tu firma a mano en el recuadro interactivo.',
+                lblName: 'Nombre Completo', lblId: 'Cédula / Pasaporte No.', lblEmail: 'Correo Electrónico', lblPhone: 'Número de Teléfono', lblHost: 'Persona a Visitar en Campo / Anfitrión (Host)',
+                lblSig: 'Firma Digital Dibujada (MANDATORIA)', sigHint: 'Dibuja tu firma con el dedo o ratón dentro del recuadro blanco', btnClearSig: 'Limpiar Firma',
+                btnSubmit: 'Finalizar & Guardar Registro',
+                succTitle: '¡Registro de Visitante Completado!', succDesc: 'Tus documentos, declaración de salud y firma digital han sido registrados exitosamente para el ingreso a campo.',
+                btnFinish: 'Finalizar'
+            },
+            en: {
+                lockTitle: 'Visitor Portal',
+                lockDesc: 'Please enter the visitor passcode to continue.',
+                unlock: 'Access Portal',
+                adminLink: 'Admin Portal',
+                heroTitle: 'Visitor Compliance & Safety Onboarding',
+                heroSub: 'Welcome to the Mocoa Project. Please complete the 5 mandatory safety, health, and digital signature steps prior to field entry.',
+                step1: 'Safety', step2: 'Documents', step3: 'Health & Boots', step4: 'Terms', step5: 'Details & Signature',
+                s1Title: 'Step 1: Safety Protocol Review',
+                s1Desc: 'Reading and accepting Copper Giant field safety induction documents is mandatory prior to site entry.',
+                btnRead: 'Read Document', statusUnread: 'Pending Review', statusRead: 'Read & Accepted',
+                btnNext1: 'Next: Upload Documents',
+                s2Title: 'Step 2: Onboarding Document Upload',
+                s2Desc: 'Attach required vaccination cards and a copy of your ID/Passport for visitor insurance policy affiliation.',
+                lblVac: 'Vaccination Certificate (Yellow Fever, Tetanus, Influenza for >60)',
+                upVacText: 'Drag or click to upload Vaccination Certificate',
+                lblPass: 'Passport / ID Copy (Visitor Insurance Policy Coverage)',
+                upPassText: 'Drag or click to upload Passport / ID Copy',
+                btnNext2: 'Next: Health & Boot Size', btnPrev: 'Previous',
+                s3Title: 'Step 3: Health Status & Gear Verification',
+                s3Desc: 'Declare known allergies or daily required medications for field medical emergency protocols.',
+                lblAllergies: 'Do you have any known allergies? (Medication, food, plant)',
+                lblAllergyDetail: 'Specify allergy type and substance:',
+                lblMeds: 'Do you have any condition requiring daily medication?',
+                lblMedsDetail: 'Specify medication and dosage:',
+                lblPregnancy: 'Pregnancy Status',
+                lblArl: 'Medical Insurance / Health Provider',
+                lblBoot: 'Safety Boot Size (Field PPE)',
+                btnNext3: 'Next: Terms & Data Consent',
+                s4Title: 'Step 4: Compliance Declaration & Data Treatment',
+                s4Desc: 'Review and accept the official visitor compliance declaration and personal data treatment policy.',
+                decHeader: 'VISITOR COMPLIANCE DECLARATION',
+                decBody: 'I certify that I have read, understood, and accepted the safety information provided by Copper Giant Resources Corp., agreeing to comply with all company requirements and field safety rules during my visit to the Mocoa Project.',
+                chk1Label: 'I accept the Safety Compliance Declaration: I confirm receiving safety induction and agree to wear full Personal Protective Equipment (PPE) at all times.',
+                chk2Label: 'Personal Data Treatment Authorization (Habeas Data / GDPR): I authorize Copper Giant to collect and process my health, contact data, and documents for visitor insurance activation and safety protocols.',
+                btnNext4: 'Next: Details & Digital Signature',
+                s5Title: 'Step 5: Personal Details & Mandatory Digital Signature',
+                s5Desc: 'Enter your contact details and draw your signature by hand on the interactive canvas.',
+                lblName: 'Full Name', lblId: 'ID / Passport Number', lblEmail: 'Email Address', lblPhone: 'Phone Number', lblHost: 'Host / Person Visited On Site',
+                lblSig: 'Hand-Drawn Digital Signature (MANDATORY)', sigHint: 'Draw your signature using finger touch or mouse inside the white box', btnClearSig: 'Clear Signature',
+                btnSubmit: 'Complete & Save Record',
+                succTitle: 'Visitor Registration Complete!', succDesc: 'Your documents, health declaration, and hand-drawn signature have been registered successfully for site access.',
+                btnFinish: 'Finish'
+            }
+        };
+
+        // DOM Loaded Init
+        document.addEventListener('DOMContentLoaded', () => {
+            initSignatureCanvas();
+            checkVisitorAuth();
+        });
+
+        function checkVisitorAuth() {
+            if (localStorage.getItem('cgnt_visitor_auth') === 'true') {
+                document.getElementById('passcodeModal').classList.add('hidden');
+            }
+        }
+
+        function unlockVisitorPortal() {
+            const pin = document.getElementById('inputVisitorPin').value.trim();
+            if (pin === 'visitor2026' || pin === 'copper2026' || pin === 'i212345678' || pin.toLowerCase() === 'mocoa') {
+                localStorage.setItem('cgnt_visitor_auth', 'true');
+                document.getElementById('passcodeModal').classList.add('hidden');
+            } else {
+                document.getElementById('lockError').style.display = 'block';
+            }
+        }
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+            const langText = currentLanguage === 'es' ? 'English' : 'Español';
+            document.getElementById('langLabel').innerText = langText;
+            applyTranslations();
+        }
+
+        function applyTranslations() {
+            const t = translations[currentLanguage];
+            document.getElementById('txtLockTitle').innerText = t.lockTitle;
+            document.getElementById('txtLockDesc').innerText = t.lockDesc;
+            document.getElementById('btnUnlock').innerText = t.unlock;
+            document.getElementById('txtAdminLink').innerText = t.adminLink;
+            document.getElementById('t_heroTitle').innerText = t.heroTitle;
+            document.getElementById('t_heroSub').innerText = t.heroSub;
+            document.getElementById('t_step1Label').innerText = t.step1;
+            document.getElementById('t_step2Label').innerText = t.step2;
+            document.getElementById('t_step3Label').innerText = t.step3;
+            document.getElementById('t_step4Label').innerText = t.step4;
+            document.getElementById('t_step5Label').innerText = t.step5;
+
+            document.getElementById('t_s1Title').innerText = t.s1Title;
+            document.getElementById('t_s1Desc').innerText = t.s1Desc;
+            document.getElementById('t_btnRead1').innerText = t.btnRead;
+            document.getElementById('t_btnRead2').innerText = t.btnRead;
+            document.getElementById('t_btnNext1').innerHTML = `${t.btnNext1} <i class="fa-solid fa-arrow-right"></i>`;
+
+            document.getElementById('t_s2Title').innerText = t.s2Title;
+            document.getElementById('t_s2Desc').innerText = t.s2Desc;
+            document.getElementById('t_lblVac').innerText = t.lblVac;
+            document.getElementById('t_upVacText').innerText = t.upVacText;
+            document.getElementById('t_lblPass').innerText = t.lblPass;
+            document.getElementById('t_upPassText').innerText = t.upPassText;
+            document.getElementById('t_btnNext2').innerHTML = `${t.btnNext2} <i class="fa-solid fa-arrow-right"></i>`;
+
+            document.getElementById('t_s3Title').innerText = t.s3Title;
+            document.getElementById('t_s3Desc').innerText = t.s3Desc;
+            document.getElementById('t_lblAllergies').innerText = t.lblAllergies;
+            document.getElementById('t_lblAllergyDetail').innerText = t.lblAllergyDetail;
+            document.getElementById('t_lblMeds').innerText = t.lblMeds;
+            document.getElementById('t_lblMedsDetail').innerText = t.lblMedsDetail;
+            document.getElementById('t_lblPregnancy').innerText = t.lblPregnancy;
+            document.getElementById('t_lblArl').innerText = t.lblArl;
+            document.getElementById('t_lblBoot').innerText = t.lblBoot;
+            document.getElementById('t_btnNext3').innerHTML = `${t.btnNext3} <i class="fa-solid fa-arrow-right"></i>`;
+
+            document.getElementById('t_s4Title').innerText = t.s4Title;
+            document.getElementById('t_s4Desc').innerText = t.s4Desc;
+            document.getElementById('t_decHeader').innerText = t.decHeader;
+            document.getElementById('t_decBody').innerText = t.decBody;
+            document.getElementById('t_chk1Label').innerHTML = `<strong>${t.chk1Label.split(':')[0]}:</strong> ${t.chk1Label.split(':')[1]}`;
+            document.getElementById('t_chk2Label').innerHTML = `<strong>${t.chk2Label.split(':')[0]}:</strong> ${t.chk2Label.split(':')[1]}`;
+            document.getElementById('t_btnNext4').innerHTML = `${t.btnNext4} <i class="fa-solid fa-arrow-right"></i>`;
+
+            document.getElementById('t_s5Title').innerText = t.s5Title;
+            document.getElementById('t_s5Desc').innerText = t.s5Desc;
+            document.getElementById('t_lblName').innerText = t.lblName;
+            document.getElementById('t_lblId').innerText = t.lblId;
+            document.getElementById('t_lblEmail').innerText = t.lblEmail;
+            document.getElementById('t_lblPhone').innerText = t.lblPhone;
+            document.getElementById('t_lblHost').innerText = t.lblHost;
+            document.getElementById('t_lblSig').innerText = t.lblSig;
+            document.getElementById('t_sigHint').innerHTML = `<i class="fa-solid fa-hand-pointer"></i> ${t.sigHint}`;
+            document.getElementById('t_btnClearSig').innerText = t.btnClearSig;
+            document.getElementById('t_btnSubmit').innerHTML = `<i class="fa-solid fa-circle-check"></i> ${t.btnSubmit}`;
+
+            document.getElementById('t_succTitle').innerText = t.succTitle;
+            document.getElementById('t_succDesc').innerText = t.succDesc;
+            document.getElementById('t_btnFinish').innerText = t.btnFinish;
+
+            document.querySelectorAll('.btn-prev').forEach(b => {
+                b.innerHTML = `<i class="fa-solid fa-arrow-left"></i> ${t.btnPrev}`;
+            });
+        }
+
+        // Navigation Steps
+        function nextStep(step) {
+            if (!validateStep(activeStep)) return;
+            jumpToStep(step);
+        }
+
+        function prevStep(step) {
+            jumpToStep(step);
+        }
+
+        function jumpToStep(step) {
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.step-pill').forEach(p => p.classList.remove('active'));
+
+            document.getElementById(`stepSection${step}`).classList.add('active');
+            document.getElementById(`stepPill${step}`).classList.add('active');
+            activeStep = step;
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+
+            if (step === 5) {
+                setTimeout(resizeCanvas, 200);
+            }
+        }
+
+        function validateStep(step) {
+            if (step === 2) {
+                const vac = document.getElementById('fileVaccine').files.length > 0;
+                const pass = document.getElementById('filePassport').files.length > 0;
+                if (!vac || !pass) {
+                    alert(currentLanguage === 'es' ? 'Por favor adjunta tu carnet de vacunación y copia de documento.' : 'Please attach your vaccination card and passport/ID copy.');
+                    return false;
+                }
+            } else if (step === 3) {
+                const boot = document.getElementById('selectBootSize').value;
+                if (!boot) {
+                    alert(currentLanguage === 'es' ? 'Por favor selecciona tu talla de botas.' : 'Please select your safety boot size.');
+                    return false;
+                }
+            } else if (step === 4) {
+                const c1 = document.getElementById('chkSafetyCompliance').checked;
+                const c2 = document.getElementById('chkHabeasData').checked;
+                if (!c1 || !c2) {
+                    alert(currentLanguage === 'es' ? 'Debes aceptar los términos de cumplimiento y tratamiento de datos.' : 'You must accept compliance terms and data treatment policies.');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Choice Group Handlers
+        function setChoice(type, choice) {
+            if (type === 'allergy') {
+                selectedAllergy = choice;
+                document.getElementById('btnAllergyNo').classList.toggle('selected', choice === 'No');
+                document.getElementById('btnAllergyYes').classList.toggle('selected', choice === 'Yes');
+                document.getElementById('boxAllergyDetail').style.display = choice === 'Yes' ? 'block' : 'none';
+            } else if (type === 'meds') {
+                selectedMeds = choice;
+                document.getElementById('btnMedsNo').classList.toggle('selected', choice === 'No');
+                document.getElementById('btnMedsYes').classList.toggle('selected', choice === 'Yes');
+                document.getElementById('boxMedsDetail').style.display = choice === 'Yes' ? 'block' : 'none';
+            }
+        }
+
+        function handleFileSelect(input, labelId) {
+            if (input.files && input.files[0]) {
+                document.getElementById(labelId).innerText = `✓ ${input.files[0].name}`;
+            }
+        }
+
+        // PDF Modal Handlers
+        function openPdfModal(pdfFile, title) {
+            activePdfKey = pdfFile.includes('HSE') ? 'doc1' : 'doc2';
+            document.getElementById('pdfModalTitle').innerText = title;
+            document.getElementById('pdfIframe').src = `Press Release/2026/${pdfFile}`;
+            document.getElementById('pdfModal').classList.remove('hidden');
+        }
+
+        function closePdfModal() {
+            document.getElementById('pdfModal').classList.add('hidden');
+        }
+
+        function confirmPdfRead() {
+            readDocs[activePdfKey] = true;
+            const badgeId = activePdfKey === 'doc1' ? 'badgeDoc1' : 'badgeDoc2';
+            const badge = document.getElementById(badgeId);
+            badge.classList.add('read');
+            badge.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>${translations[currentLanguage].statusRead}</span>`;
+            closePdfModal();
+        }
+
+        // Touch & Mouse Canvas Signature Pad (CRITICAL)
+        let canvas, ctx;
+        let isDrawing = false;
+
+        function initSignatureCanvas() {
+            canvas = document.getElementById('signatureCanvas');
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+
+            // Event Listeners
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                startDrawing(getTouchPos(e));
+            }, { passive: false });
+
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                draw(getTouchPos(e));
+            }, { passive: false });
+
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function resizeCanvas() {
+            if (!canvas) return;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = 180;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#0b0f14';
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        function getTouchPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            return {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            isSigned = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function clearSignature() {
+            isSigned = false;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Final Submission
+        function submitVisitorForm() {
+            const name = document.getElementById('inputFullName').value.trim();
+            const idNum = document.getElementById('inputIdNumber').value.trim();
+            const email = document.getElementById('inputEmail').value.trim();
+            const phone = document.getElementById('inputPhone').value.trim();
+            const host = document.getElementById('inputHostName').value.trim();
+            const boot = document.getElementById('selectBootSize').value;
+
+            if (!name || !idNum || !email || !phone || !host || !boot) {
+                alert(currentLanguage === 'es' ? 'Por favor completa todos los campos obligatorios (*).' : 'Please complete all required fields (*).');
+                return;
+            }
+
+            if (!isSigned) {
+                alert(currentLanguage === 'es' ? 'La firma digital en el recuadro es absolutamente obligatoria.' : 'Hand-drawn digital signature is mandatory.');
+                return;
+            }
+
+            // Save Record Package
+            const sigDataUrl = canvas.toDataURL('image/png');
+            const visitorCode = 'CG-VIS-' + Math.floor(1000 + Math.random() * 9000);
+
+            const record = {
+                id: visitorCode,
+                date: new Date().toISOString().split('T')[0],
+                name: name,
+                idNumber: idNum,
+                email: email,
+                phone: phone,
+                host: host,
+                allergy: selectedAllergy,
+                allergyDetail: document.getElementById('inputAllergyDetail').value,
+                meds: selectedMeds,
+                medsDetail: document.getElementById('inputMedsDetail').value,
+                pregnancy: document.getElementById('selectPregnancy').value,
+                arlProvider: document.getElementById('inputArlProvider').value,
+                bootSize: boot,
+                signature: sigDataUrl,
+                status: 'Approved'
+            };
+
+            // Store in LocalStorage Database
+            let records = JSON.parse(localStorage.getItem('cgnt_visitor_records') || '[]');
+            records.unshift(record);
+            localStorage.setItem('cgnt_visitor_records', JSON.stringify(records));
+
+            // Display Success Modal
+            document.getElementById('txtVisitorCode').innerText = `ID VISITANTE: ${visitorCode}`;
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
