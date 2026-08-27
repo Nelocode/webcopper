@@ -341,9 +341,96 @@
             margin-top: 10px;
         }
 
-        .signature-preview-box img {
-            max-height: 120px;
-            object-fit: contain;
+        /* HSE Documents Manager Grid */
+        .admin-docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .doc-admin-card {
+            background: rgba(20, 28, 38, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .doc-admin-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .doc-admin-icon {
+            font-size: 1.8rem;
+            color: #ef4444;
+        }
+
+        .doc-admin-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .doc-admin-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .doc-admin-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 10px;
+            margin-top: 6px;
+        }
+
+        .btn-icon-action {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-icon-action:hover {
+            background: var(--copper-primary);
+        }
+
+        .btn-icon-action.danger:hover {
+            background: var(--danger);
+        }
+
+        /* Mobile Touch & Phone Optimization (< 768px) */
+        @media (max-width: 768px) {
+            body { padding-bottom: 80px; }
+            .admin-nav { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+            .admin-logo img { height: 28px; }
+            .admin-title { font-size: 0.95rem; }
+            .nav-actions { width: 100%; justify-content: space-between; gap: 8px; }
+            .btn-export-all, .btn-action, .btn-logout { font-size: 0.78rem; padding: 8px 12px; }
+            .admin-container { padding: 0 12px; margin: 16px auto; }
+            .metrics-grid { grid-template-columns: 1fr; gap: 12px; }
+            .table-card { padding: 16px; border-radius: 12px; }
+            .search-box { width: 100%; }
+            .custom-table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+            .modal-overlay { padding: 10px; }
+            .inspect-card { width: 100% !important; max-width: 100% !important; padding: 18px 14px; max-height: 92vh; }
+            .inspect-grid { grid-template-columns: 1fr; gap: 12px; }
         }
     </style>
 </head>
@@ -435,7 +522,70 @@
             </table>
         </div>
 
+        <!-- HSE Safety Documents Manager (Paso 1 Visitantes) -->
+        <div class="table-card" style="margin-top: 28px;">
+            <div class="table-header">
+                <div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.2rem; color: #fff;">
+                        <i class="fa-solid fa-folder-open" style="color: var(--copper-primary);"></i> Gestión de Documentos de Inducción HSE (Paso 1 Visitantes)
+                    </h3>
+                    <p style="color: var(--text-muted); font-size: 0.84rem; margin-top: 4px;">
+                        Sube, renueva o elimina los documentos obligatorios de lectura para visitantes. Capacidad ilimitada de archivos PDF.
+                    </p>
+                </div>
+                <button class="btn-export-all" onclick="openAddDocModal()" style="background: var(--copper-primary);">
+                    <i class="fa-solid fa-plus"></i> Subir Nuevo Documento PDF
+                </button>
+            </div>
+
+            <div id="adminDocsGrid" class="admin-docs-grid">
+                <!-- Dynamically rendered HSE document cards -->
+            </div>
+        </div>
+
     </main>
+
+    <!-- Upload / Edit HSE Document Modal -->
+    <div id="docManageModal" class="modal-overlay hidden">
+        <div class="inspect-card" style="max-width: 540px;">
+            <div class="inspect-title">
+                <span id="docModalHeading">Subir Documento de Inducción HSE</span>
+                <button onclick="closeDocModal()" style="background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="formManageDoc" onsubmit="saveDocForm(event)">
+                <input type="hidden" id="editDocId">
+                <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Título del Documento (Español) <span style="color: red;">*</span></label>
+                        <input type="text" id="docTitleEs" required placeholder="Ej: Manual de Inducción de Seguridad HSE" style="width: 100%; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); padding: 10px 14px; border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Title of Document (English) <span style="color: red;">*</span></label>
+                        <input type="text" id="docTitleEn" required placeholder="Ej: HSE Safety Induction Manual" style="width: 100%; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); padding: 10px 14px; border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Descripción Corta (Español)</label>
+                        <input type="text" id="docDescEs" placeholder="Ej: Normas generales de seguridad en terreno." style="width: 100%; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); padding: 10px 14px; border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Short Description (English)</label>
+                        <input type="text" id="docDescEn" placeholder="Ej: General safety rules for field operations." style="width: 100%; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); padding: 10px 14px; border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 6px;">Archivo PDF o URL del Documento <span style="color: red;">*</span></label>
+                        <input type="file" id="docFileInput" accept="application/pdf" style="margin-bottom: 8px; color: var(--text-muted); font-size: 0.85rem;" onchange="handleAdminDocFile(this)">
+                        <input type="text" id="docUrlInput" placeholder="O ingresa URL directa (http://...)" style="width: 100%; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); padding: 10px 14px; border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                    <button type="button" onclick="closeDocModal()" class="btn-action">Cancelar</button>
+                    <button type="submit" class="btn-export-all" style="background: var(--copper-primary);"><i class="fa-solid fa-floppy-disk"></i> Guardar Documento</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Inspect Modal -->
     <div id="inspectModal" class="modal-overlay hidden">
@@ -542,6 +692,7 @@
             document.getElementById('valAllergiesCount').innerText = currentRecords.filter(r => r.allergy === 'Yes' || r.meds === 'Yes').length;
 
             renderTable(currentRecords);
+            loadAdminDocs();
         }
 
         function renderTable(data) {
@@ -649,6 +800,161 @@
             zip.generateAsync({ type: "blob" }).then(function(content) {
                 saveAs(content, `CopperGiant_Visitor_Compliance_Batch_${new Date().toISOString().split('T')[0]}.zip`);
             });
+        }
+
+        // HSE Safety Documents Admin Manager Engine
+        let adminDocBase64 = '';
+
+        function getStoredDocs() {
+            const raw = localStorage.getItem('cgnt_safety_documents');
+            if (raw) {
+                try { return JSON.parse(raw); } catch(e){}
+            }
+            return [
+                {
+                    id: 'doc-1',
+                    title_es: 'Manual de Inducción de Seguridad HSE',
+                    title_en: 'HSE Safety Induction Manual',
+                    desc_es: 'Normas generales de seguridad en perforación y terreno.',
+                    desc_en: 'General safety rules for field and drilling operations.',
+                    url: 'assets/HSE_Induction.pdf',
+                    date: '2026-08-27'
+                },
+                {
+                    id: 'doc-2',
+                    title_es: 'Código de Conducta & Emergencias',
+                    title_en: 'Code of Conduct & Emergency Protocols',
+                    desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
+                    desc_en: 'Immediate response protocols and community relations.',
+                    url: 'assets/Code_of_Conduct.pdf',
+                    date: '2026-08-27'
+                }
+            ];
+        }
+
+        function loadAdminDocs() {
+            const docs = getStoredDocs();
+            const grid = document.getElementById('adminDocsGrid');
+            if (!grid) return;
+
+            grid.innerHTML = docs.map(d => `
+                <div class="doc-admin-card">
+                    <div class="doc-admin-card-header">
+                        <i class="fa-solid fa-file-pdf doc-admin-icon"></i>
+                        <div>
+                            <div class="doc-admin-title">${d.title_es}</div>
+                            <div style="font-size: 0.78rem; color: var(--copper-primary); margin-bottom: 4px;">${d.title_en}</div>
+                            <div class="doc-admin-desc">${d.desc_es || d.desc_en}</div>
+                        </div>
+                    </div>
+                    <div class="doc-admin-actions">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="fa-regular fa-calendar"></i> ${d.date || '2026-08-27'}</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-icon-action" onclick="editAdminDoc('${d.id}')"><i class="fa-solid fa-pen"></i> Editar</button>
+                            <button class="btn-icon-action danger" onclick="deleteAdminDoc('${d.id}')"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAddDocModal() {
+            document.getElementById('editDocId').value = '';
+            document.getElementById('docModalHeading').innerText = 'Subir Documento de Inducción HSE';
+            document.getElementById('docTitleEs').value = '';
+            document.getElementById('docTitleEn').value = '';
+            document.getElementById('docDescEs').value = '';
+            document.getElementById('docDescEn').value = '';
+            document.getElementById('docFileInput').value = '';
+            document.getElementById('docUrlInput').value = '';
+            adminDocBase64 = '';
+            document.getElementById('docManageModal').classList.remove('hidden');
+        }
+
+        function editAdminDoc(docId) {
+            const docs = getStoredDocs();
+            const doc = docs.find(d => d.id === docId);
+            if (!doc) return;
+
+            document.getElementById('editDocId').value = doc.id;
+            document.getElementById('docModalHeading').innerText = 'Editar Documento de Inducción HSE';
+            document.getElementById('docTitleEs').value = doc.title_es || '';
+            document.getElementById('docTitleEn').value = doc.title_en || '';
+            document.getElementById('docDescEs').value = doc.desc_es || '';
+            document.getElementById('docDescEn').value = doc.desc_en || '';
+            document.getElementById('docUrlInput').value = doc.url || '';
+            adminDocBase64 = doc.url && doc.url.startsWith('data:') ? doc.url : '';
+            document.getElementById('docManageModal').classList.remove('hidden');
+        }
+
+        function closeDocModal() {
+            document.getElementById('docManageModal').classList.add('hidden');
+        }
+
+        function handleAdminDocFile(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    adminDocBase64 = e.target.result;
+                    document.getElementById('docUrlInput').value = `[Archivo Subido: ${file.name}]`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveDocForm(e) {
+            e.preventDefault();
+            const titleEs = document.getElementById('docTitleEs').value.trim();
+            const titleEn = document.getElementById('docTitleEn').value.trim();
+            const descEs = document.getElementById('docDescEs').value.trim();
+            const descEn = document.getElementById('docDescEn').value.trim();
+            const editId = document.getElementById('editDocId').value;
+            let urlVal = document.getElementById('docUrlInput').value.trim();
+
+            if (adminDocBase64) {
+                urlVal = adminDocBase64;
+            }
+
+            if (!urlVal) {
+                alert('Por favor adjunta un archivo PDF o ingresa la URL del documento.');
+                return;
+            }
+
+            let docs = getStoredDocs();
+            if (editId) {
+                docs = docs.map(d => {
+                    if (d.id === editId) {
+                        return { ...d, title_es: titleEs, title_en: titleEn, desc_es: descEs, desc_en: descEn, url: urlVal, date: new Date().toISOString().split('T')[0] };
+                    }
+                    return d;
+                });
+            } else {
+                const newDoc = {
+                    id: 'doc-' + Date.now(),
+                    title_es: titleEs,
+                    title_en: titleEn,
+                    desc_es: descEs,
+                    desc_en: descEn,
+                    url: urlVal,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                docs.push(newDoc);
+            }
+
+            localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
+            closeDocModal();
+            loadAdminDocs();
+            alert('Documento guardado exitosamente. Los visitantes verán este nuevo documento en el Paso 1.');
+        }
+
+        function deleteAdminDoc(docId) {
+            if (confirm('¿Estás seguro de eliminar este documento de inducción HSE?')) {
+                let docs = getStoredDocs();
+                docs = docs.filter(d => d.id !== docId);
+                localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
+                loadAdminDocs();
+            }
         }
     </script>
 </body>

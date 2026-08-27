@@ -873,30 +873,8 @@
                 <div class="section-desc" id="t_s1Desc">Es obligatorio leer y aceptar los documentos de inducción de seguridad de Copper Giant antes de ingresar a campo.</div>
             </div>
 
-            <div class="pdf-docs-grid">
-                <div class="pdf-doc-card">
-                    <div>
-                        <i class="fa-solid fa-file-pdf doc-icon"></i>
-                        <div class="doc-name" id="t_doc1Name">Manual de Inducción de Seguridad HSE</div>
-                        <div class="doc-meta" id="t_doc1Meta">Normas generales de seguridad en perforación y terreno.</div>
-                    </div>
-                    <button class="read-pdf-btn" onclick="openPdfModal('Manual_Seguridad_HSE.pdf', 'Manual de Inducción de Seguridad HSE')">
-                        <i class="fa-solid fa-eye"></i> <span id="t_btnRead1">Leer Documento</span>
-                    </button>
-                    <div class="doc-status-badge" id="badgeDoc1"><i class="fa-regular fa-circle"></i> <span id="t_statusUnread1">Pendiente de Lectura</span></div>
-                </div>
-
-                <div class="pdf-doc-card">
-                    <div>
-                        <i class="fa-solid fa-file-pdf doc-icon"></i>
-                        <div class="doc-name" id="t_doc2Name">Código de Conducta & Emergencias</div>
-                        <div class="doc-meta" id="t_doc2Meta">Protocolos de respuesta inmediata y relaciones comunitarias.</div>
-                    </div>
-                    <button class="read-pdf-btn" onclick="openPdfModal('Codigo_Conducta_Emergencias.pdf', 'Código de Conducta & Emergencias')">
-                        <i class="fa-solid fa-eye"></i> <span id="t_btnRead2">Leer Documento</span>
-                    </button>
-                    <div class="doc-status-badge" id="badgeDoc2"><i class="fa-regular fa-circle"></i> <span id="t_statusUnread2">Pendiente de Lectura</span></div>
-                </div>
+            <div class="pdf-docs-grid" id="pdfDocsGridContainer">
+                <!-- Dynamically rendered HSE Safety Document Cards -->
             </div>
 
             <div class="form-footer-actions">
@@ -1147,8 +1125,6 @@
         let activeStep = 1;
         let selectedAllergy = 'No';
         let selectedMeds = 'No';
-        let readDocs = { doc1: false, doc2: false };
-        let activePdfKey = '';
         let isSigned = false;
 
         const translations = {
@@ -1246,6 +1222,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initSignatureCanvas();
             checkVisitorAuth();
+            renderVisitorSafetyDocs();
             applyTranslations();
         });
 
@@ -1288,8 +1265,7 @@
 
             document.getElementById('t_s1Title').innerText = t.s1Title;
             document.getElementById('t_s1Desc').innerText = t.s1Desc;
-            document.getElementById('t_btnRead1').innerText = t.btnRead;
-            document.getElementById('t_btnRead2').innerText = t.btnRead;
+            renderVisitorSafetyDocs();
             document.getElementById('t_btnNext1').innerHTML = `${t.btnNext1} <i class="fa-solid fa-arrow-right"></i>`;
 
             document.getElementById('t_s2Title').innerText = t.s2Title;
@@ -1364,8 +1340,110 @@
             }
         }
 
+        // Dynamic HSE Safety Documents Loader & Engine
+        let readDocs = {};
+        let activeDocId = '';
+
+        function getVisitorSafetyDocs() {
+            const raw = localStorage.getItem('cgnt_safety_documents');
+            if (raw) {
+                try { return JSON.parse(raw); } catch(e){}
+            }
+            return [
+                {
+                    id: 'doc-1',
+                    title_es: 'Manual de Inducción de Seguridad HSE',
+                    title_en: 'HSE Safety Induction Manual',
+                    desc_es: 'Normas generales de seguridad en perforación y terreno.',
+                    desc_en: 'General safety rules for field and drilling operations.',
+                    url: 'assets/HSE_Induction.pdf',
+                    date: '2026-08-27'
+                },
+                {
+                    id: 'doc-2',
+                    title_es: 'Código de Conducta & Emergencias',
+                    title_en: 'Code of Conduct & Emergency Protocols',
+                    desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
+                    desc_en: 'Immediate response protocols and community relations.',
+                    url: 'assets/Code_of_Conduct.pdf',
+                    date: '2026-08-27'
+                }
+            ];
+        }
+
+        function renderVisitorSafetyDocs() {
+            const docs = getVisitorSafetyDocs();
+            const container = document.getElementById('pdfDocsGridContainer');
+            if (!container) return;
+
+            const t = translations[currentLanguage];
+
+            container.innerHTML = docs.map(d => {
+                const title = currentLanguage === 'en' ? (d.title_en || d.title_es) : (d.title_es || d.title_en);
+                const desc = currentLanguage === 'en' ? (d.desc_en || d.desc_es) : (d.desc_es || d.desc_en);
+                const isRead = !!readDocs[d.id];
+
+                return `
+                    <div class="pdf-doc-card ${isRead ? 'read' : ''}">
+                        <div>
+                            <i class="fa-solid fa-file-pdf doc-icon"></i>
+                            <div class="doc-name">${title}</div>
+                            <div class="doc-meta">${desc || ''}</div>
+                        </div>
+                        <button class="read-pdf-btn" onclick="openPdfModal('${d.id}')">
+                            <i class="fa-solid fa-eye"></i> <span>${t.btnRead}</span>
+                        </button>
+                        <div class="doc-status-badge ${isRead ? 'read' : ''}" id="badge_${d.id}">
+                            <i class="${isRead ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'}"></i> 
+                            <span>${isRead ? t.statusRead : t.statusUnread}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // PDF Modal Handlers
+        function openPdfModal(docId) {
+            const docs = getVisitorSafetyDocs();
+            const doc = docs.find(d => d.id === docId);
+            if (!doc) return;
+
+            activeDocId = docId;
+            const title = currentLanguage === 'en' ? (doc.title_en || doc.title_es) : (doc.title_es || doc.title_en);
+            document.getElementById('pdfModalTitle').innerText = title;
+            
+            // Set src for PDF viewer
+            const iframe = document.getElementById('pdfIframe');
+            if (doc.url.startsWith('data:') || doc.url.startsWith('http') || doc.url.includes('/')) {
+                iframe.src = doc.url;
+            } else {
+                iframe.src = `Press Release/2026/${doc.url}`;
+            }
+
+            document.getElementById('pdfModal').classList.remove('hidden');
+        }
+
+        function closePdfModal() {
+            document.getElementById('pdfModal').classList.add('hidden');
+        }
+
+        function confirmPdfRead() {
+            if (activeDocId) {
+                readDocs[activeDocId] = true;
+                renderVisitorSafetyDocs();
+            }
+            closePdfModal();
+        }
+
         function validateStep(step) {
-            if (step === 2) {
+            if (step === 1) {
+                const docs = getVisitorSafetyDocs();
+                const unread = docs.filter(d => !readDocs[d.id]);
+                if (unread.length > 0) {
+                    alert(currentLanguage === 'es' ? 'Por favor lee y confirma la lectura de todos los documentos de seguridad antes de continuar.' : 'Please read and confirm all safety documents before proceeding.');
+                    return false;
+                }
+            } else if (step === 2) {
                 const vac = document.getElementById('fileVaccine').files.length > 0;
                 const pass = document.getElementById('filePassport').files.length > 0;
                 if (!vac || !pass) {
@@ -1410,33 +1488,13 @@
             }
         }
 
-        // PDF Modal Handlers
-        function openPdfModal(pdfFile, title) {
-            activePdfKey = pdfFile.includes('HSE') ? 'doc1' : 'doc2';
-            document.getElementById('pdfModalTitle').innerText = title;
-            document.getElementById('pdfIframe').src = `Press Release/2026/${pdfFile}`;
-            document.getElementById('pdfModal').classList.remove('hidden');
-        }
-
-        function closePdfModal() {
-            document.getElementById('pdfModal').classList.add('hidden');
-        }
-
-        function confirmPdfRead() {
-            readDocs[activePdfKey] = true;
-            const badgeId = activePdfKey === 'doc1' ? 'badgeDoc1' : 'badgeDoc2';
-            const badge = document.getElementById(badgeId);
-            badge.classList.add('read');
-            badge.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>${translations[currentLanguage].statusRead}</span>`;
-            closePdfModal();
-        }
-
-        // Touch & Mouse Canvas Signature Pad (CRITICAL)
+        // Touch & Mouse Canvas Signature Pad (CRITICAL FOR MOBILE PHONES)
         let canvas, ctx;
         let isDrawing = false;
 
         function initSignatureCanvas() {
             canvas = document.getElementById('signatureCanvas');
+            canvas.style.touchAction = 'none';
             ctx = canvas.getContext('2d');
             resizeCanvas();
 
