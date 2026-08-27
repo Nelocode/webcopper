@@ -87,7 +87,7 @@
         }
 
         .btn-export-all {
-            background: linear-gradient(135deg, var(--copper-primary) 0%, var(--copper-hover) 100%);
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
             border: none;
             color: #fff;
             padding: 10px 18px;
@@ -98,13 +98,14 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 15px rgba(217, 119, 54, 0.3);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.45);
             transition: all 0.2s;
         }
 
         .btn-export-all:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(217, 119, 54, 0.5);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+            background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
         }
 
         .btn-logout {
@@ -533,7 +534,7 @@
                         Sube, renueva o elimina los documentos obligatorios de lectura para visitantes. Capacidad ilimitada de archivos PDF.
                     </p>
                 </div>
-                <button class="btn-export-all" onclick="openAddDocModal()" style="background: var(--copper-primary);">
+                <button class="btn-export-all" onclick="openAddDocModal()">
                     <i class="fa-solid fa-plus"></i> Subir Nuevo Documento PDF
                 </button>
             </div>
@@ -581,7 +582,7 @@
 
                 <div style="display: flex; justify-content: flex-end; gap: 12px;">
                     <button type="button" onclick="closeDocModal()" class="btn-action">Cancelar</button>
-                    <button type="submit" class="btn-export-all" style="background: var(--copper-primary);"><i class="fa-solid fa-floppy-disk"></i> Guardar Documento</button>
+                    <button type="submit" class="btn-export-all"><i class="fa-solid fa-floppy-disk"></i> Guardar Documento</button>
                 </div>
             </form>
         </div>
