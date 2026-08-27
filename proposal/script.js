@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tickerContainers.length === 0) return;
 
         let stockData = {
-            TSXV: { symbol: "CGNT", price: "C$1.16", change: "+18.37%", direction: "up" },
+            TSXV: { symbol: "CGNT", price: "C$1.28", change: "+18.37%", direction: "up" },
             OTC: { symbol: "LBCMF", price: "$0.83", change: "+18.57%", direction: "up" },
             FSE: { symbol: "29H0", price: "€0.70", change: "+23.16%", direction: "up" },
             Cu: { price: "$6.63/Lb" }
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 1. Initial render with verified real closing prices from site.json
+        // Initial render with verified prices from site.json
         fetch('data/site.json?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
@@ -53,62 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(() => updateTickerUI());
-
-        // 2. Fetch REAL Live Market Data from Financial APIs via proxy
-        async function fetchRealMarketData() {
-            const symbols = [
-                { key: 'TSXV', symbol: 'CGNT.V', prefix: 'C$', decimals: 2 },
-                { key: 'OTC', symbol: 'LBCMF', prefix: '$', decimals: 2 },
-                { key: 'FSE', symbol: '29H0.F', prefix: '€', decimals: 2 },
-                { key: 'Cu', symbol: 'HG=F', prefix: '$', suffix: '/Lb', decimals: 2 }
-            ];
-
-            let updated = false;
-
-            for (const item of symbols) {
-                try {
-                    const apiUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?interval=1d`;
-                    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
-                    
-                    const res = await fetch(proxyUrl);
-                    if (!res.ok) continue;
-                    const json = await res.json();
-                    
-                    const meta = json?.chart?.result?.[0]?.meta;
-                    if (meta && typeof meta.regularMarketPrice === 'number') {
-                        const price = meta.regularMarketPrice;
-                        const prevClose = meta.chartPreviousClose || price;
-                        const diff = price - prevClose;
-                        const pct = prevClose ? (diff / prevClose) * 100 : 0;
-                        const direction = diff >= 0 ? 'up' : 'down';
-                        const changeStr = (diff >= 0 ? '+' : '') + pct.toFixed(2) + '%';
-                        const priceStr = `${item.prefix || ''}${price.toFixed(item.decimals)}${item.suffix || ''}`;
-
-                        if (item.key === 'Cu') {
-                            stockData.Cu = { price: priceStr };
-                        } else {
-                            stockData[item.key] = {
-                                symbol: stockData[item.key]?.symbol || item.symbol.split('.')[0],
-                                price: priceStr,
-                                change: changeStr,
-                                direction: direction
-                            };
-                        }
-                        updated = true;
-                    }
-                } catch (e) {
-                    // Fail silently, preserving existing real market data
-                }
-            }
-
-            if (updated) {
-                updateTickerUI();
-            }
-        }
-
-        // Fetch live prices on load and refresh every 60s during market hours
-        fetchRealMarketData();
-        setInterval(fetchRealMarketData, 60000);
     }
     initTicker();
 
