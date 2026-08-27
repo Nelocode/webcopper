@@ -1491,89 +1491,44 @@
             }
         }
 
-        // Dynamic HSE Safety Documents Loader & Engine (Server Synced)
+        // Dynamic HSE Safety Documents Loader & Engine
         let readDocs = {};
         let activeDocId = '';
-        let cachedSafetyDocs = null;
 
-        async function fetchVisitorSafetyDocs() {
-            if (cachedSafetyDocs) return cachedSafetyDocs;
-
-            let docs = [];
-            try {
-                const res = await fetch('data/safety_documents.json?t=' + Date.now());
-                if (res.ok) {
-                    const serverDocs = await res.json();
-                    if (Array.isArray(serverDocs) && serverDocs.length > 0) {
-                        docs = serverDocs;
-                    }
-                }
-            } catch(e) {}
-
-            const localRaw = localStorage.getItem('cgnt_safety_documents');
-            if (localRaw) {
+        function getVisitorSafetyDocs() {
+            const raw = localStorage.getItem('cgnt_safety_documents');
+            if (raw) {
                 try {
-                    const localDocs = JSON.parse(localRaw);
-                    if (Array.isArray(localDocs) && localDocs.length > 0) {
-                        const docMap = {};
-                        docs.forEach(d => docMap[d.id] = d);
-                        localDocs.forEach(d => docMap[d.id] = d);
-                        docs = Object.values(docMap);
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        return parsed;
                     }
-                } catch(e) {}
+                } catch(e){}
             }
-
-            if (docs.length === 0) {
-                docs = [
-                    {
-                        id: 'doc-1',
-                        title_es: 'Manual de Inducción de Seguridad HSE',
-                        title_en: 'HSE Safety Induction Manual',
-                        desc_es: 'Normas generales de seguridad en perforación y terreno.',
-                        desc_en: 'General safety rules for field and drilling operations.',
-                        url: 'assets/hse/Manual_Seguridad_HSE.pdf',
-                        date: '2026-08-27'
-                    },
-                    {
-                        id: 'doc-2',
-                        title_es: 'Código de Conducta & Emergencias',
-                        title_en: 'Code of Conduct & Emergency Protocols',
-                        desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
-                        desc_en: 'Immediate response protocols and community relations.',
-                        url: 'assets/hse/Codigo_Conducta_Emergencias.pdf',
-                        date: '2026-08-27'
-                    },
-                    {
-                        id: 'doc-3',
-                        title_es: 'Protocolo de Respuesta a Emergencias Médicas',
-                        title_en: 'Medical Emergency Response Protocol',
-                        desc_es: 'Procedimientos de evacuación y primeros auxilios en terreno Mocoa.',
-                        desc_en: 'Evacuation procedures and medical response for Mocoa site.',
-                        url: 'assets/hse/Protocolo_Emergencias.pdf',
-                        date: '2026-08-27'
-                    },
-                    {
-                        id: 'doc-4',
-                        title_es: 'Política de Protección Ambiental y Comunitaria',
-                        title_en: 'Environmental & Community Protection Policy',
-                        desc_es: 'Directrices de gestión ambiental y respeto sociocultural en Putumayo.',
-                        desc_en: 'Environmental management guidelines and community care in Putumayo.',
-                        url: 'assets/hse/Politica_Ambiental.pdf',
-                        date: '2026-08-27'
-                    }
-                ];
-            }
-
-            cachedSafetyDocs = docs;
-            return docs;
+            return [
+                {
+                    id: 'doc-1',
+                    title_es: 'Manual de Inducción de Seguridad HSE',
+                    title_en: 'HSE Safety Induction Manual',
+                    desc_es: 'Normas generales de seguridad en perforación y terreno.',
+                    desc_en: 'General safety rules for field and drilling operations.',
+                    url: '',
+                    date: '2026-08-27'
+                },
+                {
+                    id: 'doc-2',
+                    title_es: 'Código de Conducta & Emergencias',
+                    title_en: 'Code of Conduct & Emergency Protocols',
+                    desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
+                    desc_en: 'Immediate response protocols and community relations.',
+                    url: '',
+                    date: '2026-08-27'
+                }
+            ];
         }
 
-        function getVisitorSafetyDocsSync() {
-            return cachedSafetyDocs || [];
-        }
-
-        async function renderVisitorSafetyDocs() {
-            const docs = await fetchVisitorSafetyDocs();
+        function renderVisitorSafetyDocs() {
+            const docs = getVisitorSafetyDocs();
             const container = document.getElementById('pdfDocsGridContainer');
             if (!container) return;
 
@@ -1604,8 +1559,8 @@
         }
 
         // PDF Modal Handlers
-        async function openPdfModal(docId) {
-            const docs = await fetchVisitorSafetyDocs();
+        function openPdfModal(docId) {
+            const docs = getVisitorSafetyDocs();
             const doc = docs.find(d => d.id === docId);
             if (!doc) return;
 
@@ -1613,13 +1568,9 @@
             const title = currentLanguage === 'en' ? (doc.title_en || doc.title_es) : (doc.title_es || doc.title_en);
             document.getElementById('pdfModalTitle').innerText = title;
             
-            // Set src for PDF viewer
+            // Set src for PDF viewer directly from stored document URL/data
             const iframe = document.getElementById('pdfIframe');
-            if (doc.url.startsWith('data:') || doc.url.startsWith('http') || doc.url.includes('/')) {
-                iframe.src = doc.url;
-            } else {
-                iframe.src = `Press Release/2026/${doc.url}`;
-            }
+            iframe.src = doc.url || '';
 
             document.getElementById('pdfModal').classList.remove('hidden');
         }
@@ -1638,7 +1589,7 @@
 
         function validateStep(step) {
             if (step === 1) {
-                const docs = getVisitorSafetyDocsSync();
+                const docs = getVisitorSafetyDocs();
                 const unread = docs.filter(d => !readDocs[d.id]);
                 if (unread.length > 0) {
                     alert(currentLanguage === 'es' ? 'Por favor lee y confirma la lectura de todos los documentos de seguridad antes de continuar.' : 'Please read and confirm all safety documents before proceeding.');
