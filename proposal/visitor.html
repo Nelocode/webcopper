@@ -1064,9 +1064,9 @@
                 <div class="form-group">
                     <label><i class="fa-solid fa-person-pregnant" style="color: var(--copper-primary);"></i> <span id="t_lblPregnancy">Estado de Embarazo</span></label>
                     <select id="selectPregnancy">
-                        <option value="No">No</option>
-                        <option value="Yes">Sí</option>
-                        <option value="N/A">N/A</option>
+                        <option value="No" id="optPregnancyNo">No</option>
+                        <option value="Yes" id="optPregnancyYes">Sí</option>
+                        <option value="N/A" id="optPregnancyNA">N/A</option>
                     </select>
                 </div>
 
@@ -1080,7 +1080,7 @@
                 <div class="form-group full-width">
                     <label><i class="fa-solid fa-shoe-prints" style="color: var(--copper-primary);"></i> <span id="t_lblBoot">Talla de Botas de Seguridad (EPP Terreno)</span> <span class="required">*</span></label>
                     <select id="selectBootSize">
-                        <option value="">Seleccione su talla...</option>
+                        <option value="" id="optBootSelect">Seleccione su talla...</option>
                         <option value="36 US 5">36 EU / 5 US (23 cm)</option>
                         <option value="37 US 5.5">37 EU / 5.5 US (23.5 cm)</option>
                         <option value="38 US 6">38 EU / 6 US (24 cm)</option>
@@ -1241,7 +1241,7 @@
                 lockTitle: 'Portal de Visitantes',
                 lockDesc: 'Por favor ingresa la clave de acceso de visitante para continuar.',
                 unlock: 'Ingresar al Portal',
-                adminLink: 'Panel Admin',
+                pinPlaceholder: 'PIN de Acceso',
                 heroTitle: 'Declaración de Cumplimiento e Ingreso de Visitantes',
                 heroSub: 'Bienvenido al Proyecto Mocoa. Por favor completa los 5 pasos obligatorios de seguridad, salud y firma digital antes de ingresar a campo.',
                 step1: 'Seguridad', step2: 'Documentos', step3: 'Salud & Botas', step4: 'Términos', step5: 'Datos & Firma',
@@ -1260,11 +1260,14 @@
                 s3Desc: 'Informa sobre alergias o medicamentos de uso diario para la respuesta del personal médico en campo.',
                 lblAllergies: '¿Presenta algún tipo de alergia? (Medicamento, alimento o planta)',
                 lblAllergyDetail: 'Especifique el tipo de alergia y sustancia:',
+                allergyPlaceholder: 'Ej: Penicilina, Mariscos, Polvo...',
                 lblMeds: '¿Presenta alguna enfermedad que requiera medicación diaria?',
                 lblMedsDetail: 'Especifique medicamento y dosis:',
+                medsPlaceholder: 'Ej: Losartán 50mg diario...',
                 lblPregnancy: 'Estado de Embarazo',
-                lblArl: 'Seguro Médico / EPS / ARL',
-                lblBoot: 'Talla de Botas de Seguridad (EPP Terreno)',
+                optPregnancyNo: 'No', optPregnancyYes: 'Sí', optPregnancyNA: 'N/A',
+                lblArl: 'Seguro Médico / EPS / ARL', arlPlaceholder: 'Nombre de EPS / ARL / Seguro',
+                lblBoot: 'Talla de Botas de Seguridad (EPP Terreno)', optBootSelect: 'Seleccione su talla...',
                 btnNext3: 'Siguiente: Términos & Habeas Data',
                 s4Title: 'Paso 4: Declaración de Cumplimiento & Habeas Data',
                 s4Desc: 'Revisa y acepta la declaración oficial de visitante y el tratamiento de datos personales.',
@@ -1275,17 +1278,23 @@
                 btnNext4: 'Siguiente: Datos & Firma Digital',
                 s5Title: 'Paso 5: Datos Personales & Firma Digital Obligatoria',
                 s5Desc: 'Ingresa tus datos personales y dibuja tu firma a mano en el recuadro interactivo.',
-                lblName: 'Nombre Completo', lblId: 'Cédula / Pasaporte No.', lblEmail: 'Correo Electrónico', lblPhone: 'Número de Teléfono', lblHost: 'Persona a Visitar en Campo / Anfitrión (Host)', lblEmergency: 'Contacto de Emergencia (Nombre y Teléfono)',
+                lblName: 'Nombre Completo', namePlaceholder: 'Ej: Juan Carlos Pérez',
+                lblId: 'Cédula / Pasaporte No.', idPlaceholder: 'Ej: 1020304050',
+                lblEmail: 'Correo Electrónico', emailPlaceholder: 'juan.perez@email.com',
+                lblPhone: 'Número de Teléfono', phonePlaceholder: '+57 300 123 4567',
+                lblHost: 'Persona a Visitar en Campo / Anfitrión (Host)', hostPlaceholder: 'Ej: Ing. Edwin Naranjo - Geología Mocoa',
+                lblEmergency: 'Contacto de Emergencia (Nombre y Teléfono)', emergencyPlaceholder: 'Ej: María Pérez (Esposa) - 3101234567',
                 lblSig: 'Firma Digital Dibujada (MANDATORIA)', sigHint: 'Dibuja tu firma con el dedo o ratón dentro del recuadro blanco', btnClearSig: 'Limpiar Firma',
                 btnSubmit: 'Finalizar & Guardar Registro',
                 succTitle: '¡Registro de Visitante Completado!', succDesc: 'Tus documentos, declaración de salud y firma digital han sido registrados exitosamente para el ingreso a campo.',
-                btnFinish: 'Finalizar'
+                btnFinish: 'Finalizar',
+                pdfFooterHint: 'Por favor confirma que leíste y entendiste el documento.', btnConfirmRead: 'Confirmar Lectura'
             },
             en: {
                 lockTitle: 'Visitor Portal',
                 lockDesc: 'Please enter the visitor passcode to continue.',
                 unlock: 'Access Portal',
-                adminLink: 'Admin Portal',
+                pinPlaceholder: 'Access PIN',
                 heroTitle: 'Visitor Compliance & Safety Onboarding',
                 heroSub: 'Welcome to the Mocoa Project. Please complete the 5 mandatory safety, health, and digital signature steps prior to field entry.',
                 step1: 'Safety', step2: 'Documents', step3: 'Health & Boots', step4: 'Terms', step5: 'Details & Signature',
@@ -1304,11 +1313,14 @@
                 s3Desc: 'Declare known allergies or daily required medications for field medical emergency protocols.',
                 lblAllergies: 'Do you have any known allergies? (Medication, food, plant)',
                 lblAllergyDetail: 'Specify allergy type and substance:',
+                allergyPlaceholder: 'e.g., Penicillin, Seafood, Dust...',
                 lblMeds: 'Do you have any condition requiring daily medication?',
                 lblMedsDetail: 'Specify medication and dosage:',
+                medsPlaceholder: 'e.g., Losartan 50mg daily...',
                 lblPregnancy: 'Pregnancy Status',
-                lblArl: 'Medical Insurance / Health Provider',
-                lblBoot: 'Safety Boot Size (Field PPE)',
+                optPregnancyNo: 'No', optPregnancyYes: 'Yes', optPregnancyNA: 'N/A',
+                lblArl: 'Medical Insurance / Health Provider', arlPlaceholder: 'Health Provider / Insurance Name',
+                lblBoot: 'Safety Boot Size (Field PPE)', optBootSelect: 'Select your boot size...',
                 btnNext3: 'Next: Terms & Data Consent',
                 s4Title: 'Step 4: Compliance Declaration & Data Treatment',
                 s4Desc: 'Review and accept the official visitor compliance declaration and personal data treatment policy.',
@@ -1319,11 +1331,17 @@
                 btnNext4: 'Next: Details & Digital Signature',
                 s5Title: 'Step 5: Personal Details & Mandatory Digital Signature',
                 s5Desc: 'Enter your contact details and draw your signature by hand on the interactive canvas.',
-                lblName: 'Full Name', lblId: 'ID / Passport Number', lblEmail: 'Email Address', lblPhone: 'Phone Number', lblHost: 'Host / Person Visited On Site', lblEmergency: 'Emergency Contact (Name & Phone Number)',
+                lblName: 'Full Name', namePlaceholder: 'e.g., John Doe',
+                lblId: 'ID / Passport Number', idPlaceholder: 'e.g., 1020304050',
+                lblEmail: 'Email Address', emailPlaceholder: 'john.doe@email.com',
+                lblPhone: 'Phone Number', phonePlaceholder: '+1 555 123 4567',
+                lblHost: 'Host / Person Visited On Site', hostPlaceholder: 'e.g., Eng. Edwin Naranjo - Mocoa Geology',
+                lblEmergency: 'Emergency Contact (Name & Phone Number)', emergencyPlaceholder: 'e.g., Mary Doe (Spouse) - +1 555 987 6543',
                 lblSig: 'Hand-Drawn Digital Signature (MANDATORY)', sigHint: 'Draw your signature using finger touch or mouse inside the white box', btnClearSig: 'Clear Signature',
                 btnSubmit: 'Complete & Save Record',
                 succTitle: 'Visitor Registration Complete!', succDesc: 'Your documents, health declaration, and hand-drawn signature have been registered successfully for site access.',
-                btnFinish: 'Finish'
+                btnFinish: 'Finish',
+                pdfFooterHint: 'Please confirm that you have read and understood the document.', btnConfirmRead: 'Confirm Reading'
             }
         };
 
@@ -1363,6 +1381,8 @@
             document.getElementById('txtLockTitle').innerText = t.lockTitle;
             document.getElementById('txtLockDesc').innerText = t.lockDesc;
             document.getElementById('btnUnlock').innerText = t.unlock;
+            document.getElementById('inputVisitorPin').placeholder = t.pinPlaceholder;
+
             document.getElementById('t_heroTitle').innerText = t.heroTitle;
             document.getElementById('t_heroSub').innerText = t.heroSub;
             document.getElementById('t_step1Label').innerText = t.step1;
@@ -1388,11 +1408,20 @@
             document.getElementById('t_s3Desc').innerText = t.s3Desc;
             document.getElementById('t_lblAllergies').innerText = t.lblAllergies;
             document.getElementById('t_lblAllergyDetail').innerText = t.lblAllergyDetail;
+            document.getElementById('inputAllergyDetail').placeholder = t.allergyPlaceholder;
             document.getElementById('t_lblMeds').innerText = t.lblMeds;
             document.getElementById('t_lblMedsDetail').innerText = t.lblMedsDetail;
+            document.getElementById('inputMedsDetail').placeholder = t.medsPlaceholder;
             document.getElementById('t_lblPregnancy').innerText = t.lblPregnancy;
+            document.getElementById('optPregnancyNo').innerText = t.optPregnancyNo;
+            document.getElementById('optPregnancyYes').innerText = t.optPregnancyYes;
+            document.getElementById('optPregnancyNA').innerText = t.optPregnancyNA;
+            document.getElementById('btnAllergyYes').innerText = currentLanguage === 'es' ? 'Sí' : 'Yes';
+            document.getElementById('btnMedsYes').innerText = currentLanguage === 'es' ? 'Sí' : 'Yes';
             document.getElementById('t_lblArl').innerText = t.lblArl;
+            document.getElementById('inputArlProvider').placeholder = t.arlPlaceholder;
             document.getElementById('t_lblBoot').innerText = t.lblBoot;
+            document.getElementById('optBootSelect').innerText = t.optBootSelect;
             document.getElementById('t_btnNext3').innerHTML = `${t.btnNext3} <i class="fa-solid fa-arrow-right"></i>`;
 
             document.getElementById('t_s4Title').innerText = t.s4Title;
@@ -1406,11 +1435,17 @@
             document.getElementById('t_s5Title').innerText = t.s5Title;
             document.getElementById('t_s5Desc').innerText = t.s5Desc;
             document.getElementById('t_lblName').innerText = t.lblName;
+            document.getElementById('inputFullName').placeholder = t.namePlaceholder;
             document.getElementById('t_lblId').innerText = t.lblId;
+            document.getElementById('inputIdNumber').placeholder = t.idPlaceholder;
             document.getElementById('t_lblEmail').innerText = t.lblEmail;
+            document.getElementById('inputEmail').placeholder = t.emailPlaceholder;
             document.getElementById('t_lblPhone').innerText = t.lblPhone;
+            document.getElementById('inputPhone').placeholder = t.phonePlaceholder;
             document.getElementById('t_lblHost').innerText = t.lblHost;
+            document.getElementById('inputHostName').placeholder = t.hostPlaceholder;
             document.getElementById('t_lblEmergency').innerText = t.lblEmergency;
+            document.getElementById('inputEmergencyContact').placeholder = t.emergencyPlaceholder;
             document.getElementById('t_lblSig').innerText = t.lblSig;
             document.getElementById('t_sigHint').innerHTML = `<i class="fa-solid fa-hand-pointer"></i> ${t.sigHint}`;
             document.getElementById('t_btnClearSig').innerText = t.btnClearSig;
@@ -1419,6 +1454,9 @@
             document.getElementById('t_succTitle').innerText = t.succTitle;
             document.getElementById('t_succDesc').innerText = t.succDesc;
             document.getElementById('t_btnFinish').innerText = t.btnFinish;
+
+            document.getElementById('t_pdfFooterHint').innerText = t.pdfFooterHint;
+            document.getElementById('t_btnConfirmRead').innerText = t.btnConfirmRead;
 
             document.querySelectorAll('.btn-prev').forEach(b => {
                 b.innerHTML = `<i class="fa-solid fa-arrow-left"></i> ${t.btnPrev}`;
