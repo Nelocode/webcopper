@@ -1453,39 +1453,89 @@
             }
         }
 
-        // Dynamic HSE Safety Documents Loader & Engine
+        // Dynamic HSE Safety Documents Loader & Engine (Server Synced)
         let readDocs = {};
         let activeDocId = '';
+        let cachedSafetyDocs = null;
 
-        function getVisitorSafetyDocs() {
-            const raw = localStorage.getItem('cgnt_safety_documents');
-            if (raw) {
-                try { return JSON.parse(raw); } catch(e){}
-            }
-            return [
-                {
-                    id: 'doc-1',
-                    title_es: 'Manual de Inducción de Seguridad HSE',
-                    title_en: 'HSE Safety Induction Manual',
-                    desc_es: 'Normas generales de seguridad en perforación y terreno.',
-                    desc_en: 'General safety rules for field and drilling operations.',
-                    url: 'assets/HSE_Induction.pdf',
-                    date: '2026-08-27'
-                },
-                {
-                    id: 'doc-2',
-                    title_es: 'Código de Conducta & Emergencias',
-                    title_en: 'Code of Conduct & Emergency Protocols',
-                    desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
-                    desc_en: 'Immediate response protocols and community relations.',
-                    url: 'assets/Code_of_Conduct.pdf',
-                    date: '2026-08-27'
+        async function fetchVisitorSafetyDocs() {
+            if (cachedSafetyDocs) return cachedSafetyDocs;
+
+            let docs = [];
+            try {
+                const res = await fetch('data/safety_documents.json?t=' + Date.now());
+                if (res.ok) {
+                    const serverDocs = await res.json();
+                    if (Array.isArray(serverDocs) && serverDocs.length > 0) {
+                        docs = serverDocs;
+                    }
                 }
-            ];
+            } catch(e) {}
+
+            const localRaw = localStorage.getItem('cgnt_safety_documents');
+            if (localRaw) {
+                try {
+                    const localDocs = JSON.parse(localRaw);
+                    if (Array.isArray(localDocs) && localDocs.length > 0) {
+                        const docMap = {};
+                        docs.forEach(d => docMap[d.id] = d);
+                        localDocs.forEach(d => docMap[d.id] = d);
+                        docs = Object.values(docMap);
+                    }
+                } catch(e) {}
+            }
+
+            if (docs.length === 0) {
+                docs = [
+                    {
+                        id: 'doc-1',
+                        title_es: 'Manual de Inducción de Seguridad HSE',
+                        title_en: 'HSE Safety Induction Manual',
+                        desc_es: 'Normas generales de seguridad en perforación y terreno.',
+                        desc_en: 'General safety rules for field and drilling operations.',
+                        url: 'Press Release/2026/Manual_Seguridad_HSE.pdf',
+                        date: '2026-08-27'
+                    },
+                    {
+                        id: 'doc-2',
+                        title_es: 'Código de Conducta & Emergencias',
+                        title_en: 'Code of Conduct & Emergency Protocols',
+                        desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
+                        desc_en: 'Immediate response protocols and community relations.',
+                        url: 'Press Release/2026/Codigo_Conducta_Emergencias.pdf',
+                        date: '2026-08-27'
+                    },
+                    {
+                        id: 'doc-3',
+                        title_es: 'Protocolo de Respuesta a Emergencias Médicas',
+                        title_en: 'Medical Emergency Response Protocol',
+                        desc_es: 'Procedimientos de evacuación y primeros auxilios en terreno Mocoa.',
+                        desc_en: 'Evacuation procedures and medical response for Mocoa site.',
+                        url: 'Press Release/2026/Protocolo_Emergencias.pdf',
+                        date: '2026-08-27'
+                    },
+                    {
+                        id: 'doc-4',
+                        title_es: 'Política de Protección Ambiental y Comunitaria',
+                        title_en: 'Environmental & Community Protection Policy',
+                        desc_es: 'Directrices de gestión ambiental y respeto sociocultural en Putumayo.',
+                        desc_en: 'Environmental management guidelines and community care in Putumayo.',
+                        url: 'Press Release/2026/Politica_Ambiental.pdf',
+                        date: '2026-08-27'
+                    }
+                ];
+            }
+
+            cachedSafetyDocs = docs;
+            return docs;
         }
 
-        function renderVisitorSafetyDocs() {
-            const docs = getVisitorSafetyDocs();
+        function getVisitorSafetyDocsSync() {
+            return cachedSafetyDocs || [];
+        }
+
+        async function renderVisitorSafetyDocs() {
+            const docs = await fetchVisitorSafetyDocs();
             const container = document.getElementById('pdfDocsGridContainer');
             if (!container) return;
 
@@ -1516,8 +1566,8 @@
         }
 
         // PDF Modal Handlers
-        function openPdfModal(docId) {
-            const docs = getVisitorSafetyDocs();
+        async function openPdfModal(docId) {
+            const docs = await fetchVisitorSafetyDocs();
             const doc = docs.find(d => d.id === docId);
             if (!doc) return;
 
@@ -1550,7 +1600,7 @@
 
         function validateStep(step) {
             if (step === 1) {
-                const docs = getVisitorSafetyDocs();
+                const docs = getVisitorSafetyDocsSync();
                 const unread = docs.filter(d => !readDocs[d.id]);
                 if (unread.length > 0) {
                     alert(currentLanguage === 'es' ? 'Por favor lee y confirma la lectura de todos los documentos de seguridad antes de continuar.' : 'Please read and confirm all safety documents before proceeding.');

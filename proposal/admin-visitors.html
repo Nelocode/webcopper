@@ -807,38 +807,43 @@
             });
         }
 
-        // HSE Safety Documents Admin Manager Engine
+        // HSE Safety Documents Admin Manager Engine (Server Synced)
         let adminDocBase64 = '';
+        let cachedAdminDocs = null;
 
-        function getStoredDocs() {
+        async function fetchAdminDocs() {
+            if (cachedAdminDocs) return cachedAdminDocs;
+
+            let docs = [];
+            try {
+                const res = await fetch('data/safety_documents.json?t=' + Date.now());
+                if (res.ok) {
+                    const serverDocs = await res.json();
+                    if (Array.isArray(serverDocs) && serverDocs.length > 0) {
+                        docs = serverDocs;
+                    }
+                }
+            } catch(e) {}
+
             const raw = localStorage.getItem('cgnt_safety_documents');
             if (raw) {
-                try { return JSON.parse(raw); } catch(e){}
+                try {
+                    const localDocs = JSON.parse(raw);
+                    if (Array.isArray(localDocs) && localDocs.length > 0) {
+                        const docMap = {};
+                        docs.forEach(d => docMap[d.id] = d);
+                        localDocs.forEach(d => docMap[d.id] = d);
+                        docs = Object.values(docMap);
+                    }
+                } catch(e) {}
             }
-            return [
-                {
-                    id: 'doc-1',
-                    title_es: 'Manual de Inducción de Seguridad HSE',
-                    title_en: 'HSE Safety Induction Manual',
-                    desc_es: 'Normas generales de seguridad en perforación y terreno.',
-                    desc_en: 'General safety rules for field and drilling operations.',
-                    url: 'assets/HSE_Induction.pdf',
-                    date: '2026-08-27'
-                },
-                {
-                    id: 'doc-2',
-                    title_es: 'Código de Conducta & Emergencias',
-                    title_en: 'Code of Conduct & Emergency Protocols',
-                    desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
-                    desc_en: 'Immediate response protocols and community relations.',
-                    url: 'assets/Code_of_Conduct.pdf',
-                    date: '2026-08-27'
-                }
-            ];
+
+            cachedAdminDocs = docs;
+            return docs;
         }
 
-        function loadAdminDocs() {
-            const docs = getStoredDocs();
+        async function loadAdminDocs() {
+            const docs = await fetchAdminDocs();
             const grid = document.getElementById('adminDocsGrid');
             if (!grid) return;
 
@@ -876,8 +881,8 @@
             document.getElementById('docManageModal').classList.remove('hidden');
         }
 
-        function editAdminDoc(docId) {
-            const docs = getStoredDocs();
+        async function editAdminDoc(docId) {
+            const docs = await fetchAdminDocs();
             const doc = docs.find(d => d.id === docId);
             if (!doc) return;
 
@@ -908,7 +913,7 @@
             }
         }
 
-        function saveDocForm(e) {
+        async function saveDocForm(e) {
             e.preventDefault();
             const titleEs = document.getElementById('docTitleEs').value.trim();
             const titleEn = document.getElementById('docTitleEn').value.trim();
@@ -926,7 +931,7 @@
                 return;
             }
 
-            let docs = getStoredDocs();
+            let docs = await fetchAdminDocs();
             if (editId) {
                 docs = docs.map(d => {
                     if (d.id === editId) {
@@ -947,18 +952,20 @@
                 docs.push(newDoc);
             }
 
+            cachedAdminDocs = docs;
             localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
             closeDocModal();
-            loadAdminDocs();
-            alert('Documento guardado exitosamente. Los visitantes verán este nuevo documento en el Paso 1.');
+            await loadAdminDocs();
+            alert('Documento guardado exitosamente.');
         }
 
-        function deleteAdminDoc(docId) {
+        async function deleteAdminDoc(docId) {
             if (confirm('¿Estás seguro de eliminar este documento de inducción HSE?')) {
-                let docs = getStoredDocs();
+                let docs = await fetchAdminDocs();
                 docs = docs.filter(d => d.id !== docId);
+                cachedAdminDocs = docs;
                 localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
-                loadAdminDocs();
+                await loadAdminDocs();
             }
         }
     </script>
