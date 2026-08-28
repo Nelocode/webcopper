@@ -807,43 +807,50 @@
             });
         }
 
-        // HSE Safety Documents Admin Manager Engine
+        // HSE Safety Documents Admin Manager Engine (Server Synced + Cache Invalidation)
         let adminDocBase64 = '';
+        let cachedAdminDocs = null;
+        const DOCS_VER = 'v173_clean_sync';
 
-        function getStoredDocs() {
+        async function fetchAdminDocs() {
+            if (cachedAdminDocs) return cachedAdminDocs;
+
+            // Purge old local cache if version mismatch
+            if (localStorage.getItem('cgnt_safety_docs_ver') !== DOCS_VER) {
+                localStorage.removeItem('cgnt_safety_documents');
+                localStorage.setItem('cgnt_safety_docs_ver', DOCS_VER);
+            }
+
+            let docs = [];
+            try {
+                const res = await fetch('data/safety_documents.json?t=' + Date.now());
+                if (res.ok) {
+                    const serverDocs = await res.json();
+                    if (Array.isArray(serverDocs) && serverDocs.length > 0) {
+                        docs = serverDocs;
+                    }
+                }
+            } catch(e) {}
+
             const raw = localStorage.getItem('cgnt_safety_documents');
             if (raw) {
                 try {
-                    const parsed = JSON.parse(raw);
-                    if (Array.isArray(parsed) && parsed.length > 0) {
-                        return parsed;
+                    const localDocs = JSON.parse(raw);
+                    if (Array.isArray(localDocs) && localDocs.length > 0) {
+                        const docMap = {};
+                        docs.forEach(d => docMap[d.id] = d);
+                        localDocs.forEach(d => docMap[d.id] = d);
+                        docs = Object.values(docMap);
                     }
-                } catch(e){}
+                } catch(e) {}
             }
-            return [
-                {
-                    id: 'doc-1',
-                    title_es: 'Manual de Inducción de Seguridad HSE',
-                    title_en: 'HSE Safety Induction Manual',
-                    desc_es: 'Normas generales de seguridad en perforación y terreno.',
-                    desc_en: 'General safety rules for field and drilling operations.',
-                    url: '',
-                    date: '2026-08-27'
-                },
-                {
-                    id: 'doc-2',
-                    title_es: 'Código de Conducta & Emergencias',
-                    title_en: 'Code of Conduct & Emergency Protocols',
-                    desc_es: 'Protocolos de respuesta inmediata y relaciones comunitarias.',
-                    desc_en: 'Immediate response protocols and community relations.',
-                    url: '',
-                    date: '2026-08-27'
-                }
-            ];
+
+            cachedAdminDocs = docs;
+            return docs;
         }
 
-        function loadAdminDocs() {
-            const docs = getStoredDocs();
+        async function loadAdminDocs() {
+            const docs = await fetchAdminDocs();
             const grid = document.getElementById('adminDocsGrid');
             if (!grid) return;
 
@@ -858,7 +865,7 @@
                         </div>
                     </div>
                     <div class="doc-admin-actions">
-                        <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="fa-regular fa-calendar"></i> ${d.date || '2026-08-27'}</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="fa-regular fa-calendar"></i> ${d.date || '2026-08-28'}</span>
                         <div style="display: flex; gap: 8px;">
                             <button class="btn-icon-action" onclick="editAdminDoc('${d.id}')"><i class="fa-solid fa-pen"></i> Editar</button>
                             <button class="btn-icon-action danger" onclick="deleteAdminDoc('${d.id}')"><i class="fa-solid fa-trash"></i></button>
@@ -881,8 +888,8 @@
             document.getElementById('docManageModal').classList.remove('hidden');
         }
 
-        function editAdminDoc(docId) {
-            const docs = getStoredDocs();
+        async function editAdminDoc(docId) {
+            const docs = await fetchAdminDocs();
             const doc = docs.find(d => d.id === docId);
             if (!doc) return;
 
@@ -913,7 +920,7 @@
             }
         }
 
-        function saveDocForm(e) {
+        async function saveDocForm(e) {
             e.preventDefault();
             const titleEs = document.getElementById('docTitleEs').value.trim();
             const titleEn = document.getElementById('docTitleEn').value.trim();
@@ -931,7 +938,7 @@
                 return;
             }
 
-            let docs = getStoredDocs();
+            let docs = await fetchAdminDocs();
             if (editId) {
                 docs = docs.map(d => {
                     if (d.id === editId) {
@@ -952,18 +959,20 @@
                 docs.push(newDoc);
             }
 
+            cachedAdminDocs = docs;
             localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
             closeDocModal();
-            loadAdminDocs();
+            await loadAdminDocs();
             alert('Documento guardado exitosamente.');
         }
 
-        function deleteAdminDoc(docId) {
+        async function deleteAdminDoc(docId) {
             if (confirm('¿Estás seguro de eliminar este documento de inducción HSE?')) {
-                let docs = getStoredDocs();
+                let docs = await fetchAdminDocs();
                 docs = docs.filter(d => d.id !== docId);
+                cachedAdminDocs = docs;
                 localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
-                loadAdminDocs();
+                await loadAdminDocs();
             }
         }
     </script>
