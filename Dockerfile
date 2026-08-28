@@ -2,7 +2,7 @@
 FROM nginx:alpine
 
 # Copy the static site files into the Nginx HTML directory
-COPY ./proposal /usr/share/nginx/html
+COPY ./outcrop /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
