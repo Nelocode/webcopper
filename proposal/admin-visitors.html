@@ -812,37 +812,52 @@
             });
         }
 
-        // Standalone HSE Safety Documents Admin Manager Engine (Completely Decoupled from Site Repository)
+        // Official HSE Safety Documents Admin Manager Engine (Server Synced + Cache Invalidation)
         let adminDocBase64 = '';
+        let cachedAdminDocs = null;
+        const DOCS_VER = 'v176_official_pdfs';
 
-        function getStoredDocs() {
+        async function fetchAdminDocs() {
+            if (cachedAdminDocs) return cachedAdminDocs;
+
+            // Purge old local cache if version mismatch
+            if (localStorage.getItem('cgnt_safety_docs_ver') !== DOCS_VER) {
+                localStorage.removeItem('cgnt_safety_documents');
+                localStorage.setItem('cgnt_safety_docs_ver', DOCS_VER);
+            }
+
+            let docs = [];
+            try {
+                const res = await fetch('data/safety_documents.json?t=' + Date.now());
+                if (res.ok) {
+                    const serverDocs = await res.json();
+                    if (Array.isArray(serverDocs) && serverDocs.length > 0) {
+                        docs = serverDocs;
+                    }
+                }
+            } catch(e) {}
+
             const raw = localStorage.getItem('cgnt_safety_documents');
             if (raw) {
                 try {
-                    const parsed = JSON.parse(raw);
-                    if (Array.isArray(parsed)) {
-                        return parsed;
+                    const localDocs = JSON.parse(raw);
+                    if (Array.isArray(localDocs) && localDocs.length > 0) {
+                        const docMap = {};
+                        docs.forEach(d => docMap[d.id] = d);
+                        localDocs.forEach(d => docMap[d.id] = d);
+                        docs = Object.values(docMap);
                     }
                 } catch(e) {}
             }
-            return [];
+
+            cachedAdminDocs = docs;
+            return docs;
         }
 
-        function loadAdminDocs() {
-            const docs = getStoredDocs();
+        async function loadAdminDocs() {
+            const docs = await fetchAdminDocs();
             const grid = document.getElementById('adminDocsGrid');
             if (!grid) return;
-
-            if (docs.length === 0) {
-                grid.innerHTML = `
-                    <div style="grid-column: 1 / -1; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 24px; text-align: center; color: var(--text-muted);">
-                        <i class="fa-solid fa-folder-plus" style="font-size: 2rem; color: var(--copper-primary); margin-bottom: 10px; display: block;"></i>
-                        <strong>No hay documentos de inducción cargados</strong>
-                        <p style="font-size: 0.85rem; margin-top: 6px;">Haz clic en <strong>"Subir Nuevo Documento PDF"</strong> para agregar los documentos obligatorios para visitantes.</p>
-                    </div>
-                `;
-                return;
-            }
 
             grid.innerHTML = docs.map(d => `
                 <div class="doc-admin-card">
@@ -878,8 +893,8 @@
             document.getElementById('docManageModal').classList.remove('hidden');
         }
 
-        function editAdminDoc(docId) {
-            const docs = getStoredDocs();
+        async function editAdminDoc(docId) {
+            const docs = await fetchAdminDocs();
             const doc = docs.find(d => d.id === docId);
             if (!doc) return;
 
@@ -910,7 +925,7 @@
             }
         }
 
-        function saveDocForm(e) {
+        async function saveDocForm(e) {
             e.preventDefault();
             const titleEs = document.getElementById('docTitleEs').value.trim();
             const titleEn = document.getElementById('docTitleEn').value.trim();
@@ -928,7 +943,7 @@
                 return;
             }
 
-            let docs = getStoredDocs();
+            let docs = await fetchAdminDocs();
             if (editId) {
                 docs = docs.map(d => {
                     if (d.id === editId) {
@@ -949,19 +964,31 @@
                 docs.push(newDoc);
             }
 
+            cachedAdminDocs = docs;
             localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
             closeDocModal();
-            loadAdminDocs();
+            await loadAdminDocs();
             alert('Documento guardado exitosamente.');
         }
 
-        function deleteAdminDoc(docId) {
+        async function deleteAdminDoc(docId) {
             if (confirm('¿Estás seguro de eliminar este documento de inducción HSE?')) {
-                let docs = getStoredDocs();
+                let docs = await fetchAdminDocs();
                 docs = docs.filter(d => d.id !== docId);
+                cachedAdminDocs = docs;
                 localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
-                loadAdminDocs();
+                await loadAdminDocs();
             }
+        }
+
+        async function exportSafetyDocsJSON() {
+            const docs = await fetchAdminDocs();
+            if (!docs || docs.length === 0) {
+                alert('No hay documentos cargados para exportar.');
+                return;
+            }
+            const blob = new Blob([JSON.stringify(docs, null, 2)], { type: "application/json;charset=utf-8" });
+            saveAs(blob, "safety_documents.json");
         }
     </script>
 </body>

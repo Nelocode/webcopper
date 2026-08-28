@@ -1,0 +1,38 @@
+[
+  {
+    "id": "doc-1",
+    "title_es": "Política & Guía de Seguridad y Salud en el Trabajo (SG-SST)",
+    "title_en": "Occupational Health & Safety Policy & Visitor Guide",
+    "desc_es": "Normas de seguridad, prevención de riesgos y respuesta a emergencias en Libero Cobre.",
+    "desc_en": "OHS policy commitments, facility risk identification, and entry rules.",
+    "url": "assets/docs/Guia_Seguridad_SST_Visitantes_ES.pdf",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "doc-2",
+    "title_es": "Visitor Safety Induction Manual (OHSMS)",
+    "title_en": "Visitor Safety Induction Manual (OHSMS)",
+    "desc_es": "Manual de inducción de seguridad para visitantes en idioma inglés.",
+    "desc_en": "Official visitor safety induction manual, OHSMS guidelines, and evacuation protocols.",
+    "url": "assets/docs/Visitor_Safety_Induction_EN.pdf",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "doc-3",
+    "title_es": "Autorización Tratamiento de Datos Personales e Imagen",
+    "title_en": "Personal Data Processing & Image Use Authorization (ES)",
+    "desc_es": "Autorización conforme a la Ley 1581 de 2012 para tratamiento de datos personales e imagen.",
+    "desc_en": "Official Colombian Law 1581 of 2012 personal data processing & image consent form.",
+    "url": "assets/docs/Autorizacion_Tratamiento_Datos_ES.pdf",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "doc-4",
+    "title_es": "Authorization for Processing of Personal Data & Image Use",
+    "title_en": "Authorization for Processing of Personal Data & Image Use (EN)",
+    "desc_es": "Autorización de tratamiento de datos personales e imagen en idioma inglés.",
+    "desc_en": "Personal data processing and image authorization document in English.",
+    "url": "assets/docs/Data_Privacy_Authorization_EN.pdf",
+    "date": "2026-08-28"
+  }
+]

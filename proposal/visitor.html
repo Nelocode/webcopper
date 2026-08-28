@@ -1491,36 +1491,67 @@
             }
         }
 
-        // Standalone HSE Safety Documents Loader & Engine (Completely Decoupled from Site Repository)
+        // Official HSE Safety Documents Loader Engine (Server Synced + Cache Invalidation)
         let readDocs = {};
         let activeDocId = '';
+        let cachedSafetyDocs = null;
+        const DOCS_VER = 'v176_official_pdfs';
 
-        function getVisitorSafetyDocs() {
+        async function fetchVisitorSafetyDocs() {
+            if (cachedSafetyDocs) return cachedSafetyDocs;
+
+            // Purge old local cache if version mismatch or stale
+            if (localStorage.getItem('cgnt_safety_docs_ver') !== DOCS_VER) {
+                localStorage.removeItem('cgnt_safety_documents');
+                localStorage.setItem('cgnt_safety_docs_ver', DOCS_VER);
+            }
+
+            let docs = [];
+            // 1. Fetch live master server documents
+            try {
+                const res = await fetch('data/safety_documents.json?t=' + Date.now());
+                if (res.ok) {
+                    const serverDocs = await res.json();
+                    if (Array.isArray(serverDocs) && serverDocs.length > 0) {
+                        docs = serverDocs;
+                    }
+                }
+            } catch(e) {}
+
+            // 2. Check local admin overrides if present
             const localRaw = localStorage.getItem('cgnt_safety_documents');
             if (localRaw) {
                 try {
                     const localDocs = JSON.parse(localRaw);
                     if (Array.isArray(localDocs) && localDocs.length > 0) {
-                        return localDocs;
+                        const docMap = {};
+                        docs.forEach(d => docMap[d.id] = d);
+                        localDocs.forEach(d => docMap[d.id] = d);
+                        docs = Object.values(docMap);
                     }
                 } catch(e) {}
             }
-            return [];
+
+            cachedSafetyDocs = docs;
+            return docs;
         }
 
-        function renderVisitorSafetyDocs() {
-            const docs = getVisitorSafetyDocs();
+        function getVisitorSafetyDocsSync() {
+            return cachedSafetyDocs || [];
+        }
+
+        async function renderVisitorSafetyDocs() {
+            const docs = await fetchVisitorSafetyDocs();
             const container = document.getElementById('pdfDocsGridContainer');
             if (!container) return;
 
             const t = translations[currentLanguage];
 
-            if (docs.length === 0) {
+            if (!docs || docs.length === 0) {
                 container.innerHTML = `
                     <div style="grid-column: 1 / -1; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.2); border-radius: 12px; padding: 24px; text-align: center; color: var(--text-muted);">
                         <i class="fa-solid fa-folder-open" style="font-size: 2rem; color: var(--copper-primary); margin-bottom: 10px; display: block;"></i>
-                        <strong>${currentLanguage === 'es' ? 'No hay documentos cargados' : 'No safety documents uploaded'}</strong>
-                        <p style="font-size: 0.85rem; margin-top: 6px;">${currentLanguage === 'es' ? 'El administrador debe cargar los documentos de inducción HSE desde el Panel Administrativo.' : 'The administrator must upload HSE induction documents from the Admin Panel.'}</p>
+                        <strong>${currentLanguage === 'es' ? 'Cargando documentos de seguridad...' : 'Loading safety documents...'}</strong>
                     </div>
                 `;
                 return;
@@ -1551,8 +1582,8 @@
         }
 
         // PDF Modal Handlers
-        function openPdfModal(docId) {
-            const docs = getVisitorSafetyDocs();
+        async function openPdfModal(docId) {
+            const docs = await fetchVisitorSafetyDocs();
             const doc = docs.find(d => d.id === docId);
             if (!doc) return;
 
@@ -1580,9 +1611,9 @@
 
         function validateStep(step) {
             if (step === 1) {
-                const docs = getVisitorSafetyDocs();
+                const docs = getVisitorSafetyDocsSync();
                 if (docs.length === 0) {
-                    return true; // Pass if no docs configured
+                    return true;
                 }
                 const unread = docs.filter(d => !readDocs[d.id]);
                 if (unread.length > 0) {
