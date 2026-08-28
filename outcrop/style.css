@@ -493,8 +493,20 @@ h1, h2, h3, h4, h5, h6 {
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.35em;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.hero-tagline {
+    font-family: 'Figtree', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--brand-primary);
+    margin-top: 8px;
+    margin-bottom: 24px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 .hero-tagline-text {
@@ -3111,3 +3123,76 @@ textarea.form-control {
     transform: scale(1.06);
     box-shadow: 0 0 16px var(--brand-glow);
 }
+
+/* NEWS & PRESS RELEASE READER MODAL */
+.news-modal-box {
+    max-width: 720px;
+    width: 90%;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 36px 32px 32px 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    position: relative;
+    color: var(--text-primary);
+    text-align: left;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .news-modal-box {
+    transform: scale(1);
+}
+
+.news-modal-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 16px;
+}
+
+.news-modal-badge {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-family: 'Figtree', sans-serif;
+}
+
+.news-modal-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 8px;
+}
+
+.news-modal-title {
+    font-family: 'Figtree', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.news-modal-body {
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 24px;
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
+.news-modal-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
+}
+

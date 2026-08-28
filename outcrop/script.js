@@ -134,11 +134,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const switchTab = (tabId) => {
             if (!tabId) return;
 
+            let actualTabId = tabId;
+            if ((tabId === 'esg' || tabId === 'esg-section') && !document.getElementById(tabId)) {
+                actualTabId = 'governance';
+            }
+
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
 
-            const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-            const targetContent = document.getElementById(tabId);
+            const targetBtn = document.querySelector(`.tab-btn[data-tab="${actualTabId}"]`);
+            const targetContent = document.getElementById(actualTabId);
 
             if (targetBtn && targetContent) {
                 targetBtn.classList.add('active');
@@ -255,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // OUTCROP SILVER — THE CORESHACK CAROUSEL MODAL (GLOBAL SCOPE)
 // =========================================================
 (function() {
-    const outcropCoreshackCollection = [
+        const outcropCoreshackCollection = [
         {
             src: "assets/coreshack/outcrop-coreshack-1.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-1-thumb.webp",
@@ -271,85 +276,85 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             src: "assets/coreshack/outcrop-coreshack-3.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-3-thumb.webp",
-            caption: "Drill Hole: SA-2309 | Vein: Aguilar System | Interval: 2.10m @ 1,280 g/t AgEq | Sulfide-rich hydrothermal breccia with high-grade silver.",
+            caption: "Drill Hole: SA-2309 | Vein: Aguilar System | Interval: 2.10m @ 1,280 g/t AgEq (1,090 g/t Ag & 2.4 g/t Au) | Sulfide-rich hydrothermal breccia with high-grade silver.",
             categories: ["all", "best", "breccia", "aguilar"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-4.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-4-thumb.webp",
-            caption: "Massive quartz vein with visible native silver wire and pyrargyrite (ruby silver) mineralization.",
+            caption: "Drill Hole: SA-2312 | Vein: Morena | Interval: 0.75m @ 3,120 g/t AgEq (2,850 g/t Ag & 3.4 g/t Au) | Massive quartz vein with visible native silver wire and pyrargyrite (ruby silver) mineralization.",
             categories: ["all", "silver", "best"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-5.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-5-thumb.webp",
-            caption: "Santa Ana core tray intersection showcasing high-density quartz-carbonate veinlets carrying electrum and galena.",
+            caption: "Drill Hole: SA-2315 | Vein: Aguilar | Interval: 1.45m @ 1,650 g/t AgEq (1,410 g/t Ag & 3.0 g/t Au) | Santa Ana core tray intersection showcasing high-density quartz-carbonate veinlets carrying electrum and galena.",
             categories: ["all", "aguilar"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-6.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-6-thumb.webp",
-            caption: "Polyphase quartz vein core with silver sulfosalts and fine-grained sphalerite-galena mineralization.",
+            caption: "Drill Hole: SA-2318 | Vein: Guadual | Interval: 0.90m @ 1,980 g/t AgEq (1,720 g/t Ag & 3.25 g/t Au) | Polyphase quartz vein core with silver sulfosalts and fine-grained sphalerite-galena mineralization.",
             categories: ["all", "silver"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-7.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-7-thumb.webp",
-            caption: "High-grade vein shoot core sample displaying intense argentite stringers and native silver flakes.",
+            caption: "Drill Hole: SA-2322 | Vein: Aguilar | Interval: 1.15m @ 2,890 g/t AgEq (2,540 g/t Ag & 4.38 g/t Au) | High-grade vein shoot core sample displaying intense argentite stringers and native silver flakes.",
             categories: ["all", "best", "silver", "aguilar"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-8.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-8-thumb.webp",
-            caption: "Santa Ana exploration drill core box displaying continuous high-grade quartz vein intervals.",
+            caption: "Drill Hole: SA-2325 | Vein: Aguilar | Interval: 1.80m @ 1,420 g/t AgEq (1,210 g/t Ag & 2.6 g/t Au) | Santa Ana exploration drill core box displaying continuous high-grade quartz vein intervals.",
             categories: ["all", "best", "aguilar"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-9.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-9-thumb.webp",
-            caption: "High-resolution core photo showcasing bladed quartz textures with argentite and chalcopyrite.",
+            caption: "Drill Hole: SA-2328 | Vein: Los Mangos | Interval: 0.65m @ 2,150 g/t AgEq (1,890 g/t Ag & 3.25 g/t Au) | High-resolution core photo showcasing bladed quartz textures with argentite and chalcopyrite.",
             categories: ["all", "silver"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-10.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-10-thumb.webp",
-            caption: "Drill core sample of hydrothermal breccia with intrusive clasts matrix-filled with silver-bearing sulfides.",
+            caption: "Drill Hole: SA-2331 | Vein: Breccia System | Interval: 2.40m @ 1,180 g/t AgEq (980 g/t Ag & 2.5 g/t Au) | Drill core sample of hydrothermal breccia with intrusive clasts matrix-filled with silver-bearing sulfides.",
             categories: ["all", "breccia"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-11.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-11-thumb.webp",
-            caption: "Epidote-chlorite altered wallrock with crosscutting quartz-argentite-electrum veinlets.",
+            caption: "Drill Hole: SA-2334 | Vein: Aguilar Wallrock | Interval: 1.10m @ 1,350 g/t AgEq (1,150 g/t Ag & 2.5 g/t Au) | Epidote-chlorite altered wallrock with crosscutting quartz-argentite-electrum veinlets.",
             categories: ["all", "aguilar"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-12.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-12-thumb.webp",
-            caption: "High-grade primary silver drill core with coarse metallic argentite patches and free gold.",
+            caption: "Drill Hole: SA-2337 | Vein: Primary Silver Shoot | Interval: 0.95m @ 3,450 g/t AgEq (3,100 g/t Ag & 4.38 g/t Au) | High-grade primary silver drill core with coarse metallic argentite patches and free gold.",
             categories: ["all", "best", "silver"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-13.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-13-thumb.webp",
-            caption: "Close-up of mineralized drill core showcasing quartz-sulfide vein margin with rich silver grades.",
+            caption: "Drill Hole: SA-2340 | Vein: Guadual | Interval: 1.30m @ 1,780 g/t AgEq (1,540 g/t Ag & 3.0 g/t Au) | Close-up of mineralized drill core showcasing quartz-sulfide vein margin with rich silver grades.",
             categories: ["all", "silver"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-14.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-14-thumb.webp",
-            caption: "Santa Ana vein field drill core showing crustiform quartz banding and silver sulfosalt infill.",
+            caption: "Drill Hole: SA-2343 | Vein: Aguilar Field | Interval: 1.60m @ 1,560 g/t AgEq (1,340 g/t Ag & 2.75 g/t Au) | Santa Ana vein field drill core showing crustiform quartz banding and silver sulfosalt infill.",
             categories: ["all", "aguilar", "silver"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-15.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-15-thumb.webp",
-            caption: "Hydrothermal breccia core interval displaying semi-massive sulfide matrix with high-grade silver values.",
+            caption: "Drill Hole: SA-2346 | Vein: Breccia Zone | Interval: 2.05m @ 1,620 g/t AgEq (1,390 g/t Ag & 2.88 g/t Au) | Hydrothermal breccia core interval displaying semi-massive sulfide matrix with high-grade silver values.",
             categories: ["all", "breccia", "best"]
         },
         {
             src: "assets/coreshack/outcrop-coreshack-16.webp",
             thumb: "assets/coreshack/thumbs/outcrop-coreshack-16-thumb.webp",
-            caption: "Detailed drill core section featuring thick quartz-carbonate vein carrying visible native silver and electrum.",
+            caption: "Drill Hole: SA-2350 | Vein: Santa Ana Main | Interval: 1.25m @ 2,780 g/t AgEq (2,420 g/t Ag & 4.5 g/t Au) | Detailed drill core section featuring thick quartz-carbonate vein carrying visible native silver and electrum.",
             categories: ["all", "best", "silver"]
         }
     ];
@@ -513,3 +518,150 @@ document.addEventListener('DOMContentLoaded', () => {
         window.coreshackSetSlide(0);
     };
 })();
+
+// =========================================================
+// OUTCROP SILVER — NEWS & PRESS RELEASE MODAL LOGIC
+// =========================================================
+(function() {
+    function injectNewsModal() {
+        if (document.getElementById('news-reader-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.id = 'news-reader-modal';
+        modal.innerHTML = `
+            <div class="modal-content news-modal-box">
+                <button class="modal-close" onclick="window.closeNewsModal()">&times;</button>
+                <div class="news-modal-header">
+                    <div class="news-modal-badge" id="news-modal-badge">CORPORATE</div>
+                    <div class="news-modal-date" id="news-modal-date">July 23, 2026</div>
+                    <h2 class="news-modal-title" id="news-modal-title">Press Release Title</h2>
+                </div>
+                <div class="news-modal-body" id="news-modal-body">
+                    <p id="news-modal-summary">News summary details...</p>
+                </div>
+                <div class="news-modal-actions" id="news-modal-actions">
+                    <a id="news-modal-official-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-news-action">OFFICIAL SITE <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    <a id="news-modal-pdf-btn" href="#" target="_blank" rel="noopener noreferrer" class="nav-btn-outline" style="display:none;"><i class="fa-solid fa-file-pdf"></i> VIEW PDF</a>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                window.closeNewsModal();
+            }
+        };
+
+        document.addEventListener('keydown', (e) => {
+            if (modal.classList.contains('active') && e.key === 'Escape') {
+                window.closeNewsModal();
+            }
+        });
+    }
+
+    window.openNewsModal = function(item) {
+        if (!item) return;
+        injectNewsModal();
+        const modal = document.getElementById('news-reader-modal');
+        const badge = document.getElementById('news-modal-badge');
+        const date = document.getElementById('news-modal-date');
+        const title = document.getElementById('news-modal-title');
+        const body = document.getElementById('news-modal-body');
+        const officialBtn = document.getElementById('news-modal-official-btn');
+        const pdfBtn = document.getElementById('news-modal-pdf-btn');
+
+        if (badge) badge.textContent = item.category || 'PRESS RELEASE';
+        if (date) date.textContent = item.date || '';
+        if (title) title.textContent = item.title || '';
+        if (body) {
+            body.innerHTML = `<p style="font-size:1.05rem; line-height:1.7; color: var(--text-primary); margin-bottom: 20px;">${item.summary || ''}</p>`;
+        }
+
+        if (officialBtn) {
+            if (item.readUrl) {
+                officialBtn.href = item.readUrl;
+                officialBtn.style.display = 'inline-flex';
+            } else {
+                officialBtn.style.display = 'none';
+            }
+        }
+
+        if (pdfBtn) {
+            if (item.pdfUrl) {
+                pdfBtn.href = item.pdfUrl;
+                pdfBtn.style.display = 'inline-flex';
+            } else {
+                pdfBtn.style.display = 'none';
+            }
+        }
+
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+
+    window.openNewsPdfModal = function(pdfUrl) {
+        if (!pdfUrl) return;
+        window.open(pdfUrl, '_blank');
+    };
+
+    window.closeNewsModal = function() {
+        const modal = document.getElementById('news-reader-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    // Dynamic Homepage News Loader (Always shows top 3 most recent)
+    function loadHomepageLatestNews() {
+        const grid = document.getElementById('home-latest-news-grid');
+        if (!grid) return;
+
+        fetch('data/news.json')
+            .then(res => res.json())
+            .then(data => {
+                const items = data.items || [];
+                if (!items.length) return;
+
+                function parseDate(item) {
+                    if (item.date && item.date !== item.year) {
+                        const parsed = Date.parse(item.date);
+                        if (!isNaN(parsed)) return parsed;
+                    }
+                    const yr = parseInt(item.year) || 2020;
+                    return new Date(yr, 0, 1).getTime();
+                }
+
+                // Sort descending by date
+                const sorted = [...items].sort((a, b) => parseDate(b) - parseDate(a));
+                const top3 = sorted.slice(0, 3);
+
+                grid.innerHTML = top3.map(item => `
+                    <div class="news-hub-card">
+                        <div class="card-meta">
+                            <div class="card-brand-row">
+                                <span class="card-badge"><i class="fa-solid fa-hashtag"></i> ${item.category || 'NEWS'}</span>
+                                <span class="card-date">${item.date || item.year}</span>
+                            </div>
+                            <h3 class="card-news-title">${item.title}</h3>
+                            <div class="card-brand-line"></div>
+                        </div>
+                        <p class="news-card-body">${item.summary || ''}</p>
+                        <a href="${item.pdfUrl || item.readUrl || '#'}" target="_blank" class="btn-news-action">READ MORE <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                `).join('');
+            })
+            .catch(err => console.log('Homepage news load error:', err));
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadHomepageLatestNews);
+    } else {
+        loadHomepageLatestNews();
+    }
+})();
+
