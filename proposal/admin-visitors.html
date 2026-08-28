@@ -534,9 +534,14 @@
                         Sube, renueva o elimina los documentos obligatorios de lectura para visitantes. Capacidad ilimitada de archivos PDF.
                     </p>
                 </div>
-                <button class="btn-export-all" onclick="openAddDocModal()">
-                    <i class="fa-solid fa-plus"></i> Subir Nuevo Documento PDF
-                </button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-export-all" onclick="openAddDocModal()">
+                        <i class="fa-solid fa-plus"></i> Subir Nuevo Documento PDF
+                    </button>
+                    <button class="btn-export-all" style="background: rgba(255,255,255,0.1); border: 1px solid var(--copper-primary); color: #fff;" onclick="exportSafetyDocsJSON()">
+                        <i class="fa-solid fa-file-export"></i> Descargar Configuración Servidor (JSON)
+                    </button>
+                </div>
             </div>
 
             <div id="adminDocsGrid" class="admin-docs-grid">
@@ -974,6 +979,16 @@
                 localStorage.setItem('cgnt_safety_documents', JSON.stringify(docs));
                 await loadAdminDocs();
             }
+        }
+
+        async function exportSafetyDocsJSON() {
+            const docs = await fetchAdminDocs();
+            if (!docs || docs.length === 0) {
+                alert('No hay documentos cargados para exportar.');
+                return;
+            }
+            const blob = new Blob([JSON.stringify(docs, null, 2)], { type: "application/json;charset=utf-8" });
+            saveAs(blob, "safety_documents.json");
         }
     </script>
 </body>
