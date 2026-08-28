@@ -2,6 +2,8 @@
 <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 249.32 413.18">
   <defs>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..900;1,400..900&amp;display=swap');
+
       .cls-1 {
         fill: none;
       }
@@ -15,7 +17,7 @@
       }
 
       .cls-3 {
-        font-family: Figtree-Bold, Figtree;
+        font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         font-size: 13.81px;
       }
 
@@ -33,7 +35,7 @@
 
       .cls-8 {
         fill: #888;
-        font-family: Figtree-Regular, Figtree;
+        font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         font-size: 6.49px;
       }
 
@@ -58,7 +60,7 @@
       }
 
       .cls-10 {
-        font-family: Figtree-MediumItalic, Figtree;
+        font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         font-size: 10.15px;
         font-style: italic;
         font-weight: 500;
@@ -169,7 +171,7 @@
       }
 
       .cls-5 {
-        font-family: Figtree-ExtraBold, Figtree;
+        font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         font-size: 7.25px;
       }
 

@@ -2,6 +2,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 963.17 180.63">
   <defs>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400..900;1,400..900&amp;display=swap');
+
       .cls-1, .cls-2, .cls-3 {
         fill: none;
       }
@@ -12,7 +14,7 @@
       }
 
       .cls-4, .cls-5, .cls-6, .cls-7 {
-        font-family: Figtree-SemiBold, Figtree;
+        font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         font-weight: 600;
       }
 
@@ -22,7 +24,7 @@
       }
 
       .cls-8, .cls-9 {
-        font-family: Figtree-ExtraBold, Figtree;
+        font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
 
       .cls-8, .cls-9, .cls-10 {
@@ -87,7 +89,7 @@
       }
 
       .cls-10 {
-        font-family: Figtree-Bold, Figtree;
+        font-family: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
 
       .cls-6 {
