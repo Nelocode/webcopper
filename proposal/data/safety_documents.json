@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": "doc-1",
+    "title_es": "Manual de Inducción de Seguridad para Visitantes (SG-SST)",
+    "title_en": "Visitor Safety Induction Manual (OHSMS)",
+    "desc_es": "Directrices del Sistema de Gestión de Seguridad y Salud en el Trabajo, identificación de riesgos y protocolo de evacuación.",
+    "desc_en": "Occupational Health & Safety Management System guidelines, facility risk identification, and emergency evacuation protocol.",
+    "url": "assets/docs/Visitor_Safety_Induction.pdf",
+    "date": "2026-08-28"
+  },
+  {
+    "id": "doc-2",
+    "title_es": "Autorización para el Tratamiento de Datos Personales y Uso de Imagen",
+    "title_en": "Authorization for Processing of Personal Data & Image Use",
+    "desc_es": "Autorización conforme a la Ley 1581 de 2012 y Ley 23 de 1982 para el tratamiento de datos e imagen del visitante.",
+    "desc_en": "Official authorization under Laws 1581 of 2012 and 23 of 1982 for personal data processing and media image use.",
+    "url": "assets/docs/Data_Privacy_Authorization.pdf",
+    "date": "2026-08-28"
+  }
+]
