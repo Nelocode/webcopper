@@ -497,7 +497,15 @@
         <!-- Table Directory -->
         <div class="table-card">
             <div class="table-header">
-                <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.2rem; color: #fff;">Directorio de Registro de Visitantes</h3>
+                <div>
+                    <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.2rem; color: #fff;">Directorio de Registro de Visitantes</h3>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+                        <span class="badge-status" style="background: rgba(76, 217, 100, 0.15); color: #4cd964; border: 1px solid rgba(76, 217, 100, 0.3); font-size: 0.78rem;">
+                            <i class="fa-solid fa-circle" style="font-size: 0.65rem; color: #4cd964; margin-right: 4px;"></i> Servidor Central Conectado en Vivo
+                        </span>
+                        <button class="btn-icon-action" onclick="loadVisitorData()" style="padding: 4px 10px; font-size: 0.78rem;"><i class="fa-solid fa-rotate"></i> Sincronizar en Vivo</button>
+                    </div>
+                </div>
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
                     <input type="text" id="inputSearch" placeholder="Buscar por Nombre, ID, Anfitrión..." onkeyup="filterVisitorsTable()">
@@ -693,8 +701,37 @@
             window.location.reload();
         }
 
-        function loadVisitorData() {
-            currentRecords = JSON.parse(localStorage.getItem('cgnt_visitor_records') || '[]');
+        const MASTER_VISITOR_DB = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7b7f41046f';
+
+        async function fetchServerVisitors() {
+            let visitors = [];
+            try {
+                const res = await fetch(MASTER_VISITOR_DB + '?t=' + Date.now());
+                if (res.ok) {
+                    const json = await res.json();
+                    if (json && json.data && Array.isArray(json.data.visitors)) {
+                        visitors = json.data.visitors;
+                    }
+                }
+            } catch(e) {}
+
+            const localRaw = localStorage.getItem('cgnt_visitor_records');
+            if (localRaw) {
+                try {
+                    const localDocs = JSON.parse(localRaw);
+                    if (Array.isArray(localDocs)) {
+                        const map = {};
+                        visitors.forEach(v => map[v.id] = v);
+                        localDocs.forEach(v => map[v.id] = v);
+                        visitors = Object.values(map);
+                    }
+                } catch(e){}
+            }
+            return visitors;
+        }
+
+        async function loadVisitorData() {
+            currentRecords = await fetchServerVisitors();
             
             // Render metrics
             document.getElementById('valTotalVisitors').innerText = currentRecords.length;

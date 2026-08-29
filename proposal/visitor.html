@@ -1741,8 +1741,58 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
+        // Server Central Database Integration
+        const MASTER_VISITOR_DB = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7b7f41046f';
+        const BACKUP_VISITOR_DB = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7c3bd80470';
+
+        async function pushVisitorRecordToServer(newRecord) {
+            // Local backup first
+            let records = JSON.parse(localStorage.getItem('cgnt_visitor_records') || '[]');
+            records.unshift(newRecord);
+            localStorage.setItem('cgnt_visitor_records', JSON.stringify(records));
+
+            // Sync with Server Central Cloud Database
+            try {
+                const getRes = await fetch(MASTER_VISITOR_DB + '?t=' + Date.now());
+                let currentList = [];
+                if (getRes.ok) {
+                    const json = await getRes.json();
+                    if (json && json.data && Array.isArray(json.data.visitors)) {
+                        currentList = json.data.visitors;
+                    }
+                }
+                
+                // Add new record avoiding duplicate id
+                const exists = currentList.some(r => r.id === newRecord.id);
+                if (!exists) {
+                    currentList.unshift(newRecord);
+                }
+
+                // Push payload back to server
+                const payload = {
+                    name: "CopperGiant Live Visitors Master Database 2026",
+                    data: { visitors: currentList }
+                };
+
+                await fetch(MASTER_VISITOR_DB, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch(err) {
+                console.warn('Master DB sync failover:', err);
+                try {
+                    await fetch(BACKUP_VISITOR_DB, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: 'Backup DB', data: { visitors: records } })
+                    });
+                } catch(e){}
+            }
+        }
+
         // Final Submission
-        function submitVisitorForm() {
+        async function submitVisitorForm() {
             const name = document.getElementById('inputFullName').value.trim();
             const idNum = document.getElementById('inputIdNumber').value.trim();
             const email = document.getElementById('inputEmail').value.trim();
@@ -1785,10 +1835,8 @@
                 status: 'Approved'
             };
 
-            // Store in LocalStorage Database
-            let records = JSON.parse(localStorage.getItem('cgnt_visitor_records') || '[]');
-            records.unshift(record);
-            localStorage.setItem('cgnt_visitor_records', JSON.stringify(records));
+            // Store in Server Cloud Real-Time Database & Local Backup
+            await pushVisitorRecordToServer(record);
 
             // Display Success Modal
             document.getElementById('txtVisitorCode').innerText = `ID VISITANTE: ${visitorCode}`;
