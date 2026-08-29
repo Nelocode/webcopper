@@ -1791,6 +1791,26 @@
             }
         }
 
+        function readFileAsBase64(fileInput) {
+            return new Promise((resolve) => {
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        resolve({
+                            name: file.name,
+                            type: file.type,
+                            data: e.target.result
+                        });
+                    };
+                    reader.onerror = function() { resolve(null); };
+                    reader.readAsDataURL(file);
+                } else {
+                    resolve(null);
+                }
+            });
+        }
+
         // Final Submission
         async function submitVisitorForm() {
             const name = document.getElementById('inputFullName').value.trim();
@@ -1810,6 +1830,10 @@
                 alert(currentLanguage === 'es' ? 'La firma digital en el recuadro es absolutamente obligatoria.' : 'Hand-drawn digital signature is mandatory.');
                 return;
             }
+
+            // Capture Step 2 Attached Files (Vaccine Card / ARL & ID Passport Copy)
+            const vaccineDocData = await readFileAsBase64(document.getElementById('fileVaccine'));
+            const passportDocData = await readFileAsBase64(document.getElementById('filePassport'));
 
             // Save Record Package
             const sigDataUrl = canvas.toDataURL('image/png');
@@ -1831,6 +1855,8 @@
                 pregnancy: document.getElementById('selectPregnancy').value,
                 arlProvider: document.getElementById('inputArlProvider').value,
                 bootSize: boot,
+                vaccineDoc: vaccineDocData,
+                passportDoc: passportDocData,
                 signature: sigDataUrl,
                 status: 'Approved'
             };

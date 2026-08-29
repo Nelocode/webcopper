@@ -654,6 +654,12 @@
                     <div class="inspect-label">Medicación Diaria</div>
                     <div class="inspect-value" id="insMeds"></div>
                 </div>
+                <div style="margin-bottom: 20px;">
+                <div class="inspect-label">Documentos Adjuntos por el Visitante (Paso 2)</div>
+                <div style="display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap;" id="insDocsContainer">
+                    <!-- Attached Document Buttons -->
+                </div>
+            </div>
             </div>
 
             <div style="margin-bottom: 20px;">
@@ -679,7 +685,8 @@
         });
 
         function checkAdminAuth() {
-            if (localStorage.getItem('cgnt_visitor_admin_auth') === 'true') {
+            const auth = localStorage.getItem('cgnt_visitor_admin_auth');
+            if (auth === 'true') {
                 document.getElementById('adminLockModal').classList.add('hidden');
                 loadVisitorData();
             }
@@ -781,6 +788,7 @@
             document.getElementById('insId').innerText = selectedRecord.id;
             document.getElementById('insDate').innerText = selectedRecord.date;
             document.getElementById('insName').innerText = selectedRecord.name;
+            document.getElementById('insIdNum').innerText = selectedRecord.idNumber;
             document.getElementById('insEmail').innerText = selectedRecord.email;
             document.getElementById('insPhone').innerText = selectedRecord.phone;
             document.getElementById('insHost').innerText = selectedRecord.host;
@@ -789,6 +797,22 @@
             document.getElementById('insAllergy').innerText = selectedRecord.allergy === 'Yes' ? `Sí: ${selectedRecord.allergyDetail || ''}` : 'No';
             document.getElementById('insMeds').innerText = selectedRecord.meds === 'Yes' ? `Sí: ${selectedRecord.medsDetail || ''}` : 'No';
             document.getElementById('insSignatureImg').src = selectedRecord.signature || '';
+
+            // Attached Step 2 Documents
+            const docsContainer = document.getElementById('insDocsContainer');
+            if (docsContainer) {
+                let html = '';
+                if (selectedRecord.vaccineDoc && selectedRecord.vaccineDoc.data) {
+                    html += `<a href="${selectedRecord.vaccineDoc.data}" download="${selectedRecord.vaccineDoc.name || 'Vacunacion_ARL.pdf'}" target="_blank" class="btn-action" style="display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> ${selectedRecord.vaccineDoc.name || 'Carnet Vacunación / ARL'}</a>`;
+                }
+                if (selectedRecord.passportDoc && selectedRecord.passportDoc.data) {
+                    html += `<a href="${selectedRecord.passportDoc.data}" download="${selectedRecord.passportDoc.name || 'Copia_Documento.pdf'}" target="_blank" class="btn-action" style="display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i> ${selectedRecord.passportDoc.name || 'Copia Documento / Pasaporte'}</a>`;
+                }
+                if (!html) {
+                    html = `<span style="font-size: 0.85rem; color: var(--text-muted);">Sin archivos adjuntos</span>`;
+                }
+                docsContainer.innerHTML = html;
+            }
 
             document.getElementById('inspectModal').classList.remove('hidden');
         }
@@ -814,6 +838,16 @@
             if (selectedRecord.signature) {
                 const base64Data = selectedRecord.signature.replace(/^data:image\/png;base64,/, "");
                 zip.file("digital_signature.png", base64Data, { base64: true });
+            }
+
+            // 4. Attached Step 2 Documents
+            if (selectedRecord.vaccineDoc && selectedRecord.vaccineDoc.data) {
+                const b64 = selectedRecord.vaccineDoc.data.split(',')[1];
+                if (b64) zip.file(`attachments/${selectedRecord.vaccineDoc.name || 'Vacunacion_ARL.pdf'}`, b64, { base64: true });
+            }
+            if (selectedRecord.passportDoc && selectedRecord.passportDoc.data) {
+                const b64 = selectedRecord.passportDoc.data.split(',')[1];
+                if (b64) zip.file(`attachments/${selectedRecord.passportDoc.name || 'Copia_Documento.pdf'}`, b64, { base64: true });
             }
 
             // Generate ZIP file
