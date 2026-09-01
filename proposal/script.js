@@ -1817,7 +1817,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e) e.preventDefault();
             // Lazy load the PDF only when opened
             if (iframe && !iframe.getAttribute('src')) {
-                iframe.setAttribute('src', 'assets/corporate-presentation.pdf');
+                iframe.setAttribute('src', 'assets/corporate-presentation.pdf?v=SEP2026_V183');
             }
             presentationModal.classList.add('active');
             document.body.style.overflow = 'hidden';
