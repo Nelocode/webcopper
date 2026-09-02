@@ -361,6 +361,7 @@
                 <div class="table-card-header">
                     <div class="table-card-title"><i class="fa-solid fa-server" style="color: var(--copper-primary); margin-right: 8px;"></i> Telemetría de Red y Hardware</div>
                 </div>
+                <div style="overflow-x: auto;">
                 <table class="custom-table">
                     <thead>
                         <tr>
@@ -373,6 +374,12 @@
                         <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando telemetría de hardware...</td></tr>
                     </tbody>
                 </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 0 10px;">
+                    <button class="btn-action" onclick="changePageHw(-1)">Anterior</button>
+                    <span id="pageIndicatorHw" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
+                    <button class="btn-action" onclick="changePageHw(1)">Siguiente</button>
+                </div>
             </div>
 
             <!-- Deep Engagement & PDF Interactions -->
@@ -380,6 +387,7 @@
                 <div class="table-card-header">
                     <div class="table-card-title"><i class="fa-solid fa-copy" style="color: var(--copper-primary); margin-right: 8px;"></i> Interacciones y Copia de Texto</div>
                 </div>
+                <div style="overflow-x: auto;">
                 <table class="custom-table">
                     <thead>
                         <tr>
@@ -392,12 +400,14 @@
                         <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando interacciones...</td></tr>
                     </tbody>
                 </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 0 10px;">
+                    <button class="btn-action" onclick="changePageInt(-1)">Anterior</button>
+                    <span id="pageIndicatorInt" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
+                    <button class="btn-action" onclick="changePageInt(1)">Siguiente</button>
+                </div>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                <button class="btn-action" onclick="changePage(-1)">Anterior</button>
-                <span id="pageIndicator" style="font-size: 0.9rem; color: var(--text-muted);">Página 1</span>
-                <button class="btn-action" onclick="changePage(1)">Siguiente</button>
-            </div>
+            
         </div>
 
         <!-- Live Activity Stream Table -->
@@ -424,6 +434,11 @@
                     </tbody>
                 </table>
             </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 15px;">
+                <button class="btn-action" onclick="changePage(-1)">Anterior</button>
+                <span id="pageIndicator" style="font-size: 0.9rem; color: var(--text-muted);">Página 1</span>
+                <button class="btn-action" onclick="changePage(1)">Siguiente</button>
+            </div>
         </div>
 
     </main>
@@ -435,6 +450,8 @@
         
         // Pagination state
         let currentPage = 1;
+        let currentPageHw = 1;
+        let currentPageInt = 1;
         const itemsPerPage = 15;
 
         // Chart Instances
@@ -676,9 +693,19 @@
             const keys = Object.keys(hwMap);
             if (keys.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin telemetría de hardware.</td></tr>`;
+                if(document.getElementById('pageIndicatorHw')) document.getElementById('pageIndicatorHw').innerText = `Página 1 de 1 (0 registros)`;
                 return;
             }
-            tbody.innerHTML = keys.slice(0, 10).map(k => `<tr><td><strong>Hardware / Pantalla</strong></td><td>${k}</td><td><span class="badge-tag">${hwMap[k]}</span></td></tr>`).join('');
+            
+            const maxPages = Math.ceil(keys.length / 5) || 1;
+            if (currentPageHw > maxPages) currentPageHw = maxPages;
+            const startIdx = (currentPageHw - 1) * 5;
+            
+            if(document.getElementById('pageIndicatorHw')) {
+                document.getElementById('pageIndicatorHw').innerText = `Página ${currentPageHw} de ${maxPages} (${keys.length} registros)`;
+            }
+
+            tbody.innerHTML = keys.slice(startIdx, startIdx + 5).map(k => `<tr><td><strong>Hardware / Pantalla</strong></td><td>${k}</td><td><span class="badge-tag">${hwMap[k]} muestras</span></td></tr>`).join('');
         }
 
         function renderInteractionsTable() {
@@ -698,15 +725,35 @@
             const keys = Object.keys(actMap);
             if (keys.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin interacciones profundas.</td></tr>`;
+                if(document.getElementById('pageIndicatorInt')) document.getElementById('pageIndicatorInt').innerText = `Página 1 de 1 (0 registros)`;
                 return;
             }
-            tbody.innerHTML = keys.slice(0, 10).map(k => `<tr><td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td><td>${k}</td><td><strong>${actMap[k]}</strong></td></tr>`).join('');
+            
+            const maxPages = Math.ceil(keys.length / 5) || 1;
+            if (currentPageInt > maxPages) currentPageInt = maxPages;
+            const startIdx = (currentPageInt - 1) * 5;
+            
+            if(document.getElementById('pageIndicatorInt')) {
+                document.getElementById('pageIndicatorInt').innerText = `Página ${currentPageInt} de ${maxPages} (${keys.length} registros)`;
+            }
+
+            tbody.innerHTML = keys.slice(startIdx, startIdx + 5).map(k => `<tr><td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td><td>${k}</td><td><strong>${actMap[k]}</strong></td></tr>`).join('');
         }
 
         function changePage(delta) {
             currentPage += delta;
             if (currentPage < 1) currentPage = 1;
             renderStreamTable();
+        }
+        function changePageHw(delta) {
+            currentPageHw += delta;
+            if (currentPageHw < 1) currentPageHw = 1;
+            renderHardwareTable();
+        }
+        function changePageInt(delta) {
+            currentPageInt += delta;
+            if (currentPageInt < 1) currentPageInt = 1;
+            renderInteractionsTable();
         }
 
         function renderStreamTable() {
