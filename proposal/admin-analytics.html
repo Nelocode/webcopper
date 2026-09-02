@@ -669,16 +669,16 @@
                 const hw = e.hardware || {};
                 const res = hw.screenResolution || '1920x1080';
                 const ram = hw.deviceMemory || '8 GB';
-                const cpu = hw.hardwareConcurrency ? \`\${hw.hardwareConcurrency} Cores\` : 'N/A';
-                const key = \`Pantalla: \${res} | RAM: \${ram} | CPU: \${cpu}\`;
+                const cpu = hw.hardwareConcurrency ? `${hw.hardwareConcurrency} Cores` : 'N/A';
+                const key = `Pantalla: ${res} | RAM: ${ram} | CPU: ${cpu}`;
                 hwMap[key] = (hwMap[key] || 0) + 1;
             });
             const keys = Object.keys(hwMap);
             if (keys.length === 0) {
-                tbody.innerHTML = \`<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin telemetría de hardware.</td></tr>\`;
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin telemetría de hardware.</td></tr>`;
                 return;
             }
-            tbody.innerHTML = keys.slice(0, 10).map(k => \`<tr><td><strong>Hardware / Pantalla</strong></td><td>\${k}</td><td><span class="badge-tag">\${hwMap[k]}</span></td></tr>\`).join('');
+            tbody.innerHTML = keys.slice(0, 10).map(k => `<tr><td><strong>Hardware / Pantalla</strong></td><td>${k}</td><td><span class="badge-tag">${hwMap[k]}</span></td></tr>`).join('');
         }
 
         function renderInteractionsTable() {
@@ -686,21 +686,21 @@
             const actMap = {};
             filteredEvents.forEach(e => {
                 if (e.type === 'text_copy' && e.details && e.details.copiedSnippet) {
-                    actMap[\`Copia: "\${e.details.copiedSnippet}"\`] = (actMap[\`Copia: "\${e.details.copiedSnippet}"\`] || 0) + 1;
+                    actMap[`Copia: "${e.details.copiedSnippet}"`] = (actMap[`Copia: "${e.details.copiedSnippet}"`] || 0) + 1;
                 } else if (e.type === 'presentation_view_duration' && e.details) {
-                    actMap[\`Lectura PDF: \${e.details.durationSeconds} seg\`] = (actMap[\`Lectura PDF: \${e.details.durationSeconds} seg\`] || 0) + 1;
+                    actMap[`Lectura PDF: ${e.details.durationSeconds} seg`] = (actMap[`Lectura PDF: ${e.details.durationSeconds} seg`] || 0) + 1;
                 } else if (e.type === 'scroll_depth' && e.details) {
-                    actMap[\`Scroll \${e.details.depthPercent}%\`] = (actMap[\`Scroll \${e.details.depthPercent}%\`] || 0) + 1;
+                    actMap[`Scroll ${e.details.depthPercent}%`] = (actMap[`Scroll ${e.details.depthPercent}%`] || 0) + 1;
                 } else if (e.type === 'bounce') {
-                    actMap[\`Rebote (<5s)\`] = (actMap[\`Rebote (<5s)\`] || 0) + 1;
+                    actMap[`Rebote (<5s)`] = (actMap[`Rebote (<5s)`] || 0) + 1;
                 }
             });
             const keys = Object.keys(actMap);
             if (keys.length === 0) {
-                tbody.innerHTML = \`<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin interacciones profundas.</td></tr>\`;
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin interacciones profundas.</td></tr>`;
                 return;
             }
-            tbody.innerHTML = keys.slice(0, 10).map(k => \`<tr><td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td><td>\${k}</td><td><strong>\${actMap[k]}</strong></td></tr>\`).join('');
+            tbody.innerHTML = keys.slice(0, 10).map(k => `<tr><td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td><td>${k}</td><td><strong>${actMap[k]}</strong></td></tr>`).join('');
         }
 
         function changePage(delta) {
@@ -743,11 +743,11 @@
             const pageEvents = displayEvents.slice(startIdx, startIdx + itemsPerPage);
 
             if (document.getElementById('pageIndicator')) {
-                document.getElementById('pageIndicator').innerText = \`Página \${currentPage} de \${maxPages} (\${displayEvents.length} registros)\`;
+                document.getElementById('pageIndicator').innerText = `Página ${currentPage} de ${maxPages} (${displayEvents.length} registros)`;
             }
 
             if (pageEvents.length === 0) {
-                tbody.innerHTML = \`<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría.</td></tr>\`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría.</td></tr>`;
                 return;
             }
 
@@ -755,26 +755,26 @@
                 let pageStr = (e.page && e.page.path) || '/';
                 if (e.type === 'presentation_view') pageStr = '📑 Vio Presentación';
                 else if (e.type === 'pdf_download') pageStr = '📥 Descargó PDF';
-                else if (e.type === 'click_heatmap') pageStr = \`🖱️ Clic en \${e.details.element || ''}\`;
-                else if (e.type === 'page_exit') pageStr = \`🚪 Salida (\${e.details.activeSeconds || 0}s activos)\`;
+                else if (e.type === 'click_heatmap') pageStr = `🖱️ Clic en ${e.details.element || ''}`;
+                else if (e.type === 'page_exit') pageStr = `🚪 Salida (${e.details.activeSeconds || 0}s activos)`;
 
                 const visitorId = (e.visitorId || e.sessionId || '').substring(0, 16);
                 const hw = e.hardware || {};
-                const netHw = \`\${hw.effectiveType || '4G'} | RAM: \${hw.deviceMemory || 'N/A'}\`;
+                const netHw = `${hw.effectiveType || '4G'} | RAM: ${hw.deviceMemory || 'N/A'}`;
                 
-                const loc = (e.geo && e.geo.country) ? \`\${e.geo.city}, \${e.geo.country}\` : ((e.page && e.page.referrer) || 'Directa');
+                const loc = (e.geo && e.geo.country) ? `${e.geo.city}, ${e.geo.country}` : ((e.page && e.page.referrer) || 'Directa');
                 const isNew = (e.page && e.page.isNewVisitor) ? '<span style="color:var(--success);">Nuevo</span>' : '<span style="color:var(--warning);">Recurrente</span>';
 
-                return \`
+                return `
                     <tr>
-                        <td>\${(e.temporal && e.temporal.dateString) || ''} \${(e.temporal && e.temporal.timeString) || ''}</td>
-                        <td style="font-family: monospace; color: var(--copper-primary);">\${visitorId}<br>\${isNew}</td>
-                        <td><strong>\${pageStr}</strong></td>
-                        <td>\${hw.category || 'Desktop'} - \${hw.os || ''}</td>
-                        <td><span style="font-size: 0.78rem; color: var(--text-muted);">\${netHw}</span></td>
-                        <td>\${loc}</td>
+                        <td>${(e.temporal && e.temporal.dateString) || ''} ${(e.temporal && e.temporal.timeString) || ''}</td>
+                        <td style="font-family: monospace; color: var(--copper-primary);">${visitorId}<br>${isNew}</td>
+                        <td><strong>${pageStr}</strong></td>
+                        <td>${hw.category || 'Desktop'} - ${hw.os || ''}</td>
+                        <td><span style="font-size: 0.78rem; color: var(--text-muted);">${netHw}</span></td>
+                        <td>${loc}</td>
                     </tr>
-                \`;
+                `;
             }).join('');
         }
 
@@ -800,11 +800,11 @@
                 const prev = e.page ? e.page.previousPage : '';
                 const details = e.details ? JSON.stringify(e.details).replace(/"/g, '""') : '';
 
-                csv += \`"\${e.id}","\${date}","\${time}","\${e.type}","\${e.visitorId}","\${isNew}","\${country}","\${city}","\${os}","\${browser}","\${ram}","\${net}","\${page}","\${prev}","\${details}"\n\`;
+                csv += `"${e.id}","${date}","${time}","${e.type}","${e.visitorId}","${isNew}","${country}","${city}","${os}","${browser}","${ram}","${net}","${page}","${prev}","${details}"\n`;
             });
 
             const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-            saveAs(blob, \`CopperGiant_Analytics_\${new Date().toISOString().split('T')[0]}.csv\`);
+            saveAs(blob, `CopperGiant_Analytics_${new Date().toISOString().split('T')[0]}.csv`);
         }
 
         setInterval(() => {
