@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    const MASTER_ANALYTICS_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7b7f41046f';
+    const MASTER_ANALYTICS_ENDPOINT = '/api/analytics';
     const SESSION_KEY = 'cg_analytics_sid';
     const STORAGE_KEY = 'cg_analytics_events_queue';
 
@@ -131,42 +131,22 @@
 
         scheduleDispatch(async () => {
             try {
-                const getRes = await fetch(MASTER_ANALYTICS_ENDPOINT + '?t=' + Date.now());
-                let serverList = [];
-                let payloadMeta = { name: "CopperGiant Master Database 2026", data: {} };
-
-                if (getRes.ok) {
-                    const json = await getRes.json();
-                    if (json && json.data) {
-                        payloadMeta = json;
-                        if (Array.isArray(json.data.analytics)) {
-                            serverList = json.data.analytics;
-                        }
-                    }
+                const pendingEvents = getStoredEvents();
+                if (pendingEvents.length === 0) {
+                    isSyncing = false;
+                    return;
                 }
 
-                const exists = serverList.some(item => item.id === eventData.id);
-                if (!exists) {
-                    serverList.unshift(eventData);
-                }
-
-                if (serverList.length > 3000) {
-                    serverList = serverList.slice(0, 3000);
-                }
-
-                const updatedPayload = {
-                    name: payloadMeta.name || "CopperGiant Master Database 2026",
-                    data: {
-                        ...(payloadMeta.data || {}),
-                        analytics: serverList
-                    }
-                };
-
-                await fetch(MASTER_ANALYTICS_ENDPOINT, {
-                    method: 'PUT',
+                const res = await fetch(MASTER_ANALYTICS_ENDPOINT, {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedPayload)
+                    body: JSON.stringify(pendingEvents)
                 });
+                
+                if (res.ok) {
+                    // Clear local storage queue if successfully pushed
+                    localStorage.removeItem(STORAGE_KEY);
+                }
             } catch (err) {
                 // Failover silently to client buffer
             } finally {

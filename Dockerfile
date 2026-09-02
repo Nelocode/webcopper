@@ -1,11 +1,15 @@
-# Use lightweight Nginx alpine image
-FROM nginx:alpine
+# Use lightweight Node.js image
+FROM node:18-alpine
 
-# Copy the static site files into the Nginx HTML directory
-COPY ./proposal /usr/share/nginx/html
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy server script and static files
+COPY server.js ./
+COPY proposal ./proposal
 
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# Start Node server
+CMD ["node", "server.js"]

@@ -398,7 +398,7 @@
     </main>
 
     <script>
-        const MASTER_ANALYTICS_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7b7f41046f';
+        const MASTER_ANALYTICS_ENDPOINT = '/api/analytics';
         let rawAnalyticsEvents = [];
 
         // Chart Instances & Smooth Silent Updates (No Annoying Re-Animations on Refresh)
@@ -436,9 +436,9 @@
             try {
                 const res = await fetch(MASTER_ANALYTICS_ENDPOINT + '?t=' + Date.now());
                 if (res.ok) {
-                    const json = await res.json();
-                    if (json && json.data && Array.isArray(json.data.analytics)) {
-                        events = json.data.analytics;
+                    const data = await res.json();
+                    if (Array.isArray(data)) {
+                        events = data;
                     }
                 }
             } catch (e) {}
