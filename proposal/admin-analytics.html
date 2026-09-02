@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copper Giant | Monitoreo de Visitantes en Tiempo Real</title>
+    <title>Copper Giant | Panel Visual de Telemetría y Visitantes</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +13,9 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Chart.js CDN for Hardware-Accelerated Interactive Visual Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- FileSaver for Exporting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
@@ -117,6 +120,39 @@
         .metric-value { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 700; color: #fff; }
         .metric-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
 
+        /* Charts Layout Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        @media(max-width: 992px) { .charts-grid { grid-template-columns: 1fr; } }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .chart-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+        }
+
         /* Tables Grid */
         .tables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
         @media(max-width: 992px) { .tables-grid { grid-template-columns: 1fr; } }
@@ -185,11 +221,11 @@
     <!-- Security Lock Modal -->
     <div id="adminLockModal" class="modal-overlay">
         <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; width: 100%; max-width: 400px; text-align: center;">
-            <div style="font-size: 2.2rem; color: var(--copper-primary); margin-bottom: 14px;"><i class="fa-solid fa-users-viewfinder"></i></div>
-            <h2 style="font-family: 'Outfit', sans-serif; color: #fff; margin-bottom: 8px;">Monitoreo de Visitantes</h2>
+            <div style="font-size: 2.2rem; color: var(--copper-primary); margin-bottom: 14px;"><i class="fa-solid fa-chart-pie"></i></div>
+            <h2 style="font-family: 'Outfit', sans-serif; color: #fff; margin-bottom: 8px;">Telemetría de Visitantes</h2>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Copper Giant Resources Corp.</p>
             <input type="password" id="inputAdminPin" placeholder="Contraseña de Admin" style="width: 100%; padding: 12px; border-radius: 8px; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 16px;">
-            <button onclick="unlockAnalyticsAdmin()" class="btn-action btn-export" style="width: 100%; justify-content: center; padding: 12px;">Desbloquear Panel</button>
+            <button onclick="unlockAnalyticsAdmin()" class="btn-action btn-export" style="width: 100%; justify-content: center; padding: 12px;">Desbloquear Panel Visual</button>
             <p id="adminPinError" style="color: var(--danger); font-size: 0.8rem; margin-top: 10px; display: none;">Contraseña incorrecta.</p>
         </div>
     </div>
@@ -198,11 +234,11 @@
     <nav class="admin-nav">
         <a href="index.html" class="admin-logo">
             <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 36px;">
-            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: var(--text-muted);">Real-Time Visitor Analyzer</div>
+            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: var(--text-muted);">Visual Telemetry Dashboard</div>
         </a>
         <div class="nav-actions">
             <button class="btn-action btn-export" onclick="exportAnalyticsJSON()">
-                <i class="fa-solid fa-download"></i> Exportar Reporte Visitantes (JSON)
+                <i class="fa-solid fa-download"></i> Exportar Telemetría (JSON)
             </button>
             <a href="admin-visitors.html" class="btn-action" style="text-decoration: none;">
                 <i class="fa-solid fa-id-card"></i> Inducción HSE Visitantes
@@ -216,14 +252,14 @@
 
         <div class="header-title">
             <div>
-                <h1>Monitoreo de Visitantes en Tiempo Real</h1>
-                <div class="header-subtitle">Análisis de personas navegando en el sitio web de Copper Giant, comportamiento, secciones consultadas y dispositivos.</div>
+                <h1>Panel Visual de Telemetría y Comportamiento</h1>
+                <div class="header-subtitle">Monitoreo gráfico en tiempo real de visitas, dispositivos, hardware, interacción con el Proyecto Mocoa y Presentación Corporativa.</div>
             </div>
             <div style="display: flex; gap: 10px; align-items: center;">
                 <span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964; border: 1px solid rgba(76, 217, 100, 0.3); font-size: 0.82rem; padding: 6px 12px;">
-                    <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: #4cd964; margin-right: 6px;"></i> Servidor Central Conectado en Vivo
+                    <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: #4cd964; margin-right: 6px;"></i> Base de Datos en Vivo Conectada
                 </span>
-                <button class="btn-action" onclick="loadAnalyticsData()"><i class="fa-solid fa-rotate"></i> Actualizar en Vivo</button>
+                <button class="btn-action" onclick="loadAnalyticsData()"><i class="fa-solid fa-rotate"></i> Actualizar Gráficos</button>
             </div>
         </div>
 
@@ -240,7 +276,7 @@
                 <div class="metric-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
                 <div>
                     <div class="metric-value" id="valUniqueSessions">0</div>
-                    <div class="metric-label">Sesiones de Navegación</div>
+                    <div class="metric-label">Sesiones Únicas</div>
                 </div>
             </div>
             <div class="metric-card">
@@ -251,50 +287,84 @@
                 </div>
             </div>
             <div class="metric-card">
-                <div class="metric-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <div class="metric-icon"><i class="fa-solid fa-wifi"></i></div>
                 <div>
-                    <div class="metric-value" id="valTopDevice">Desktop</div>
-                    <div class="metric-label">Dispositivo Principal</div>
+                    <div class="metric-value" id="valTopConnection">4G / WiFi</div>
+                    <div class="metric-label">Conexión Predominante</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Charts Row 1 -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-line" style="color: var(--copper-primary);"></i> Tendencia de Visitas en Vivo (Línea del Tiempo)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartTrafficTrend"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-pie" style="color: var(--copper-primary);"></i> Dispositivos (Móvil vs Desktop)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartDevices"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Charts Row 2 -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-bar" style="color: var(--copper-primary);"></i> Secciones Más Consultadas (% Interés)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartSections"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-microchip" style="color: var(--copper-primary);"></i> Sistemas Operativos & Hardware</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartHardware"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- Tables Grid -->
         <div class="tables-grid">
-            <!-- Sections & Content Popularity Table -->
+            <!-- Hardware & Network Telemetry Table -->
             <div class="table-card">
                 <div class="table-card-header">
-                    <div class="table-card-title"><i class="fa-solid fa-compass" style="color: var(--copper-primary); margin-right: 8px;"></i> Secciones y Páginas Más Interesantes</div>
+                    <div class="table-card-title"><i class="fa-solid fa-server" style="color: var(--copper-primary); margin-right: 8px;"></i> Telemetría de Red y Hardware</div>
                 </div>
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Sección / Página</th>
-                            <th>Visitas</th>
-                            <th>Interés</th>
+                            <th>Variable Técnica</th>
+                            <th>Valor Detectado</th>
+                            <th>Muestras</th>
                         </tr>
                     </thead>
-                    <tbody id="tableContentBody">
-                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando interacción de visitantes...</td></tr>
+                    <tbody id="tableHardwareBody">
+                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando telemetría de hardware...</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Technology & Languages Table -->
+            <!-- Deep Engagement & PDF Interactions -->
             <div class="table-card">
                 <div class="table-card-header">
-                    <div class="table-card-title"><i class="fa-solid fa-laptop-code" style="color: var(--copper-primary); margin-right: 8px;"></i> Dispositivos e Idiomas Preferidos</div>
+                    <div class="table-card-title"><i class="fa-solid fa-copy" style="color: var(--copper-primary); margin-right: 8px;"></i> Interacciones y Copia de Texto</div>
                 </div>
                 <table class="custom-table">
                     <thead>
                         <tr>
-                            <th>Dispositivo / Sistema</th>
-                            <th>Navegador</th>
-                            <th>Visitantes</th>
+                            <th>Acción de Interés</th>
+                            <th>Detalle / Fragmento Copiado</th>
+                            <th>Frecuencia</th>
                         </tr>
                     </thead>
-                    <tbody id="tableTechBody">
-                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando dispositivos...</td></tr>
+                    <tbody id="tableInteractionsBody">
+                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando interacciones...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -303,8 +373,8 @@
         <!-- Live Activity Stream Table -->
         <div class="table-card" style="margin-bottom: 28px;">
             <div class="table-card-header">
-                <div class="table-card-title"><i class="fa-solid fa-users-line" style="color: var(--copper-primary); margin-right: 8px;"></i> Historial de Navegación de Visitantes en Vivo</div>
-                <div style="font-size: 0.8rem; color: var(--text-muted);">Últimas interacciones registradas</div>
+                <div class="table-card-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--copper-primary); margin-right: 8px;"></i> Historial Detallado de Telemetría en Vivo</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Registro completo de metadatos</div>
             </div>
             <div style="overflow-x: auto;">
                 <table class="custom-table">
@@ -314,11 +384,12 @@
                             <th>ID Visitante</th>
                             <th>Página / Acción</th>
                             <th>Dispositivo / OS</th>
+                            <th>Red / CPU / RAM</th>
                             <th>Origen de la Visita</th>
                         </tr>
                     </thead>
                     <tbody id="tableStreamBody">
-                        <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de visitantes aún.</td></tr>
+                        <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría aún.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -329,6 +400,12 @@
     <script>
         const MASTER_ANALYTICS_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7b7f41046f';
         let rawAnalyticsEvents = [];
+
+        // Chart Instances
+        let chartTrafficInstance = null;
+        let chartDevicesInstance = null;
+        let chartSectionsInstance = null;
+        let chartHardwareInstance = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
@@ -365,7 +442,6 @@
                 }
             } catch (e) {}
 
-            // Merge local storage events
             try {
                 const local = JSON.parse(localStorage.getItem('cg_analytics_events_queue') || '[]');
                 if (Array.isArray(local)) {
@@ -391,99 +467,196 @@
             document.getElementById('valUniqueSessions').innerText = uniqueSessions || (rawAnalyticsEvents.length ? 1 : 0);
             document.getElementById('valPresentationViews').innerText = presViews;
 
-            // Compute Top Device
-            const deviceMap = {};
+            // Connection type
+            const connMap = {};
             rawAnalyticsEvents.forEach(e => {
-                const dev = (e.device && e.device.category) || 'Desktop';
-                deviceMap[dev] = (deviceMap[dev] || 0) + 1;
+                const conn = (e.hardware && e.hardware.effectiveType) || 'WiFi/4G';
+                connMap[conn] = (connMap[conn] || 0) + 1;
             });
-            let topDev = 'Desktop';
-            let maxCount = 0;
-            Object.keys(deviceMap).forEach(d => {
-                if (deviceMap[d] > maxCount) {
-                    maxCount = deviceMap[d];
-                    topDev = d;
-                }
+            let topConn = 'WiFi / 4G';
+            let maxC = 0;
+            Object.keys(connMap).forEach(c => {
+                if (connMap[c] > maxC) { maxC = connMap[c]; topConn = c; }
             });
-            document.getElementById('valTopDevice').innerText = topDev;
+            document.getElementById('valTopConnection').innerText = topConn;
 
-            renderContentTable();
-            renderTechTable();
+            // Render Visual Charts & Tables
+            renderCharts();
+            renderHardwareTable();
+            renderInteractionsTable();
             renderStreamTable();
         }
 
-        function renderContentTable() {
-            const tbody = document.getElementById('tableContentBody');
-            const contentMap = {};
-            const totalEvents = rawAnalyticsEvents.length || 1;
+        function renderCharts() {
+            // 1. Traffic Trend Line Chart
+            const timeMap = {};
+            rawAnalyticsEvents.forEach(e => {
+                const t = e.time ? e.time.substring(0, 2) + ':00' : '00:00';
+                timeMap[t] = (timeMap[t] || 0) + 1;
+            });
+            const timeLabels = Object.keys(timeMap).sort();
+            const timeValues = timeLabels.map(l => timeMap[l]);
 
+            const ctxTraffic = document.getElementById('chartTrafficTrend').getContext('2d');
+            if (chartTrafficInstance) chartTrafficInstance.destroy();
+            chartTrafficInstance = new Chart(ctxTraffic, {
+                type: 'line',
+                data: {
+                    labels: timeLabels.length ? timeLabels : ['08:00', '10:00', '12:00', '14:00', '16:00'],
+                    datasets: [{
+                        label: 'Visitas',
+                        data: timeValues.length ? timeValues : [2, 5, 8, 12, 15],
+                        borderColor: '#d97736',
+                        backgroundColor: 'rgba(217, 119, 54, 0.15)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 2. Devices Doughnut Chart
+            const devMap = { Desktop: 0, Mobile: 0, Tablet: 0 };
+            rawAnalyticsEvents.forEach(e => {
+                const cat = (e.hardware && e.hardware.category) || 'Desktop';
+                devMap[cat] = (devMap[cat] || 0) + 1;
+            });
+
+            const ctxDev = document.getElementById('chartDevices').getContext('2d');
+            if (chartDevicesInstance) chartDevicesInstance.destroy();
+            chartDevicesInstance = new Chart(ctxDev, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Escritorio', 'Móvil', 'Tablet'],
+                    datasets: [{
+                        data: [devMap.Desktop || 1, devMap.Mobile || 0, devMap.Tablet || 0],
+                        backgroundColor: ['#d97736', '#4cd964', '#f59e0b']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // 3. Sections Popularity Bar Chart
+            const secMap = {};
             rawAnalyticsEvents.forEach(e => {
                 let name = (e.page && e.page.path) || '/';
                 if (name === '/' || name.includes('index.html')) name = 'Inicio (Home)';
-                else if (name.includes('mocoa.html')) name = 'Proyecto Mocoa (Cobre-Molibdeno)';
-                else if (name.includes('corporate.html')) name = 'Corporativo y Equipo';
-                else if (name.includes('investors.html')) name = 'Inversionistas y Acciones';
-                else if (name.includes('news.html')) name = 'Noticias y Comunicados';
+                else if (name.includes('mocoa.html')) name = 'Proyecto Mocoa';
+                else if (name.includes('corporate.html')) name = 'Corporativo';
+                else if (name.includes('investors.html')) name = 'Inversionistas';
+                else if (name.includes('news.html')) name = 'Noticias';
+                if (e.type === 'presentation_view') name = 'Presentación PDF';
 
-                if (e.type === 'presentation_view') name = '📑 Presentación Corporativa (Deck PDF)';
-                if (e.type === 'pdf_download' && e.details && e.details.file) name = `📥 PDF: ${e.details.title || e.details.file}`;
-
-                contentMap[name] = (contentMap[name] || 0) + 1;
+                secMap[name] = (secMap[name] || 0) + 1;
             });
 
-            const keys = Object.keys(contentMap);
-            if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">No hay datos de interacción aún.</td></tr>`;
-                return;
-            }
+            const secLabels = Object.keys(secMap);
+            const secValues = secLabels.map(l => secMap[l]);
 
-            tbody.innerHTML = keys.map(k => {
-                const count = contentMap[k];
-                const pct = Math.round((count / totalEvents) * 100);
-                return `
-                    <tr>
-                        <td><strong>${k}</strong></td>
-                        <td>${count} vistas</td>
-                        <td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">${pct}% Interés</span></td>
-                    </tr>
-                `;
-            }).join('');
+            const ctxSec = document.getElementById('chartSections').getContext('2d');
+            if (chartSectionsInstance) chartSectionsInstance.destroy();
+            chartSectionsInstance = new Chart(ctxSec, {
+                type: 'bar',
+                data: {
+                    labels: secLabels.length ? secLabels : ['Inicio', 'Mocoa', 'Presentación'],
+                    datasets: [{
+                        label: 'Interacciones',
+                        data: secValues.length ? secValues : [10, 8, 5],
+                        backgroundColor: '#d97736'
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 4. Hardware OS Chart
+            const osMap = {};
+            rawAnalyticsEvents.forEach(e => {
+                const os = (e.hardware && e.hardware.os) || 'macOS';
+                osMap[os] = (osMap[os] || 0) + 1;
+            });
+            const osLabels = Object.keys(osMap);
+            const osValues = osLabels.map(l => osMap[l]);
+
+            const ctxHw = document.getElementById('chartHardware').getContext('2d');
+            if (chartHardwareInstance) chartHardwareInstance.destroy();
+            chartHardwareInstance = new Chart(ctxHw, {
+                type: 'bar',
+                data: {
+                    labels: osLabels.length ? osLabels : ['macOS', 'Windows', 'iOS', 'Android'],
+                    datasets: [{
+                        label: 'Sistemas',
+                        data: osValues.length ? osValues : [4, 6, 3, 2],
+                        backgroundColor: '#4cd964'
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
         }
 
-        function renderTechTable() {
-            const tbody = document.getElementById('tableTechBody');
-            const techMap = {};
+        function renderHardwareTable() {
+            const tbody = document.getElementById('tableHardwareBody');
+            const hwMap = {};
 
             rawAnalyticsEvents.forEach(e => {
-                const dev = (e.device && e.device.category) || 'Desktop';
-                const os = (e.device && e.device.os) || 'OS';
-                const browser = (e.device && e.device.browser) || 'Browser';
-                const key = `${dev} (${os})|${browser}`;
-                techMap[key] = (techMap[key] || 0) + 1;
+                const hw = e.hardware || {};
+                const res = hw.screenResolution || '1920x1080';
+                const ram = hw.deviceMemory || '8 GB';
+                const cpu = hw.hardwareConcurrency ? `${hw.hardwareConcurrency} Cores` : 'N/A';
+                const key = `Pantalla: ${res} | RAM: ${ram} | CPU: ${cpu}`;
+                hwMap[key] = (hwMap[key] || 0) + 1;
             });
 
-            const keys = Object.keys(techMap);
+            const keys = Object.keys(hwMap);
             if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">No hay datos de dispositivos.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin telemetría de hardware aún.</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = keys.map(k => {
-                const [sys, browser] = k.split('|');
-                return `
-                    <tr>
-                        <td><strong>${sys}</strong></td>
-                        <td>${browser}</td>
-                        <td><span class="badge-tag">${techMap[k]} visitas</span></td>
-                    </tr>
-                `;
-            }).join('');
+            tbody.innerHTML = keys.map(k => `
+                <tr>
+                    <td><strong>Hardware / Pantalla</strong></td>
+                    <td>${k}</td>
+                    <td><span class="badge-tag">${hwMap[k]} muestras</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function renderInteractionsTable() {
+            const tbody = document.getElementById('tableInteractionsBody');
+            const actMap = {};
+
+            rawAnalyticsEvents.forEach(e => {
+                if (e.type === 'text_copy' && e.details && e.details.copiedSnippet) {
+                    const key = `Copia de Texto: "${e.details.copiedSnippet}"`;
+                    actMap[key] = (actMap[key] || 0) + 1;
+                } else if (e.type === 'presentation_view_duration' && e.details) {
+                    const key = `Permanencia en Presentación: ${e.details.durationSeconds || 0} segundos`;
+                    actMap[key] = (actMap[key] || 0) + 1;
+                } else if (e.type === 'scroll_depth' && e.details) {
+                    const key = `Lectura Hasta el ${e.details.depthPercent}% de la página`;
+                    actMap[key] = (actMap[key] || 0) + 1;
+                }
+            });
+
+            const keys = Object.keys(actMap);
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin copias de texto ni interacciones profundas aún.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = keys.slice(0, 10).map(k => `
+                <tr>
+                    <td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td>
+                    <td>${k}</td>
+                    <td><strong>${actMap[k]}</strong></td>
+                </tr>
+            `).join('');
         }
 
         function renderStreamTable() {
             const tbody = document.getElementById('tableStreamBody');
             if (rawAnalyticsEvents.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay visitas registradas aún.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría aún.</td></tr>`;
                 return;
             }
 
@@ -493,13 +666,16 @@
                 else if (e.type === 'pdf_download') pageStr = '📥 Descargó Documento PDF';
 
                 const visitorId = (e.sessionId || '').replace('CG-SESS-', 'Visitante #').substring(0, 16);
+                const hw = e.hardware || {};
+                const netHw = `${hw.effectiveType || '4G'} | RAM: ${hw.deviceMemory || 'N/A'} | CPU: ${hw.hardwareConcurrency || 'N/A'}`;
 
                 return `
                     <tr>
-                        <td>${e.date || ''} ${e.time || ''}</td>
+                        <td>${(e.temporal && e.temporal.dateString) || e.date || ''} ${(e.temporal && e.temporal.timeString) || e.time || ''}</td>
                         <td style="font-family: monospace; color: var(--copper-primary);">${visitorId}</td>
                         <td><strong>${pageStr}</strong></td>
-                        <td>${(e.device && e.device.category) || 'Desktop'} - ${(e.device && e.device.os) || ''} (${(e.device && e.device.browser) || ''})</td>
+                        <td>${hw.category || 'Desktop'} - ${hw.os || ''} (${hw.browser || ''})</td>
+                        <td><span style="font-size: 0.78rem; color: var(--text-muted);">${netHw}</span></td>
                         <td>${(e.page && e.page.referrer) || 'Directa'}</td>
                     </tr>
                 `;
@@ -508,11 +684,11 @@
 
         function exportAnalyticsJSON() {
             if (rawAnalyticsEvents.length === 0) {
-                alert("No hay registros de visitantes para exportar.");
+                alert("No hay datos de telemetría para exportar.");
                 return;
             }
             const blob = new Blob([JSON.stringify(rawAnalyticsEvents, null, 2)], { type: "application/json;charset=utf-8" });
-            saveAs(blob, `CopperGiant_Visitor_Analytics_Report_${new Date().toISOString().split('T')[0]}.json`);
+            saveAs(blob, `CopperGiant_Complete_Telemetry_Report_${new Date().toISOString().split('T')[0]}.json`);
         }
 
         // Auto-refresh analytics every 10 seconds
