@@ -401,7 +401,8 @@
         const MASTER_ANALYTICS_ENDPOINT = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7b7f41046f';
         let rawAnalyticsEvents = [];
 
-        // Chart Instances
+        // Chart Instances & Smooth Silent Updates (No Annoying Re-Animations on Refresh)
+        Chart.defaults.animation = false;
         let chartTrafficInstance = null;
         let chartDevicesInstance = null;
         let chartSectionsInstance = null;
