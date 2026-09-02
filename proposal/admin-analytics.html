@@ -237,6 +237,10 @@
             <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: var(--text-muted);">Visual Telemetry Dashboard</div>
         </a>
         <div class="nav-actions">
+            <button class="btn-action" onclick="toggleDarkMode()"><i class="fa-solid fa-moon"></i> Modo Oscuro/Claro</button>
+            <button class="btn-action btn-export" onclick="exportAnalyticsCSV()">
+                <i class="fa-solid fa-file-csv"></i> Exportar CSV
+            </button>
             <button class="btn-action btn-export" onclick="exportAnalyticsJSON()">
                 <i class="fa-solid fa-download"></i> Exportar Telemetría (JSON)
             </button>
@@ -255,7 +259,13 @@
                 <h1>Panel Visual de Telemetría y Comportamiento</h1>
                 <div class="header-subtitle">Monitoreo gráfico en tiempo real de visitas, dispositivos, hardware, interacción con el Proyecto Mocoa y Presentación Corporativa.</div>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <select id="dateFilter" class="btn-action" onchange="loadAnalyticsData()">
+                    <option value="all">Todo el Historial</option>
+                    <option value="today">Hoy</option>
+                    <option value="7days">Últimos 7 Días</option>
+                    <option value="30days">Últimos 30 Días</option>
+                </select>
                 <span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964; border: 1px solid rgba(76, 217, 100, 0.3); font-size: 0.82rem; padding: 6px 12px;">
                     <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: #4cd964; margin-right: 6px;"></i> Base de Datos en Vivo Conectada
                 </span>
@@ -315,6 +325,21 @@
         <!-- Interactive Charts Row 2 -->
         <div class="charts-grid">
             <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-filter" style="color: var(--copper-primary);"></i> Embudo de Conversión</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartFunnel"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Geo-Localización de Visitas</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartGeo"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="charts-grid">
+        <div class="charts-grid">
+            <div class="chart-card">
                 <div class="chart-card-title"><i class="fa-solid fa-chart-bar" style="color: var(--copper-primary);"></i> Secciones Más Consultadas (% Interés)</div>
                 <div class="chart-wrapper">
                     <canvas id="chartSections"></canvas>
@@ -368,12 +393,18 @@
                     </tbody>
                 </table>
             </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                <button class="btn-action" onclick="changePage(-1)">Anterior</button>
+                <span id="pageIndicator" style="font-size: 0.9rem; color: var(--text-muted);">Página 1</span>
+                <button class="btn-action" onclick="changePage(1)">Siguiente</button>
+            </div>
         </div>
 
         <!-- Live Activity Stream Table -->
         <div class="table-card" style="margin-bottom: 28px;">
             <div class="table-card-header">
                 <div class="table-card-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--copper-primary); margin-right: 8px;"></i> Historial Detallado de Telemetría en Vivo</div>
+                <input type="text" id="logSearch" placeholder="Buscar por IP, ciudad, SO..." class="btn-action" style="width: 250px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main);" onkeyup="renderStreamTable()">
                 <div style="font-size: 0.8rem; color: var(--text-muted);">Registro completo de metadatos</div>
             </div>
             <div style="overflow-x: auto;">
@@ -400,20 +431,35 @@
     <script>
         const MASTER_ANALYTICS_ENDPOINT = '/api/analytics';
         let rawAnalyticsEvents = [];
+        let filteredEvents = [];
+        
+        // Pagination state
+        let currentPage = 1;
+        const itemsPerPage = 15;
 
-        // Chart Instances & Smooth Silent Updates (No Annoying Re-Animations on Refresh)
+        // Chart Instances
         Chart.defaults.animation = false;
         let chartTrafficInstance = null;
         let chartDevicesInstance = null;
         let chartSectionsInstance = null;
         let chartHardwareInstance = null;
+        let chartFunnelInstance = null;
+        let chartGeoInstance = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
                 document.getElementById('adminLockModal').classList.add('hidden');
                 loadAnalyticsData();
             }
+            if (localStorage.getItem('cg_dark_mode') === 'true') toggleDarkMode(true);
         });
+
+        function toggleDarkMode(forceOn = false) {
+            const isDark = forceOn || document.body.style.filter !== 'invert(1)';
+            document.body.style.filter = isDark ? 'invert(1)' : 'none';
+            document.body.style.backgroundColor = isDark ? '#fff' : '';
+            localStorage.setItem('cg_dark_mode', isDark);
+        }
 
         function unlockAnalyticsAdmin() {
             const pin = document.getElementById('inputAdminPin').value.trim();
@@ -432,45 +478,46 @@
         }
 
         async function fetchServerAnalytics() {
-            let events = [];
             try {
                 const res = await fetch(MASTER_ANALYTICS_ENDPOINT + '?t=' + Date.now());
                 if (res.ok) {
                     const data = await res.json();
-                    if (Array.isArray(data)) {
-                        events = data;
-                    }
+                    if (Array.isArray(data)) return data;
                 }
             } catch (e) {}
+            return [];
+        }
 
-            try {
-                const local = JSON.parse(localStorage.getItem('cg_analytics_events_queue') || '[]');
-                if (Array.isArray(local)) {
-                    const map = {};
-                    events.forEach(ev => map[ev.id] = ev);
-                    local.forEach(ev => map[ev.id] = ev);
-                    events = Object.values(map);
-                }
-            } catch (e) {}
-
-            return events;
+        function filterByDate(events) {
+            const filter = document.getElementById('dateFilter') ? document.getElementById('dateFilter').value : 'all';
+            if (filter === 'all') return events;
+            
+            const now = Date.now();
+            return events.filter(e => {
+                const evDate = new Date(e.id.split('-')[1] || e.temporal.timestampIso).getTime();
+                if (filter === 'today') return (now - evDate) < 86400000;
+                if (filter === '7days') return (now - evDate) < 86400000 * 7;
+                if (filter === '30days') return (now - evDate) < 86400000 * 30;
+                return true;
+            });
         }
 
         async function loadAnalyticsData() {
             rawAnalyticsEvents = await fetchServerAnalytics();
+            filteredEvents = filterByDate(rawAnalyticsEvents);
 
-            // Render Metrics
-            const totalPageviews = rawAnalyticsEvents.filter(e => e.type === 'pageview').length;
-            const uniqueSessions = new Set(rawAnalyticsEvents.map(e => e.sessionId)).size;
-            const presViews = rawAnalyticsEvents.filter(e => e.type === 'presentation_view').length;
+            // Metrics
+            const totalPageviews = filteredEvents.filter(e => e.type === 'pageview').length;
+            const uniqueSessions = new Set(filteredEvents.map(e => e.sessionId)).size;
+            const presViews = filteredEvents.filter(e => e.type === 'presentation_view').length;
 
-            document.getElementById('valTotalVisitors').innerText = totalPageviews || rawAnalyticsEvents.length;
-            document.getElementById('valUniqueSessions').innerText = uniqueSessions || (rawAnalyticsEvents.length ? 1 : 0);
+            document.getElementById('valTotalVisitors').innerText = totalPageviews || filteredEvents.length;
+            document.getElementById('valUniqueSessions').innerText = uniqueSessions || (filteredEvents.length ? 1 : 0);
             document.getElementById('valPresentationViews').innerText = presViews;
 
             // Connection type
             const connMap = {};
-            rawAnalyticsEvents.forEach(e => {
+            filteredEvents.forEach(e => {
                 const conn = (e.hardware && e.hardware.effectiveType) || 'WiFi/4G';
                 connMap[conn] = (connMap[conn] || 0) + 1;
             });
@@ -481,18 +528,20 @@
             });
             document.getElementById('valTopConnection').innerText = topConn;
 
-            // Render Visual Charts & Tables
+            // Render Modules
             renderCharts();
             renderHardwareTable();
             renderInteractionsTable();
             renderStreamTable();
+            renderGeoChart();
+            renderFunnelChart();
         }
 
         function renderCharts() {
-            // 1. Traffic Trend Line Chart
+            // 1. Traffic Trend
             const timeMap = {};
-            rawAnalyticsEvents.forEach(e => {
-                const t = e.time ? e.time.substring(0, 2) + ':00' : '00:00';
+            filteredEvents.forEach(e => {
+                const t = e.temporal ? e.temporal.timeString.substring(0, 2) + ':00' : '00:00';
                 timeMap[t] = (timeMap[t] || 0) + 1;
             });
             const timeLabels = Object.keys(timeMap).sort();
@@ -503,43 +552,32 @@
             chartTrafficInstance = new Chart(ctxTraffic, {
                 type: 'line',
                 data: {
-                    labels: timeLabels.length ? timeLabels : ['08:00', '10:00', '12:00', '14:00', '16:00'],
-                    datasets: [{
-                        label: 'Visitas',
-                        data: timeValues.length ? timeValues : [2, 5, 8, 12, 15],
-                        borderColor: '#d97736',
-                        backgroundColor: 'rgba(217, 119, 54, 0.15)',
-                        fill: true,
-                        tension: 0.4
-                    }]
+                    labels: timeLabels,
+                    datasets: [{ label: 'Eventos', data: timeValues, borderColor: '#d97736', backgroundColor: 'rgba(217, 119, 54, 0.15)', fill: true, tension: 0.4 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
-            // 2. Devices Doughnut Chart
+            // 2. Devices
             const devMap = { Desktop: 0, Mobile: 0, Tablet: 0 };
-            rawAnalyticsEvents.forEach(e => {
+            filteredEvents.forEach(e => {
                 const cat = (e.hardware && e.hardware.category) || 'Desktop';
                 devMap[cat] = (devMap[cat] || 0) + 1;
             });
-
             const ctxDev = document.getElementById('chartDevices').getContext('2d');
             if (chartDevicesInstance) chartDevicesInstance.destroy();
             chartDevicesInstance = new Chart(ctxDev, {
                 type: 'doughnut',
                 data: {
                     labels: ['Escritorio', 'Móvil', 'Tablet'],
-                    datasets: [{
-                        data: [devMap.Desktop || 1, devMap.Mobile || 0, devMap.Tablet || 0],
-                        backgroundColor: ['#d97736', '#4cd964', '#f59e0b']
-                    }]
+                    datasets: [{ data: [devMap.Desktop, devMap.Mobile, devMap.Tablet], backgroundColor: ['#d97736', '#4cd964', '#f59e0b'] }]
                 },
                 options: { responsive: true, maintainAspectRatio: false }
             });
 
-            // 3. Sections Popularity Bar Chart
+            // 3. Sections
             const secMap = {};
-            rawAnalyticsEvents.forEach(e => {
+            filteredEvents.forEach(e => {
                 let name = (e.page && e.page.path) || '/';
                 if (name === '/' || name.includes('index.html')) name = 'Inicio (Home)';
                 else if (name.includes('mocoa.html')) name = 'Proyecto Mocoa';
@@ -547,10 +585,8 @@
                 else if (name.includes('investors.html')) name = 'Inversionistas';
                 else if (name.includes('news.html')) name = 'Noticias';
                 if (e.type === 'presentation_view') name = 'Presentación PDF';
-
                 secMap[name] = (secMap[name] || 0) + 1;
             });
-
             const secLabels = Object.keys(secMap);
             const secValues = secLabels.map(l => secMap[l]);
 
@@ -559,145 +595,223 @@
             chartSectionsInstance = new Chart(ctxSec, {
                 type: 'bar',
                 data: {
-                    labels: secLabels.length ? secLabels : ['Inicio', 'Mocoa', 'Presentación'],
-                    datasets: [{
-                        label: 'Interacciones',
-                        data: secValues.length ? secValues : [10, 8, 5],
-                        backgroundColor: '#d97736'
-                    }]
+                    labels: secLabels,
+                    datasets: [{ label: 'Interacciones', data: secValues, backgroundColor: '#d97736' }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
-            // 4. Hardware OS Chart
+            // 4. Hardware OS
             const osMap = {};
-            rawAnalyticsEvents.forEach(e => {
+            filteredEvents.forEach(e => {
                 const os = (e.hardware && e.hardware.os) || 'macOS';
                 osMap[os] = (osMap[os] || 0) + 1;
             });
-            const osLabels = Object.keys(osMap);
-            const osValues = osLabels.map(l => osMap[l]);
-
             const ctxHw = document.getElementById('chartHardware').getContext('2d');
             if (chartHardwareInstance) chartHardwareInstance.destroy();
             chartHardwareInstance = new Chart(ctxHw, {
                 type: 'bar',
                 data: {
-                    labels: osLabels.length ? osLabels : ['macOS', 'Windows', 'iOS', 'Android'],
-                    datasets: [{
-                        label: 'Sistemas',
-                        data: osValues.length ? osValues : [4, 6, 3, 2],
-                        backgroundColor: '#4cd964'
-                    }]
+                    labels: Object.keys(osMap),
+                    datasets: [{ label: 'Sistemas', data: Object.values(osMap), backgroundColor: '#4cd964' }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+        }
+
+        function renderGeoChart() {
+            const ctx = document.getElementById('chartGeo');
+            if(!ctx) return;
+            const geoMap = {};
+            filteredEvents.forEach(e => {
+                if (e.geo && e.geo.country) {
+                    geoMap[e.geo.country] = (geoMap[e.geo.country] || 0) + 1;
+                }
+            });
+            if (chartGeoInstance) chartGeoInstance.destroy();
+            chartGeoInstance = new Chart(ctx.getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(geoMap).length ? Object.keys(geoMap) : ['Desconocido'],
+                    datasets: [{ data: Object.keys(geoMap).length ? Object.values(geoMap) : [1], backgroundColor: ['#d97736', '#f59e0b', '#4cd964', '#3b82f6', '#8b5cf6'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function renderFunnelChart() {
+            const ctx = document.getElementById('chartFunnel');
+            if(!ctx) return;
+            
+            const visitors = new Set(filteredEvents.map(e => e.visitorId)).size;
+            const presViews = new Set(filteredEvents.filter(e => e.type === 'presentation_view').map(e => e.visitorId)).size;
+            const pdfDowns = new Set(filteredEvents.filter(e => e.type === 'pdf_download').map(e => e.visitorId)).size;
+
+            if (chartFunnelInstance) chartFunnelInstance.destroy();
+            chartFunnelInstance = new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Visitas Totales', 'Ven Presentación', 'Descargan PDF'],
+                    datasets: [{
+                        label: 'Usuarios Únicos',
+                        data: [visitors || 1, presViews || 0, pdfDowns || 0],
+                        backgroundColor: ['#3b82f6', '#f59e0b', '#4cd964']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
             });
         }
 
         function renderHardwareTable() {
             const tbody = document.getElementById('tableHardwareBody');
             const hwMap = {};
-
-            rawAnalyticsEvents.forEach(e => {
+            filteredEvents.forEach(e => {
                 const hw = e.hardware || {};
                 const res = hw.screenResolution || '1920x1080';
                 const ram = hw.deviceMemory || '8 GB';
-                const cpu = hw.hardwareConcurrency ? `${hw.hardwareConcurrency} Cores` : 'N/A';
-                const key = `Pantalla: ${res} | RAM: ${ram} | CPU: ${cpu}`;
+                const cpu = hw.hardwareConcurrency ? \`\${hw.hardwareConcurrency} Cores\` : 'N/A';
+                const key = \`Pantalla: \${res} | RAM: \${ram} | CPU: \${cpu}\`;
                 hwMap[key] = (hwMap[key] || 0) + 1;
             });
-
             const keys = Object.keys(hwMap);
             if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin telemetría de hardware aún.</td></tr>`;
+                tbody.innerHTML = \`<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin telemetría de hardware.</td></tr>\`;
                 return;
             }
-
-            tbody.innerHTML = keys.map(k => `
-                <tr>
-                    <td><strong>Hardware / Pantalla</strong></td>
-                    <td>${k}</td>
-                    <td><span class="badge-tag">${hwMap[k]} muestras</span></td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = keys.slice(0, 10).map(k => \`<tr><td><strong>Hardware / Pantalla</strong></td><td>\${k}</td><td><span class="badge-tag">\${hwMap[k]}</span></td></tr>\`).join('');
         }
 
         function renderInteractionsTable() {
             const tbody = document.getElementById('tableInteractionsBody');
             const actMap = {};
-
-            rawAnalyticsEvents.forEach(e => {
+            filteredEvents.forEach(e => {
                 if (e.type === 'text_copy' && e.details && e.details.copiedSnippet) {
-                    const key = `Copia de Texto: "${e.details.copiedSnippet}"`;
-                    actMap[key] = (actMap[key] || 0) + 1;
+                    actMap[\`Copia: "\${e.details.copiedSnippet}"\`] = (actMap[\`Copia: "\${e.details.copiedSnippet}"\`] || 0) + 1;
                 } else if (e.type === 'presentation_view_duration' && e.details) {
-                    const key = `Permanencia en Presentación: ${e.details.durationSeconds || 0} segundos`;
-                    actMap[key] = (actMap[key] || 0) + 1;
+                    actMap[\`Lectura PDF: \${e.details.durationSeconds} seg\`] = (actMap[\`Lectura PDF: \${e.details.durationSeconds} seg\`] || 0) + 1;
                 } else if (e.type === 'scroll_depth' && e.details) {
-                    const key = `Lectura Hasta el ${e.details.depthPercent}% de la página`;
-                    actMap[key] = (actMap[key] || 0) + 1;
+                    actMap[\`Scroll \${e.details.depthPercent}%\`] = (actMap[\`Scroll \${e.details.depthPercent}%\`] || 0) + 1;
+                } else if (e.type === 'bounce') {
+                    actMap[\`Rebote (<5s)\`] = (actMap[\`Rebote (<5s)\`] || 0) + 1;
                 }
             });
-
             const keys = Object.keys(actMap);
             if (keys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin copias de texto ni interacciones profundas aún.</td></tr>`;
+                tbody.innerHTML = \`<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin interacciones profundas.</td></tr>\`;
                 return;
             }
+            tbody.innerHTML = keys.slice(0, 10).map(k => \`<tr><td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td><td>\${k}</td><td><strong>\${actMap[k]}</strong></td></tr>\`).join('');
+        }
 
-            tbody.innerHTML = keys.slice(0, 10).map(k => `
-                <tr>
-                    <td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td>
-                    <td>${k}</td>
-                    <td><strong>${actMap[k]}</strong></td>
-                </tr>
-            `).join('');
+        function changePage(delta) {
+            currentPage += delta;
+            if (currentPage < 1) currentPage = 1;
+            renderStreamTable();
         }
 
         function renderStreamTable() {
             const tbody = document.getElementById('tableStreamBody');
-            if (rawAnalyticsEvents.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría aún.</td></tr>`;
+            const searchQ = (document.getElementById('logSearch') ? document.getElementById('logSearch').value.toLowerCase() : '');
+            
+            let displayEvents = filteredEvents;
+            
+            if (searchQ) {
+                displayEvents = displayEvents.filter(e => {
+                    const str = JSON.stringify(e).toLowerCase();
+                    return str.includes(searchQ);
+                });
+            }
+
+            // Spike Alert logic (if >50 hits in last 5 mins of the current view)
+            if (displayEvents.length > 0) {
+                const recentHits = displayEvents.filter(e => (Date.now() - new Date(e.temporal.timestampIso).getTime()) < 300000).length;
+                if (recentHits > 50) {
+                    const header = document.querySelector('.header-title');
+                    if (!document.getElementById('spikeAlertBanner')) {
+                        header.insertAdjacentHTML('beforeend', '<div id="spikeAlertBanner" style="width: 100%; padding: 10px; background: var(--danger); color: white; border-radius: 8px; margin-top: 10px; font-weight: bold;"><i class="fa-solid fa-triangle-exclamation"></i> ALERTA: Pico inusual de tráfico (' + recentHits + ' visitas en los últimos 5 minutos).</div>');
+                    }
+                } else {
+                    const banner = document.getElementById('spikeAlertBanner');
+                    if(banner) banner.remove();
+                }
+            }
+
+            const maxPages = Math.ceil(displayEvents.length / itemsPerPage) || 1;
+            if (currentPage > maxPages) currentPage = maxPages;
+
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const pageEvents = displayEvents.slice(startIdx, startIdx + itemsPerPage);
+
+            if (document.getElementById('pageIndicator')) {
+                document.getElementById('pageIndicator').innerText = \`Página \${currentPage} de \${maxPages} (\${displayEvents.length} registros)\`;
+            }
+
+            if (pageEvents.length === 0) {
+                tbody.innerHTML = \`<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría.</td></tr>\`;
                 return;
             }
 
-            tbody.innerHTML = rawAnalyticsEvents.slice(0, 100).map(e => {
+            tbody.innerHTML = pageEvents.map(e => {
                 let pageStr = (e.page && e.page.path) || '/';
-                if (e.type === 'presentation_view') pageStr = '📑 Leyó la Presentación Corporativa';
-                else if (e.type === 'pdf_download') pageStr = '📥 Descargó Documento PDF';
+                if (e.type === 'presentation_view') pageStr = '📑 Vio Presentación';
+                else if (e.type === 'pdf_download') pageStr = '📥 Descargó PDF';
+                else if (e.type === 'click_heatmap') pageStr = \`🖱️ Clic en \${e.details.element || ''}\`;
+                else if (e.type === 'page_exit') pageStr = \`🚪 Salida (\${e.details.activeSeconds || 0}s activos)\`;
 
-                const visitorId = (e.sessionId || '').replace('CG-SESS-', 'Visitante #').substring(0, 16);
+                const visitorId = (e.visitorId || e.sessionId || '').substring(0, 16);
                 const hw = e.hardware || {};
-                const netHw = `${hw.effectiveType || '4G'} | RAM: ${hw.deviceMemory || 'N/A'} | CPU: ${hw.hardwareConcurrency || 'N/A'}`;
+                const netHw = \`\${hw.effectiveType || '4G'} | RAM: \${hw.deviceMemory || 'N/A'}\`;
+                
+                const loc = (e.geo && e.geo.country) ? \`\${e.geo.city}, \${e.geo.country}\` : ((e.page && e.page.referrer) || 'Directa');
+                const isNew = (e.page && e.page.isNewVisitor) ? '<span style="color:var(--success);">Nuevo</span>' : '<span style="color:var(--warning);">Recurrente</span>';
 
-                return `
+                return \`
                     <tr>
-                        <td>${(e.temporal && e.temporal.dateString) || e.date || ''} ${(e.temporal && e.temporal.timeString) || e.time || ''}</td>
-                        <td style="font-family: monospace; color: var(--copper-primary);">${visitorId}</td>
-                        <td><strong>${pageStr}</strong></td>
-                        <td>${hw.category || 'Desktop'} - ${hw.os || ''} (${hw.browser || ''})</td>
-                        <td><span style="font-size: 0.78rem; color: var(--text-muted);">${netHw}</span></td>
-                        <td>${(e.page && e.page.referrer) || 'Directa'}</td>
+                        <td>\${(e.temporal && e.temporal.dateString) || ''} \${(e.temporal && e.temporal.timeString) || ''}</td>
+                        <td style="font-family: monospace; color: var(--copper-primary);">\${visitorId}<br>\${isNew}</td>
+                        <td><strong>\${pageStr}</strong></td>
+                        <td>\${hw.category || 'Desktop'} - \${hw.os || ''}</td>
+                        <td><span style="font-size: 0.78rem; color: var(--text-muted);">\${netHw}</span></td>
+                        <td>\${loc}</td>
                     </tr>
-                `;
+                \`;
             }).join('');
         }
 
-        function exportAnalyticsJSON() {
-            if (rawAnalyticsEvents.length === 0) {
-                alert("No hay datos de telemetría para exportar.");
+        function exportAnalyticsCSV() {
+            if (filteredEvents.length === 0) {
+                alert("No hay datos para exportar.");
                 return;
             }
-            const blob = new Blob([JSON.stringify(rawAnalyticsEvents, null, 2)], { type: "application/json;charset=utf-8" });
-            saveAs(blob, `CopperGiant_Complete_Telemetry_Report_${new Date().toISOString().split('T')[0]}.json`);
+            
+            // Build CSV manually
+            let csv = "ID,Fecha,Hora,Tipo_Evento,Visitante,Es_Nuevo,Pais,Ciudad,OS,Navegador,RAM,Red,Pagina,Anterior,Detalles\n";
+            filteredEvents.forEach(e => {
+                const date = e.temporal ? e.temporal.dateString : '';
+                const time = e.temporal ? e.temporal.timeString : '';
+                const isNew = (e.page && e.page.isNewVisitor) ? 'Si' : 'No';
+                const country = e.geo ? e.geo.country : '';
+                const city = e.geo ? e.geo.city : '';
+                const os = e.hardware ? e.hardware.os : '';
+                const browser = e.hardware ? e.hardware.browser : '';
+                const ram = e.hardware ? e.hardware.deviceMemory : '';
+                const net = e.hardware ? e.hardware.effectiveType : '';
+                const page = e.page ? e.page.path : '';
+                const prev = e.page ? e.page.previousPage : '';
+                const details = e.details ? JSON.stringify(e.details).replace(/"/g, '""') : '';
+
+                csv += \`"\${e.id}","\${date}","\${time}","\${e.type}","\${e.visitorId}","\${isNew}","\${country}","\${city}","\${os}","\${browser}","\${ram}","\${net}","\${page}","\${prev}","\${details}"\n\`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+            saveAs(blob, \`CopperGiant_Analytics_\${new Date().toISOString().split('T')[0]}.csv\`);
         }
 
-        // Auto-refresh analytics every 10 seconds
         setInterval(() => {
             if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
                 loadAnalyticsData();
             }
-        }, 10000);
+        }, 15000);
     </script>
 </body>
 </html>

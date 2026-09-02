@@ -5,7 +5,12 @@ const zlib = require('zlib');
 
 const PORT = 80;
 const PUBLIC_DIR = path.join(__dirname, 'proposal');
-const DB_FILE = path.join(__dirname, 'analytics_db.json');
+const DB_FILE = path.join(__dirname, 'data', 'analytics_db.json');
+
+// Ensure data directory exists
+if (!fs.existsSync(path.join(__dirname, 'data'))) {
+    fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true });
+}
 
 // In-Memory Database for Lightning Fast API
 let analyticsDB = [];
