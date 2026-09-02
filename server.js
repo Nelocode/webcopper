@@ -52,9 +52,17 @@ const server = http.createServer((req, res) => {
     if (req.url === '/api/debug') {
         const fs = require('fs');
         try {
-            const files = fs.readdirSync(path.join(PUBLIC_DIR, 'assets'));
+            let fp = path.join(PUBLIC_DIR, 'assets/Video Web.mp4');
+            let stat;
+            try { stat = fs.statSync(fp); } catch(err) { stat = err.message; }
+            let reqUrl = '/assets/Video%20Web.mp4';
+            let raw = decodeURIComponent(reqUrl.split('?')[0]);
+            let fp2 = path.join(PUBLIC_DIR, raw);
+            let stat2;
+            try { stat2 = fs.statSync(fp2); } catch(err) { stat2 = err.message; }
+            
             res.writeHead(200, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify(files));
+            res.end(JSON.stringify({fp, stat, raw, fp2, stat2}));
         } catch (e) {
             res.writeHead(500);
             res.end(e.message);
@@ -100,7 +108,7 @@ const server = http.createServer((req, res) => {
     }
 
     // Static File Server with Streams, Caching, and Compression
-    let rawUrl = req.url.split('?')[0];
+    let rawUrl = decodeURIComponent(req.url.split('?')[0]);
     if (rawUrl === '/') rawUrl = '/index.html';
     
     let filePath = path.join(PUBLIC_DIR, rawUrl);
