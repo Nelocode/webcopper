@@ -49,6 +49,18 @@ const mimeTypes = {
 
 const server = http.createServer((req, res) => {
     // API Endpoint: Analytics
+    if (req.url === '/api/debug') {
+        const fs = require('fs');
+        try {
+            const files = fs.readdirSync(path.join(PUBLIC_DIR, 'assets'));
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(files));
+        } catch (e) {
+            res.writeHead(500);
+            res.end(e.message);
+        }
+        return;
+    }
     if (req.url.startsWith('/api/analytics')) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
