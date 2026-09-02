@@ -283,3 +283,38 @@
     });
 
 })();
+
+
+// --- LIVE MARKET TICKER LOGIC ---
+document.addEventListener('DOMContentLoaded', async () => {
+    const tickerContainer = document.querySelector('.ticker-stocks');
+    if (!tickerContainer) return; // Only run if ticker exists on page
+    
+    try {
+        const res = await fetch('/api/market');
+        if (!res.ok) return;
+        const data = await res.json();
+        
+        const formatPrice = (price, curr) => price ? `${curr}${price.toFixed(price < 1 ? 3 : 2)}` : 'N/A';
+        const formatChange = (change) => {
+            if (change === null || change === undefined) return '';
+            const color = change >= 0 ? '#4cd964' : '#ff3b30';
+            const sign = change > 0 ? '+' : '';
+            return `<span style="color: ${color};">${sign}${change.toFixed(2)}%</span>`;
+        };
+
+        const tsxv = data.find(d => d.symbol === 'CGNT.V') || {};
+        const otc = data.find(d => d.symbol === 'LBCMF') || {};
+        const fse = data.find(d => d.symbol === '29H0.F') || {};
+        const cu = data.find(d => d.symbol === 'HG=F') || {};
+
+        tickerContainer.innerHTML = `
+            <span><strong>TSXV</strong>: CGNT ${formatPrice(tsxv.price, 'C$')} ${formatChange(tsxv.change)}</span>
+            <span><strong>OTC</strong>: LBCMF ${formatPrice(otc.price, '$')} ${formatChange(otc.change)}</span>
+            <span><strong>FSE</strong>: 29H0 ${formatPrice(fse.price, '€')} ${formatChange(fse.change)}</span>
+            <span><strong>Cu</strong>: ${formatPrice(cu.price, '$')}/Lb ${formatChange(cu.change)}</span>
+        `;
+    } catch(e) {
+        console.error("Market fetch error", e);
+    }
+});

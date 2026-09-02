@@ -48,6 +48,50 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
+    
+    // API Endpoint: Live Market Tickers (Cached for 60 seconds)
+    if (req.url.startsWith('/api/market')) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Content-Type', 'application/json');
+        
+        // Cache logic
+        if (!global.marketCache) global.marketCache = { data: null, timestamp: 0 };
+        const now = Date.now();
+        if (global.marketCache.data && now - global.marketCache.timestamp < 60000) {
+            return res.end(JSON.stringify(global.marketCache.data));
+        }
+
+        // Fetch fresh data concurrently
+        const fetchTicker = async (symbol) => {
+            try {
+                const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=1d&interval=1d`);
+                const data = await response.json();
+                const meta = data.chart.result[0].meta;
+                return {
+                    symbol,
+                    price: meta.regularMarketPrice,
+                    change: meta.regularMarketChangePercent
+                };
+            } catch (err) {
+                return { symbol, price: null, change: null };
+            }
+        };
+
+        Promise.all([
+            fetchTicker('CGNT.V'),  // TSXV
+            fetchTicker('LBCMF'),   // OTC
+            fetchTicker('29H0.F'),  // FSE
+            fetchTicker('HG=F')     // Copper Futures
+        ]).then(results => {
+            global.marketCache = { data: results, timestamp: now };
+            res.end(JSON.stringify(results));
+        }).catch(err => {
+            res.writeHead(500);
+            res.end(JSON.stringify({error: "Market fetch failed"}));
+        });
+        return;
+    }
+
     // API Endpoint: Analytics
     if (req.url === '/api/debug') {
         const fs = require('fs');
