@@ -102,15 +102,20 @@ const server = http.createServer((req, res) => {
 
     fs.stat(filePath, (err, stats) => {
         if (err || !stats.isFile()) {
-            // Fallback to index.html for 404s
-            fs.stat(path.join(PUBLIC_DIR, 'index.html'), (err404, fallbackStats) => {
-                if (err404) {
-                    res.writeHead(404);
-                    return res.end('Not Found');
-                }
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                fs.createReadStream(path.join(PUBLIC_DIR, 'index.html')).pipe(res);
-            });
+            if (!extname || extname === '.html') {
+                // Fallback to index.html for 404s on routes
+                fs.stat(path.join(PUBLIC_DIR, 'index.html'), (err404, fallbackStats) => {
+                    if (err404) {
+                        res.writeHead(404);
+                        return res.end('Not Found');
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    fs.createReadStream(path.join(PUBLIC_DIR, 'index.html')).pipe(res);
+                });
+            } else {
+                res.writeHead(404);
+                res.end('Not Found');
+            }
             return;
         }
 
