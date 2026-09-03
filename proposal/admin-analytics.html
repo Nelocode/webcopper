@@ -770,7 +770,7 @@
 
             // Spike Alert logic (if >50 hits in last 5 mins of the current view)
             if (displayEvents.length > 0) {
-                const recentHits = displayEvents.filter(e => (Date.now() - new Date(e.temporal.timestampIso).getTime()) < 300000).length;
+                const recentHits = displayEvents.filter(e => e.temporal && e.temporal.timestampIso && (Date.now() - new Date(e.temporal.timestampIso).getTime()) < 300000).length;
                 if (recentHits > 50) {
                     const header = document.querySelector('.header-title');
                     if (!document.getElementById('spikeAlertBanner')) {
