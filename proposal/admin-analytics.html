@@ -154,7 +154,7 @@
         }
 
         /* Tables Grid */
-        .tables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+        .tables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 28px; }
         @media(max-width: 992px) { .tables-grid { grid-template-columns: 1fr; } }
 
         .table-card {
@@ -174,7 +174,7 @@
 
         .table-card-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
 
-        .custom-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        .custom-table { width: 100%; min-width: 450px; border-collapse: collapse; font-size: 0.88rem; }
         .custom-table th {
             text-align: left;
             padding: 10px 14px;
@@ -337,8 +337,7 @@
                 </div>
             </div>
         </div>
-        <div class="charts-grid">
-        <div class="charts-grid">
+        <div class="charts-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
             <div class="chart-card">
                 <div class="chart-card-title"><i class="fa-solid fa-chart-bar" style="color: var(--copper-primary);"></i> Secciones Más Consultadas (% Interés)</div>
                 <div class="chart-wrapper">
@@ -375,7 +374,7 @@
                     </tbody>
                 </table>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 0 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
                     <button class="btn-action" onclick="changePageHw(-1)">Anterior</button>
                     <span id="pageIndicatorHw" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
                     <button class="btn-action" onclick="changePageHw(1)">Siguiente</button>
@@ -401,7 +400,7 @@
                     </tbody>
                 </table>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 0 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
                     <button class="btn-action" onclick="changePageInt(-1)">Anterior</button>
                     <span id="pageIndicatorInt" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
                     <button class="btn-action" onclick="changePageInt(1)">Siguiente</button>
@@ -434,7 +433,7 @@
                     </tbody>
                 </table>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 15px;">
                 <button class="btn-action" onclick="changePage(-1)">Anterior</button>
                 <span id="pageIndicator" style="font-size: 0.9rem; color: var(--text-muted);">Página 1</span>
                 <button class="btn-action" onclick="changePage(1)">Siguiente</button>
