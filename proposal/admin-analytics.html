@@ -279,14 +279,14 @@
                 <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
                 <div>
                     <div class="metric-value" id="valTotalVisitors">0</div>
-                    <div class="metric-label">Visitantes Totales</div>
+                    <div class="metric-label">Eventos de Telemetría</div>
                 </div>
             </div>
             <div class="metric-card">
                 <div class="metric-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
                 <div>
                     <div class="metric-value" id="valUniqueSessions">0</div>
-                    <div class="metric-label">Sesiones Únicas</div>
+                    <div class="metric-label">Visitas a Páginas</div>
                 </div>
             </div>
             <div class="metric-card">
@@ -527,8 +527,8 @@
             const uniqueSessions = new Set(filteredEvents.map(e => e.sessionId)).size;
             const presViews = filteredEvents.filter(e => e.type === 'presentation_view').length;
 
-            document.getElementById('valTotalVisitors').innerText = totalPageviews || filteredEvents.length;
-            document.getElementById('valUniqueSessions').innerText = uniqueSessions || (filteredEvents.length ? 1 : 0);
+            document.getElementById('valTotalVisitors').innerText = filteredEvents.length;
+            document.getElementById('valUniqueSessions').innerText = totalPageviews;
             document.getElementById('valPresentationViews').innerText = presViews;
 
             // Connection type
