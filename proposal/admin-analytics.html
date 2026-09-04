@@ -838,15 +838,15 @@
                 map: 'world',
                 backgroundColor: 'transparent',
                 zoomOnScroll: false,
+                
                 regionStyle: {
                     initial: {
-                        fill: '#2a3441',
+                        fill: '#1e2630',
                         fillOpacity: 1,
-                        stroke: '#121820',
+                        stroke: '#0b0f14',
                         strokeWidth: 1,
                     },
                     hover: {
-                        fill: '#FF002C',
                         fillOpacity: 0.8,
                         cursor: 'pointer'
                     }
@@ -854,12 +854,13 @@
                 series: {
                     regions: [{
                         attribute: 'fill',
-                        scale: ['#3b4859', '#FF002C'],
+                        scale: ['#ff8a8a', '#990000'],
                         values: countryCounts,
-                        min: 0,
-                        max: maxCount > 0 ? maxCount : 1
+                        min: 1,
+                        max: maxCount > 1 ? maxCount : 2
                     }]
                 },
+
                 onRegionTooltipShow(event, tooltip, code) {
                     const count = countryCounts[code] || 0;
                     let layerName = 'Visitas';
