@@ -215,8 +215,11 @@
 
         .hidden { display: none !important; }
     </style>
-    <script src="https://unpkg.com/globe.gl"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
 </head>
 <body>
 
@@ -324,12 +327,19 @@
             </div>
         </div>
 
-        <!-- 3D Global Traffic Globe -->
-        <div class="chart-card" style="margin-bottom: 24px;">
-            <div class="chart-card-title"><i class="fa-solid fa-earth-americas" style="color: var(--copper-primary);"></i> Tráfico Global en Tiempo Real</div>
-            <div id="globeVizContainer" style="width: 100%; height: 500px; background: #0b0f14; border-radius: 8px; overflow: hidden; position: relative;">
-                <div id="globeViz"></div>
-                <div style="position: absolute; bottom: 15px; left: 15px; color: var(--text-muted); font-size: 0.8rem; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 4px;">Interactúa para explorar los datos geográficos</div>
+        <!-- 2D Interactive Vector Map with Overlays -->
+        <div class="chart-card" style="margin-bottom: 24px; position: relative;">
+            <div class="chart-card-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Análisis Geográfico Global</div>
+                <div style="display: flex; gap: 8px;">
+                    <button id="btnMapAll" class="btn-action" style="background: var(--copper-primary); color: #fff; font-size: 0.75rem;" onclick="setMapLayer('all')">Tráfico Global</button>
+                    <button id="btnMapPDF" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('pdf')">Interés PDF</button>
+                    <button id="btnMapDesktop" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('desktop')">Escritorio</button>
+                    <button id="btnMapMobile" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('mobile')">Móvil</button>
+                </div>
+            </div>
+            <div id="vectorMapContainer" style="width: 100%; height: 450px; background: #121820; border-radius: 8px; overflow: hidden;">
+                <div id="vectorMap" style="width: 100%; height: 100%;"></div>
             </div>
         </div>
 
@@ -498,13 +508,7 @@
             if (localStorage.getItem('cg_dark_mode') === 'true') toggleDarkMode(true);
         });
 
-        window.addEventListener('resize', () => {
-            if (worldGlobe) {
-                const container = document.getElementById('globeVizContainer');
-                if (container) worldGlobe.width(container.clientWidth);
-            }
-        });
-
+        
 
         function toggleDarkMode(forceOn = false) {
             const isDark = forceOn || document.body.style.filter !== 'invert(1)';
@@ -587,116 +591,126 @@
             renderStreamTable();
             renderGeoChart();
             renderFunnelChart();
-            renderGlobeViz();
+            renderVectorMap();
         }
 
         
-        let worldGlobe = null;
         
-        // Basic mapping for common countries since IP lookup only returns country name historically
-        const countryCoords = {
-            "Colombia": {lat: 4.5709, lng: -74.2973},
-            "Canada": {lat: 56.1304, lng: -106.3468},
-            "United States": {lat: 37.0902, lng: -95.7129},
-            "Germany": {lat: 51.1657, lng: 10.4515},
-            "France": {lat: 46.2276, lng: 2.2137},
-            "United Kingdom": {lat: 55.3781, lng: -3.4360},
-            "Australia": {lat: -25.2744, lng: 133.7751},
-            "Spain": {lat: 40.4637, lng: -3.7492},
-            "Mexico": {lat: 23.6345, lng: -102.5528},
-            "Brazil": {lat: -14.2350, lng: -51.9253},
-            "Chile": {lat: -35.6751, lng: -71.5430},
-            "Peru": {lat: -9.1900, lng: -75.0152},
-            "Argentina": {lat: -38.4161, lng: -63.6167},
-            "Japan": {lat: 36.2048, lng: 138.2529},
-            "China": {lat: 35.8617, lng: 104.1954}
+        let vMap = null;
+        let currentMapLayer = 'all';
+
+        const countryToISO = {
+            "Colombia": "CO", "United States": "US", "Canada": "CA", "Mexico": "MX",
+            "United Kingdom": "GB", "Germany": "DE", "France": "FR", "Spain": "ES",
+            "Australia": "AU", "Brazil": "BR", "Argentina": "AR", "Chile": "CL",
+            "Peru": "PE", "Japan": "JP", "China": "CN", "India": "IN", "Italy": "IT",
+            "Netherlands": "NL", "Switzerland": "CH", "Sweden": "SE", "Unknown": ""
         };
 
-        
-        function generateAIReport() {
-            const reportBox = document.getElementById('aiReportBox');
-            reportBox.style.display = 'block';
-            reportBox.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando patrones de navegación, retención y procedencia...</div>';
-            
-            setTimeout(() => {
-                // Heuristic Engine
-                const total = filteredEvents.length;
-                if (total === 0) {
-                    reportBox.innerHTML = '<div style="color: var(--danger);">No hay suficientes datos en este rango de tiempo para generar un reporte.</div>';
-                    return;
+        function setMapLayer(layer) {
+            currentMapLayer = layer;
+            // Update buttons visually
+            ['btnMapAll', 'btnMapPDF', 'btnMapDesktop', 'btnMapMobile'].forEach(id => {
+                const btn = document.getElementById(id);
+                if(btn) {
+                    btn.style.background = 'var(--bg-input)';
+                    btn.style.color = 'var(--text-main)';
                 }
-                
-                // 1. GEO Analysis
-                const countries = {};
-                let topCountry = {name: 'N/A', count: 0};
-                filteredEvents.forEach(e => {
-                    if (e.geo && e.geo.country && e.geo.country !== 'Unknown') {
-                        countries[e.geo.country] = (countries[e.geo.country] || 0) + 1;
-                        if (countries[e.geo.country] > topCountry.count) {
-                            topCountry = {name: e.geo.country, count: countries[e.geo.country]};
-                        }
-                    }
-                });
-                
-                // 2. SEO / Pages Analysis
-                const pages = {};
-                let topPage = {name: 'N/A', count: 0};
-                let presCount = 0;
-                filteredEvents.forEach(e => {
-                    if (e.type === 'pageview') {
-                        let path = e.page;
-                        pages[path] = (pages[path] || 0) + 1;
-                        if (pages[path] > topPage.count) {
-                            topPage = {name: path, count: pages[path]};
-                        }
-                    }
-                    if (e.type === 'presentation_view') presCount++;
-                });
-
-                // Generate Smart Text
-                let geoInsight = topCountry.count > 0 
-                    ? `El <strong>${Math.round((topCountry.count / total) * 100)}%</strong> del tráfico analizable proviene de <strong>${topCountry.name}</strong>. 💡 <em>Sugerencia GEO:</em> Considera enfocar campañas o relaciones públicas localizadas en esta región para maximizar la conversión de inversionistas.`
-                    : "No hay suficientes datos geográficos limpios para una sugerencia GEO confiable.";
-
-                let seoInsight = topPage.count > 0
-                    ? `La página más visitada es <strong>${topPage.name}</strong>. 💡 <em>Sugerencia SEO:</em> Asegúrate de que las palabras clave de Mocoa y Cobre estén altamente optimizadas en el `<title>` y los headers (`<h1>`) de esta URL específica, ya que es la puerta principal de entrada.`
-                    : "Esperando más datos de navegación web para establecer patrones.";
-                    
-                let presInsight = presCount > 0
-                    ? `Se detectaron <strong>${presCount}</strong> interacciones directas con el PDF Corporativo. 💡 <em>Estrategia:</em> La presentación corporativa genera interés real. Sugerimos agregar un Call-To-Action (botón) más prominente en la sección final invitando a contactar al equipo de Relaciones con Inversionistas.`
-                    : "Todavía no hay lecturas del PDF corporativo en este periodo de tiempo.";
-
-                reportBox.innerHTML = `
-                    <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Outfit', sans-serif;">Reporte Estratégico Generado</h3>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
-                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-globe"></i> Análisis GEO</h4>
-                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5;">${geoInsight}</p>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
-                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-brands fa-google"></i> Oportunidad SEO</h4>
-                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5;">${seoInsight}</p>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
-                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-file-pdf"></i> Retención y Documentos</h4>
-                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5;">${presInsight}</p>
-                        </div>
-                    </div>
-                `;
-            }, 1200); // Fake AI thinking time for UX
+            });
+            
+            const activeBtnMap = {
+                'all': 'btnMapAll',
+                'pdf': 'btnMapPDF',
+                'desktop': 'btnMapDesktop',
+                'mobile': 'btnMapMobile'
+            };
+            const activeBtn = document.getElementById(activeBtnMap[layer]);
+            if(activeBtn) {
+                activeBtn.style.background = 'var(--copper-primary)';
+                activeBtn.style.color = '#fff';
+            }
+            
+            renderVectorMap();
         }
 
-        function renderGlobeViz() {
-            const container = document.getElementById('globeViz');
+        function renderVectorMap() {
+            const container = document.getElementById('vectorMap');
             if(!container) return;
             
-            // Extract unique locations from filteredEvents
-            const geoCounts = {};
-            filteredEvents.forEach(e => {
+            // Filter events based on active layer
+            let mapEvents = filteredEvents;
+            if (currentMapLayer === 'pdf') {
+                mapEvents = filteredEvents.filter(e => e.type === 'presentation_view');
+            } else if (currentMapLayer === 'desktop') {
+                mapEvents = filteredEvents.filter(e => e.hw && e.hw.category === 'Desktop');
+            } else if (currentMapLayer === 'mobile') {
+                mapEvents = filteredEvents.filter(e => e.hw && e.hw.category === 'Mobile');
+            }
+
+            // Aggregate by ISO code
+            const countryCounts = {};
+            let maxCount = 0;
+            
+            mapEvents.forEach(e => {
                 if (e.geo && e.geo.country && e.geo.country !== 'Unknown') {
-                    const country = e.geo.country;
-                    geoCounts[country] = (geoCounts[country] || 0) + 1;
+                    const iso = countryToISO[e.geo.country];
+                    if (iso) {
+                        countryCounts[iso] = (countryCounts[iso] || 0) + 1;
+                        if (countryCounts[iso] > maxCount) maxCount = countryCounts[iso];
+                    }
                 }
+            });
+
+            // Destroy previous map instance if exists
+            if (vMap) {
+                container.innerHTML = ''; // Force clear
+            }
+
+            // Initialize new Map
+            vMap = new jsVectorMap({
+                selector: '#vectorMap',
+                map: 'world',
+                backgroundColor: 'transparent',
+                zoomOnScroll: false,
+                regionStyle: {
+                    initial: {
+                        fill: '#2a3441',
+                        fillOpacity: 1,
+                        stroke: '#121820',
+                        strokeWidth: 1,
+                    },
+                    hover: {
+                        fill: '#FF002C',
+                        fillOpacity: 0.8,
+                        cursor: 'pointer'
+                    }
+                },
+                series: {
+                    regions: [{
+                        attribute: 'fill',
+                        scale: ['#3b4859', '#FF002C'],
+                        values: countryCounts,
+                        min: 0,
+                        max: maxCount > 0 ? maxCount : 1
+                    }]
+                },
+                onRegionTooltipShow(event, tooltip, code) {
+                    const count = countryCounts[code] || 0;
+                    let layerName = 'Visitas';
+                    if (currentMapLayer === 'pdf') layerName = 'Lecturas PDF';
+                    if (currentMapLayer === 'desktop') layerName = 'Desktop';
+                    if (currentMapLayer === 'mobile') layerName = 'Móvil';
+                    
+                    tooltip.text(
+                        `<div style="text-align:center;">
+                            <b>${tooltip.text()}</b><br/>
+                            ${count} ${layerName}
+                        </div>`,
+                        true
+                    );
+                }
+            });
+        }
             });
             
             const gData = Object.keys(geoCounts).map(country => {
