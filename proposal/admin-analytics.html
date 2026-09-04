@@ -904,6 +904,7 @@
             reportBox.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando patrones de navegación, retención y procedencia...</div>';
             
             setTimeout(() => {
+                try {
                 // Heuristic Engine
                 const total = filteredEvents.length;
                 if (total === 0) {
@@ -972,6 +973,9 @@
                         </div>
                     </div>
                 `;
+                } catch (e) {
+                    reportBox.innerHTML = '<div style="color: var(--danger); padding: 15px; border: 1px solid var(--danger);"><strong>Error interno de la IA:</strong> ' + e.message + ' <br><small>' + e.stack + '</small></div>';
+                }
             }, 1200); // Fake AI thinking time for UX
         }
 
