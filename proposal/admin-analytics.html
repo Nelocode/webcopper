@@ -215,6 +215,7 @@
 
         .hidden { display: none !important; }
     </style>
+    <script src="https://unpkg.com/globe.gl"></script>
 </head>
 <body>
 
@@ -302,6 +303,31 @@
                     <div class="metric-value" id="valTopConnection">4G / WiFi</div>
                     <div class="metric-label">Conexión Predominante</div>
                 </div>
+            </div>
+        </div>
+
+        
+        
+        <!-- AI SEO/GEO Insights Module -->
+        <div class="chart-card" style="margin-bottom: 24px; border-top: 2px solid var(--copper-primary); background: linear-gradient(180deg, rgba(255, 0, 44, 0.05) 0%, var(--bg-card) 100%);">
+            <div class="header-title" style="margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+                <h2 style="font-size: 1.2rem; color: #fff; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--copper-primary);"></i> Analista IA de SEO y GEO
+                </h2>
+                <button class="btn-action btn-export" onclick="generateAIReport()"><i class="fa-solid fa-robot"></i> Generar Reporte Inteligente</button>
+            </div>
+            
+            <div id="aiReportBox" style="display: none; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid var(--copper-primary);">
+                <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando cientos de data points...</div>
+            </div>
+        </div>
+
+        <!-- 3D Global Traffic Globe -->
+        <div class="chart-card" style="margin-bottom: 24px;">
+            <div class="chart-card-title"><i class="fa-solid fa-earth-americas" style="color: var(--copper-primary);"></i> Tráfico Global en Tiempo Real</div>
+            <div id="globeVizContainer" style="width: 100%; height: 500px; background: #0b0f14; border-radius: 8px; overflow: hidden; position: relative;">
+                <div id="globeViz"></div>
+                <div style="position: absolute; bottom: 15px; left: 15px; color: var(--text-muted); font-size: 0.8rem; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 4px;">Interactúa para explorar los datos geográficos</div>
             </div>
         </div>
 
@@ -470,6 +496,14 @@
             if (localStorage.getItem('cg_dark_mode') === 'true') toggleDarkMode(true);
         });
 
+        window.addEventListener('resize', () => {
+            if (worldGlobe) {
+                const container = document.getElementById('globeVizContainer');
+                if (container) worldGlobe.width(container.clientWidth);
+            }
+        });
+
+
         function toggleDarkMode(forceOn = false) {
             const isDark = forceOn || document.body.style.filter !== 'invert(1)';
             document.body.style.filter = isDark ? 'invert(1)' : 'none';
@@ -551,6 +585,151 @@
             renderStreamTable();
             renderGeoChart();
             renderFunnelChart();
+            renderGlobeViz();
+        }
+
+        
+        let worldGlobe = null;
+        
+        // Basic mapping for common countries since IP lookup only returns country name historically
+        const countryCoords = {
+            "Colombia": {lat: 4.5709, lng: -74.2973},
+            "Canada": {lat: 56.1304, lng: -106.3468},
+            "United States": {lat: 37.0902, lng: -95.7129},
+            "Germany": {lat: 51.1657, lng: 10.4515},
+            "France": {lat: 46.2276, lng: 2.2137},
+            "United Kingdom": {lat: 55.3781, lng: -3.4360},
+            "Australia": {lat: -25.2744, lng: 133.7751},
+            "Spain": {lat: 40.4637, lng: -3.7492},
+            "Mexico": {lat: 23.6345, lng: -102.5528},
+            "Brazil": {lat: -14.2350, lng: -51.9253},
+            "Chile": {lat: -35.6751, lng: -71.5430},
+            "Peru": {lat: -9.1900, lng: -75.0152},
+            "Argentina": {lat: -38.4161, lng: -63.6167},
+            "Japan": {lat: 36.2048, lng: 138.2529},
+            "China": {lat: 35.8617, lng: 104.1954}
+        };
+
+        
+        function generateAIReport() {
+            const reportBox = document.getElementById('aiReportBox');
+            reportBox.style.display = 'block';
+            reportBox.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando patrones de navegación, retención y procedencia...</div>';
+            
+            setTimeout(() => {
+                // Heuristic Engine
+                const total = filteredEvents.length;
+                if (total === 0) {
+                    reportBox.innerHTML = '<div style="color: var(--danger);">No hay suficientes datos en este rango de tiempo para generar un reporte.</div>';
+                    return;
+                }
+                
+                // 1. GEO Analysis
+                const countries = {};
+                let topCountry = {name: 'N/A', count: 0};
+                filteredEvents.forEach(e => {
+                    if (e.geo && e.geo.country && e.geo.country !== 'Unknown') {
+                        countries[e.geo.country] = (countries[e.geo.country] || 0) + 1;
+                        if (countries[e.geo.country] > topCountry.count) {
+                            topCountry = {name: e.geo.country, count: countries[e.geo.country]};
+                        }
+                    }
+                });
+                
+                // 2. SEO / Pages Analysis
+                const pages = {};
+                let topPage = {name: 'N/A', count: 0};
+                let presCount = 0;
+                filteredEvents.forEach(e => {
+                    if (e.type === 'pageview') {
+                        let path = e.page;
+                        pages[path] = (pages[path] || 0) + 1;
+                        if (pages[path] > topPage.count) {
+                            topPage = {name: path, count: pages[path]};
+                        }
+                    }
+                    if (e.type === 'presentation_view') presCount++;
+                });
+
+                // Generate Smart Text
+                let geoInsight = topCountry.count > 0 
+                    ? `El <strong>${Math.round((topCountry.count / total) * 100)}%</strong> del tráfico analizable proviene de <strong>${topCountry.name}</strong>. 💡 <em>Sugerencia GEO:</em> Considera enfocar campañas o relaciones públicas localizadas en esta región para maximizar la conversión de inversionistas.`
+                    : "No hay suficientes datos geográficos limpios para una sugerencia GEO confiable.";
+
+                let seoInsight = topPage.count > 0
+                    ? `La página más visitada es <strong>${topPage.name}</strong>. 💡 <em>Sugerencia SEO:</em> Asegúrate de que las palabras clave de Mocoa y Cobre estén altamente optimizadas en el `<title>` y los headers (`<h1>`) de esta URL específica, ya que es la puerta principal de entrada.`
+                    : "Esperando más datos de navegación web para establecer patrones.";
+                    
+                let presInsight = presCount > 0
+                    ? `Se detectaron <strong>${presCount}</strong> interacciones directas con el PDF Corporativo. 💡 <em>Estrategia:</em> La presentación corporativa genera interés real. Sugerimos agregar un Call-To-Action (botón) más prominente en la sección final invitando a contactar al equipo de Relaciones con Inversionistas.`
+                    : "Todavía no hay lecturas del PDF corporativo en este periodo de tiempo.";
+
+                reportBox.innerHTML = `
+                    <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Outfit', sans-serif;">Reporte Estratégico Generado</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-globe"></i> Análisis GEO</h4>
+                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5;">${geoInsight}</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-brands fa-google"></i> Oportunidad SEO</h4>
+                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5;">${seoInsight}</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-file-pdf"></i> Retención y Documentos</h4>
+                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5;">${presInsight}</p>
+                        </div>
+                    </div>
+                `;
+            }, 1200); // Fake AI thinking time for UX
+        }
+
+        function renderGlobeViz() {
+            const container = document.getElementById('globeViz');
+            if(!container) return;
+            
+            // Extract unique locations from filteredEvents
+            const geoCounts = {};
+            filteredEvents.forEach(e => {
+                if (e.geo && e.geo.country && e.geo.country !== 'Unknown') {
+                    const country = e.geo.country;
+                    geoCounts[country] = (geoCounts[country] || 0) + 1;
+                }
+            });
+            
+            const gData = Object.keys(geoCounts).map(country => {
+                const coords = countryCoords[country] || {lat: (Math.random() - 0.5) * 100, lng: (Math.random() - 0.5) * 180}; // Fallback jitter
+                return {
+                    lat: coords.lat,
+                    lng: coords.lng,
+                    size: Math.min(geoCounts[country] * 0.1, 1) + 0.1, // Scale dot
+                    color: '#FF002C',
+                    name: country,
+                    visits: geoCounts[country]
+                };
+            });
+
+            if (!worldGlobe) {
+                worldGlobe = Globe()
+                    (container)
+                    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+                    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+                    .backgroundColor('#0b0f14')
+                    .pointLat('lat')
+                    .pointLng('lng')
+                    .pointColor('color')
+                    .pointAltitude('size')
+                    .pointRadius(0.5)
+                    .pointsMerge(true)
+                    .pointLabel(d => `<div style="background: rgba(0,0,0,0.8); padding: 5px; border-radius: 4px; border-left: 2px solid #FF002C;">${d.name}: ${d.visits} visitas</div>`)
+                    .width(container.clientWidth)
+                    .height(500);
+                    
+                worldGlobe.controls().autoRotate = true;
+                worldGlobe.controls().autoRotateSpeed = 1.5;
+            } else {
+                worldGlobe.pointsData(gData);
+            }
         }
 
         function renderCharts() {
