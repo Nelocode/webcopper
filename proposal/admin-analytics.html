@@ -827,6 +827,17 @@
                 }
             });
 
+            // MANUALLY calculate colors to bypass jsVectorMap interpolation bugs
+            const regionColors = {};
+            for (const iso in countryCounts) {
+                const val = countryCounts[iso];
+                const ratio = maxCount > 1 ? (val - 1) / (maxCount - 1) : 1;
+                // Light red (75% lightness) to Dark red (30% lightness)
+                const lightness = 75 - (ratio * 45);
+                regionColors[iso] = `hsl(0, 100%, ${lightness}%)`;
+            }
+
+
             // Destroy previous map instance if exists
             if (vMap) {
                 container.innerHTML = ''; // Force clear
@@ -854,10 +865,7 @@
                 series: {
                     regions: [{
                         attribute: 'fill',
-                        scale: ['#ff8a8a', '#990000'],
-                        values: countryCounts,
-                        min: 1,
-                        max: maxCount > 1 ? maxCount : 2
+                        values: regionColors
                     }]
                 },
 
