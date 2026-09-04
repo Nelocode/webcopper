@@ -216,6 +216,7 @@
         .hidden { display: none !important; }
     </style>
     <script src="https://unpkg.com/globe.gl"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -271,6 +272,7 @@
                     <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: #4cd964; margin-right: 6px;"></i> Base de Datos en Vivo Conectada
                 </span>
                 <button class="btn-action" onclick="loadAnalyticsData()"><i class="fa-solid fa-rotate"></i> Actualizar Gráficos</button>
+                <button class="btn-action" id="btnExportPDF" onclick="exportCEOReport()" style="display: none; background: #fff; color: #000;"><i class="fa-solid fa-file-pdf" style="color: #FF002C;"></i> Descargar PDF Ejecutivo</button>
             </div>
         </div>
 
@@ -730,6 +732,81 @@
             } else {
                 worldGlobe.pointsData(gData);
             }
+        }
+
+        
+        function exportCEOReport() {
+            if (!window.latestAIReport) {
+                alert("Por favor, genera primero el reporte de IA.");
+                return;
+            }
+            
+            // Create a temporary container for the PDF
+            const pdfContainer = document.createElement('div');
+            pdfContainer.style.padding = '40px';
+            pdfContainer.style.background = '#ffffff';
+            pdfContainer.style.color = '#121820';
+            pdfContainer.style.fontFamily = 'Arial, sans-serif';
+            pdfContainer.style.width = '800px';
+            
+            // Grab chart images (Traffic and Devices)
+            const trafficCanvas = document.getElementById('chartTrafficTrend');
+            const devicesCanvas = document.getElementById('chartDevices');
+            
+            const trafficImg = trafficCanvas ? trafficCanvas.toDataURL("image/png") : "";
+            const devicesImg = devicesCanvas ? devicesCanvas.toDataURL("image/png") : "";
+            
+            const today = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            pdfContainer.innerHTML = `
+                <div style="border-bottom: 3px solid #FF002C; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <h1 style="margin: 0; color: #121820; font-size: 24px; text-transform: uppercase; letter-spacing: 1px;">Reporte Ejecutivo de Telemetría</h1>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Copper Giant Resources Corp.</p>
+                    </div>
+                    <div style="text-align: right; color: #FF002C; font-weight: bold;">
+                        ${today}
+                    </div>
+                </div>
+                
+                <h2 style="font-size: 18px; color: #FF002C; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px;">1. Recomendaciones Estratégicas (IA)</h2>
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                    <p style="margin-top: 0;"><strong>Análisis GEO:</strong> ${window.latestAIReport.geo}</p>
+                    <p><strong>Oportunidad SEO:</strong> ${window.latestAIReport.seo}</p>
+                    <p style="margin-bottom: 0;"><strong>Retención Documental:</strong> ${window.latestAIReport.pres}</p>
+                </div>
+                
+                <h2 style="font-size: 18px; color: #FF002C; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px;">2. Métricas Clave y Tráfico</h2>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    ${trafficImg ? `<img src="${trafficImg}" style="max-width: 100%; height: auto; border: 1px solid #eee; padding: 10px; border-radius: 8px;" />` : ''}
+                </div>
+                
+                <div style="text-align: center;">
+                    <h3 style="font-size: 14px; color: #666; margin-bottom: 10px;">Distribución de Dispositivos</h3>
+                    ${devicesImg ? `<img src="${devicesImg}" style="max-width: 300px; height: auto;" />` : ''}
+                </div>
+                
+                <div style="margin-top: 50px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 20px;">
+                    Generado automáticamente por el Panel de Comando de Copper Giant - Confidencial
+                </div>
+            `;
+            
+            const opt = {
+                margin:       0,
+                filename:     'CopperGiant_Reporte_CEO.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            // Show loading state on button
+            const btn = document.getElementById("btnExportPDF");
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generando PDF...';
+            
+            html2pdf().set(opt).from(pdfContainer).save().then(() => {
+                btn.innerHTML = originalText;
+            });
         }
 
         function renderCharts() {
