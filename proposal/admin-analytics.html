@@ -962,6 +962,7 @@
                 document.getElementById("btnExportPDF").style.display = "inline-block";
                 
                 // We fake the 'latestAIReport' structure just for the PDF export backwards compatibility
+                window.latestGeminiReportHTML = data.report;
                 window.latestAIReport = { 
                     geo: "Análisis profundo generado por Gemini AI.", 
                     seo: "Oportunidades listadas en el reporte avanzado.", 
@@ -1023,7 +1024,7 @@
 
 
         function exportCEOReport() {
-            if (!window.latestAIReport) {
+            if (!window.latestGeminiReportHTML && !window.latestAIReport) {
                 alert("Por favor, genera primero el reporte de IA.");
                 return;
             }
@@ -1036,7 +1037,7 @@
             pdfContainer.style.fontFamily = 'Arial, sans-serif';
             pdfContainer.style.width = '800px';
             
-            // Grab chart images (Traffic and Devices)
+            // Grab chart images
             const trafficCanvas = document.getElementById('chartTrafficTrend');
             const devicesCanvas = document.getElementById('chartDevices');
             
@@ -1045,51 +1046,66 @@
             
             const today = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 
+            // Extract the deep AI content (fallback to old structure if missing)
+            let aiContentHTML = window.latestGeminiReportHTML;
+            if (!aiContentHTML) {
+                aiContentHTML = `
+                    <p style="margin-top: 0;"><strong>Análisis GEO:</strong> ${window.latestAIReport.geo}</p>
+                    <p><strong>Oportunidad SEO:</strong> ${window.latestAIReport.seo}</p>
+                    <p style="margin-bottom: 0;"><strong>Retención Documental:</strong> ${window.latestAIReport.pres}</p>
+                `;
+            }
+
+            // Let's inject CSS into the aiContentHTML so it looks good on a white PDF
+            // The AI returns HTML with white text styles suitable for dark mode (like color: #fff).
+            // We need to strip or override those for the white background PDF.
+            aiContentHTML = aiContentHTML.replace(/color:\s*(#fff|#ffffff|#ddd|#eee|var\(--text-main\))/gi, 'color: #333');
+            aiContentHTML = aiContentHTML.replace(/color:\s*var\(--copper-primary\)/gi, 'color: #FF002C');
+
             pdfContainer.innerHTML = `
                 <div style="border-bottom: 3px solid #FF002C; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;">
                     <div>
-                        <h1 style="margin: 0; color: #121820; font-size: 24px; text-transform: uppercase; letter-spacing: 1px;">Reporte Ejecutivo de Telemetría</h1>
-                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Copper Giant Resources Corp.</p>
+                        <h1 style="margin: 0; color: #121820; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Reporte Ejecutivo de Inteligencia</h1>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px; font-weight: 600;">Copper Giant Resources Corp. | Análisis de Telemetría Avanzada</p>
                     </div>
-                    <div style="text-align: right; color: #FF002C; font-weight: bold;">
+                    <div style="text-align: right; color: #FF002C; font-weight: bold; font-size: 14px;">
                         ${today}
                     </div>
                 </div>
                 
-                <h2 style="font-size: 18px; color: #FF002C; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px;">1. Recomendaciones Estratégicas (IA)</h2>
-                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-                    <p style="margin-top: 0;"><strong>Análisis GEO:</strong> ${window.latestAIReport.geo}</p>
-                    <p><strong>Oportunidad SEO:</strong> ${window.latestAIReport.seo}</p>
-                    <p style="margin-bottom: 0;"><strong>Retención Documental:</strong> ${window.latestAIReport.pres}</p>
+                <h2 style="font-size: 18px; color: #121820; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px; text-transform: uppercase;">1. Hallazgos Estratégicos (Gemini 2.5 AI)</h2>
+                <div style="background: #f4f5f7; padding: 25px; border-radius: 8px; margin-bottom: 30px; font-size: 14px; line-height: 1.6; color: #333; border: 1px solid #e0e0e0;">
+                    ${aiContentHTML}
                 </div>
                 
-                <h2 style="font-size: 18px; color: #FF002C; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px;">2. Métricas Clave y Tráfico</h2>
-                <div style="text-align: center; margin-bottom: 20px;">
-                    ${trafficImg ? `<img src="${trafficImg}" style="max-width: 100%; height: auto; border: 1px solid #eee; padding: 10px; border-radius: 8px;" />` : ''}
+                <h2 style="font-size: 18px; color: #121820; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px; text-transform: uppercase;">2. Visualización de Datos Clave</h2>
+                <div style="text-align: center; margin-bottom: 20px; background: #fff; padding: 15px; border: 1px solid #eee; border-radius: 8px;">
+                    <h3 style="font-size: 14px; color: #666; margin-bottom: 10px; text-align: left;">Tendencia de Tráfico Global</h3>
+                    ${trafficImg ? `<img src="${trafficImg}" style="max-width: 100%; height: auto;" />` : ''}
                 </div>
                 
-                <div style="text-align: center;">
-                    <h3 style="font-size: 14px; color: #666; margin-bottom: 10px;">Distribución de Dispositivos</h3>
-                    ${devicesImg ? `<img src="${devicesImg}" style="max-width: 300px; height: auto;" />` : ''}
+                <div style="text-align: center; background: #fff; padding: 15px; border: 1px solid #eee; border-radius: 8px;">
+                    <h3 style="font-size: 14px; color: #666; margin-bottom: 10px; text-align: left;">Distribución de Plataformas</h3>
+                    ${devicesImg ? `<img src="${devicesImg}" style="max-width: 350px; height: auto; margin: 0 auto;" />` : ''}
                 </div>
                 
-                <div style="margin-top: 50px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 20px;">
-                    Generado automáticamente por el Panel de Comando de Copper Giant - Confidencial
+                <div style="margin-top: 40px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 15px;">
+                    Reporte Confidencial - Generado automáticamente por el motor de telemetría de Copper Giant y Google Gemini AI.
                 </div>
             `;
             
             const opt = {
-                margin:       0,
-                filename:     'CopperGiant_Reporte_CEO.pdf',
+                margin:       [0.4, 0, 0.4, 0], // top, left, bottom, right
+                filename:     'CopperGiant_Inteligencia_Directiva.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
             
             // Show loading state on button
             const btn = document.getElementById("btnExportPDF");
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generando PDF...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ensamblando PDF...';
             
             html2pdf().set(opt).from(pdfContainer).save().then(() => {
                 btn.innerHTML = originalText;
