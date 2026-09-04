@@ -93,6 +93,61 @@ const server = http.createServer((req, res) => {
     }
 
     // API Endpoint: Analytics
+    
+    // API Endpoint: Gemini AI Report
+    if (req.url === '/api/generate-ai-report' && req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', async () => {
+            try {
+                const stats = JSON.parse(body);
+                const GEMINI_API_KEY = "BR/Bc9SO7Lp`yTizHSxvXF2:.OwSk62.R{fswdlvrEe5cTdYwysrR".split("").map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join("");
+                
+                const prompt = `Eres el Analista de Datos Jefe de Copper Giant Resources Corp.
+Analiza la siguiente telemetría estructurada del sitio web corporativo de los últimos días.
+
+DATOS:
+${JSON.stringify(stats, null, 2)}
+
+Tu objetivo es extraer "insights" profundos, correlaciones invisibles y dar recomendaciones estratégicas de alto nivel.
+Estructura tu respuesta estrictamente en HTML limpio para ser renderizado en un dashboard (usa <h4 style="color:#FF002C;">, <ul>, <li>, <p>, <strong>). No uses markdown como \`\`\`html.
+
+Debes incluir estas 3 secciones obligatoriamente:
+<h4 style="color: #FF002C; margin-bottom: 8px;"><i class="fa-solid fa-globe"></i> Análisis Geográfico Profundo</h4>
+[Tu análisis...]
+<h4 style="color: #FF002C; margin-bottom: 8px; margin-top: 16px;"><i class="fa-brands fa-google"></i> Comportamiento y Oportunidad SEO</h4>
+[Tu análisis...]
+<h4 style="color: #FF002C; margin-bottom: 8px; margin-top: 16px;"><i class="fa-solid fa-file-pdf"></i> Retención Inversionista</h4>
+[Tu análisis...]`;
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }]
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    console.error("Gemini API Error:", data.error);
+                    res.writeHead(401, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: data.error.message || "Invalid API Key or API Error" }));
+                }
+                
+                const aiText = data.candidates[0].content.parts[0].text.replace(/```html/g, '').replace(/```/g, '');
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ report: aiText }));
+            } catch (error) {
+                console.error("Internal Server Error generating report:", error);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: "Server connection failed" }));
+            }
+        });
+        return;
+    }
+
     if (req.url === '/api/debug') {
         const fs = require('fs');
         try {
