@@ -897,6 +897,84 @@
         }
 
         
+        
+        function generateAIReport() {
+            const reportBox = document.getElementById('aiReportBox');
+            reportBox.style.display = 'block';
+            reportBox.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando patrones de navegación, retención y procedencia...</div>';
+            
+            setTimeout(() => {
+                // Heuristic Engine
+                const total = filteredEvents.length;
+                if (total === 0) {
+                    reportBox.innerHTML = '<div style="color: var(--danger);">No hay suficientes datos en este rango de tiempo para generar un reporte.</div>';
+                    return;
+                }
+                
+                // 1. GEO Analysis
+                const countries = {};
+                let topCountry = {name: 'N/A', count: 0};
+                filteredEvents.forEach(e => {
+                    if (e.geo && e.geo.country && e.geo.country !== 'Unknown') {
+                        countries[e.geo.country] = (countries[e.geo.country] || 0) + 1;
+                        if (countries[e.geo.country] > topCountry.count) {
+                            topCountry = {name: e.geo.country, count: countries[e.geo.country]};
+                        }
+                    }
+                });
+                
+                // 2. SEO / Pages Analysis
+                const pages = {};
+                let topPage = {name: 'N/A', count: 0};
+                let presCount = 0;
+                filteredEvents.forEach(e => {
+                    if (e.type === 'pageview') {
+                        let path = e.page;
+                        if (typeof path === 'object' && path !== null) path = path.path || path.url;
+                        pages[path] = (pages[path] || 0) + 1;
+                        if (pages[path] > topPage.count) {
+                            topPage = {name: path, count: pages[path]};
+                        }
+                    }
+                    if (e.type === 'presentation_view') presCount++;
+                });
+
+                // Generate Smart Text
+                let geoInsight = topCountry.count > 0 
+                    ? `El <strong>${Math.round((topCountry.count / total) * 100)}%</strong> del tráfico analizable proviene de <strong>${topCountry.name}</strong>. 💡 <em>Sugerencia GEO:</em> Considera enfocar campañas o relaciones públicas localizadas en esta región para maximizar la conversión de inversionistas.`
+                    : "No hay suficientes datos geográficos limpios para una sugerencia GEO confiable.";
+
+                let seoInsight = topPage.count > 0
+                    ? `La página más visitada es <strong>${topPage.name}</strong>. 💡 <em>Sugerencia SEO:</em> Asegúrate de que las palabras clave de Mocoa y Cobre estén altamente optimizadas en el `<title>` y los headers (`<h1>`) de esta URL específica, ya que es la puerta principal de entrada.`
+                    : "Esperando más datos de navegación web para establecer patrones.";
+                    
+                let presInsight = presCount > 0
+                    ? `Se detectaron <strong>${presCount}</strong> interacciones directas con el PDF Corporativo. 💡 <em>Estrategia:</em> La presentación corporativa genera interés real. Sugerimos agregar un Call-To-Action (botón) más prominente en la sección final invitando a contactar al equipo de Relaciones con Inversionistas.`
+                    : "Todavía no hay lecturas del PDF corporativo en este periodo de tiempo.";
+
+                document.getElementById("btnExportPDF").style.display = "inline-block";
+                window.latestAIReport = { geo: geoInsight, seo: seoInsight, pres: presInsight, topPage: topPage.name };
+                
+                reportBox.innerHTML = `
+                    <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Outfit', sans-serif;">Reporte Estratégico Generado</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-globe"></i> Análisis GEO</h4>
+                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5; margin: 0;">${geoInsight}</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-brands fa-google"></i> Oportunidad SEO</h4>
+                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5; margin: 0;">${seoInsight}</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                            <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-file-pdf"></i> Retención y Documentos</h4>
+                            <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5; margin: 0;">${presInsight}</p>
+                        </div>
+                    </div>
+                `;
+            }, 1200); // Fake AI thinking time for UX
+        }
+
         function exportCEOReport() {
             if (!window.latestAIReport) {
                 alert("Por favor, genera primero el reporte de IA.");
