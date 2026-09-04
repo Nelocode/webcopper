@@ -711,42 +711,6 @@
                 }
             });
         }
-            });
-            
-            const gData = Object.keys(geoCounts).map(country => {
-                const coords = countryCoords[country] || {lat: (Math.random() - 0.5) * 100, lng: (Math.random() - 0.5) * 180}; // Fallback jitter
-                return {
-                    lat: coords.lat,
-                    lng: coords.lng,
-                    size: Math.min(geoCounts[country] * 0.1, 1) + 0.1, // Scale dot
-                    color: '#FF002C',
-                    name: country,
-                    visits: geoCounts[country]
-                };
-            });
-
-            if (!worldGlobe) {
-                worldGlobe = Globe()
-                    (container)
-                    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-                    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-                    .backgroundColor('#0b0f14')
-                    .pointLat('lat')
-                    .pointLng('lng')
-                    .pointColor('color')
-                    .pointAltitude('size')
-                    .pointRadius(0.5)
-                    .pointsMerge(true)
-                    .pointLabel(d => `<div style="background: rgba(0,0,0,0.8); padding: 5px; border-radius: 4px; border-left: 2px solid #FF002C;">${d.name}: ${d.visits} visitas</div>`)
-                    .width(container.clientWidth)
-                    .height(500);
-                    
-                worldGlobe.controls().autoRotate = true;
-                worldGlobe.controls().autoRotateSpeed = 1.5;
-            } else {
-                worldGlobe.pointsData(gData);
-            }
-        }
 
         
         function exportCEOReport() {
