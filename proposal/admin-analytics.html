@@ -844,12 +844,12 @@
             }
 
             // Initialize new Map
+            
             vMap = new jsVectorMap({
                 selector: '#vectorMap',
                 map: 'world',
                 backgroundColor: 'transparent',
                 zoomOnScroll: false,
-                
                 regionStyle: {
                     initial: {
                         fill: '#1e2630',
@@ -862,13 +862,6 @@
                         cursor: 'pointer'
                     }
                 },
-                series: {
-                    regions: [{
-                        attribute: 'fill',
-                        values: regionColors
-                    }]
-                },
-
                 onRegionTooltipShow(event, tooltip, code) {
                     const count = countryCounts[code] || 0;
                     let layerName = 'Visitas';
@@ -885,6 +878,22 @@
                     );
                 }
             });
+
+            
+            // 100% Foolproof DOM Color Injection
+            setTimeout(() => {
+                const mapContainer = document.getElementById('vectorMap');
+                if (mapContainer) {
+                    for (const iso in regionColors) {
+                        const paths = mapContainer.querySelectorAll(`path[data-code="${iso}"], path[id="${iso}"]`);
+                        paths.forEach(path => {
+                            path.setAttribute('fill', regionColors[iso]);
+                            path.style.fill = regionColors[iso];
+                        });
+                    }
+                }
+            }, 150);
+
         }
 
         
