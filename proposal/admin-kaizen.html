@@ -320,7 +320,11 @@
         async function loadCognitiveEngine() {
             try {
                 const response = await fetch('/api/kaizen-cognitive-engine', { method: 'POST' });
+                
                 const data = await response.json();
+                if (!response.ok || data.error) {
+                    throw new Error(data.details || data.error || "HTTP Error " + response.status);
+                }
                 currentRoutes = data;
                 
                 let html = '';
@@ -351,7 +355,7 @@
                 showToast("Motor Cognitivo IA actualizado con datos reales.");
                 
             } catch (err) {
-                document.getElementById('roadmapCanvas').innerHTML = '<div style="color:var(--warning); text-align:center; padding: 20px;">Error al conectar con Gemini API.</div>';
+                document.getElementById('roadmapCanvas').innerHTML = '<div style="color:var(--warning); padding: 20px;"><b>Error de Motor:</b><br>' + err.message + '</div>';
                 console.error(err);
             }
         }

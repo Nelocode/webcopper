@@ -142,7 +142,7 @@ Debes incluir estas 3 secciones obligatoriamente:
             } catch (error) {
                 console.error("Internal Server Error generating report:", error);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: "Server connection failed" }));
+                res.end(JSON.stringify({ error: "Server connection failed", details: error.message, stack: error.stack }));
             }
         });
         return;
