@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaizen AI | Mejora Continua Estratégica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #0B0E14;
+            --bg-card: #151A22;
+            --bg-input: #1C222B;
+            --border-color: rgba(255,255,255,0.08);
+            --text-main: #f0f0f0;
+            --text-muted: #8b949e;
+            --copper-primary: #FF002C;
+            --copper-hover: #cc0022;
+            --success: #2ea043;
+            --warning: #d29922;
+            --danger: #f85149;
+            --glass-bg: rgba(21, 26, 34, 0.7);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-nav {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .admin-title { font-size: 1.1rem; font-weight: 600; color: #fff; }
+        
+        .nav-actions { display: flex; gap: 12px; align-items: center; }
+        
+        .btn-action {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Outfit', sans-serif;
+            text-decoration: none;
+        }
+        
+        .btn-action:hover { background: rgba(255,255,255,0.1); }
+        .btn-copper { background: var(--copper-primary); color: #fff; border-color: var(--copper-primary); }
+        .btn-copper:hover { background: var(--copper-hover); }
+
+        .kaizen-container {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            gap: 24px;
+            padding: 24px;
+            height: calc(100vh - 70px);
+            overflow: hidden;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0,0,0,0.2);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-content {
+            padding: 16px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Radar Social */
+        .radar-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+        .radar-item:last-child { border-bottom: none; }
+        .tag { font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; margin-bottom: 6px; display: inline-block; }
+        .tag-twitter { background: rgba(29, 161, 242, 0.2); color: #1da1f2; }
+        .tag-macro { background: rgba(210, 153, 34, 0.2); color: var(--warning); }
+        .tag-web { background: rgba(255, 0, 44, 0.2); color: var(--copper-primary); }
+
+        /* Nodo de Ruta */
+        .kaizen-node {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .kaizen-node:hover {
+            transform: translateY(-2px);
+            border-color: var(--copper-primary);
+        }
+        
+        .node-connector {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: var(--copper-primary);
+            opacity: 0.5;
+        }
+        
+        .node-title { font-weight: 600; color: #fff; margin-bottom: 8px; font-size: 1.1rem; }
+        .node-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+        
+        /* Execution Panel */
+        .exec-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .exec-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px; }
+        
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn-approve { background: var(--success); color: #fff; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-reject { background: transparent; color: var(--danger); border: 1px solid var(--danger); padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav class="admin-nav">
+        <a href="index.html" class="admin-logo">
+            <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 32px;">
+            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: var(--text-muted);">Kaizen AI | Mejora Estratégica</div>
+        </a>
+        <div class="nav-actions">
+            <a href="admin-analytics.html" class="btn-action"><i class="fa-solid fa-chart-line"></i> Telemetría Web</a>
+        </div>
+    </nav>
+
+    <div class="kaizen-container">
+        <!-- Izquierda: Radar -->
+        <div class="panel">
+            <div class="panel-header">
+                <i class="fa-solid fa-satellite-dish" style="color: var(--copper-primary);"></i> Radar & Contexto
+            </div>
+            <div class="panel-content" style="padding: 0;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border-color); background: rgba(0,0,0,0.3);">
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Sentimiento Social Consolidado</div>
+                    <div style="font-size: 1.8rem; font-weight: 700; color: var(--success);">78 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/100</span></div>
+                    <div style="font-size: 0.8rem; color: #4cd964; margin-top: 4px;"><i class="fa-solid fa-arrow-trend-up"></i> +5 puntos vs ayer</div>
+                </div>
+                
+                <div class="radar-item">
+                    <span class="tag tag-macro">MACRO / MERCADO</span>
+                    <p style="margin-bottom: 5px;"><strong>Cobre (HG=F):</strong> $4.18/Lb <span style="color: var(--danger);"><i class="fa-solid fa-arrow-down"></i> -1.2%</span></p>
+                    <p class="node-desc">Inversores nerviosos por datos de manufactura en Asia. El enfoque del mercado gira hacia costos de capital (CAPEX) bajos.</p>
+                </div>
+                <div class="radar-item">
+                    <span class="tag tag-twitter">REDES / SENTIMIENTO</span>
+                    <p style="margin-bottom: 5px;"><strong>BTV Campaña:</strong> Fuerte pico de interés retail.</p>
+                    <p class="node-desc">Conversaciones detectadas en foros minoristas preguntando específicamente sobre las leyes del depósito Mocoa vs pórfidos chilenos.</p>
+                </div>
+                <div class="radar-item">
+                    <span class="tag tag-web">TELEMETRÍA WEB</span>
+                    <p style="margin-bottom: 5px;"><strong>Fuga en PEA:</strong></p>
+                    <p class="node-desc">Alta tasa de rebote (65%) en la sección del Modelo de Bloques (MRE). Inversores institucionales leen, pero los retail abandonan a los 12 seg.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Centro: Rutas de Mejora -->
+        <div class="panel">
+            <div class="panel-header">
+                <i class="fa-solid fa-code-branch" style="color: var(--copper-primary);"></i> Rutas de Mejora Propuestas (IA)
+            </div>
+            <div class="panel-content" style="background: rgba(0,0,0,0.2);">
+                
+                <!-- Nodo 1 -->
+                <div class="kaizen-node" onclick="showExecPanel('node1')" style="border-left: 4px solid var(--warning);">
+                    <div class="node-connector"></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 0.75rem; color: var(--warning); font-weight: 700; text-transform: uppercase;"><i class="fa-solid fa-bolt"></i> Prioridad Alta</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="fa-solid fa-clock"></i> Hace 2 hrs</span>
+                    </div>
+                    <h3 class="node-title">Simplificar Narrativa de Recursos (MRE) para Retail</h3>
+                    <p class="node-desc">La campaña de BTV trajo inversores no técnicos. La terminología densa (NI 43-101, CuEq ratios) en la página del Proyecto Mocoa está causando fricción. Sugiero test A/B con una infografía visual.</p>
+                </div>
+                
+                <!-- Nodo 2 -->
+                <div class="kaizen-node" onclick="showExecPanel('node2')" style="border-left: 4px solid var(--success);">
+                    <div class="node-connector"></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 0.75rem; color: var(--success); font-weight: 700; text-transform: uppercase;"><i class="fa-solid fa-leaf"></i> Estrategia ESG</span>
+                    </div>
+                    <h3 class="node-title">Mitigación Proactiva de Permisología</h3>
+                    <p class="node-desc">Rumores menores en foros locales sobre licencias de agua en Putumayo. Oportunidad para destacar nuestra filosofía del "Buen Vecino" y el estado de la línea base ambiental en LinkedIn.</p>
+                </div>
+                
+                <!-- Nodo 3 (Archivado/Completado visualmente) -->
+                <div class="kaizen-node" style="border-left: 4px solid var(--text-muted); opacity: 0.6;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;"><i class="fa-solid fa-check"></i> Ejecutado y Medido</span>
+                    </div>
+                    <h3 class="node-title">Destacar Respaldo de Fiore Group</h3>
+                    <p class="node-desc">Se inyectó logo de Fiore en cabecera. Resultado a 7 días: +14% tiempo de retención en página de Inversores.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Derecha: Simulador y Ejecución -->
+        <div class="panel" id="execPanel" style="display: none; border-left: 1px solid var(--copper-primary);">
+            <div class="panel-header">
+                <i class="fa-solid fa-microchip" style="color: var(--copper-primary);"></i> Simulador y Ejecución
+            </div>
+            <div class="panel-content">
+                <h3 style="margin-bottom: 16px; font-size: 1.2rem; color: #fff;">Simplificar Narrativa MRE</h3>
+                
+                <div class="exec-card">
+                    <div class="exec-title"><i class="fa-solid fa-bullseye"></i> Hipótesis de IA</div>
+                    <p style="font-size: 0.9rem; color: #ddd; line-height: 1.5;">Al agregar un gráfico de barras simple que compare los 12.7 Billones Lbs de CuEq contra minas operativas de Norteamérica, el inversor retail de la campaña de BTV entenderá la escala masiva sin saber de geología.</p>
+                </div>
+                
+                <div class="exec-card">
+                    <div class="exec-title"><i class="fa-solid fa-chart-line"></i> Impacto Proyectado (30 días)</div>
+                    <div style="display: flex; gap: 16px; margin-top: 10px;">
+                        <div>
+                            <div style="font-size: 1.2rem; font-weight: 700; color: var(--success);">+25%</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Conversión a PDF</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.2rem; font-weight: 700; color: var(--success);">-18%</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Tasa de Rebote</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="exec-card">
+                    <div class="exec-title"><i class="fa-solid fa-list-check"></i> Plan de Acción Autónomo</div>
+                    <ul style="font-size: 0.9rem; color: #ddd; margin-left: 20px; line-height: 1.6;">
+                        <li>Inyectar Gráfico Comparativo en <code>mocoa.html</code> (Prueba A/B 50%).</li>
+                        <li>Redactar borrador de Tweet anunciando la infografía.</li>
+                        <li>Monitorear clics al botón de Presentación Corporativa.</li>
+                    </ul>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn-approve" onclick="alert('Iniciando Test A/B... La IA ha inyectado el código temporalmente en la web.')"><i class="fa-solid fa-rocket"></i> APROBAR Y EJECUTAR (A/B Test)</button>
+                    <button class="btn-action"><i class="fa-solid fa-pen-to-square"></i> Modificar Táctica</button>
+                    <button class="btn-reject"><i class="fa-solid fa-xmark"></i> Descartar Sugerencia</button>
+                </div>
+            </div>
+            
+            <div id="emptyExec" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; padding: 20px;">
+                <i class="fa-solid fa-hand-pointer" style="font-size: 3rem; color: var(--border-color); margin-bottom: 16px;"></i>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Selecciona una Ruta de Mejora en el panel central para analizarla y tomar una decisión.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showExecPanel(nodeId) {
+            document.getElementById('execPanel').style.display = 'flex';
+            const content = document.getElementById('execPanel').querySelector('.panel-content');
+            const empty = document.getElementById('emptyExec');
+            
+            if (empty) empty.style.display = 'none';
+            content.style.display = 'block';
+            
+            // In a real scenario, fetch specific node data based on nodeId
+        }
+        
+        // Hide on load
+        document.addEventListener("DOMContentLoaded", () => {
+            const content = document.getElementById('execPanel').querySelector('.panel-content');
+            content.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
