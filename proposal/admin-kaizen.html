@@ -31,69 +31,71 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
+            overflow: hidden; /* Lock body scrolling for app-like feel on desktop/tablet */
+            background-image: radial-gradient(circle at 15% 50%, rgba(255,0,44,0.03), transparent 25%);
         }
 
-        /* Nav */
+        /* Nav & Sub-Nav */
         .admin-nav {
             background: rgba(13, 13, 15, 0.9);
             border-bottom: 1px solid var(--border-color);
             padding: 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .admin-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         
         .sub-nav {
             background: rgba(21, 21, 24, 0.6);
             border-bottom: 1px solid var(--border-color);
             padding: 10px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
         }
         
         .btn-action, .btn-icon-only {
             background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
-            padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; font-weight: 500; font-family: 'Outfit';
+            padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; 
+            display: flex; align-items: center; gap: 8px; font-weight: 500; font-family: 'Outfit';
         }
         .btn-action:hover { background: rgba(255,255,255,0.05); color: #fff; border-color: var(--border-light); }
         .btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.3); background: rgba(255, 215, 0, 0.05); }
 
         .select-modern { background: var(--bg-card); border: 1px solid var(--border-light); color: #fff; padding: 6px 12px; border-radius: 6px; font-family: 'Outfit'; font-size: 0.8rem; outline: none; }
 
-        /* Layout */
+        /* Master Grid Layout */
         .kaizen-container {
             display: grid;
-            grid-template-columns: 320px 1fr 360px; /* Force 3 columns */
+            grid-template-columns: 320px minmax(300px, 1fr) 380px; /* 3 Columns */
             gap: 20px;
             padding: 20px 24px;
-            min-height: calc(100vh - 110px); height: auto;
-        }
-
-        
-        @media (max-width: 1200px) {
-            .kaizen-container { grid-template-columns: 1fr 1fr; height: auto; }
-            #execPanel { grid-column: 1 / -1; } /* Spans the bottom */
-        }
-        @media (max-width: 768px) {
-            .kaizen-container { grid-template-columns: 1fr; }
-        }
-
-            #execPanel { position: fixed; right: 0; top: 110px; bottom: 0; width: 400px; z-index: 200; transform: translateX(100%); transition: transform 0.3s; border-left: 1px solid var(--border-color); border-radius: 0; }
-            #execPanel.open { transform: translateX(0); }
+            height: calc(100vh - 105px); /* Fill remaining vertical space */
         }
 
         .panel {
             background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;
             display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
-        .panel-header { padding: 14px 20px; border-bottom: 1px solid var(--border-color); font-weight: 600; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: #fff; }
+        .panel-header { padding: 14px 20px; border-bottom: 1px solid var(--border-color); background: rgba(255,255,255,0.01); font-weight: 600; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: #fff; }
         .panel-content { padding: 16px; overflow-y: auto; flex: 1; }
+
+        /* Media Queries for Vertical Screens */
+        @media (max-width: 1200px) {
+            .kaizen-container {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); /* 50/50 vertical split */
+            }
+            #execPanel {
+                grid-column: 1 / -1; /* Spans across the bottom */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body { overflow: auto; } /* Re-enable native scroll for phones */
+            .kaizen-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
+            }
+            .sub-nav { flex-direction: column; gap: 10px; align-items: flex-start; }
+        }
 
         /* Tabs */
         .tabs { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 16px; }
@@ -105,29 +107,26 @@
         /* Roadmap Tree */
         .roadmap-canvas { position: relative; padding-left: 16px; padding-bottom: 20px; }
         .roadmap-canvas::before { content: ''; position: absolute; top: 0; left: 24px; bottom: 0; width: 2px; background: var(--border-light); z-index: 1; }
-
-        .roadmap-node { position: relative; margin-bottom: 20px; padding-left: 32px; z-index: 2; cursor: pointer; opacity: 0.8; transition: all 0.2s; }
+        .roadmap-node { position: relative; margin-bottom: 20px; padding-left: 32px; z-index: 2; cursor: pointer; opacity: 0.6; transition: all 0.2s; }
         .roadmap-node:hover, .roadmap-node.active { opacity: 1; transform: translateX(4px); }
         .roadmap-node::before { content: ''; position: absolute; left: 4px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border-light); z-index: 3; }
         .roadmap-node.priority-ai::before { border-color: var(--copper-primary); background: var(--copper-primary); box-shadow: 0 0 10px var(--copper-glow); }
         .roadmap-node.priority-high::before { border-color: var(--warning); background: var(--warning); }
-
         .node-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; transition: all 0.2s; }
         .roadmap-node.active .node-card { border-color: rgba(255, 0, 44, 0.4); box-shadow: 0 4px 15px rgba(255, 0, 44, 0.1); background: rgba(255,0,44,0.02); }
         .node-badge { display: flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
 
-        /* Execution Panel Focus */
-        .exec-focus { background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        .exec-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-weight: 600; }
+        /* Execution Panel Inner Content */
+        .exec-section { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+        .exec-title-small { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; display:flex; align-items:center; gap:6px; }
         
-        .draft-item { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border-color); padding: 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+        .draft-item { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
         .draft-item:hover { border-color: var(--copper-primary); }
         
-        .btn-massive { width: 100%; background: linear-gradient(135deg, #FF002C 0%, #cc0022 100%); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(255,0,44,0.2); }
+        .btn-massive { width: 100%; background: linear-gradient(135deg, #FF002C 0%, #cc0022 100%); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(255,0,44,0.2); }
         .btn-massive:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,0,44,0.3); }
 
-        /* Toast Notification */
-        #toast { position: fixed; bottom: 20px; right: 20px; background: #fff; color: #000; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1000; display: flex; align-items: center; gap: 10px; }
+        #toast { position: fixed; bottom: 20px; right: 20px; background: #fff; color: #000; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; display: flex; align-items: center; gap: 10px; }
         #toast.show { transform: translateY(0); opacity: 1; }
 
         ::-webkit-scrollbar { width: 4px; }
@@ -137,6 +136,7 @@
 </head>
 <body>
 
+    <!-- Navigations -->
     <nav class="admin-nav">
         <a href="index.html" class="admin-logo">
             <img src="assets/LOGO.svg" alt="Copper Giant" style="height: 24px;">
@@ -146,7 +146,6 @@
             <a href="admin-analytics.html" class="btn-action"><i data-lucide="layout-dashboard" style="width: 14px;"></i> Volver a Telemetría</a>
         </div>
     </nav>
-
     <div class="sub-nav">
         <div style="display: flex; gap: 10px; align-items: center;">
             <select class="select-modern" onchange="filterNodes(this.value)">
@@ -155,15 +154,16 @@
                 <option value="ir">📈 Relaciones Públicas (IR)</option>
                 <option value="esg">🌱 Comunidad (ESG)</option>
             </select>
-            <button class="btn-action" onclick="showToast('Modo Zen activará una interfaz sin distracciones (En desarrollo)')"><i data-lucide="eye-off" style="width: 14px;"></i> Modo Zen</button>
-            <button class="btn-action" onclick="showToast('Máquina del tiempo te permitirá viajar a decisiones pasadas (En desarrollo)')"><i data-lucide="history" style="width: 14px;"></i> Rewind</button>
+            <button class="btn-action" onclick="showToast('Modo Zen activará interfaz sin distracciones')"><i data-lucide="eye-off" style="width: 14px;"></i> Modo Zen</button>
+            <button class="btn-action" onclick="showToast('Máquina del tiempo te permitirá viajar a decisiones pasadas')"><i data-lucide="history" style="width: 14px;"></i> Rewind</button>
         </div>
         <button class="btn-action btn-gold" onclick="showToast('Generando presentación PPTX para la Junta Directiva...')"><i data-lucide="presentation" style="width: 14px;"></i> Exportar a Junta</button>
     </div>
 
+    <!-- MAIN GRID -->
     <div class="kaizen-container">
         
-        <!-- RADAR -->
+        <!-- COL 1: RADAR -->
         <div class="panel">
             <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="radar" style="color:var(--copper-primary);width:16px;"></i> Radar Global</div></div>
             <div class="panel-content">
@@ -182,7 +182,7 @@
                         </div>
                     </div>
                     <div style="background: rgba(0,122,255,0.05); border: 1px solid rgba(0,122,255,0.2); border-radius: 8px; padding: 12px;">
-                        <div style="font-size: 0.7rem; color: #4da3ff; font-weight: 700; margin-bottom: 4px;"><i data-lucide="anchor" style="width: 12px; display: inline;"></i> ALERTA INSTITUCIONAL</div>
+                        <div style="font-size: 0.7rem; color: #4da3ff; font-weight: 700; margin-bottom: 4px;"><i data-lucide="anchor" style="width: 12px; display: inline;"></i> ALERTA INSTITUCIONAL (B2B)</div>
                         <div style="font-size: 0.8rem; color: #ddd;">Tráfico detectado desde IPs de <strong>BlackRock</strong> leyendo sección del PEA durante 18 min.</div>
                     </div>
                 </div>
@@ -210,19 +210,17 @@
             </div>
         </div>
 
-        <!-- ROADMAP -->
+        <!-- COL 2: ROADMAP -->
         <div class="panel">
-            <div class="panel-header">
-                <div style="display:flex;gap:8px;"><i data-lucide="network" style="color:var(--copper-primary);width:16px;"></i> Rutas Kaizen (El Ciclo)</div>
-            </div>
+            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="network" style="color:var(--copper-primary);width:16px;"></i> Rutas Kaizen</div></div>
             <div class="panel-content">
                 <div class="roadmap-canvas">
                     
-                    <div class="roadmap-node priority-ai" data-cat="ir" onclick="openExecution(this, 'node1')">
+                    <div class="roadmap-node priority-ai active" data-cat="ir" onclick="openExecution(this, 'node1')">
                         <div class="node-card">
                             <div class="node-badge" style="color: var(--copper-primary);"><i data-lucide="sparkles" style="width: 12px;"></i> Acción Sugerida (IR)</div>
                             <h3 style="font-size: 0.95rem; color: #fff; margin-bottom: 4px;">Simplificar MRE (Retail)</h3>
-                            <p style="font-size: 0.8rem; color: var(--text-muted);">Reemplazar jerga del PEA con infografía para el tráfico de BTV.</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Inyectar infografía comparativa para frenar rebote del tráfico BTV.</p>
                         </div>
                     </div>
                     
@@ -238,65 +236,53 @@
             </div>
         </div>
 
-        <!-- EXECUTION PANEL -->
-        <div class="panel" id="execPanel" style="display: none;">
+        <!-- COL 3: EXECUTION (Always visible, populates based on selection) -->
+        <div class="panel" id="execPanel">
             <div class="panel-header" style="background: rgba(255,0,44,0.05); border-bottom-color: rgba(255,0,44,0.2);">
-                <div style="display:flex;gap:8px;color:var(--copper-primary);"><i data-lucide="zap" style="width:16px;"></i> Centro de Ejecución</div>
-                <button class="btn-icon-only" onclick="document.getElementById('execPanel').style.display='none'" style="border:none; display:none;"><i data-lucide="x" style="width:16px;"></i></button>
+                <div style="display:flex;gap:8px;color:var(--copper-primary);"><i data-lucide="zap" style="width:16px;"></i> Centro de Ejecución Integral</div>
             </div>
+            
             <div class="panel-content" style="display: flex; flex-direction: column;">
-                
-                <h2 id="execTitle" style="font-size: 1.2rem; color: #fff; margin-bottom: 6px;">Simplificar MRE</h2>
-                <p id="execDesc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">La IA detectó fuga de tráfico retail. Estrategia lista para retener conversión.</p>
+                <h2 id="execTitle" style="font-size: 1.2rem; color: #fff; margin-bottom: 6px;">Simplificar MRE (Retail)</h2>
+                <p id="execDesc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">La IA detectó fuga de tráfico retail. Estrategia lista para retener conversión.</p>
 
-                <!-- Features 19 & 20: Inteligencia Predictiva (Simulador Compacto) -->
-                <div class="exec-section" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
-                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; display:flex; align-items:center; gap:6px;"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección & Simulador</div>
-                    
-                    <div style="display: flex; gap: 16px; margin-bottom: 14px;">
-                        <div><div style="font-size: 1.15rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div style="font-size: 0.65rem; color: var(--text-muted);">Conversión de Capital</div></div>
-                        <div><div style="font-size: 1.15rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div style="font-size: 0.65rem; color: var(--text-muted);">Retención Estimada</div></div>
+                <!-- Inteligencia Predictiva -->
+                <div class="exec-section">
+                    <div class="exec-title-small"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección & Simulador (What-if)</div>
+                    <div style="display: flex; gap: 16px; margin-bottom: 12px;">
+                        <div><div style="font-size: 1.1rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div style="font-size: 0.65rem; color: var(--text-muted);">Retención de Capital</div></div>
+                        <div><div style="font-size: 1.1rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div style="font-size: 0.65rem; color: var(--text-muted);">Inversores Salvados</div></div>
                     </div>
-
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" placeholder="Ej: ¿Qué pasa si el cobre cae a $3.80?" style="flex:1; background:var(--bg-main); border:1px solid var(--border-light); border-radius:6px; padding:8px 12px; color:#fff; font-size:0.85rem; outline:none; font-family:'Outfit';">
-                        <button class="btn-action" style="padding: 8px 12px;" onclick="showToast('Ejecutando simulación macroeconómica...')"><i data-lucide="play" style="width: 14px;"></i></button>
+                        <input type="text" placeholder="Ej: ¿Qué pasa si el cobre cae?" style="flex:1; background:var(--bg-main); border:1px solid var(--border-light); border-radius:6px; padding:8px; color:#fff; font-size:0.8rem; outline:none; font-family:'Outfit';">
+                        <button class="btn-action" style="padding: 6px 10px;" onclick="showToast('Ejecutando simulación macroeconómica...')"><i data-lucide="play" style="width: 14px;"></i></button>
                     </div>
                 </div>
 
-                <!-- Features 6, 8, 9: Entregables Listos -->
-                <div class="exec-section" style="flex: 1;">
-                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; display:flex; align-items:center; gap:6px;"><i data-lucide="package-check" style="width: 14px;"></i> Entregables de la IA</div>
+                <!-- Entregables -->
+                <div class="exec-section" style="flex: 1; margin-bottom: 20px;">
+                    <div class="exec-title-small"><i data-lucide="package-check" style="width: 14px;"></i> Entregables Inmediatos de la IA</div>
                     
-                    <div class="draft-item" onclick="showToast('Visualizando código HTML de la infografía propuesto por la IA...')">
+                    <div class="draft-item" id="draft1" onclick="showToast('Inyección Web: Visualizando código HTML de la infografía...')">
                         <i data-lucide="code-2" style="color: var(--copper-primary);"></i>
-                        <div>
-                            <div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Inyección Web (Test A/B)</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">Módulo visual para mocoa.html</div>
-                        </div>
+                        <div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Inyección Web (Test A/B)</div><div style="font-size: 0.75rem; color: var(--text-muted);">Módulo visual para mocoa.html</div></div>
                         <i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>
                     </div>
 
-                    <div class="draft-item" onclick="showToast('Abriendo borrador del comunicado en PDF...')">
+                    <div class="draft-item" id="draft2" onclick="showToast('Abriendo borrador PDF One-Pager para accionistas...')">
                         <i data-lucide="file-text" style="color: #4da3ff;"></i>
-                        <div>
-                            <div style="color: #fff; font-size: 0.85rem; font-weight: 500;">PDF "One-Pager" Estratégico</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">Resumen ejecutivo para institucionales</div>
-                        </div>
+                        <div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">PDF "One-Pager" Estratégico</div><div style="font-size: 0.75rem; color: var(--text-muted);">Resumen ejecutivo del MRE</div></div>
                         <i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>
                     </div>
                     
-                    <div class="draft-item" onclick="showToast('Revisando borrador de LinkedIn y PR...')">
+                    <div class="draft-item" id="draft3" onclick="showToast('Abriendo ventana de revisión para LinkedIn...')">
                         <i data-lucide="linkedin" style="color: #0a66c2;"></i>
-                        <div>
-                            <div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Borrador PR & Redes</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">Post para estabilizar la fuga de BTV</div>
-                        </div>
+                        <div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Borrador PR & Redes</div><div style="font-size: 0.75rem; color: var(--text-muted);">Post para estabilizar la fuga de BTV</div></div>
                         <i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>
                     </div>
                 </div>
 
-                <!-- Feature 18: Safe Harbor Action Button -->
+                <!-- Action Button -->
                 <div>
                     <button class="btn-massive" onclick="executeApprove(this)">
                         <i data-lucide="check-circle-2" style="width: 18px;"></i> APROBAR Y EJECUTAR
@@ -309,19 +295,13 @@
             </div>
         </div>
     </div>
-        </div>
-    </div>
 
     <!-- Toast Component -->
-    <div id="toast">
-        <i data-lucide="info" style="color: var(--copper-primary);"></i>
-        <span id="toastMsg">Mensaje</span>
-    </div>
+    <div id="toast"><i data-lucide="info" style="color: var(--copper-primary);"></i><span id="toastMsg">Mensaje</span></div>
 
     <script>
         lucide.createIcons();
 
-        // Toast System
         let toastTimeout;
         function showToast(msg) {
             const toast = document.getElementById('toast');
@@ -331,7 +311,6 @@
             toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // Radar Tabs
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
@@ -339,45 +318,43 @@
             document.getElementById('tab-' + tabId).classList.add('active');
         }
 
-        // Dropdown Filter
         function filterNodes(val) {
             document.querySelectorAll('.roadmap-node').forEach(node => {
-                if (val === 'all' || node.getAttribute('data-cat') === val) {
-                    node.style.display = 'block';
-                } else {
-                    node.style.display = 'none';
-                }
+                if (val === 'all' || node.getAttribute('data-cat') === val) node.style.display = 'block';
+                else node.style.display = 'none';
             });
             showToast('Filtro aplicado: ' + val.toUpperCase());
         }
 
-        // Execution Panel
         function openExecution(el, id) {
             document.querySelectorAll('.roadmap-node').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
             
-            const panel = document.getElementById('execPanel');
-            panel.style.display = 'flex';
-            
             if (id === 'node2') {
-                document.getElementById('execTitle').innerText = 'Campaña "Buen Vecino"';
-                document.getElementById('execDesc').innerText = 'El clima político local está en calma. Es el momento perfecto para blindar reputación publicando los hitos ambientales.';
+                document.getElementById('execTitle').innerText = 'Impulso "Buen Vecino"';
+                document.getElementById('execDesc').innerText = 'Aprovechando el clima local estable, publicamos el avance en reforestación para blindar reputación ante la junta.';
+                document.getElementById('draft1').style.display = 'none';
+                document.getElementById('draft2').style.display = 'none';
+                document.getElementById('draft3').innerHTML = '<i data-lucide="twitter" style="color: #1da1f2;"></i><div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Borrador Redes Sociales</div><div style="font-size: 0.75rem; color: var(--text-muted);">Campaña comunitaria Putumayo</div></div><i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>';
             } else {
                 document.getElementById('execTitle').innerText = 'Simplificar MRE (Retail)';
-                document.getElementById('execDesc').innerText = 'La IA detectó una fuga de usuarios en la página del proyecto. Aquí están los entregables listos para mitigar el rebote.';
+                document.getElementById('execDesc').innerText = 'La IA detectó fuga de tráfico retail. Estrategia lista para retener conversión.';
+                document.getElementById('draft1').style.display = 'flex';
+                document.getElementById('draft2').style.display = 'flex';
+                document.getElementById('draft3').innerHTML = '<i data-lucide="linkedin" style="color: #0a66c2;"></i><div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Borrador PR & Redes</div><div style="font-size: 0.75rem; color: var(--text-muted);">Post para estabilizar la fuga de BTV</div></div><i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>';
             }
+            lucide.createIcons();
         }
 
-        // Approve Animation
         function executeApprove(btn) {
-            btn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin" style="width:18px;"></i> Desplegando Automáticamente...';
+            btn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin" style="width:18px;"></i> Desplegando...';
             lucide.createIcons();
             setTimeout(() => {
                 btn.innerHTML = '<i data-lucide="check" style="width:18px;"></i> EJECUTADO CON ÉXITO';
                 btn.style.background = 'var(--success)';
                 btn.style.boxShadow = '0 4px 15px rgba(16,185,129,0.3)';
                 lucide.createIcons();
-                showToast('Los cambios web y borradores han sido enviados a producción.');
+                showToast('Cambios enviados a producción. Se auditarán bajo Safe Harbor.');
             }, 1500);
         }
     </script>
