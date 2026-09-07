@@ -211,9 +211,12 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
                 });
                 
                 const data = await response.json();
-                let aiResponseText = data.candidates[0].content.parts[0].text.trim();
-                if (aiResponseText.startsWith('```json')) {
-                    aiResponseText = aiResponseText.substring(7, aiResponseText.length - 3);
+                let rawText = data.candidates[0].content.parts[0].text;
+                let startIndex = rawText.indexOf('[');
+                let endIndex = rawText.lastIndexOf(']');
+                let aiResponseText = "[]";
+                if (startIndex !== -1 && endIndex !== -1) {
+                    aiResponseText = rawText.substring(startIndex, endIndex + 1);
                 }
                 
                 res.writeHead(200, { 'Content-Type': 'application/json' });

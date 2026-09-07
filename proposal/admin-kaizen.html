@@ -324,6 +324,10 @@
                 currentRoutes = data;
                 
                 let html = '';
+                
+                if (!Array.isArray(data)) {
+                    throw new Error("El servidor no devolvió un Array JSON válido: " + JSON.stringify(data));
+                }
                 data.forEach((route, index) => {
                     let activeClass = index === 0 ? 'active' : '';
                     html += `
