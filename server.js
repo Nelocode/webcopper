@@ -194,7 +194,7 @@ Devuelve estrictamente un ARRAY de JSON con 2 rutas de mejora continua (Kaizen R
     ]
   }
 ]
-NO incluyas marcas de markdown como ```json. Solo el array JSON puro.`;
+NO incluyas marcas de markdown. Solo el array JSON puro.`;
 
                 // Construimos la Key real decodificando (usando el código existente en tu server.js)
                 const charCodes = [65, 81, 107, 115, 99, 87, 85, 122, 109, 84, 83, 49, 110, 107, 72, 57, 45, 78, 118, 82, 106, 53, 49, 45, 81, 122, 101, 114, 118, 99, 107, 117, 113, 68, 100, 52, 98, 83, 99, 88, 118, 120, 114, 113, 81, 46, 65, 98, 56, 82, 78, 54, 75, 111, 95, 120, 83, 104, 121, 71, 82, 119, 117, 87, 69, 49, 57];
