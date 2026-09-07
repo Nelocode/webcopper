@@ -133,7 +133,8 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/libs/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
 </head>
 <body>
 
@@ -362,13 +363,13 @@
         function exportToPPTX() {
             showToast('Ensamblando diapositiva PPTX...');
             
-            if (typeof pptxgen === 'undefined') {
+            if (typeof PptxGenJS === 'undefined') {
                 showToast('Error: Librería PPTX no cargada.');
                 return;
             }
 
             try {
-                let pres = new pptxgen();
+                let pres = new PptxGenJS();
                 pres.layout = "LAYOUT_16x9";
                 
                 let slide = pres.addSlide();
