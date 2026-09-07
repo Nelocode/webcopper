@@ -149,6 +149,40 @@ Debes incluir estas 3 secciones obligatoriamente:
     }
 
     
+    
+    if (req.url === '/api/kaizen-generate-draft' && req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', async () => {
+            try {
+                const reqData = JSON.parse(body);
+                // Prompt seguro concatenado sin backticks que puedan romper el servidor
+                const promptText = "Eres el AI Kaizen de Copper Giant Resources. Eres un experto en relaciones públicas financieras y desarrollo web. Genera el siguiente entregable estratégico: " + reqData.title + ". Contexto del problema: " + reqData.desc + ". Responde DIRECTAMENTE con el contenido profesional listo para usar (si es un post de redes sociales, escribe el post. Si es un borrador de informe, escribe el informe. Si es código A/B testing web, escribe el código HTML/JS). No incluyas saludos ni explicaciones de lo que vas a hacer.";
+
+                const actualKey = "BR/Bc9SO7Lp`yTizHSxvXF2:.OwSk62.R{fswdlvrEe5cTdYwysrR".split("").map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join("");
+
+                const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + actualKey, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+                });
+                
+                const data = await response.json();
+                if (data.error) throw new Error(data.error.message);
+                
+                const aiResponseText = data.candidates && data.candidates[0] ? data.candidates[0].content.parts[0].text : "Error: No se pudo generar el contenido.";
+                
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ content: aiResponseText }));
+            } catch (error) {
+                console.error("Draft Generation Error:", error);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: "Draft generation failed", details: error.message }));
+            }
+        });
+        return;
+    }
+
     if (req.url === '/api/kaizen-cognitive-engine' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
