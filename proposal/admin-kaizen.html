@@ -393,9 +393,9 @@
             // Actualizar drafts
             let draftsHtml = '';
             route.drafts.forEach((draft, idx) => {
-                draftsHtml += `
                 const safeTitle = draft.title.replace(/'/g, "\\'");
                 const safeDesc = draft.desc.replace(/'/g, "\\'");
+                draftsHtml += `
                 <div class="draft-item" id="draft${idx}" onclick="generateDraft('${safeTitle}', '${safeDesc}')">
                     <i data-lucide="${draft.icon}" style="color: ${draft.color};"></i>
                     <div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">${draft.title}</div><div style="font-size: 0.75rem; color: var(--text-muted);">${draft.desc}</div></div>
