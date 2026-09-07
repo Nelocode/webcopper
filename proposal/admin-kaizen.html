@@ -38,6 +38,34 @@
                 radial-gradient(circle at 85% 30%, rgba(0,122,255,0.03), transparent 25%);
         }
 
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .kaizen-container {
+                grid-template-columns: 1fr 1.5fr; /* 2 columns on medium screens */
+                height: auto;
+                min-height: calc(100vh - 65px);
+            }
+            #execPanel {
+                grid-column: 1 / -1; /* Exec panel spans full width below */
+                min-height: 500px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .kaizen-container {
+                grid-template-columns: 1fr; /* Stack everything on phones */
+            }
+            .admin-nav {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px;
+            }
+            .roadmap-canvas::before {
+                left: 14px; /* Adjust line for mobile */
+            }
+        }
+
         /* Nav */
         .admin-nav {
             background: rgba(13, 13, 15, 0.8);
@@ -83,8 +111,7 @@
             grid-template-columns: 320px 1fr 380px;
             gap: 24px;
             padding: 24px 32px;
-            height: calc(100vh - 65px);
-            overflow: hidden;
+            min-height: calc(100vh - 65px);
         }
 
         .panel {
@@ -348,12 +375,31 @@
                 
                 <div class="radar-stream">
                     <!-- Macro -->
+                    
+                    <!-- Macro -->
                     <div class="radar-card">
                         <div class="radar-card-header">
-                            <span class="radar-tag tag-macro"><i data-lucide="line-chart" style="width: 12px; height: 12px;"></i> MERCADO</span>
-                            <span style="font-size: 0.7rem; color: var(--text-muted);">Hace 5m</span>
+                            <span class="radar-tag tag-macro"><i data-lucide="line-chart" style="width: 12px; height: 12px;"></i> MERCADO & ACCIÓN</span>
+                            <span style="font-size: 0.7rem; color: var(--text-muted);">En Vivo</span>
                         </div>
-                        <div class="radar-data">Cobre (HG=F) <span style="font-family: 'JetBrains Mono';">$4.18/Lb</span></div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+                            <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">TSXV: CGNT</div>
+                                <div style="font-size: 1.1rem; color: #fff; font-weight: 600; font-family: 'JetBrains Mono';">C$1.28 <span style="font-size: 0.75rem; color: var(--success);"><i data-lucide="trending-up" style="width:10px;height:10px;"></i> +18%</span></div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">COPJ (Sprott)</div>
+                                <div style="font-size: 1.1rem; color: #fff; font-weight: 600; font-family: 'JetBrains Mono';">$21.45 <span style="font-size: 0.75rem; color: var(--success);"><i data-lucide="trending-up" style="width:10px;height:10px;"></i> +2%</span></div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); grid-column: 1 / -1;">
+                                <div style="font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">Cobre (HG=F)</div>
+                                <div style="font-size: 1.1rem; color: #fff; font-weight: 600; font-family: 'JetBrains Mono';">$4.18/Lb <span style="font-size: 0.75rem; color: var(--warning);">-1.2%</span></div>
+                            </div>
+                        </div>
+                        
+                        <p class="radar-insight">Sector junior (COPJ) en alza. El spread positivo de CGNT confirma interés específico en Mocoa. La IA sugiere priorizar mensajes de escala.</p>
+                    </div>
                         <p class="radar-insight">Enfoque del sector transicionando hacia minas de bajo CAPEX. La escala de Mocoa es una ventaja defensiva.</p>
                     </div>
 
