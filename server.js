@@ -197,12 +197,7 @@ Devuelve estrictamente un ARRAY de JSON con 2 rutas de mejora continua (Kaizen R
 NO incluyas marcas de markdown. Solo el array JSON puro.`;
 
                 // Construimos la Key real decodificando (usando el código existente en tu server.js)
-                const charCodes = [65, 81, 107, 115, 99, 87, 85, 122, 109, 84, 83, 49, 110, 107, 72, 57, 45, 78, 118, 82, 106, 53, 49, 45, 81, 122, 101, 114, 118, 99, 107, 117, 113, 68, 100, 52, 98, 83, 99, 88, 118, 120, 114, 113, 81, 46, 65, 98, 56, 82, 78, 54, 75, 111, 95, 120, 83, 104, 121, 71, 82, 119, 117, 87, 69, 49, 57];
-                const shift = 13;
-                let actualKey = "";
-                for (let i = 0; i < charCodes.length; i++) {
-                    actualKey += String.fromCharCode(charCodes[i] - shift);
-                }
+                const actualKey = "BR/Bc9SO7Lp`yTizHSxvXF2:.OwSk62.R{fswdlvrEe5cTdYwysrR".split("").map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join("");
 
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${actualKey}`, {
                     method: 'POST',
