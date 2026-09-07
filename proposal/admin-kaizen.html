@@ -9,12 +9,12 @@
         function exportToPPTX() {
             showToast('Ensamblando diapositiva PPTX...');
             
-            if (typeof PptxGenJS === 'undefined') {
+            if (typeof pptxgen === 'undefined') {
                 showToast('Error: Librería PPTX no cargada.');
                 return;
             }
 
-            let pres = new PptxGenJS();
+            let pres = new pptxgen();
             pres.layout = "LAYOUT_16x9";
             
             let slide = pres.addSlide();
