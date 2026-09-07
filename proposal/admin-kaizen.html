@@ -229,11 +229,11 @@
     <!-- Sub Nav Controls (Features 11, 12, 13, 15) -->
     <div class="sub-nav">
         <div class="filter-group">
-            <select class="select-modern">
-                <option>🌍 Todas las Áreas</option>
-                <option>⚒️ Exploración / Geología</option>
-                <option>📈 Relaciones Públicas (IR)</option>
-                <option>🌱 Comunidad (ESG)</option>
+            <select class="select-modern" onchange="filterRoadmap(this.value)">
+                <option value="all">🌍 Todas las Áreas</option>
+                <option value="geo">⚒️ Exploración / Geología</option>
+                <option value="ir">📈 Relaciones Públicas (IR)</option>
+                <option value="esg">🌱 Comunidad (ESG)</option>
             </select>
             <button class="btn-action"><i data-lucide="eye-off" style="width: 14px; height: 14px;"></i> Modo Zen</button>
             <button class="btn-action"><i data-lucide="git-commit" style="width: 14px; height: 14px;"></i> Máquina del Tiempo (Rewind)</button>
@@ -251,10 +251,13 @@
             <div class="panel-content">
                 
                 <div class="tabs">
-                    <div class="tab active">Mapeo Stakeholders</div>
-                    <div class="tab">Mercado</div>
-                    <div class="tab">Gov-Track (CO)</div>
+                    <div class="tab active" onclick="switchRadarTab('stakeholders', this)">Mapeo Stakeholders</div>
+                    <div class="tab" onclick="switchRadarTab('mercado', this)">Mercado & Acción</div>
+                    <div class="tab" onclick="switchRadarTab('gov', this)">Gov-Track (CO)</div>
                 </div>
+
+                
+                <div id="radar-stakeholders" class="radar-content-block">
 
                 <!-- Feature 16: Riesgo Reputacional -->
                 <div class="reputation-gauge">
@@ -273,16 +276,46 @@
                         <div style="font-size: 0.85rem; color: #fff; margin-top: 4px;">Tráfico detectado desde IPs de <strong>BlackRock (Canadá)</strong> leyendo sección del PEA durante 18 min.</div>
                     </div>
                 </div>
+                </div>
+                <div id="radar-mercado" class="radar-content-block" style="display: none;">
+
+                <!-- Mercado Block -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                        <div style="font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">TSXV: CGNT</div>
+                        <div style="font-size: 1.1rem; color: #fff; font-weight: 600; font-family: 'JetBrains Mono';">C
+        .28 <span style="font-size: 0.75rem; color: var(--success);"><i data-lucide="trending-up" style="width:10px;height:10px;"></i> +18%</span></div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                        <div style="font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">COPJ (Sprott)</div>
+                        <div style="font-size: 1.1rem; color: #fff; font-weight: 600; font-family: 'JetBrains Mono';">
+
+        1.45 <span style="font-size: 0.75rem; color: var(--success);"><i data-lucide="trending-up" style="width:10px;height:10px;"></i> +2%</span></div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); grid-column: 1 / -1;">
+                        <div style="font-size: 0.65rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">Cobre (HG=F)</div>
+                        <div style="font-size: 1.1rem; color: #fff; font-weight: 600; font-family: 'JetBrains Mono';">$4.18/Lb <span style="font-size: 0.75rem; color: var(--warning);">-1.2%</span></div>
+                    </div>
+                </div>
+                <div class="radar-card">
+                    <div class="radar-card-header"><span><i data-lucide="activity" style="width: 12px; height: 12px;"></i> Correlación IA</span> <span>En vivo</span></div>
+                    <p style="font-size: 0.85rem; color: #ddd;">El spread positivo de CGNT frente a la caída del cobre confirma interés específico en Mocoa tras resultados de perforación.</p>
+                </div>
+                </div>
+                <div id="radar-gov" class="radar-content-block" style="display: none;">
 
                 <!-- Feature 2 & 3: Competidores y Foros Locales -->
                 <div class="radar-card">
-                    <div class="radar-card-header"><span><i data-lucide="messages-square" style="width: 12px; height: 12px;"></i> Foros Locales (Putumayo)</span> <span>Hace 2h</span></div>
-                    <p style="font-size: 0.85rem; color: #ddd;">Menciones orgánicas positivas sobre el programa de viveros. El sentimiento regional supera al de competidores locales (Libero).</p>
+                    <div class="radar-card-header"><span style="color: var(--success);"><i data-lucide="messages-square" style="width: 12px; height: 12px;"></i> Foros Locales (Putumayo)</span> <span>Hace 2h</span></div>
+                    <p style="font-size: 0.85rem; color: #ddd;">Menciones orgánicas positivas sobre el programa de viveros. El sentimiento regional supera al de competidores locales.</p>
                 </div>
-
+                <div class="radar-card">
+                    <div class="radar-card-header"><span style="color: var(--warning);"><i data-lucide="gavel" style="width: 12px; height: 12px;"></i> Congreso de Colombia</span> <span>Ayer</span></div>
+                    <p style="font-size: 0.85rem; color: #ddd;">Debate menor sobre licencias de agua en el sur del país. Riesgo legislativo bajo, pero la IA sugiere mantener campañas de ESG activas.</p>
+                </div>
+                </div>
             </div>
         </div>
-
         <!-- 2. Roadmap Tree (Feature 14) -->
         <div class="panel">
             <div class="panel-header">
@@ -292,7 +325,7 @@
             <div class="panel-content">
                 <div class="roadmap-canvas">
                     
-                    <div class="roadmap-node priority-ai active">
+                    <div class="roadmap-node priority-ai active" data-category="ir">
                         <div class="node-card">
                             <div class="node-badge badge-ai" style="color: var(--copper-primary);"><i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> Acción Inmediata (IR)</div>
                             <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px;">Simplificar MRE / Escala</h3>
@@ -300,7 +333,7 @@
                         </div>
                     </div>
                     
-                    <div class="roadmap-node priority-high">
+                    <div class="roadmap-node priority-high" data-category="esg">
                         <div class="node-card">
                             <div class="node-badge" style="color: var(--warning);"><i data-lucide="leaf" style="width: 12px; height: 12px;"></i> Táctica ESG</div>
                             <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px;">Campaña "Buen Vecino"</h3>
@@ -385,6 +418,35 @@
     </div>
 
     <script>
+        function switchRadarTab(tabId, el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.querySelectorAll('.radar-content-block').forEach(b => b.style.display = 'none');
+            document.getElementById('radar-' + tabId).style.display = 'block';
+            lucide.createIcons();
+        }
+
+        function filterRoadmap(category) {
+            const nodes = document.querySelectorAll('.roadmap-node');
+            let hasVisible = false;
+            
+            nodes.forEach(node => {
+                if(category === 'all' || node.getAttribute('data-category') === category) {
+                    node.style.display = 'block';
+                    hasVisible = true;
+                } else {
+                    node.style.display = 'none';
+                }
+            });
+            
+            // Re-render empty state if we filtered everything out
+            if(!hasVisible) {
+                document.getElementById('emptyExec').querySelector('p').innerText = "No hay rutas propuestas para esta categoría.";
+                document.getElementById('emptyExec').style.display = 'flex';
+                document.getElementById('contentExec').style.display = 'none';
+            }
+        }
+
         lucide.createIcons();
     </script>
 </body>
