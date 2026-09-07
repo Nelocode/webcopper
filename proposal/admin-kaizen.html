@@ -216,28 +216,14 @@
         <div class="panel">
             <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="network" style="color:var(--copper-primary);width:16px;"></i> Rutas Kaizen</div></div>
             <div class="panel-content">
-                <div class="roadmap-canvas">
-                    
-                    <div class="roadmap-node priority-ai active" data-cat="ir" onclick="openExecution(this, 'node1')">
-                        <div class="node-card">
-                            <div class="node-badge" style="color: var(--copper-primary);"><i data-lucide="sparkles" style="width: 12px;"></i> Acción Sugerida (IR)</div>
-                            <h3 style="font-size: 0.95rem; color: #fff; margin-bottom: 4px;">Simplificar MRE (Retail)</h3>
-                            <p style="font-size: 0.8rem; color: var(--text-muted);">Inyectar infografía comparativa para frenar rebote del tráfico BTV.</p>
-                        </div>
+                <div class="roadmap-canvas" id="roadmapCanvas">
+                    <div style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 40px 0;">
+                        <i data-lucide="loader-2" class="lucide-spin" style="margin-bottom: 12px;"></i><br>
+                        El Motor Cognitivo (Gemini 2.5) está analizando la telemetría real...
                     </div>
-                    
-                    <div class="roadmap-node priority-high" data-cat="esg" onclick="openExecution(this, 'node2')">
-                        <div class="node-card">
-                            <div class="node-badge" style="color: var(--warning);"><i data-lucide="leaf" style="width: 12px;"></i> Oportunidad ESG</div>
-                            <h3 style="font-size: 0.95rem; color: #fff; margin-bottom: 4px;">Impulso "Buen Vecino"</h3>
-                            <p style="font-size: 0.8rem; color: var(--text-muted);">Aprovechar clima político estable para postear avance de viveros.</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
-
         <!-- COL 3: EXECUTION (Always visible, populates based on selection) -->
         <div class="panel" id="execPanel">
             <div class="panel-header" style="background: rgba(255,0,44,0.05); border-bottom-color: rgba(255,0,44,0.2);">
@@ -252,8 +238,8 @@
                 <div class="exec-section">
                     <div class="exec-title-small"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección & Simulador (What-if)</div>
                     <div style="display: flex; gap: 16px; margin-bottom: 12px;">
-                        <div><div style="font-size: 1.1rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div style="font-size: 0.65rem; color: var(--text-muted);">Retención de Capital</div></div>
-                        <div><div style="font-size: 1.1rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div style="font-size: 0.65rem; color: var(--text-muted);">Inversores Salvados</div></div>
+                        <div><div id="dynMetric1" style="font-size: 1.1rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div id="dynLabel1" style="font-size: 0.65rem; color: var(--text-muted);">Retención de Capital</div></div>
+                        <div><div id="dynMetric2" style="font-size: 1.1rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div id="dynLabel2" style="font-size: 0.65rem; color: var(--text-muted);">Inversores Salvados</div></div>
                     </div>
                     <div style="display: flex; gap: 8px;">
                         <input type="text" placeholder="Ej: ¿Qué pasa si el cobre cae?" style="flex:1; background:var(--bg-main); border:1px solid var(--border-light); border-radius:6px; padding:8px; color:#fff; font-size:0.8rem; outline:none; font-family:'Outfit';">
@@ -328,25 +314,82 @@
             showToast('Filtro aplicado: ' + val.toUpperCase());
         }
 
+        
+        let currentRoutes = [];
+
+        async function loadCognitiveEngine() {
+            try {
+                const response = await fetch('/api/kaizen-cognitive-engine', { method: 'POST' });
+                const data = await response.json();
+                currentRoutes = data;
+                
+                let html = '';
+                data.forEach((route, index) => {
+                    let activeClass = index === 0 ? 'active' : '';
+                    html += `
+                    <div class="roadmap-node ${route.priorityClass} ${activeClass}" data-cat="${route.cat}" onclick="openExecution(this, '${route.id}')">
+                        <div class="node-card">
+                            <div class="node-badge" style="color: ${route.badgeColor};"><i data-lucide="${route.badgeIcon}" style="width: 12px;"></i> ${route.badgeTitle}</div>
+                            <h3 style="font-size: 0.95rem; color: #fff; margin-bottom: 4px;">${route.title}</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">${route.desc}</p>
+                        </div>
+                    </div>`;
+                });
+                
+                document.getElementById('roadmapCanvas').innerHTML = html;
+                lucide.createIcons();
+                
+                // Open the first one
+                if(data.length > 0) {
+                    const firstNodeEl = document.querySelector('.roadmap-node');
+                    openExecution(firstNodeEl, data[0].id);
+                }
+                showToast("Motor Cognitivo IA actualizado con datos reales.");
+                
+            } catch (err) {
+                document.getElementById('roadmapCanvas').innerHTML = '<div style="color:var(--warning); text-align:center; padding: 20px;">Error al conectar con Gemini API.</div>';
+                console.error(err);
+            }
+        }
+
+        // Modificamos openExecution para usar datos dinámicos
         function openExecution(el, id) {
             document.querySelectorAll('.roadmap-node').forEach(n => n.classList.remove('active'));
-            el.classList.add('active');
+            if(el) el.classList.add('active');
             
-            if (id === 'node2') {
-                document.getElementById('execTitle').innerText = 'Impulso "Buen Vecino"';
-                document.getElementById('execDesc').innerText = 'Aprovechando el clima local estable, publicamos el avance en reforestación para blindar reputación ante la junta.';
-                document.getElementById('draft1').style.display = 'none';
-                document.getElementById('draft2').style.display = 'none';
-                document.getElementById('draft3').innerHTML = '<i data-lucide="twitter" style="color: #1da1f2;"></i><div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Borrador Redes Sociales</div><div style="font-size: 0.75rem; color: var(--text-muted);">Campaña comunitaria Putumayo</div></div><i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>';
-            } else {
-                document.getElementById('execTitle').innerText = 'Simplificar MRE (Retail)';
-                document.getElementById('execDesc').innerText = 'La IA detectó fuga de tráfico retail. Estrategia lista para retener conversión.';
-                document.getElementById('draft1').style.display = 'flex';
-                document.getElementById('draft2').style.display = 'flex';
-                document.getElementById('draft3').innerHTML = '<i data-lucide="linkedin" style="color: #0a66c2;"></i><div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">Borrador PR & Redes</div><div style="font-size: 0.75rem; color: var(--text-muted);">Post para estabilizar la fuga de BTV</div></div><i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>';
-            }
+            const route = currentRoutes.find(r => r.id === id);
+            if(!route) return;
+
+            document.getElementById('execTitle').innerText = route.execTitle;
+            document.getElementById('execDesc').innerText = route.execDesc;
+            
+            // Actualizar métricas dinámicas
+            document.getElementById('dynMetric1').innerText = route.metricValue;
+            document.getElementById('dynLabel1').innerText = route.metricLabel;
+            document.getElementById('dynMetric2').innerText = route.metricValue2;
+            document.getElementById('dynLabel2').innerText = route.metricLabel2;
+
+            // Actualizar drafts
+            let draftsHtml = '';
+            route.drafts.forEach((draft, idx) => {
+                draftsHtml += `
+                <div class="draft-item" id="draft${idx}" onclick="showToast('Abriendo entregable generado por la IA...')">
+                    <i data-lucide="${draft.icon}" style="color: ${draft.color};"></i>
+                    <div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">${draft.title}</div><div style="font-size: 0.75rem; color: var(--text-muted);">${draft.desc}</div></div>
+                    <i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>
+                </div>`;
+            });
+            document.getElementById('draftsContainer').innerHTML = draftsHtml;
+            
             lucide.createIcons();
         }
+
+        // Disparar motor cognitivo al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCognitiveEngine();
+        });
+
+        
 
         function executeApprove(btn) {
             btn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin" style="width:18px;"></i> Desplegando...';

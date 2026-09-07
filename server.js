@@ -148,6 +148,85 @@ Debes incluir estas 3 secciones obligatoriamente:
         return;
     }
 
+    
+    if (req.url === '/api/kaizen-cognitive-engine' && req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', async () => {
+            try {
+                // Leer datos reales del servidor local
+                const fs = require('fs');
+                const path = require('path');
+                let telemetria = {};
+                try {
+                    telemetria.descargas = JSON.parse(fs.readFileSync(path.join(__dirname, 'proposal', 'data', 'downloads.json'), 'utf8'));
+                    telemetria.noticias = JSON.parse(fs.readFileSync(path.join(__dirname, 'proposal', 'data', 'news.json'), 'utf8'));
+                } catch(e) { console.error("Error leyendo datos locales", e); }
+
+                const prompt = `Actúa como el motor de Inteligencia Artificial (Kaizen AI) de Copper Giant Resources (empresa minera junior de cobre en Colombia).
+Revisa estos datos de telemetría reales del sitio web corporativo de hoy:
+${JSON.stringify(telemetria, null, 2)}
+
+Devuelve estrictamente un ARRAY de JSON con 2 rutas de mejora continua (Kaizen Routes) basadas EN ESTOS DATOS. Usa este formato:
+[
+  {
+    "id": "node1",
+    "cat": "ir", // ir (Finanzas), geo (Geologia), esg (Comunidad)
+    "badgeTitle": "Acción Sugerida (IA)",
+    "badgeColor": "var(--copper-primary)",
+    "badgeIcon": "sparkles",
+    "priorityClass": "priority-ai",
+    "title": "Optimizar página X",
+    "desc": "Detectamos una fuga en Y basado en la telemetría.",
+    "execTitle": "Título de ejecución",
+    "execDesc": "Descripción de ejecución",
+    "metricValue": "+12%",
+    "metricLabel": "Retención",
+    "metricValue2": "1,500",
+    "metricLabel2": "Visitas Salvadas",
+    "drafts": [
+      {
+         "icon": "code-2", "color": "var(--copper-primary)", "title": "Inyección Web A/B", "desc": "Módulo visual"
+      },
+      {
+         "icon": "file-text", "color": "#4da3ff", "title": "Borrador PDF", "desc": "Para adjuntar a BTV"
+      }
+    ]
+  }
+]
+NO incluyas marcas de markdown como ```json. Solo el array JSON puro.`;
+
+                // Construimos la Key real decodificando (usando el código existente en tu server.js)
+                const charCodes = [65, 81, 107, 115, 99, 87, 85, 122, 109, 84, 83, 49, 110, 107, 72, 57, 45, 78, 118, 82, 106, 53, 49, 45, 81, 122, 101, 114, 118, 99, 107, 117, 113, 68, 100, 52, 98, 83, 99, 88, 118, 120, 114, 113, 81, 46, 65, 98, 56, 82, 78, 54, 75, 111, 95, 120, 83, 104, 121, 71, 82, 119, 117, 87, 69, 49, 57];
+                const shift = 13;
+                let actualKey = "";
+                for (let i = 0; i < charCodes.length; i++) {
+                    actualKey += String.fromCharCode(charCodes[i] - shift);
+                }
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${actualKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                
+                const data = await response.json();
+                let aiResponseText = data.candidates[0].content.parts[0].text.trim();
+                if (aiResponseText.startsWith('```json')) {
+                    aiResponseText = aiResponseText.substring(7, aiResponseText.length - 3);
+                }
+                
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(aiResponseText);
+            } catch (error) {
+                console.error("Internal Server Error generating Kaizen routes:", error);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: "Server connection failed" }));
+            }
+        });
+        return;
+    }
+
     if (req.url === '/api/debug') {
         const fs = require('fs');
         try {
