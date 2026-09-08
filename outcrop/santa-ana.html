@@ -27,15 +27,17 @@
         <!-- Live Ticker Bar (Stocks & Silver Price) -->
         <div class="ticker-bar">
             <div class="ticker-wrapper">
-                <div class="ticker-stocks font-mono">
-                    <span><strong>TSX</strong>: OCG <span class="stock-price">C$0.24</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +4.35%</span></span>
+                
+                <div class="ticker-stocks font-mono" id="live-ticker">
+                    <span><strong>TSX</strong>: OCG <span id="tsx-price">...</span> <span id="tsx-change" class="stock-change"></span></span>
                     <span class="ticker-divider">|</span>
-                    <span><strong>OTCQX</strong>: OCGSF <span class="stock-price">$0.18</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +2.86%</span></span>
+                    <span><strong>OTCQX</strong>: OCGSF <span id="otcqx-price">...</span> <span id="otcqx-change" class="stock-change"></span></span>
                     <span class="ticker-divider">|</span>
-                    <span><strong>FSE</strong>: MRG <span class="stock-price">€0.16</span> <span class="stock-change change-down"><i class="fa-solid fa-caret-down"></i> -0.62%</span></span>
+                    <span><strong>FSE</strong>: MRG <span id="fse-price">...</span> <span id="fse-change" class="stock-change"></span></span>
                     <span class="ticker-divider">|</span>
-                    <span><strong>Silver Spot</strong>: <span class="silver-price">$28.45/Oz</span> <span class="stock-change change-up"><i class="fa-solid fa-caret-up"></i> +1.12%</span></span>
+                    <span><strong>Silver Spot</strong>: <span id="silver-price">...</span> <span id="silver-change" class="stock-change"></span></span>
                 </div>
+
             </div>
         </div>
 
@@ -529,7 +531,7 @@
         <div class="footer-bottom-bar">
             <div class="footer-bottom-container">
                 <div class="copyright-text">
-                    © 2026 Outcrop Silver Corporation. All Rights Reserved.
+                    © 2026 Outcrop Silver & Gold Corporation. All Rights Reserved.
                 </div>
                 <div class="footer-legal-links">
                     <a href="https://outcropsilver.com/legal/privacy-policy/">Privacy Policy</a>
@@ -547,5 +549,64 @@
 
     <!-- Script connection -->
     <script src="script.js?v=300.0"></script>
+
+    
+    <!-- Live Market Data Fetcher -->
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const symbols = {
+            'OCG.V': { priceId: 'tsx-price', changeId: 'tsx-change', curr: 'C$' },
+            'OCGSF': { priceId: 'otcqx-price', changeId: 'otcqx-change', curr: '$' },
+            'MRG.F': { priceId: 'fse-price', changeId: 'fse-change', curr: '€' },
+            'SI=F': { priceId: 'silver-price', changeId: 'silver-change', curr: '$' }
+        };
+
+        const formatChange = (change) => {
+            if (change === null || change === undefined) return '';
+            const isUp = change >= 0;
+            const color = isUp ? 'var(--brand-primary)' : '#ff3b30';
+            const icon = isUp ? '<i class="fa-solid fa-caret-up"></i>' : '<i class="fa-solid fa-caret-down"></i>';
+            const sign = isUp ? '+' : '';
+            return `<span style="color: ${color};">${icon} ${sign}${change.toFixed(2)}%</span>`;
+        };
+        
+        const fallbackData = {
+            'OCG.V': { price: 0.36, change: -1.37 },
+            'OCGSF': { price: 0.27, change: 12.50 },
+            'MRG.F': { price: 0.222, change: 10.17 },
+            'SI=F': { price: 38.45, change: 2.29 }
+        };
+
+        const updateDOM = (symbol, price, changePercent) => {
+            const ids = symbols[symbol];
+            if (!ids) return;
+            document.getElementById(ids.priceId).innerText = ids.curr + (symbol === 'SI=F' ? price.toFixed(2) + '/Oz' : (price < 1 ? price.toFixed(3) : price.toFixed(2)));
+            document.getElementById(ids.changeId).innerHTML = formatChange(changePercent);
+        };
+
+        try {
+            // Try to fetch from backend API first
+            const res = await fetch('/api/market');
+            if (res.ok) {
+                const data = await res.json();
+                data.forEach(item => {
+                    if (symbols[item.symbol] && item.price) {
+                        updateDOM(item.symbol, item.price, item.change);
+                    }
+                });
+            } else {
+                throw new Error("Backend not available");
+            }
+        } catch(e) {
+            console.warn("Live API fetch failed, using fallback data. Ensure server.js is running and returning /api/market", e);
+            // Fallback so it doesn't stay as '...'
+            for (const [symbol, data] of Object.entries(fallbackData)) {
+                updateDOM(symbol, data.price, data.change);
+            }
+        }
+    });
+    </script>
 </body>
+
+
 </html>

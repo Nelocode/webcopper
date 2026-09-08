@@ -81,7 +81,11 @@ const server = http.createServer((req, res) => {
             fetchTicker('CGNT.V'),  // TSXV
             fetchTicker('LBCMF'),   // OTC
             fetchTicker('29H0.F'),  // FSE
-            fetchTicker('HG=F')     // Copper Futures
+            fetchTicker('HG=F'),    // Copper Futures
+            fetchTicker('OCG.V'),   // Outcrop TSX
+            fetchTicker('OCGSF'),   // Outcrop OTC
+            fetchTicker('MRG.F'),   // Outcrop FSE
+            fetchTicker('SI=F')     // Silver Spot
         ]).then(results => {
             global.marketCache = { data: results, timestamp: now };
             res.end(JSON.stringify(results));
