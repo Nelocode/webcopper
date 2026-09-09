@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 # Copy server script and static files
 COPY server.js ./
 COPY proposal ./proposal
+COPY outcrop ./outcrop
 
 # Expose port 80
 EXPOSE 80
