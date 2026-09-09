@@ -4,7 +4,7 @@ const path = require('path');
 const zlib = require('zlib');
 
 const PORT = 80;
-const PUBLIC_DIR = path.join(__dirname, 'proposal');
+const PUBLIC_DIR = path.join(__dirname, 'outcrop');
 const DB_FILE = path.join(__dirname, 'data', 'analytics_db.json');
 
 // Ensure data directory exists
