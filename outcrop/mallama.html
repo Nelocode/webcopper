@@ -74,7 +74,7 @@
                     <div class="nav-item-dropdown">
                         <a href="investors.html" class="nav-link">Investors <i class="fa-solid fa-chevron-down dropdown-caret"></i></a>
                         <div class=dropdown-menu>
-                            <a href=investors.html#stock-info>Stock Info & Share Structure</a>
+                            <a href=investors.html#stock-info>Investors</a>
                             <a href=investors.html#financials>Financial Statements</a>
                             <a href=investors.html#presentations>Presentations</a>
                             <a href=investors.html#videos>Videos</a>
@@ -255,6 +255,7 @@
     <script src="script.js?v=300.0"></script>
 
     
+    
     <!-- Live Market Data Fetcher -->
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
@@ -289,13 +290,25 @@
         };
 
         try {
-            // Try to fetch from backend API first
             const res = await fetch('/api/market');
             if (res.ok) {
                 const data = await res.json();
+                const fetchedSymbols = new Set(data.map(d => d.symbol));
+                
+                // Update with live data
                 data.forEach(item => {
-                    if (symbols[item.symbol] && item.price) {
-                        updateDOM(item.symbol, item.price, item.change);
+                    if (symbols[item.symbol]) {
+                        // If price is null/failed from API, use fallback
+                        const p = item.price !== null ? item.price : fallbackData[item.symbol].price;
+                        const c = item.change !== null ? item.change : fallbackData[item.symbol].change;
+                        updateDOM(item.symbol, p, c);
+                    }
+                });
+                
+                // If any symbols were completely missing from the API response
+                Object.keys(symbols).forEach(sym => {
+                    if (!fetchedSymbols.has(sym)) {
+                        updateDOM(sym, fallbackData[sym].price, fallbackData[sym].change);
                     }
                 });
             } else {
@@ -303,7 +316,6 @@
             }
         } catch(e) {
             console.warn("Live API fetch failed, using fallback data. Ensure server.js is running and returning /api/market", e);
-            // Fallback so it doesn't stay as '...'
             for (const [symbol, data] of Object.entries(fallbackData)) {
                 updateDOM(symbol, data.price, data.change);
             }
@@ -311,6 +323,7 @@
     });
     </script>
 </body>
+
 
 
 </html>
