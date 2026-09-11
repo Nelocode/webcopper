@@ -308,7 +308,7 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
                         const existingIds = new Set(analyticsDB.map(e => e.id));
                         const filteredNew = newEvents.filter(e => !existingIds.has(e.id));
                         
-                        analyticsDB = [...filteredNew, ...analyticsDB].slice(0, 5000);
+                        analyticsDB = [...filteredNew, ...analyticsDB].slice(0, 100000);
                     }
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     return res.end(JSON.stringify({ success: true }));
