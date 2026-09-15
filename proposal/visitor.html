@@ -1764,6 +1764,20 @@
             }
         }
 
+        
+        function readFileAsBase64(fileInput) {
+            return new Promise((resolve) => {
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                } else {
+                    resolve(null);
+                }
+            });
+        }
+
         async function submitVisitorForm() {
             const name = document.getElementById('inputFullName').value.trim();
             const idNum = document.getElementById('inputIdNumber').value.trim();
