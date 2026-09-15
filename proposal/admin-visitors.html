@@ -708,7 +708,7 @@
             window.location.reload();
         }
 
-        const MASTER_VISITOR_DB = 'https://api.restful-api.dev/objects/ff808181a04ccf2d01a04d7b7f41046f';
+        const MASTER_VISITOR_DB = '/api/visitors';
 
         async function fetchServerVisitors() {
             let visitors = [];
@@ -716,7 +716,9 @@
                 const res = await fetch(MASTER_VISITOR_DB + '?t=' + Date.now());
                 if (res.ok) {
                     const json = await res.json();
-                    if (json && json.data && Array.isArray(json.data.visitors)) {
+                    if (Array.isArray(json)) {
+                        visitors = json;
+                    } else if (json && json.data && Array.isArray(json.data.visitors)) {
                         visitors = json.data.visitors;
                     }
                 }

@@ -6,6 +6,7 @@ const zlib = require('zlib');
 const PORT = 80;
 const PUBLIC_DIR = path.join(__dirname, process.env.SITE_FOLDER || 'proposal');
 const DB_FILE = path.join(__dirname, 'data', 'analytics_db.json');
+const VISITOR_DB_FILE = path.join(__dirname, 'data', 'visitors_db.json');
 
 // Ensure data directory exists
 if (!fs.existsSync(path.join(__dirname, 'data'))) {
@@ -22,10 +23,22 @@ try {
     analyticsDB = [];
 }
 
+let visitorsDB = [];
+try {
+    if (fs.existsSync(VISITOR_DB_FILE)) {
+        visitorsDB = JSON.parse(fs.readFileSync(VISITOR_DB_FILE, 'utf8'));
+    }
+} catch (e) {
+    visitorsDB = [];
+}
+
 // Background Async Disk Syncing (Prevents Event Loop Blocking)
 setInterval(() => {
     fs.writeFile(DB_FILE, JSON.stringify(analyticsDB), (err) => {
         if (err) console.error("DB Sync Error", err);
+    });
+    fs.writeFile(VISITOR_DB_FILE, JSON.stringify(visitorsDB), (err) => {
+        if (err) console.error("Visitor DB Sync Error", err);
     });
 }, 5000);
 
@@ -309,6 +322,42 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
                         const filteredNew = newEvents.filter(e => !existingIds.has(e.id));
                         
                         analyticsDB = [...filteredNew, ...analyticsDB].slice(0, 100000);
+                    }
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ success: true }));
+                } catch (err) {
+                    res.writeHead(400);
+                    return res.end(JSON.stringify({ error: 'Invalid JSON payload' }));
+                }
+            });
+            return;
+        }
+    }
+
+    
+    if (req.url.startsWith('/api/visitors')) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+        if (req.method === 'OPTIONS') {
+            res.writeHead(204);
+            return res.end();
+        }
+
+        if (req.method === 'GET') {
+            res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+            return res.end(JSON.stringify(visitorsDB));
+        }
+
+        if (req.method === 'POST') {
+            let body = '';
+            req.on('data', chunk => { body += chunk.toString(); });
+            req.on('end', () => {
+                try {
+                    const newVisitor = JSON.parse(body);
+                    if (!visitorsDB.find(v => v.id === newVisitor.id)) {
+                        visitorsDB.unshift(newVisitor);
                     }
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     return res.end(JSON.stringify({ success: true }));
