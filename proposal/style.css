@@ -2149,6 +2149,14 @@ body.header-hovered .page-backdrop {
     background: rgba(255, 255, 255, 0.015);
 }
 
+.event-card .btn-outline {
+    grid-column: 2;
+    margin-top: 8px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
 /* TABLET & DESKTOP — RESPONSIVE HORIZONTAL TIMELINE */
 @media (min-width: 768px) {
     .events-timeline {
