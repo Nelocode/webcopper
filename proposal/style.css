@@ -2046,7 +2046,7 @@ body.header-hovered .page-backdrop {
 .events-timeline::before {
     content: '';
     position: absolute;
-    left: 35px;
+    left: 12px;
     top: 0;
     bottom: 0;
     width: 1px;
@@ -2074,7 +2074,7 @@ body.header-hovered .page-backdrop {
     display: grid;
     grid-template-columns: 72px 1fr;
     gap: 24px;
-    padding: 28px 28px 28px 0;
+    padding: 28px 20px 28px 48px;
     background: transparent;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
@@ -2090,8 +2090,8 @@ body.header-hovered .page-backdrop {
 .event-card::before {
     content: '';
     position: absolute;
-    left: 32px;
-    top: 50%;
+    left: 9px;
+    top: 64px;
     transform: translateY(-50%);
     width: 7px;
     height: 7px;
@@ -2105,7 +2105,7 @@ body.header-hovered .page-backdrop {
 
 @media (min-width: 768px) {
     .event-card::before {
-        left: 48px;
+        left: 9px; /* Desktop will reset this anyway, but just in case */
     }
 }
 
@@ -2134,9 +2134,9 @@ body.header-hovered .page-backdrop {
     background: var(--copper-primary);
     border-color: var(--copper-primary);
     box-shadow: 0 0 8px rgba(255, 0, 44, 0.5), 0 0 16px rgba(255, 0, 44, 0.2);
-    width: 10px;
-    height: 10px;
-    left: 30px;
+    width: 11px;
+    height: 11px;
+    left: 7px;
 }
 
 @media (min-width: 768px) {
