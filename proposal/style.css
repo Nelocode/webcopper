@@ -244,6 +244,8 @@ body.header-hovered .page-backdrop {
 }
 
 .ticker-bar {
+    position: relative;
+    z-index: 101; /* TICKER_ZINDEX */
     background: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     height: 36px;
@@ -1752,13 +1754,15 @@ body.header-hovered .page-backdrop {
 /* 12. MOBILE MENU OVERLAY */
 .mobile-menu-overlay {
     position: fixed;
-    top: 96px;
+    top: 0;
     left: 0;
     width: 100%;
-    height: calc(100vh - 96px);
-    background: #000000;
+    height: 100vh;
+    background: rgba(8, 12, 16, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 99;
-    padding: 40px 24px;
+    padding: 120px 24px 40px 24px;
     display: flex;
     flex-direction: column;
     gap: 20px;
