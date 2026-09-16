@@ -1815,9 +1815,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.openPresentationModal = function(e) {
             if (e) e.preventDefault();
+            const pdfUrl = 'assets/corporate-presentation.pdf?v=SEP2026_V185';
+            
+            // Bypass modal on mobile/tablet (iOS/Android) due to native iframe rendering issues
+            if (window.innerWidth <= 820 || /iPad|iPhone|iPod|Android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+                window.open(pdfUrl, '_blank');
+                return;
+            }
+
             // Lazy load the PDF only when opened
             if (iframe && !iframe.getAttribute('src')) {
-                iframe.setAttribute('src', 'assets/corporate-presentation.pdf?v=SEP2026_V185');
+                iframe.setAttribute('src', pdfUrl);
             }
             presentationModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1888,6 +1896,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const closeBtn = document.getElementById('btn-close-news-pdf');
 
         window.openNewsPdfModal = function(pdfPath) {
+            // Bypass modal on mobile/tablet (iOS/Android) due to native iframe rendering issues
+            if (window.innerWidth <= 820 || /iPad|iPhone|iPod|Android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+                window.open(pdfPath, '_blank');
+                return;
+            }
+            
             if (iframe) iframe.setAttribute('src', pdfPath);
             if (downloadLink) downloadLink.setAttribute('href', pdfPath);
             if (modal) modal.classList.add('active');
