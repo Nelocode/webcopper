@@ -2443,6 +2443,8 @@ body.header-hovered .page-backdrop {
     font-family: var(--font-mono);
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .filter-btn::before {
