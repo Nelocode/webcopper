@@ -941,12 +941,53 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modal) {
             modal.classList.remove('active');
             document.body.style.overflow = '';
+            
+            // Reset to form state after a short delay so user doesn't see it flip while animating out
+            setTimeout(() => {
+                const formState = document.getElementById('modal-form-state');
+                const successState = document.getElementById('modal-success-state');
+                if (formState) formState.style.display = 'block';
+                if (successState) successState.style.display = 'none';
+                
+                const form = document.getElementById('mc-embedded-subscribe-form') || document.getElementById('newsletter-modal-form');
+                if (form) form.reset();
+            }, 300);
         }
     };
 
     window.showModalSuccess = function() {
-        if (modalFormState) modalFormState.style.display = 'none';
-        if (modalSuccessState) modalSuccessState.style.display = 'flex';
+        const formState = document.getElementById('modal-form-state');
+        if (formState) formState.style.display = 'none';
+        
+        let successState = document.getElementById('modal-success-state');
+        if (!successState) {
+            successState = document.createElement('div');
+            successState.id = 'modal-success-state';
+            successState.style.display = 'flex';
+            successState.style.flexDirection = 'column';
+            successState.style.alignItems = 'center';
+            successState.style.justifyContent = 'center';
+            successState.style.padding = '40px 20px';
+            successState.style.textAlign = 'center';
+            
+            successState.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 64px; height: 64px; margin-bottom: 24px;">
+                    <path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h3 style="color: white; margin-bottom: 12px; font-size: 1.5rem; font-family: var(--font-header);">Successfully Subscribed</h3>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; max-width: 300px; margin: 0 auto 30px auto;">
+                    Thank you for signing up. You'll now receive the latest news and corporate updates from Copper Giant.
+                </p>
+                <button class="btn-solid" onclick="window.closeUpdatesModal()" style="width: 100%;">Close</button>
+            `;
+            
+            if (formState && formState.parentNode) {
+                formState.parentNode.appendChild(successState);
+            }
+        } else {
+            successState.style.display = 'flex';
+        }
     };
 
     // Attach click listeners to any "Get Updates" button/trigger
@@ -2549,7 +2590,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (companyInput && companyInput.value) payload.company = companyInput.value;
         
         if (submitBtn) {
-            const originalText = submitBtn.innerHTML;
+            
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.5';
         }
@@ -2566,6 +2607,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (form.id === 'mc-embedded-subscribe-form' || form.id === 'newsletter-modal-form') {
                     if (window.showModalSuccess) window.showModalSuccess();
                 } else {
+                    // It's a footer form, show a nice inline success instead of alert
+                    if (submitBtn) {
+                        submitBtn.innerHTML = '<span style="color: #00E676; font-size: 1.2rem;">&#10003;</span>';
+                        submitBtn.style.background = 'rgba(0, 230, 118, 0.1)';
+                        submitBtn.style.border = '1px solid #00E676';
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.style.background = '';
+                            submitBtn.style.border = '';
+                        }, 5000);
+                    }
+                    form.reset();
+                }
+            }
+            } else {
                     alert('Thanks for subscribing to Copper Giant updates!');
                     form.reset();
                 }
