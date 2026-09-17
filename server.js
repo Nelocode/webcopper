@@ -161,7 +161,7 @@ const server = http.createServer((req, res) => {
                     const errorData = await brevoResponse.text();
                     console.error("Brevo API Error:", errorData);
                     res.writeHead(400, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ error: "Failed to subscribe via Brevo" }));
+                    res.end(JSON.stringify({ error: "Failed to subscribe via Brevo", details: errorData }));
                 }
             } catch (error) {
                 console.error("Internal Server Error during subscription:", error);
