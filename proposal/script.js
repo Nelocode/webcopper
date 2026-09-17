@@ -2529,3 +2529,74 @@ document.addEventListener('DOMContentLoaded', () => {
     initPresentationModal();
     initNewsPdfModal();
 });
+
+
+    // --- Brevo API Integration for Newsletter Subscriptions ---
+    const handleSubscribe = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const emailInput = form.querySelector('input[type="email"]');
+        const fnameInput = form.querySelector('input[name="FNAME"]');
+        const lnameInput = form.querySelector('input[name="LNAME"]');
+        const companyInput = form.querySelector('input[name="MMERGE3"]');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        if (!emailInput || !emailInput.value) return;
+        
+        const payload = { email: emailInput.value };
+        if (fnameInput && fnameInput.value) payload.fname = fnameInput.value;
+        if (lnameInput && lnameInput.value) payload.lname = lnameInput.value;
+        if (companyInput && companyInput.value) payload.company = companyInput.value;
+        
+        if (submitBtn) {
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.5';
+        }
+        
+        try {
+            const res = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            
+            if (res.ok) {
+                if (form.id === 'mc-embedded-subscribe-form' || form.id === 'newsletter-modal-form') {
+                    if (window.showModalSuccess) window.showModalSuccess();
+                } else {
+                    alert('Thanks for subscribing to Copper Giant updates!');
+                    form.reset();
+                }
+            } else {
+                alert('Subscription failed: ' + (data.error || 'Unknown error'));
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Connection error. Please try again later.');
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }
+        }
+    };
+
+    const setupNewsletterForms = () => {
+        const modalForm = document.getElementById('mc-embedded-subscribe-form');
+        if (modalForm) {
+            modalForm.removeAttribute('action');
+            modalForm.removeAttribute('target');
+            modalForm.addEventListener('submit', handleSubscribe);
+        }
+        
+        document.querySelectorAll('.footer-newsletter-form').forEach(form => {
+            form.removeAttribute('onsubmit');
+            form.addEventListener('submit', handleSubscribe);
+        });
+    };
+    
+    // Call it immediately and also on DOMContentLoaded just in case
+    setupNewsletterForms();
+    document.addEventListener('DOMContentLoaded', setupNewsletterForms);
