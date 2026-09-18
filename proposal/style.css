@@ -3330,6 +3330,8 @@ section[id] {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 30;
+    pointer-events: auto;
 }
 
 .modal-close:hover {
@@ -3478,22 +3480,52 @@ section[id] {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 40px 0;
+    padding: 30px 10px 10px 10px;
+    width: 100%;
 }
 
 .modal-success-icon {
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
-    background: rgba(46, 204, 113, 0.1);
+    background: rgba(46, 204, 113, 0.12);
     border: 2px solid #2ecc71;
     color: #2ecc71;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    margin-bottom: 25px;
-    animation: successScale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 25px rgba(46, 204, 113, 0.25);
+    animation: successScale 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-success-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px 20px;
+    background: var(--copper-primary) !important;
+    color: white !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    font-family: var(--font-mono, monospace) !important;
+    border: 1px solid var(--copper-primary) !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 15px rgba(255, 0, 44, 0.2) !important;
+}
+
+.modal-success-btn:hover {
+    background: white !important;
+    color: black !important;
+    border-color: white !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(255, 0, 44, 0.35) !important;
 }
 
 @keyframes successScale {

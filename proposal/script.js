@@ -927,17 +927,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalSuccessState = document.getElementById('modal-success-state');
 
     window.openUpdatesModal = function() {
-        if (modal) {
-            modal.classList.add('active');
+        const modalEl = document.getElementById('updates-modal') || modal;
+        if (modalEl) {
+            modalEl.classList.add('active');
             document.body.style.overflow = 'hidden';
-            if (modalFormState) modalFormState.style.display = 'block';
-            if (modalSuccessState) modalSuccessState.style.display = 'none';
+            const formState = document.getElementById('modal-form-state');
+            const successState = document.getElementById('modal-success-state');
+            if (formState) formState.style.display = 'block';
+            if (successState) successState.style.display = 'none';
             const form = document.getElementById('mc-embedded-subscribe-form') || document.getElementById('newsletter-modal-form');
             if (form) form.reset();
         }
     };
 
-    
+    window.closeUpdatesModal = function() {
+        const modalEl = document.getElementById('updates-modal') || modal;
+        if (modalEl) {
+            modalEl.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                const formState = document.getElementById('modal-form-state');
+                const successState = document.getElementById('modal-success-state');
+                if (formState) formState.style.display = 'block';
+                if (successState) successState.style.display = 'none';
+                const form = document.getElementById('mc-embedded-subscribe-form') || document.getElementById('newsletter-modal-form');
+                if (form) form.reset();
+            }, 300);
+        }
+    };
+
+    window.showModalSuccess = function() {
+        const formState = document.getElementById('modal-form-state');
+        if (formState) {
+            formState.style.display = 'none';
+        }
+        
+        let successState = document.getElementById('modal-success-state');
+        if (!successState) {
+            successState = document.createElement('div');
+            successState.id = 'modal-success-state';
+            successState.className = 'modal-success-state';
+            if (formState && formState.parentNode) {
+                formState.parentNode.appendChild(successState);
+            }
+        }
+        
+        successState.style.display = 'flex';
+        successState.innerHTML = `
+            <div class="modal-success-icon">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h3 style="color: white; margin-bottom: 10px; font-size: 1.4rem; font-weight: 800; font-family: var(--font-header, 'Cabinet Grotesk', sans-serif); text-transform: uppercase; letter-spacing: 0.04em;">Successfully Subscribed</h3>
+            <p style="color: var(--text-secondary, #a0a0a0); font-size: 0.88rem; line-height: 1.5; max-width: 320px; margin: 0 auto 20px auto;">
+                Thank you for signing up. You'll now receive the latest news and corporate updates from Copper Giant.
+            </p>
+            <button type="button" class="btn-submit-modal modal-success-btn" onclick="window.closeUpdatesModal()">
+                Close
+            </button>
+        `;
+    };
+
     // Attach click listeners to any "Get Updates" button/trigger
     document.querySelectorAll('.btn-nav-updates, .trigger-updates-modal, .nav-links-right a[href*="newsletter"], .footer-column a[href*="newsletter"]').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -953,8 +1004,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnCloseModal = document.getElementById('btn-close-modal');
     if (btnCloseModal) {
-        btnCloseModal.addEventListener('click', window.closeUpdatesModal);
+        btnCloseModal.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.closeUpdatesModal();
+        });
     }
+
+    // Delegated click listener so any close button / 'x' in updates-modal always works
+    document.addEventListener('click', (e) => {
+        const closeBtn = e.target.closest('#btn-close-modal, #updates-modal .modal-close');
+        if (closeBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.closeUpdatesModal();
+        }
+    });
 
     if (modal) {
         modal.addEventListener('click', (e) => {
@@ -2517,60 +2582,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initPresentationModal();
     initNewsPdfModal();
-
-    window.closeUpdatesModal = function() {
-        const modal = document.getElementById('updates-modal');
-        if (modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-            setTimeout(() => {
-                const formState = document.getElementById('modal-form-state');
-                const successState = document.getElementById('modal-success-state');
-                if (formState) formState.style.display = 'block';
-                if (successState) successState.style.display = 'none';
-                const form = document.getElementById('mc-embedded-subscribe-form') || document.getElementById('newsletter-modal-form');
-                if (form) form.reset();
-            }, 300);
-        }
-    };
-
-    window.showModalSuccess = function() {
-        const formState = document.getElementById('modal-form-state');
-        if (formState) {
-            formState.style.display = 'none';
-        }
-        
-        let successState = document.getElementById('modal-success-state');
-        if (!successState) {
-            successState = document.createElement('div');
-            successState.id = 'modal-success-state';
-            successState.style.display = 'flex';
-            successState.style.flexDirection = 'column';
-            successState.style.alignItems = 'center';
-            successState.style.justifyContent = 'center';
-            successState.style.padding = '40px 20px';
-            successState.style.textAlign = 'center';
-            successState.style.minHeight = '250px'; // Force a minimum height so it doesn't squash!
-            
-            successState.innerHTML = `
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--copper-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 64px; height: 64px; margin-bottom: 24px;">
-                    <path d="M22 11.08V12a10 10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <h3 style="color: white; margin-bottom: 12px; font-size: 1.5rem; font-family: var(--font-header);">Successfully Subscribed</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; max-width: 300px; margin: 0 auto 30px auto;">
-                    Thank you for signing up. You'll now receive the latest news and corporate updates from Copper Giant.
-                </p>
-                <button type="button" class="btn-solid" onclick="window.closeUpdatesModal()" style="width: 100%; margin-top: 10px;">Close</button>
-            `;
-            
-            if (formState && formState.parentNode) {
-                formState.parentNode.appendChild(successState);
-            }
-        } else {
-            successState.style.display = 'flex';
-        }
-    };
 
     // --- Brevo API Integration for Newsletter Subscriptions ---
     const handleSubscribe = async (e) => {
