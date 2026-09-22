@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mocoa Porphyry Interactive 3D View | Terrahutton</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #000; overflow: hidden; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        .nav-bar { position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 999; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-back { color: #fff; text-decoration: none; font-size: 14px; letter-spacing: 1px; display: flex; align-items: center; transition: color 0.3s; }
+        .nav-back:hover { color: #e62314; }
+        .nav-back svg { margin-right: 8px; }
+        .th-frame { width: 100%; height: 100vh; border: none; padding-top: 60px; box-sizing: border-box; }
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; display: flex; align-items: center; justify-content: center; color: #fff; flex-direction: column; transition: opacity 0.5s; pointer-events: none; }
+        .spinner { border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #e62314; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="index.html" class="nav-back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            BACK TO HOME
+        </a>
+    </div>
+
+    <div class="loading-overlay" id="loader">
+        <div class="spinner"></div>
+        <div style="letter-spacing: 2px; font-size: 12px; opacity: 0.6;">LOADING SECURE VIEWER...</div>
+    </div>
+
+    <form id="th-login" method="post" action="https://cgnt.terrahutton.io/cfp_login" target="th-frame" style="display:none;">
+        <input type="hidden" name="redirect" value="/" />
+        <input type="hidden" name="password" value="copper2026" />
+    </form>
+    
+    <iframe name="th-frame" class="th-frame" onload="document.getElementById('loader').style.opacity = '0';"></iframe>
+    
+    <script>
+        // Auto-login to Terrahutton
+        document.getElementById('th-login').submit();
+    </script>
+</body>
+</html>

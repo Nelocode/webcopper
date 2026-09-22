@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="100%" height="100%" fill="#1a1a1a" stroke="#333" stroke-width="4"/>
+  <line x1="0" y1="0" x2="1280" y2="720" stroke="#333" stroke-width="2"/>
+  <line x1="1280" y1="0" x2="0" y2="720" stroke="#333" stroke-width="2"/>
+  <rect x="5%" y="35%" width="90%" height="30%" fill="#000" opacity="0.8"/>
+  <rect width="100%" height="100%" fill="none" stroke="#FF002C" stroke-width="6" stroke-dasharray="20 20"/>
+  <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="#FF002C" font-family="sans-serif" font-size="48" font-weight="bold">Environment Detail</text>
+  <text x="50%" y="53%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="28" font-weight="bold">FORMAT: AUTOPLAY LOOP VIDEO (MP4/WEBM)</text>
+  <text x="50%" y="61%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="24">Ideal Size: 1280x720px</text>
+</svg>

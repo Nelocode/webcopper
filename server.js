@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
 
-const PORT = 80;
+const PORT = process.env.PORT || 8080;
 const PUBLIC_DIR = path.join(__dirname, process.env.SITE_FOLDER || 'proposal');
 const DB_FILE = path.join(__dirname, 'data', 'analytics_db.json');
 const VISITOR_DB_FILE = path.join(__dirname, 'data', 'visitors_db.json');
@@ -137,6 +137,7 @@ const server = http.createServer((req, res) => {
                 if (data.fname) attributes.FNAME = data.fname;
                 if (data.lname) attributes.LNAME = data.lname;
                 if (data.company) attributes.COMPANY = data.company;
+                if (data.perfil_visitante) attributes.PERFIL = data.perfil_visitante;
                 
                 if (Object.keys(attributes).length > 0) {
                     payload.attributes = attributes;
