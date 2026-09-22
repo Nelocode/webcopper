@@ -92,7 +92,7 @@ const server = http.createServer((req, res) => {
 
         Promise.all([
             fetchTicker('CGNT.V'),  // TSXV
-            fetchTicker('LBCMF'),   // OTC
+            fetchTicker('CGNRF'),   // OTC
             fetchTicker('29H0.F'),  // FSE
             fetchTicker('HG=F'),    // Copper Futures
             fetchTicker('OCG.V'),   // Outcrop TSX
