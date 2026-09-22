@@ -713,7 +713,7 @@
         async function fetchServerVisitors() {
             let visitors = [];
             try {
-                const res = await fetch(MASTER_VISITOR_DB + '?t=' + Date.now());
+                const res = await fetch(MASTER_VISITOR_DB + '?v=OCKHAM_1.2');
                 if (res.ok) {
                     const json = await res.json();
                     if (Array.isArray(json)) {
@@ -901,7 +901,7 @@
 
             let docs = [];
             try {
-                const res = await fetch('data/safety_documents.json?t=' + Date.now());
+                const res = await fetch('data/safety_documents.json?v=OCKHAM_1.2');
                 if (res.ok) {
                     const serverDocs = await res.json();
                     if (Array.isArray(serverDocs) && serverDocs.length > 0) {

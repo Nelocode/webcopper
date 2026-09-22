@@ -472,7 +472,7 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
         };
 
         // Aggressive Caching for Assets (Images, Fonts, JS, CSS, PDFs)
-        if (['.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff2', '.woff', '.ttf', '.pdf', '.css', '.js', '.mp4'].includes(extname)) {
+        if (['.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff2', '.woff', '.ttf', '.pdf', '.css', '.js', '.mp4', '.json', '.webp', '.webm'].includes(extname)) {
             headers['Cache-Control'] = 'public, max-age=31536000, immutable'; // 1 Year Cache
         } else {
             headers['Cache-Control'] = 'no-cache, must-revalidate'; // HTML always fresh

@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 1. Initial render from site.json baseline
-        fetch('data/site.json?t=' + Date.now())
+        fetch('data/site.json?v=OCKHAM_1.2')
             .then(res => res.json())
             .then(data => {
                 if (data && data.ticker) {
@@ -624,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newsGrid = document.querySelector('.news-hub-grid');
         if (!newsGrid) return;
 
-        fetch('data/news.json?v=' + new Date().getTime())
+        fetch('data/news.json?v=OCKHAM_1.2')
             .then(res => res.json())
             .then(data => {
                 const now = new Date();

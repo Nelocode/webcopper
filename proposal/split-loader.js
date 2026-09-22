@@ -8,7 +8,7 @@
  * and buttons navigate to the link_href specified in JSON.
  */
 (function() {
-    fetch('data/site.json?t=' + Date.now())
+    fetch('data/site.json?v=OCKHAM_1.2')
         .then(res => res.json())
         .then(data => {
             const cards = data.split_cards || [];
