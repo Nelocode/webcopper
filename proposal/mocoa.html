@@ -125,7 +125,8 @@
         </div>
     </div>
 
-<section class="hero-video-section" id="overview">
+<div id="ockham-orchestrator" style="display: flex; flex-direction: column; width: 100%;">
+<section data-ockham-id="modulo_hero" class="hero-video-section" id="overview">
         <div class="hero-video-wrapper">
             <img src="assets/libero/mocoa_hero.webp" alt="Mocoa Project" class="hero-video-bg ken-burns">
             <div class="hero-video-overlay">
@@ -141,7 +142,7 @@
 
 
     <!-- Project Overview & Geology Section -->
-    <section class="section-padding container" id="geology" style="">
+    <section data-ockham-id="mocoa_geology" class="section-padding container" id="geology" style="">
         <div class="section-header-group fade-up" style="margin-bottom: 20px;">
             <h2 class="section-title">Deposit & Scale</h2>
             <div class="section-subtitle">Geological Context</div>
@@ -151,6 +152,10 @@
             Located in Andean Cordillera, Southern, Colombia, the Mocoa project is one of the largest undeveloped copper-molybdenum porphyry deposits in the Americas. 
             Mineralization is associated with dacite porphyry stocks intruding a thick sequence of volcanic rocks, creating a highly stable and consistent orebody.
         </p>
+
+        <div style="text-align: center; margin-bottom: 50px; position: relative; z-index: 10;">
+            <button class="btn-rect btn-rect-primary" onclick="window.location.href='terrahutton.html'" style="font-size: 0.9rem; letter-spacing: 2px;">INTERACTIVE 3D VIEW</button>
+        </div>
 
         <!-- Bento Grid for Mocoa Details -->
         <div class="photo-bento">
@@ -204,7 +209,7 @@
     </section>
 
     <!-- Mineral Resource Section -->
-    <section class="section-padding" id="mineral-resource" style="border-top: 1px solid var(--border-glass);">
+    <section data-ockham-id="mocoa_resource" class="section-padding" id="mineral-resource" style="border-top: 1px solid var(--border-glass);">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="section-header-group fade-up" style="margin-bottom: 40px;">
                 <h2 class="section-title">Mineral Resource</h2>
@@ -336,7 +341,7 @@
     </section>
 
     <!-- District Exploration Section -->
-    <section class="section-padding" id="district-exploration" style="border-top: 1px solid var(--border-glass);">
+    <section data-ockham-id="mocoa_exploration" class="section-padding" id="district-exploration" style="border-top: 1px solid var(--border-glass);">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="section-header-group fade-up" style="margin-bottom: 40px;">
                 <h2 class="section-title">District Exploration</h2>
@@ -462,7 +467,7 @@
     </section>
 
     <!-- Geology: Characteristics of a Giant Section -->
-    <section class="section-padding" id="geology-details" style="border-top: 1px solid var(--border-glass);">
+    <section data-ockham-id="mocoa_details" class="section-padding" id="geology-details" style="border-top: 1px solid var(--border-glass);">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="section-header-group fade-up" style="margin-bottom: 40px;">
                 <h2 class="section-title">Geology: Characteristics of a Giant</h2>
@@ -594,7 +599,7 @@
     </section>
 
     <!-- Timeline Section -->
-    <section class="section-padding" id="journey" style="border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+    <section data-ockham-id="mocoa_journey" class="section-padding" id="journey" style="border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
         <div class="container">
             <div class="section-header-group fade-up" style="margin-bottom: 50px;">
                 <h2 class="section-title">The Journey So Far</h2>
@@ -644,7 +649,7 @@
     </section>
 
     <!-- Clean Data Over Dark/Photo BG -->
-    <section class="section-padding data-section" id="drilling">
+    <section data-ockham-id="mocoa_drilling" class="section-padding data-section" id="drilling">
         <div class="topo-bg"></div>
         <div class="container">
             <div class="section-header-group fade-up" style="margin-bottom: 30px;">
@@ -1159,7 +1164,7 @@
 
         
         <!-- Content Gallery Section -->
-    <section class="section-padding" id="gallery" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); border-top: 1px solid rgba(255, 255, 255, 0.05);">
+    <section data-ockham-id="mocoa_gallery" class="section-padding" id="gallery" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); border-top: 1px solid rgba(255, 255, 255, 0.05);">
         <div class="container fade-up">
             <div class="section-header-group fade-up" style="margin-bottom: 40px;">
                 <h2 class="section-title">Content Gallery</h2>
@@ -1652,7 +1657,7 @@
     </section>
 
     <!-- Project Maps Section -->
-    <section class="section-padding pt-0" id="maps" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); position: relative;">
+    <section data-ockham-id="mocoa_maps" class="section-padding pt-0" id="maps" style="background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(24px); position: relative;">
         <div class="container fade-up">
             <div class="section-header-group fade-up" style="margin-bottom: 40px;">
                 <h2 class="section-title">Project Maps</h2>
@@ -1697,6 +1702,8 @@
             </div>
         </div>
     </section>
+</div>
+
 
     <!-- Footer -->
 
