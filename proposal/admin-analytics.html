@@ -536,7 +536,7 @@
 
         async function fetchServerAnalytics() {
             try {
-                const res = await fetch(MASTER_ANALYTICS_ENDPOINT + '?v=OCKHAM_1.2');
+                const res = await fetch(MASTER_ANALYTICS_ENDPOINT + '?v=OCKHAM_1.3');
                 if (res.ok) {
                     const data = await res.json();
                     if (Array.isArray(data)) return data;

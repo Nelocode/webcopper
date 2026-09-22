@@ -1509,7 +1509,7 @@
             let docs = [];
             // 1. Fetch live master server documents
             try {
-                const res = await fetch('data/safety_documents.json?v=OCKHAM_1.2');
+                const res = await fetch('data/safety_documents.json?v=OCKHAM_1.3');
                 if (res.ok) {
                     const serverDocs = await res.json();
                     if (Array.isArray(serverDocs) && serverDocs.length > 0) {
