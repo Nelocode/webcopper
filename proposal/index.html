@@ -41,8 +41,8 @@
         <div class="ticker-bar">
                         <div class="ticker-stocks">
                 <span><strong>TSXV</strong>: CGNT <span style="opacity: 0.5;">Loading...</span></span>
-                <span><strong>OTC</strong>: CGNRF <span style="opacity: 0.5;">Loading...</span></span>
-                <span><strong>FSE</strong>: 29H0 <span style="opacity: 0.5;">Loading...</span></span>
+                <span><strong>OTCQX</strong>: CGNRF <span style="opacity: 0.5;">Loading...</span></span>
+                <span><strong>FRA</strong>: 29H0 <span style="opacity: 0.5;">Loading...</span></span>
                 <span><strong>Cu</strong>: <span style="opacity: 0.5;">Loading...</span></span>
             </div>
 
@@ -554,8 +554,8 @@
 
             const tickerHtml = `
                 <span><strong>TSXV</strong>: CGNT ${formatPrice(tsxv.price, 'C$')} ${formatChange(tsxv.change)}</span>
-                <span><strong>OTC</strong>: CGNRF ${formatPrice(otc.price, '$')} ${formatChange(otc.change)}</span>
-                <span><strong>FSE</strong>: 29H0 ${formatPrice(fse.price, '€')} ${formatChange(fse.change)}</span>
+                <span><strong>OTCQX</strong>: CGNRF ${formatPrice(otc.price, '$')} ${formatChange(otc.change)}</span>
+                <span><strong>FRA</strong>: 29H0 ${formatPrice(fse.price, '€')} ${formatChange(fse.change)}</span>
                 <span><strong>Cu</strong>: ${formatPrice(cu.price, '$')}/Lb ${formatChange(cu.change)}</span>
             `;
 
