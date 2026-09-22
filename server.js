@@ -8,6 +8,18 @@ const PUBLIC_DIR = path.join(__dirname, process.env.SITE_FOLDER || 'proposal');
 const DB_FILE = path.join(__dirname, 'data', 'analytics_db.json');
 const VISITOR_DB_FILE = path.join(__dirname, 'data', 'visitors_db.json');
 
+const OCKHAM_DB_FILE = path.join(__dirname, 'data', 'ockham_db.json');
+
+let ockhamEventsDB = [];
+try {
+    if (fs.existsSync(OCKHAM_DB_FILE)) {
+        ockhamEventsDB = JSON.parse(fs.readFileSync(OCKHAM_DB_FILE, 'utf8'));
+    }
+} catch (e) {
+    ockhamEventsDB = [];
+}
+
+
 // Ensure data directory exists
 if (!fs.existsSync(path.join(__dirname, 'data'))) {
     fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true });
@@ -40,6 +52,11 @@ setInterval(() => {
     fs.writeFile(VISITOR_DB_FILE, JSON.stringify(visitorsDB), (err) => {
         if (err) console.error("Visitor DB Sync Error", err);
     });
+
+    fs.writeFile(OCKHAM_DB_FILE, JSON.stringify(ockhamEventsDB), (err) => {
+        if (err) console.error("Ockham DB Sync Error", err);
+    });
+
 }, 5000);
 
 const mimeTypes = {
@@ -61,6 +78,88 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
+
+    // --- OCKHAM COGNITIVE ENGINE ROUTES ---
+    if (req.url === '/api/ockham-event' && req.method === 'POST') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            try {
+                const eventPayload = JSON.parse(body);
+                ockhamEventsDB.push(eventPayload);
+                if (ockhamEventsDB.length > 50000) ockhamEventsDB.shift(); // Keep bounded
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true }));
+            } catch(e) {
+                res.writeHead(400); res.end(JSON.stringify({error: "Invalid payload"}));
+            }
+        });
+        return;
+    }
+
+    if (req.url === '/api/ockham-init' && req.method === 'POST') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', () => {
+            try {
+                const initPayload = JSON.parse(body);
+                // Basic logic to determine profile based on events
+                // Let's see if this user has clicked a lot of "finance" or "community"
+                let financeScore = 0;
+                let esgScore = 0;
+                
+                // Read from DB history for this session, and also from the payload's history
+                const sessionEvents = ockhamEventsDB.filter(e => e.session_id === initPayload.session_id);
+                const allIntents = sessionEvents.map(e => e.intencion_ockham || '').concat(initPayload.historialEventos || []);
+                
+                for (const intent of allIntents) {
+                    if (!intent) continue;
+                    let iStr = intent.toLowerCase();
+                    if (iStr.includes('financier') || iStr.includes('investor') || iStr.includes('news')) financeScore++;
+                    if (iStr.includes('comunidad') || iStr.includes('esg') || iStr.includes('sostenibil')) esgScore++;
+                }
+
+                let perfil = "general";
+                let acciones = [];
+
+                if (financeScore > esgScore && financeScore > 1) {
+                    perfil = "financiero";
+                    acciones = [
+                        { "id_modulo": "news", "accion": "elevar", "prioridad": 1 },
+                        { "id_modulo": "investors_esg", "accion": "elevar", "prioridad": 2 },
+                        { "id_modulo": "mocoa", "accion": "elevar", "prioridad": 3 }
+                    ];
+                } else if (esgScore > financeScore && esgScore > 1) {
+                    perfil = "comunitario";
+                    acciones = [
+                        { "id_modulo": "investors_esg", "accion": "elevar", "prioridad": 1 },
+                        { "id_modulo": "mocoa", "accion": "elevar", "prioridad": 2 },
+                        { "id_modulo": "news", "accion": "elevar", "prioridad": 3 }
+                    ];
+                } else {
+                    perfil = "general";
+                    acciones = [
+                        { "id_modulo": "mocoa", "accion": "elevar", "prioridad": 1 },
+                        { "id_modulo": "news", "accion": "elevar", "prioridad": 2 },
+                        { "id_modulo": "investors_esg", "accion": "elevar", "prioridad": 3 }
+                    ];
+                }
+
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({
+                    perfil_visitante: perfil,
+                    acciones_dom: acciones
+                }));
+            } catch(e) {
+                console.error("Ockham Init Error:", e);
+                res.writeHead(400); res.end(JSON.stringify({error: "Invalid payload"}));
+            }
+        });
+        return;
+    }
+
     
     // API Endpoint: Live Market Tickers (Cached for 60 seconds)
     if (req.url.startsWith('/api/market')) {
