@@ -304,14 +304,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         const tsxv = data.find(d => d.symbol === 'CGNT.V') || {};
-        const otc = data.find(d => d.symbol === 'LBCMF') || {};
+        const otc = data.find(d => d.symbol === 'CGNRF') || {};
         const fse = data.find(d => d.symbol === '29H0.F') || {};
         const cu = data.find(d => d.symbol === 'HG=F') || {};
 
         tickerContainer.innerHTML = `
             <span><strong>TSXV</strong>: CGNT ${formatPrice(tsxv.price, 'C$')} ${formatChange(tsxv.change)}</span>
-            <span><strong>OTC</strong>: LBCMF ${formatPrice(otc.price, '$')} ${formatChange(otc.change)}</span>
-            <span><strong>FSE</strong>: 29H0 ${formatPrice(fse.price, '€')} ${formatChange(fse.change)}</span>
+            <span><strong>OTCQX</strong>: CGNRF ${formatPrice(otc.price, '$')} ${formatChange(otc.change)}</span>
+            <span><strong>FRA</strong>: 29H0 ${formatPrice(fse.price, '€')} ${formatChange(fse.change)}</span>
             <span><strong>Cu</strong>: ${formatPrice(cu.price, '$')}/Lb ${formatChange(cu.change)}</span>
         `;
     } catch(e) {
