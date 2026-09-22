@@ -5960,3 +5960,12 @@ div.response {
 
 
 
+
+/* Ockham Orchestrator Fixes */
+#ockham-orchestrator {
+    width: 100%;
+}
+#ockham-orchestrator > section {
+    width: 100%;
+    flex-shrink: 0;
+}
