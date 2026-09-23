@@ -18,27 +18,17 @@
 </head>
 <body>
     <div class="nav-bar">
-        <a href="index.html" class="nav-back">
+        <a href="index.html" class="nav-back" onclick="if(document.referrer.includes('mocoa.html')) { window.location.href='mocoa.html'; return false; }">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            BACK TO HOME
+            BACK
         </a>
     </div>
 
     <div class="loading-overlay" id="loader">
         <div class="spinner"></div>
-        <div style="letter-spacing: 2px; font-size: 12px; opacity: 0.6;">LOADING SECURE VIEWER...</div>
+        <div style="letter-spacing: 2px; font-size: 12px; opacity: 0.6;">LOADING 3D VIEWER...</div>
     </div>
-
-    <form id="th-login" method="post" action="https://cgnt.terrahutton.io/cfp_login" target="th-frame" style="display:none;">
-        <input type="hidden" name="redirect" value="/" />
-        <input type="hidden" name="password" value="copper2026" />
-    </form>
     
-    <iframe name="th-frame" class="th-frame" onload="document.getElementById('loader').style.opacity = '0';"></iframe>
-    
-    <script>
-        // Auto-login to Terrahutton
-        document.getElementById('th-login').submit();
-    </script>
+    <iframe src="https://cgntns.terrahutton.io/" name="th-frame" class="th-frame" onload="document.getElementById('loader').style.opacity = '0';"></iframe>
 </body>
 </html>
