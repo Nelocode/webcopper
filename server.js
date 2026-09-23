@@ -373,9 +373,10 @@ Debes incluir estas 3 secciones obligatoriamente:
                 const path = require('path');
                 let telemetria = {};
                 try {
-                    telemetria.descargas = JSON.parse(fs.readFileSync(path.join(__dirname, 'proposal', 'data', 'downloads.json'), 'utf8'));
-                    telemetria.noticias = JSON.parse(fs.readFileSync(path.join(__dirname, 'proposal', 'data', 'news.json'), 'utf8'));
-                } catch(e) { console.error("Error leyendo datos locales", e); }
+                    telemetria.ockham = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'ockham_db.json'), 'utf8'));
+                    telemetria.visitas = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'analytics_db.json'), 'utf8'));
+                    telemetria.leads = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'visitors_db.json'), 'utf8'));
+                } catch(e) { console.error("Error leyendo datos locales (es posible que no existan aún)", e); }
 
                 const prompt = `Actúa como el motor de Inteligencia Artificial (Kaizen AI) de Copper Giant Resources (empresa minera junior de cobre en Colombia).
 Revisa estos datos de telemetría reales del sitio web corporativo de hoy:

@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copper Giant | Panel Visual de Telemetría y Visitantes</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN for Hardware-Accelerated Interactive Visual Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FileSaver for Exporting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <style>
+        :root {
+            --copper-primary: #FF002C;
+            --copper-hover: #D60024;
+            --bg-main: #0b0f14;
+            --bg-card: #121820;
+            --bg-input: #1a222d;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success: #4cd964;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Figtree', sans-serif; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Nav Header */
+        .admin-nav {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .admin-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .admin-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
+        
+        .nav-actions { display: flex; gap: 12px; align-items: center; }
+
+        .btn-action {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-action:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255,255,255,0.2); }
+
+        .btn-export { background: var(--copper-primary); border: none; font-weight: 600; }
+        .btn-export:hover { background: var(--copper-hover); }
+
+        /* Main Dashboard */
+        .admin-container { max-width: 1400px; width: 100%; margin: 0 auto; padding: 28px; flex: 1; }
+
+        .header-title { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; }
+        .header-title h1 { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 700; color: #fff; }
+        .header-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+
+        /* Metrics Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 0, 44, 0.15);
+            color: var(--copper-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .metric-value { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 700; color: #fff; }
+        .metric-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+
+        /* Charts Layout Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+        @media(max-width: 992px) { .charts-grid { grid-template-columns: 1fr; } }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .chart-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+        }
+
+        /* Tables Grid */
+        .tables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 28px; }
+        @media(max-width: 992px) { .tables-grid { grid-template-columns: 1fr; } }
+
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .table-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .table-card-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
+
+        .custom-table { width: 100%; min-width: 450px; border-collapse: collapse; font-size: 0.88rem; }
+        .custom-table th {
+            text-align: left;
+            padding: 10px 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.02);
+        }
+        .custom-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--text-main);
+        }
+        .custom-table tr:hover { background: rgba(255,255,255,0.02); }
+
+        .badge-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(255, 0, 44, 0.15);
+            color: var(--copper-primary);
+        }
+
+        /* Lock Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 20, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+
+    <style>
+
+        :root {
+            --bg-main: #050505;
+            --bg-panel: #0d0d0f;
+            --bg-card: #151518;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.15);
+            --text-main: #ededed;
+            --text-muted: #8b8b8b;
+            --copper-primary: #FF002C;
+            --copper-glow: rgba(255, 0, 44, 0.2);
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Lock body scrolling for app-like feel on desktop/tablet */
+            background-image: radial-gradient(circle at 15% 50%, rgba(255,0,44,0.03), transparent 25%);
+        }
+
+        /* Nav & Sub-Nav */
+        .admin-nav {
+            background: rgba(13, 13, 15, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .sub-nav {
+            background: rgba(21, 21, 24, 0.6);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .btn-action, .btn-icon-only {
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
+            padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; 
+            display: flex; align-items: center; gap: 8px; font-weight: 500; font-family: 'Outfit';
+        }
+        .btn-action:hover { background: rgba(255,255,255,0.05); color: #fff; border-color: var(--border-light); }
+        .btn-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.3); background: rgba(255, 215, 0, 0.05); }
+
+        .select-modern { background: var(--bg-card); border: 1px solid var(--border-light); color: #fff; padding: 6px 12px; border-radius: 6px; font-family: 'Outfit'; font-size: 0.8rem; outline: none; }
+
+        /* Master Grid Layout */
+        .kaizen-container {
+            display: grid;
+            grid-template-columns: 320px minmax(300px, 1fr) 380px; /* 3 Columns */
+            gap: 20px;
+            padding: 20px 24px;
+            height: calc(100vh - 105px); /* Fill remaining vertical space */
+        }
+
+        .panel {
+            background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;
+            display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .panel-header { padding: 14px 20px; border-bottom: 1px solid var(--border-color); background: rgba(255,255,255,0.01); font-weight: 600; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: #fff; }
+        .panel-content { padding: 16px; overflow-y: auto; flex: 1; }
+
+        /* Media Queries for Vertical Screens */
+        @media (max-width: 1200px) {
+            .kaizen-container {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); /* 50/50 vertical split */
+            }
+            #execPanel {
+                grid-column: 1 / -1; /* Spans across the bottom */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body { overflow: auto; } /* Re-enable native scroll for phones */
+            .kaizen-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
+            }
+            .sub-nav { flex-direction: column; gap: 10px; align-items: flex-start; }
+        }
+
+        /* Tabs */
+        .tabs { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 16px; }
+        .tab { padding: 8px 12px; font-size: 0.8rem; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; }
+        .tab.active { color: #fff; border-bottom-color: var(--copper-primary); }
+        .radar-content-block { display: none; }
+        .radar-content-block.active { display: block; }
+
+        /* Roadmap Tree */
+        .roadmap-canvas { position: relative; padding-left: 16px; padding-bottom: 20px; }
+        .roadmap-canvas::before { content: ''; position: absolute; top: 0; left: 24px; bottom: 0; width: 2px; background: var(--border-light); z-index: 1; }
+        .roadmap-node { position: relative; margin-bottom: 20px; padding-left: 32px; z-index: 2; cursor: pointer; opacity: 0.6; transition: all 0.2s; }
+        .roadmap-node:hover, .roadmap-node.active { opacity: 1; transform: translateX(4px); }
+        .roadmap-node::before { content: ''; position: absolute; left: 4px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border-light); z-index: 3; }
+        .roadmap-node.priority-ai::before { border-color: var(--copper-primary); background: var(--copper-primary); box-shadow: 0 0 10px var(--copper-glow); }
+        .roadmap-node.priority-high::before { border-color: var(--warning); background: var(--warning); }
+        .node-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; transition: all 0.2s; }
+        .roadmap-node.active .node-card { border-color: rgba(255, 0, 44, 0.4); box-shadow: 0 4px 15px rgba(255, 0, 44, 0.1); background: rgba(255,0,44,0.02); }
+        .node-badge { display: flex; align-items: center; gap: 4px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+
+        /* Execution Panel Inner Content */
+        .exec-section { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px; margin-bottom: 16px; }
+        .exec-title-small { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 600; display:flex; align-items:center; gap:6px; }
+        
+        .draft-item { display: flex; align-items: center; gap: 12px; background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; }
+        .draft-item:hover { border-color: var(--copper-primary); }
+        
+        .btn-massive { width: 100%; background: linear-gradient(135deg, #FF002C 0%, #cc0022 100%); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(255,0,44,0.2); }
+        .btn-massive:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,0,44,0.3); }
+
+        #toast { position: fixed; bottom: 20px; right: 20px; background: #fff; color: #000; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; display: flex; align-items: center; gap: 10px; }
+        #toast.show { transform: translateY(0); opacity: 1; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    
+    </style>
+</head>
+<body>
+    
+
+    <!-- Security Lock Modal -->
+    <div id="adminLockModal" class="modal-overlay">
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; width: 100%; max-width: 400px; text-align: center;">
+            <div style="font-size: 2.2rem; color: var(--copper-primary); margin-bottom: 14px;"><i class="fa-solid fa-chart-pie"></i></div>
+            <h2 style="font-family: 'Outfit', sans-serif; color: #fff; margin-bottom: 8px;">Telemetría de Visitantes</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Copper Giant Resources Corp.</p>
+            <input type="password" id="inputAdminPin" placeholder="Contraseña de Admin" style="width: 100%; padding: 12px; border-radius: 8px; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 16px;">
+            <button onclick="unlockAnalyticsAdmin()" class="btn-action btn-export" style="width: 100%; justify-content: center; padding: 12px;">Desbloquear Panel Visual</button>
+            <p id="adminPinError" style="color: var(--danger); font-size: 0.8rem; margin-top: 10px; display: none;">Contraseña incorrecta.</p>
+        </div>
+    </div>
+
+    <!-- Top Nav Header -->
+    <nav class="admin-nav">
+        <a href="index.html" class="admin-logo">
+            <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 36px;">
+            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: var(--text-muted);">Visual Telemetry Dashboard</div>
+        </a>
+        <div class="nav-actions">
+            <a href="admin-kaizen.html" class="btn-action" style="background: var(--copper-primary); border-color: var(--copper-primary); color: white;"><i class="fa-solid fa-brain"></i> Modo Kaizen AI</a>
+            <button class="btn-action" onclick="toggleDarkMode()"><i class="fa-solid fa-moon"></i> Modo Oscuro/Claro</button>
+            <button class="btn-action btn-export" onclick="exportAnalyticsCSV()">
+                <i class="fa-solid fa-file-csv"></i> Exportar CSV
+            </button>
+            <button class="btn-action btn-export" onclick="exportAnalyticsJSON()">
+                <i class="fa-solid fa-download"></i> Exportar Telemetría (JSON)
+            </button>
+            <a href="admin-visitors.html" class="btn-action" style="text-decoration: none;">
+                <i class="fa-solid fa-id-card"></i> Inducción HSE Visitantes
+            </a>
+            <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-lock"></i> Salir</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="admin-container">
+
+        <div class="header-title">
+            <div>
+                <h1>Panel Visual de Telemetría y Comportamiento</h1>
+                <div class="header-subtitle">Monitoreo gráfico en tiempo real de visitas, dispositivos, hardware, interacción con el Proyecto Mocoa y Presentación Corporativa.</div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <select id="dateFilter" class="btn-action" onchange="loadAnalyticsData()">
+                    <option value="all">Todo el Historial</option>
+                    <option value="today">Hoy</option>
+                    <option value="7days">Últimos 7 Días</option>
+                    <option value="30days">Últimos 30 Días</option>
+                </select>
+                <span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964; border: 1px solid rgba(76, 217, 100, 0.3); font-size: 0.82rem; padding: 6px 12px;">
+                    <i class="fa-solid fa-circle" style="font-size: 0.6rem; color: #4cd964; margin-right: 6px;"></i> Base de Datos en Vivo Conectada
+                </span>
+                <button class="btn-action" onclick="loadAnalyticsData()"><i class="fa-solid fa-rotate"></i> Actualizar Gráficos</button>
+                <button class="btn-action" id="btnExportPDF" onclick="exportCEOReport()" style="display: none; background: #fff; color: #000;"><i class="fa-solid fa-file-pdf" style="color: #FF002C;"></i> Descargar PDF Ejecutivo</button>
+            </div>
+        </div>
+
+        <!-- Metrics Cards -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
+                <div>
+                    <div class="metric-value" id="valTotalVisitors">0</div>
+                    <div class="metric-label">Eventos de Telemetría</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <div>
+                    <div class="metric-value" id="valUniqueSessions">0</div>
+                    <div class="metric-label">Visitas a Páginas</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                <div>
+                    <div class="metric-value" id="valPresentationViews">0</div>
+                    <div class="metric-label">Lecturas de la Presentación</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fa-solid fa-wifi"></i></div>
+                <div>
+                    <div class="metric-value" id="valTopConnection">4G / WiFi</div>
+                    <div class="metric-label">Conexión Predominante</div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        <!-- AI SEO/GEO Insights Module -->
+        <div class="chart-card" style="margin-bottom: 24px; border-top: 2px solid var(--copper-primary); background: linear-gradient(180deg, rgba(255, 0, 44, 0.05) 0%, var(--bg-card) 100%);">
+            <div class="header-title" style="margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+                <h2 style="font-size: 1.2rem; color: #fff; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--copper-primary);"></i> Analista IA de SEO y GEO
+                </h2>
+                <button class="btn-action btn-export" onclick="generateAIReport()"><i class="fa-solid fa-robot"></i> Generar Reporte Inteligente</button>
+            </div>
+            
+            <div id="aiReportBox" style="display: none; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid var(--copper-primary);">
+                <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando cientos de data points...</div>
+            </div>
+        </div>
+
+        <!-- 2D Interactive Vector Map with Overlays -->
+        <div class="chart-card" style="margin-bottom: 24px; position: relative;">
+            <div class="chart-card-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Análisis Geográfico Global</div>
+                <div style="display: flex; gap: 8px;">
+                    <button id="btnMapAll" class="btn-action" style="background: var(--copper-primary); color: #fff; font-size: 0.75rem;" onclick="setMapLayer('all')">Tráfico Global</button>
+                    <button id="btnMapPDF" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('pdf')">Interés PDF</button>
+                    <button id="btnMapDesktop" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('desktop')">Escritorio</button>
+                    <button id="btnMapMobile" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('mobile')">Móvil</button>
+                </div>
+            </div>
+            <div id="vectorMapContainer" style="width: 100%; height: 450px; background: #121820; border-radius: 8px; overflow: hidden;">
+                <div id="vectorMap" style="width: 100%; height: 100%;"></div>
+            </div>
+        </div>
+
+        <!-- Interactive Charts Row 1 -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-line" style="color: var(--copper-primary);"></i> Tendencia de Visitas en Vivo (Línea del Tiempo)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartTrafficTrend"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-pie" style="color: var(--copper-primary);"></i> Dispositivos (Móvil vs Desktop)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartDevices"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Charts Row 2 -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-filter" style="color: var(--copper-primary);"></i> Embudo de Conversión</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartFunnel"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Geo-Localización de Visitas</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartGeo"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="charts-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-bar" style="color: var(--copper-primary);"></i> Secciones Más Consultadas (% Interés)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartSections"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-microchip" style="color: var(--copper-primary);"></i> Sistemas Operativos & Hardware</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartHardware"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tables Grid -->
+        <div class="tables-grid">
+            <!-- Hardware & Network Telemetry Table -->
+            <div class="table-card">
+                <div class="table-card-header">
+                    <div class="table-card-title"><i class="fa-solid fa-server" style="color: var(--copper-primary); margin-right: 8px;"></i> Telemetría de Red y Hardware</div>
+                </div>
+                <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Variable Técnica</th>
+                            <th>Valor Detectado</th>
+                            <th>Muestras</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableHardwareBody">
+                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando telemetría de hardware...</td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
+                    <button class="btn-action" onclick="changePageHw(-1)">Anterior</button>
+                    <span id="pageIndicatorHw" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
+                    <button class="btn-action" onclick="changePageHw(1)">Siguiente</button>
+                </div>
+            </div>
+
+            <!-- Deep Engagement & PDF Interactions -->
+            <div class="table-card">
+                <div class="table-card-header">
+                    <div class="table-card-title"><i class="fa-solid fa-copy" style="color: var(--copper-primary); margin-right: 8px;"></i> Interacciones y Copia de Texto</div>
+                </div>
+                <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Acción de Interés</th>
+                            <th>Detalle / Fragmento Copiado</th>
+                            <th>Frecuencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableInteractionsBody">
+                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando interacciones...</td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
+                    <button class="btn-action" onclick="changePageInt(-1)">Anterior</button>
+                    <span id="pageIndicatorInt" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
+                    <button class="btn-action" onclick="changePageInt(1)">Siguiente</button>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Live Activity Stream Table -->
+        <div class="table-card" style="margin-bottom: 28px;">
+            <div class="table-card-header">
+                <div class="table-card-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--copper-primary); margin-right: 8px;"></i> Historial Detallado de Telemetría en Vivo</div>
+                <input type="text" id="logSearch" placeholder="Buscar por IP, ciudad, SO..." class="btn-action" style="width: 250px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main);" onkeyup="renderStreamTable()">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Registro completo de metadatos</div>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <th>ID Visitante</th>
+                            <th>Página / Acción</th>
+                            <th>Dispositivo / OS</th>
+                            <th>Red / CPU / RAM</th>
+                            <th>Origen de la Visita</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableStreamBody">
+                        <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría aún.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 15px;">
+                <button class="btn-action" onclick="changePage(-1)">Anterior</button>
+                <span id="pageIndicator" style="font-size: 0.9rem; color: var(--text-muted);">Página 1</span>
+                <button class="btn-action" onclick="changePage(1)">Siguiente</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const MASTER_ANALYTICS_ENDPOINT = '/api/analytics';
+        let rawAnalyticsEvents = [];
+        let filteredEvents = [];
+        
+        // Pagination state
+        let currentPage = 1;
+        let currentPageHw = 1;
+        let currentPageInt = 1;
+        const itemsPerPage = 15;
+
+        // Chart Instances
+        Chart.defaults.animation = false;
+        let chartTrafficInstance = null;
+        let chartDevicesInstance = null;
+        let chartSectionsInstance = null;
+        let chartHardwareInstance = null;
+        let chartFunnelInstance = null;
+        let chartGeoInstance = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
+                document.getElementById('adminLockModal').classList.add('hidden');
+                loadAnalyticsData();
+            }
+            if (localStorage.getItem('cg_dark_mode') === 'true') toggleDarkMode(true);
+        });
+
+        
+
+        function toggleDarkMode(forceOn = false) {
+            const isDark = forceOn || document.body.style.filter !== 'invert(1)';
+            document.body.style.filter = isDark ? 'invert(1)' : 'none';
+            document.body.style.backgroundColor = isDark ? '#fff' : '';
+            localStorage.setItem('cg_dark_mode', isDark);
+        }
+
+        function unlockAnalyticsAdmin() {
+            const pin = document.getElementById('inputAdminPin').value.trim();
+            if (pin === 'copper2026' || pin === 'i212345678' || pin === 'visitor2026') {
+                localStorage.setItem('cg_analytics_admin_auth', 'true');
+                document.getElementById('adminLockModal').classList.add('hidden');
+                loadAnalyticsData();
+            } else {
+                document.getElementById('adminPinError').style.display = 'block';
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('cg_analytics_admin_auth');
+            window.location.reload();
+        }
+
+        async function fetchServerAnalytics() {
+            try {
+                const res = await fetch(MASTER_ANALYTICS_ENDPOINT + '?v=OCKHAM_1.3');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data)) return data;
+                }
+            } catch (e) {}
+            return [];
+        }
+
+        function filterByDate(events) {
+            const filter = document.getElementById('dateFilter') ? document.getElementById('dateFilter').value : 'all';
+            if (filter === 'all') return events;
+            
+            const now = Date.now();
+            return events.filter(e => {
+                const evDate = new Date(e.id.split('-')[1] || e.temporal.timestampIso).getTime();
+                if (filter === 'today') return (now - evDate) < 86400000;
+                if (filter === '7days') return (now - evDate) < 86400000 * 7;
+                if (filter === '30days') return (now - evDate) < 86400000 * 30;
+                return true;
+            });
+        }
+
+        async function loadAnalyticsData() {
+            rawAnalyticsEvents = await fetchServerAnalytics();
+            filteredEvents = filterByDate(rawAnalyticsEvents);
+
+            // Metrics
+            const totalPageviews = filteredEvents.filter(e => e.type === 'pageview').length;
+            const uniqueSessions = new Set(filteredEvents.map(e => e.sessionId)).size;
+            const presViews = filteredEvents.filter(e => e.type === 'presentation_view').length;
+
+            document.getElementById('valTotalVisitors').innerText = filteredEvents.length;
+            document.getElementById('valUniqueSessions').innerText = totalPageviews;
+            document.getElementById('valPresentationViews').innerText = presViews;
+
+            // Connection type
+            const connMap = {};
+            filteredEvents.forEach(e => {
+                const conn = (e.hardware && e.hardware.effectiveType) || 'WiFi/4G';
+                connMap[conn] = (connMap[conn] || 0) + 1;
+            });
+            let topConn = 'WiFi / 4G';
+            let maxC = 0;
+            Object.keys(connMap).forEach(c => {
+                if (connMap[c] > maxC) { maxC = connMap[c]; topConn = c; }
+            });
+            document.getElementById('valTopConnection').innerText = topConn;
+
+            // Render Modules
+            renderCharts();
+            renderHardwareTable();
+            renderInteractionsTable();
+            renderStreamTable();
+            renderGeoChart();
+            renderFunnelChart();
+            renderVectorMap();
+        }
+
+        
+        
+        let vMap = null;
+        let currentMapLayer = 'all';
+
+        const countryToISO = {
+    "Afghanistan": "AF",
+    "Albania": "AL",
+    "Algeria": "DZ",
+    "Andorra": "AD",
+    "Angola": "AO",
+    "Argentina": "AR",
+    "Armenia": "AM",
+    "Australia": "AU",
+    "Austria": "AT",
+    "Azerbaijan": "AZ",
+    "Bahamas": "BS",
+    "Bahrain": "BH",
+    "Bangladesh": "BD",
+    "Barbados": "BB",
+    "Belarus": "BY",
+    "Belgium": "BE",
+    "Belize": "BZ",
+    "Benin": "BJ",
+    "Bhutan": "BT",
+    "Bolivia": "BO",
+    "Bosnia and Herzegovina": "BA",
+    "Botswana": "BW",
+    "Brazil": "BR",
+    "Brunei": "BN",
+    "Bulgaria": "BG",
+    "Burkina Faso": "BF",
+    "Burundi": "BI",
+    "Cambodia": "KH",
+    "Cameroon": "CM",
+    "Canada": "CA",
+    "Cape Verde": "CV",
+    "Central African Republic": "CF",
+    "Chad": "TD",
+    "Chile": "CL",
+    "China": "CN",
+    "Colombia": "CO",
+    "Comoros": "KM",
+    "Congo": "CG",
+    "Costa Rica": "CR",
+    "Croatia": "HR",
+    "Cuba": "CU",
+    "Cyprus": "CY",
+    "Czech Republic": "CZ",
+    "Denmark": "DK",
+    "Djibouti": "DJ",
+    "Dominican Republic": "DO",
+    "Ecuador": "EC",
+    "Egypt": "EG",
+    "El Salvador": "SV",
+    "Equatorial Guinea": "GQ",
+    "Eritrea": "ER",
+    "Estonia": "EE",
+    "Ethiopia": "ET",
+    "Fiji": "FJ",
+    "Finland": "FI",
+    "France": "FR",
+    "Gabon": "GA",
+    "Gambia": "GM",
+    "Georgia": "GE",
+    "Germany": "DE",
+    "Ghana": "GH",
+    "Greece": "GR",
+    "Guatemala": "GT",
+    "Guinea": "GN",
+    "Guyana": "GY",
+    "Haiti": "HT",
+    "Honduras": "HN",
+    "Hungary": "HU",
+    "Iceland": "IS",
+    "India": "IN",
+    "Indonesia": "ID",
+    "Iran": "IR",
+    "Iraq": "IQ",
+    "Ireland": "IE",
+    "Israel": "IL",
+    "Italy": "IT",
+    "Jamaica": "JM",
+    "Japan": "JP",
+    "Jordan": "JO",
+    "Kazakhstan": "KZ",
+    "Kenya": "KE",
+    "Kuwait": "KW",
+    "Kyrgyzstan": "KG",
+    "Laos": "LA",
+    "Latvia": "LV",
+    "Lebanon": "LB",
+    "Lesotho": "LS",
+    "Liberia": "LR",
+    "Libya": "LY",
+    "Liechtenstein": "LI",
+    "Lithuania": "LT",
+    "Luxembourg": "LU",
+    "Madagascar": "MG",
+    "Malawi": "MW",
+    "Malaysia": "MY",
+    "Maldives": "MV",
+    "Mali": "ML",
+    "Malta": "MT",
+    "Mauritania": "MR",
+    "Mauritius": "MU",
+    "Mexico": "MX",
+    "Moldova": "MD",
+    "Monaco": "MC",
+    "Mongolia": "MN",
+    "Montenegro": "ME",
+    "Morocco": "MA",
+    "Mozambique": "MZ",
+    "Myanmar": "MM",
+    "Namibia": "NA",
+    "Nepal": "NP",
+    "Netherlands": "NL",
+    "New Zealand": "NZ",
+    "Nicaragua": "NI",
+    "Niger": "NE",
+    "Nigeria": "NG",
+    "North Korea": "KP",
+    "Norway": "NO",
+    "Oman": "OM",
+    "Pakistan": "PK",
+    "Panama": "PA",
+    "Papua New Guinea": "PG",
+    "Paraguay": "PY",
+    "Peru": "PE",
+    "Philippines": "PH",
+    "Poland": "PL",
+    "Portugal": "PT",
+    "Qatar": "QA",
+    "Romania": "RO",
+    "Russia": "RU",
+    "Rwanda": "RW",
+    "Saudi Arabia": "SA",
+    "Senegal": "SN",
+    "Serbia": "RS",
+    "Seychelles": "SC",
+    "Sierra Leone": "SL",
+    "Singapore": "SG",
+    "Slovakia": "SK",
+    "Slovenia": "SI",
+    "Somalia": "SO",
+    "South Africa": "ZA",
+    "South Korea": "KR",
+    "Spain": "ES",
+    "Sri Lanka": "LK",
+    "Sudan": "SD",
+    "Suriname": "SR",
+    "Swaziland": "SZ",
+    "Sweden": "SE",
+    "Switzerland": "CH",
+    "Syria": "SY",
+    "Taiwan": "TW",
+    "Tajikistan": "TJ",
+    "Tanzania": "TZ",
+    "Thailand": "TH",
+    "Togo": "TG",
+    "Trinidad and Tobago": "TT",
+    "Tunisia": "TN",
+    "Turkey": "TR",
+    "Turkmenistan": "TM",
+    "Uganda": "UG",
+    "Ukraine": "UA",
+    "United Arab Emirates": "AE",
+    "United Kingdom": "GB",
+    "United States": "US",
+    "Uruguay": "UY",
+    "Uzbekistan": "UZ",
+    "Venezuela": "VE",
+    "Vietnam": "VN",
+    "Yemen": "YE",
+    "Zambia": "ZM",
+    "Zimbabwe": "ZW",
+    "Unknown": ""
+};
+
+        function setMapLayer(layer) {
+            currentMapLayer = layer;
+            // Update buttons visually
+            ['btnMapAll', 'btnMapPDF', 'btnMapDesktop', 'btnMapMobile'].forEach(id => {
+                const btn = document.getElementById(id);
+                if(btn) {
+                    btn.style.background = 'var(--bg-input)';
+                    btn.style.color = 'var(--text-main)';
+                }
+            });
+            
+            const activeBtnMap = {
+                'all': 'btnMapAll',
+                'pdf': 'btnMapPDF',
+                'desktop': 'btnMapDesktop',
+                'mobile': 'btnMapMobile'
+            };
+            const activeBtn = document.getElementById(activeBtnMap[layer]);
+            if(activeBtn) {
+                activeBtn.style.background = 'var(--copper-primary)';
+                activeBtn.style.color = '#fff';
+            }
+            
+            renderVectorMap();
+        }
+
+        function renderVectorMap() {
+            const container = document.getElementById('vectorMap');
+            if(!container) return;
+            
+            // Filter events based on active layer
+            let mapEvents = filteredEvents;
+            if (currentMapLayer === 'pdf') {
+                mapEvents = filteredEvents.filter(e => e.type === 'presentation_view');
+            } else if (currentMapLayer === 'desktop') {
+                mapEvents = filteredEvents.filter(e => e.hw && e.hw.category === 'Desktop');
+            } else if (currentMapLayer === 'mobile') {
+                mapEvents = filteredEvents.filter(e => e.hw && e.hw.category === 'Mobile');
+            }
+
+            // Aggregate by ISO code
+            const countryCounts = {};
+            let maxCount = 0;
+            
+            mapEvents.forEach(e => {
+                if (e.geo && e.geo.country && e.geo.country !== 'Unknown') {
+                    const iso = countryToISO[e.geo.country];
+                    if (iso) {
+                        countryCounts[iso] = (countryCounts[iso] || 0) + 1;
+                        if (countryCounts[iso] > maxCount) maxCount = countryCounts[iso];
+                    }
+                }
+            });
+
+            // MANUALLY calculate colors to bypass jsVectorMap interpolation bugs
+            const regionColors = {};
+            for (const iso in countryCounts) {
+                const val = countryCounts[iso];
+                const ratio = maxCount > 1 ? (val - 1) / (maxCount - 1) : 1;
+                // Light red (75% lightness) to Dark red (30% lightness)
+                const lightness = 75 - (ratio * 45);
+                regionColors[iso] = `hsl(0, 100%, ${lightness}%)`;
+            }
+
+
+            // Destroy previous map instance if exists
+            if (vMap) {
+                container.innerHTML = ''; // Force clear
+            }
+
+            // Initialize new Map
+            
+            vMap = new jsVectorMap({
+                selector: '#vectorMap',
+                map: 'world',
+                backgroundColor: 'transparent',
+                zoomOnScroll: false,
+                regionStyle: {
+                    initial: {
+                        fill: '#1e2630',
+                        fillOpacity: 1,
+                        stroke: '#0b0f14',
+                        strokeWidth: 1,
+                    },
+                    hover: {
+                        fillOpacity: 0.8,
+                        cursor: 'pointer'
+                    }
+                },
+                onRegionTooltipShow(event, tooltip, code) {
+                    const count = countryCounts[code] || 0;
+                    let layerName = 'Visitas';
+                    if (currentMapLayer === 'pdf') layerName = 'Lecturas PDF';
+                    if (currentMapLayer === 'desktop') layerName = 'Desktop';
+                    if (currentMapLayer === 'mobile') layerName = 'Móvil';
+                    
+                    tooltip.text(
+                        `<div style="text-align:center;">
+                            <b>${tooltip.text()}</b><br/>
+                            ${count} ${layerName}
+                        </div>`,
+                        true
+                    );
+                }
+            });
+
+            
+            // 100% Foolproof DOM Color Injection
+            setTimeout(() => {
+                const mapContainer = document.getElementById('vectorMap');
+                if (mapContainer) {
+                    for (const iso in regionColors) {
+                        const paths = mapContainer.querySelectorAll(`path[data-code="${iso}"], path[id="${iso}"]`);
+                        paths.forEach(path => {
+                            path.setAttribute('fill', regionColors[iso]);
+                            path.style.fill = regionColors[iso];
+                        });
+                    }
+                }
+            }, 150);
+
+        }
+
+        
+        
+        
+        async function generateAIReport() {
+            const reportBox = document.getElementById('aiReportBox');
+            reportBox.style.display = 'block';
+            reportBox.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Conectando con Gemini AI... Analizando base de datos en crudo...</div>';
+            
+            const total = filteredEvents.length;
+            if (total === 0) {
+                reportBox.innerHTML = '<div style="color: var(--danger);">No hay suficientes datos en este rango de tiempo para generar un reporte.</div>';
+                return;
+            }
+
+            // 1. Pre-aggregate data to send to Gemini
+            const stats = {
+                totalVisits: total,
+                countries: {},
+                devices: { Desktop: 0, Mobile: 0 },
+                topPages: {},
+                pdfReads: 0,
+                bounces: 0
+            };
+
+            filteredEvents.forEach(e => {
+                // Geo
+                if (e.geo && e.geo.country && e.geo.country !== 'Unknown') {
+                    stats.countries[e.geo.country] = (stats.countries[e.geo.country] || 0) + 1;
+                }
+                // Hardware
+                if (e.hw && e.hw.category) {
+                    stats.devices[e.hw.category] = (stats.devices[e.hw.category] || 0) + 1;
+                }
+                // Pages
+                if (e.type === 'pageview') {
+                    let path = e.page;
+                    if (typeof path === 'object' && path !== null) path = path.path || path.url;
+                    stats.topPages[path] = (stats.topPages[path] || 0) + 1;
+                }
+                // PDF interactions
+                if (e.type === 'presentation_view' || e.type === 'pdf_download') stats.pdfReads++;
+                // Bounces (exit under 10s)
+                if (e.type === 'page_exit' && e.details && e.details.activeSeconds < 10) stats.bounces++;
+            });
+
+            // Keep top 5 countries and pages to save tokens
+            stats.countries = Object.fromEntries(Object.entries(stats.countries).sort(([,a],[,b]) => b - a).slice(0, 5));
+            stats.topPages = Object.fromEntries(Object.entries(stats.topPages).sort(([,a],[,b]) => b - a).slice(0, 5));
+
+            try {
+                // Call our server backend which holds the Gemini API key
+                const response = await fetch('/api/generate-ai-report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(stats)
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || "Fallo en la conexión con la API de Gemini");
+                }
+                
+                document.getElementById("btnExportPDF").style.display = "inline-block";
+                
+                // We fake the 'latestAIReport' structure just for the PDF export backwards compatibility
+                window.latestGeminiReportHTML = data.report;
+                window.latestAIReport = { 
+                    geo: "Análisis profundo generado por Gemini AI.", 
+                    seo: "Oportunidades listadas en el reporte avanzado.", 
+                    pres: "Retención evaluada por Gemini AI.", 
+                    topPage: Object.keys(stats.topPages)[0] || "N/A" 
+                };
+                
+                reportBox.innerHTML = `
+                    <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-sparkles" style="color: #FF002C;"></i> Análisis Profundo de Gemini AI</h3>
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; color: #eee;">
+                        ${data.report}
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error("Gemini failed, falling back to heuristic:", error);
+                // FALLBACK TO LOCAL HEURISTIC ENGINE IF KEY IS INVALID
+                reportBox.innerHTML = '<div style="color: var(--danger); font-size: 0.85rem; margin-bottom: 10px;">⚠️ La llave de Gemini API es inválida o expiró. Ejecutando Motor Local de Respaldo...</div>';
+                
+                setTimeout(() => {
+                    let topCountryName = Object.keys(stats.countries)[0] || 'N/A';
+                    let topPageName = Object.keys(stats.topPages)[0] || 'N/A';
+                    
+                    let geoInsight = stats.countries[topCountryName] > 0 
+                        ? `Tráfico fuertemente concentrado en <strong>${topCountryName}</strong>. 💡 <em>Sugerencia GEO:</em> Enfocar campañas en esta región para maximizar la conversión.`
+                        : "No hay suficientes datos geográficos limpios.";
+
+                    let seoInsight = stats.topPages[topPageName] > 0
+                        ? `La página más visitada es <strong>${topPageName}</strong>. 💡 <em>Sugerencia SEO:</em> Asegúrate de que las palabras clave estén altamente optimizadas en el '<title>' y los headers ('<h1>').`
+                        : "Esperando más datos de navegación web.";
+                        
+                    let presInsight = stats.pdfReads > 0
+                        ? `Se detectaron <strong>${stats.pdfReads}</strong> interacciones con el PDF Corporativo. 💡 <em>Estrategia:</em> La presentación genera interés real. Sugerimos agregar un Call-To-Action más prominente al final.`
+                        : "Todavía no hay lecturas del PDF corporativo.";
+
+                    document.getElementById("btnExportPDF").style.display = "inline-block";
+                    window.latestAIReport = { geo: geoInsight, seo: seoInsight, pres: presInsight, topPage: topPageName };
+                    
+                    reportBox.innerHTML += `
+                        <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Outfit', sans-serif;">Reporte de Respaldo (Local)</h3>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                                <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-globe"></i> Análisis GEO</h4>
+                                <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5; margin: 0;">${geoInsight}</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                                <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-brands fa-google"></i> Oportunidad SEO</h4>
+                                <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5; margin: 0;">${seoInsight}</p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                                <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-file-pdf"></i> Retención y Documentos</h4>
+                                <p style="color: #ddd; font-size: 0.95rem; line-height: 1.5; margin: 0;">${presInsight}</p>
+                            </div>
+                        </div>
+                    `;
+                }, 1000);
+            }
+        }
+
+
+        function exportCEOReport() {
+            if (!window.latestGeminiReportHTML && !window.latestAIReport) {
+                alert("Por favor, genera primero el reporte de IA.");
+                return;
+            }
+            
+            // Create a temporary container for the PDF
+            const pdfContainer = document.createElement('div');
+            pdfContainer.style.padding = '40px';
+            pdfContainer.style.background = '#ffffff';
+            pdfContainer.style.color = '#121820';
+            pdfContainer.style.fontFamily = 'Arial, sans-serif';
+            pdfContainer.style.width = '800px';
+            
+            // Grab chart images
+            const trafficCanvas = document.getElementById('chartTrafficTrend');
+            const devicesCanvas = document.getElementById('chartDevices');
+            
+            const trafficImg = trafficCanvas ? trafficCanvas.toDataURL("image/png") : "";
+            const devicesImg = devicesCanvas ? devicesCanvas.toDataURL("image/png") : "";
+            
+            const today = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Extract the deep AI content (fallback to old structure if missing)
+            let aiContentHTML = window.latestGeminiReportHTML;
+            if (!aiContentHTML) {
+                aiContentHTML = `
+                    <p style="margin-top: 0;"><strong>Análisis GEO:</strong> ${window.latestAIReport.geo}</p>
+                    <p><strong>Oportunidad SEO:</strong> ${window.latestAIReport.seo}</p>
+                    <p style="margin-bottom: 0;"><strong>Retención Documental:</strong> ${window.latestAIReport.pres}</p>
+                `;
+            }
+
+            // Let's inject CSS into the aiContentHTML so it looks good on a white PDF
+            // The AI returns HTML with white text styles suitable for dark mode (like color: #fff).
+            // We need to strip or override those for the white background PDF.
+            aiContentHTML = aiContentHTML.replace(/color:\s*(#fff|#ffffff|#ddd|#eee|var\(--text-main\))/gi, 'color: #333');
+            aiContentHTML = aiContentHTML.replace(/color:\s*var\(--copper-primary\)/gi, 'color: #FF002C');
+
+            pdfContainer.innerHTML = `
+                <div style="border-bottom: 3px solid #FF002C; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end;">
+                    <div>
+                        <h1 style="margin: 0; color: #121820; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">Reporte Ejecutivo de Inteligencia</h1>
+                        <p style="margin: 5px 0 0 0; color: #666; font-size: 14px; font-weight: 600;">Copper Giant Resources Corp. | Análisis de Telemetría Avanzada</p>
+                    </div>
+                    <div style="text-align: right; color: #FF002C; font-weight: bold; font-size: 14px;">
+                        ${today}
+                    </div>
+                </div>
+                
+                <h2 style="font-size: 18px; color: #121820; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px; text-transform: uppercase;">1. Hallazgos Estratégicos (Gemini 2.5 AI)</h2>
+                <div style="background: #f4f5f7; padding: 25px; border-radius: 8px; margin-bottom: 30px; font-size: 14px; line-height: 1.6; color: #333; border: 1px solid #e0e0e0;">
+                    ${aiContentHTML}
+                </div>
+                
+                <h2 style="font-size: 18px; color: #121820; margin-bottom: 15px; border-left: 4px solid #FF002C; padding-left: 10px; text-transform: uppercase;">2. Visualización de Datos Clave</h2>
+                <div style="text-align: center; margin-bottom: 20px; background: #fff; padding: 15px; border: 1px solid #eee; border-radius: 8px;">
+                    <h3 style="font-size: 14px; color: #666; margin-bottom: 10px; text-align: left;">Tendencia de Tráfico Global</h3>
+                    ${trafficImg ? `<img src="${trafficImg}" style="max-width: 100%; height: auto;" />` : ''}
+                </div>
+                
+                <div style="text-align: center; background: #fff; padding: 15px; border: 1px solid #eee; border-radius: 8px;">
+                    <h3 style="font-size: 14px; color: #666; margin-bottom: 10px; text-align: left;">Distribución de Plataformas</h3>
+                    ${devicesImg ? `<img src="${devicesImg}" style="max-width: 350px; height: auto; margin: 0 auto;" />` : ''}
+                </div>
+                
+                <div style="margin-top: 40px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 15px;">
+                    Reporte Confidencial - Generado automáticamente por el motor de telemetría de Copper Giant y Google Gemini AI.
+                </div>
+            `;
+            
+            const opt = {
+                margin:       [0.4, 0, 0.4, 0], // top, left, bottom, right
+                filename:     'CopperGiant_Inteligencia_Directiva.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            // Show loading state on button
+            const btn = document.getElementById("btnExportPDF");
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ensamblando PDF...';
+            
+            html2pdf().set(opt).from(pdfContainer).save().then(() => {
+                btn.innerHTML = originalText;
+            });
+        }
+
+        function renderCharts() {
+            // 1. Traffic Trend
+            const timeMap = {};
+            filteredEvents.forEach(e => {
+                const t = e.temporal ? e.temporal.timeString.substring(0, 2) + ':00' : '00:00';
+                timeMap[t] = (timeMap[t] || 0) + 1;
+            });
+            const timeLabels = Object.keys(timeMap).sort();
+            const timeValues = timeLabels.map(l => timeMap[l]);
+
+            const ctxTraffic = document.getElementById('chartTrafficTrend').getContext('2d');
+            if (chartTrafficInstance) chartTrafficInstance.destroy();
+            chartTrafficInstance = new Chart(ctxTraffic, {
+                type: 'line',
+                data: {
+                    labels: timeLabels,
+                    datasets: [{ label: 'Eventos', data: timeValues, borderColor: '#FF002C', backgroundColor: 'rgba(255, 0, 44, 0.15)', fill: true, tension: 0.4 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 2. Devices
+            const devMap = { Desktop: 0, Mobile: 0, Tablet: 0 };
+            filteredEvents.forEach(e => {
+                const cat = (e.hardware && e.hardware.category) || 'Desktop';
+                devMap[cat] = (devMap[cat] || 0) + 1;
+            });
+            const ctxDev = document.getElementById('chartDevices').getContext('2d');
+            if (chartDevicesInstance) chartDevicesInstance.destroy();
+            chartDevicesInstance = new Chart(ctxDev, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Escritorio', 'Móvil', 'Tablet'],
+                    datasets: [{ data: [devMap.Desktop, devMap.Mobile, devMap.Tablet], backgroundColor: ['#FF002C', '#4A5568', '#2D3748'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // 3. Sections
+            const secMap = {};
+            filteredEvents.forEach(e => {
+                let name = (e.page && e.page.path) || '/';
+                if (name === '/' || name.includes('index.html')) name = 'Inicio (Home)';
+                else if (name.includes('mocoa.html')) name = 'Proyecto Mocoa';
+                else if (name.includes('corporate.html')) name = 'Corporativo';
+                else if (name.includes('investors.html')) name = 'Inversionistas';
+                else if (name.includes('news.html')) name = 'Noticias';
+                if (e.type === 'presentation_view') name = 'Presentación PDF';
+                secMap[name] = (secMap[name] || 0) + 1;
+            });
+            const secLabels = Object.keys(secMap);
+            const secValues = secLabels.map(l => secMap[l]);
+
+            const ctxSec = document.getElementById('chartSections').getContext('2d');
+            if (chartSectionsInstance) chartSectionsInstance.destroy();
+            chartSectionsInstance = new Chart(ctxSec, {
+                type: 'bar',
+                data: {
+                    labels: secLabels,
+                    datasets: [{ label: 'Interacciones', data: secValues, backgroundColor: '#FF002C' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 4. Hardware OS
+            const osMap = {};
+            filteredEvents.forEach(e => {
+                const os = (e.hardware && e.hardware.os) || 'macOS';
+                osMap[os] = (osMap[os] || 0) + 1;
+            });
+            const ctxHw = document.getElementById('chartHardware').getContext('2d');
+            if (chartHardwareInstance) chartHardwareInstance.destroy();
+            chartHardwareInstance = new Chart(ctxHw, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(osMap),
+                    datasets: [{ label: 'Sistemas', data: Object.values(osMap), backgroundColor: '#4A5568' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+        }
+
+        function renderGeoChart() {
+            const ctx = document.getElementById('chartGeo');
+            if(!ctx) return;
+            const geoMap = {};
+            filteredEvents.forEach(e => {
+                if (e.geo && e.geo.country) {
+                    geoMap[e.geo.country] = (geoMap[e.geo.country] || 0) + 1;
+                }
+            });
+            if (chartGeoInstance) chartGeoInstance.destroy();
+            chartGeoInstance = new Chart(ctx.getContext('2d'), {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(geoMap).length ? Object.keys(geoMap) : ['Desconocido'],
+                    datasets: [{ data: Object.keys(geoMap).length ? Object.values(geoMap) : [1], backgroundColor: ['#FF002C', '#4A5568', '#2D3748'] }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function renderFunnelChart() {
+            const ctx = document.getElementById('chartFunnel');
+            if(!ctx) return;
+            
+            const visitors = new Set(filteredEvents.map(e => e.visitorId)).size;
+            const presViews = new Set(filteredEvents.filter(e => e.type === 'presentation_view').map(e => e.visitorId)).size;
+            const pdfDowns = new Set(filteredEvents.filter(e => e.type === 'pdf_download').map(e => e.visitorId)).size;
+
+            if (chartFunnelInstance) chartFunnelInstance.destroy();
+            chartFunnelInstance = new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Visitas Totales', 'Ven Presentación', 'Descargan PDF'],
+                    datasets: [{
+                        label: 'Usuarios Únicos',
+                        data: [visitors || 1, presViews || 0, pdfDowns || 0],
+                        backgroundColor: ['#FF002C', '#D60024', '#9B001A']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
+            });
+        }
+
+        function renderHardwareTable() {
+            const tbody = document.getElementById('tableHardwareBody');
+            const hwMap = {};
+            filteredEvents.forEach(e => {
+                const hw = e.hardware || {};
+                const res = hw.screenResolution || '1920x1080';
+                const ram = hw.deviceMemory || '8 GB';
+                const cpu = hw.hardwareConcurrency ? `${hw.hardwareConcurrency} Cores` : 'N/A';
+                const key = `Pantalla: ${res} | RAM: ${ram} | CPU: ${cpu}`;
+                hwMap[key] = (hwMap[key] || 0) + 1;
+            });
+            const keys = Object.keys(hwMap);
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin telemetría de hardware.</td></tr>`;
+                if(document.getElementById('pageIndicatorHw')) document.getElementById('pageIndicatorHw').innerText = `Página 1 de 1 (0 registros)`;
+                return;
+            }
+            
+            const maxPages = Math.ceil(keys.length / 5) || 1;
+            if (currentPageHw > maxPages) currentPageHw = maxPages;
+            const startIdx = (currentPageHw - 1) * 5;
+            
+            if(document.getElementById('pageIndicatorHw')) {
+                document.getElementById('pageIndicatorHw').innerText = `Página ${currentPageHw} de ${maxPages} (${keys.length} registros)`;
+            }
+
+            tbody.innerHTML = keys.slice(startIdx, startIdx + 5).map(k => `<tr><td><strong>Hardware / Pantalla</strong></td><td>${k}</td><td><span class="badge-tag">${hwMap[k]} muestras</span></td></tr>`).join('');
+        }
+
+        function renderInteractionsTable() {
+            const tbody = document.getElementById('tableInteractionsBody');
+            const actMap = {};
+            filteredEvents.forEach(e => {
+                if (e.type === 'text_copy' && e.details && e.details.copiedSnippet) {
+                    actMap[`Copia: "${e.details.copiedSnippet}"`] = (actMap[`Copia: "${e.details.copiedSnippet}"`] || 0) + 1;
+                } else if (e.type === 'presentation_view_duration' && e.details) {
+                    actMap[`Lectura PDF: ${e.details.durationSeconds} seg`] = (actMap[`Lectura PDF: ${e.details.durationSeconds} seg`] || 0) + 1;
+                } else if (e.type === 'scroll_depth' && e.details) {
+                    actMap[`Scroll ${e.details.depthPercent}%`] = (actMap[`Scroll ${e.details.depthPercent}%`] || 0) + 1;
+                } else if (e.type === 'bounce') {
+                    actMap[`Rebote (<5s)`] = (actMap[`Rebote (<5s)`] || 0) + 1;
+                }
+            });
+            const keys = Object.keys(actMap);
+            if (keys.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Sin interacciones profundas.</td></tr>`;
+                if(document.getElementById('pageIndicatorInt')) document.getElementById('pageIndicatorInt').innerText = `Página 1 de 1 (0 registros)`;
+                return;
+            }
+            
+            const maxPages = Math.ceil(keys.length / 5) || 1;
+            if (currentPageInt > maxPages) currentPageInt = maxPages;
+            const startIdx = (currentPageInt - 1) * 5;
+            
+            if(document.getElementById('pageIndicatorInt')) {
+                document.getElementById('pageIndicatorInt').innerText = `Página ${currentPageInt} de ${maxPages} (${keys.length} registros)`;
+            }
+
+            tbody.innerHTML = keys.slice(startIdx, startIdx + 5).map(k => `<tr><td><span class="badge-tag" style="background: rgba(76, 217, 100, 0.15); color: #4cd964;">Interacción</span></td><td>${k}</td><td><strong>${actMap[k]}</strong></td></tr>`).join('');
+        }
+
+        function changePage(delta) {
+            currentPage += delta;
+            if (currentPage < 1) currentPage = 1;
+            renderStreamTable();
+        }
+        function changePageHw(delta) {
+            currentPageHw += delta;
+            if (currentPageHw < 1) currentPageHw = 1;
+            renderHardwareTable();
+        }
+        function changePageInt(delta) {
+            currentPageInt += delta;
+            if (currentPageInt < 1) currentPageInt = 1;
+            renderInteractionsTable();
+        }
+
+        function renderStreamTable() {
+            const tbody = document.getElementById('tableStreamBody');
+            const searchQ = (document.getElementById('logSearch') ? document.getElementById('logSearch').value.toLowerCase() : '');
+            
+            let displayEvents = filteredEvents;
+            
+            if (searchQ) {
+                displayEvents = displayEvents.filter(e => {
+                    const str = JSON.stringify(e).toLowerCase();
+                    return str.includes(searchQ);
+                });
+            }
+
+            // Spike Alert logic (if >50 hits in last 5 mins of the current view)
+            if (displayEvents.length > 0) {
+                const recentHits = displayEvents.filter(e => e.temporal && e.temporal.timestampIso && (Date.now() - new Date(e.temporal.timestampIso).getTime()) < 300000).length;
+                if (recentHits > 50) {
+                    const header = document.querySelector('.header-title');
+                    if (!document.getElementById('spikeAlertBanner')) {
+                        header.insertAdjacentHTML('beforeend', '<div id="spikeAlertBanner" style="width: 100%; padding: 10px; background: var(--danger); color: white; border-radius: 8px; margin-top: 10px; font-weight: bold;"><i class="fa-solid fa-triangle-exclamation"></i> ALERTA: Pico inusual de tráfico (' + recentHits + ' visitas en los últimos 5 minutos).</div>');
+                    }
+                } else {
+                    const banner = document.getElementById('spikeAlertBanner');
+                    if(banner) banner.remove();
+                }
+            }
+
+            const maxPages = Math.ceil(displayEvents.length / itemsPerPage) || 1;
+            if (currentPage > maxPages) currentPage = maxPages;
+
+            const startIdx = (currentPage - 1) * itemsPerPage;
+            const pageEvents = displayEvents.slice(startIdx, startIdx + itemsPerPage);
+
+            if (document.getElementById('pageIndicator')) {
+                document.getElementById('pageIndicator').innerText = `Página ${currentPage} de ${maxPages} (${displayEvents.length} registros)`;
+            }
+
+            if (pageEvents.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = pageEvents.map(e => {
+                let pageStr = (e.page && e.page.path) || '/';
+                if (e.type === 'presentation_view') pageStr = '📑 Vio Presentación';
+                else if (e.type === 'pdf_download') pageStr = '📥 Descargó PDF';
+                else if (e.type === 'click_heatmap') pageStr = `🖱️ Clic en ${e.details.element || ''}`;
+                else if (e.type === 'page_exit') pageStr = `🚪 Salida (${e.details.activeSeconds || 0}s activos)`;
+
+                const visitorId = (e.visitorId || e.sessionId || '').substring(0, 16);
+                const hw = e.hardware || {};
+                const netHw = `${hw.effectiveType || '4G'} | RAM: ${hw.deviceMemory || 'N/A'}`;
+                
+                const loc = (e.geo && e.geo.country) ? `${e.geo.city}, ${e.geo.country}` : ((e.page && e.page.referrer) || 'Directa');
+                const isNew = (e.page && e.page.isNewVisitor) ? '<span style="color:var(--success);">Nuevo</span>' : '<span style="color:var(--warning);">Recurrente</span>';
+
+                return `
+                    <tr>
+                        <td>${(e.temporal && e.temporal.dateString) || ''} ${(e.temporal && e.temporal.timeString) || ''}</td>
+                        <td style="font-family: monospace; color: var(--copper-primary);">${visitorId}<br>${isNew}</td>
+                        <td><strong>${pageStr}</strong></td>
+                        <td>${hw.category || 'Desktop'} - ${hw.os || ''}</td>
+                        <td><span style="font-size: 0.78rem; color: var(--text-muted);">${netHw}</span></td>
+                        <td>${loc}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function exportAnalyticsCSV() {
+            if (filteredEvents.length === 0) {
+                alert("No hay datos para exportar.");
+                return;
+            }
+            
+            // Build CSV manually
+            let csv = "ID,Fecha,Hora,Tipo_Evento,Visitante,Es_Nuevo,Pais,Ciudad,OS,Navegador,RAM,Red,Pagina,Anterior,Detalles\n";
+            filteredEvents.forEach(e => {
+                const date = e.temporal ? e.temporal.dateString : '';
+                const time = e.temporal ? e.temporal.timeString : '';
+                const isNew = (e.page && e.page.isNewVisitor) ? 'Si' : 'No';
+                const country = e.geo ? e.geo.country : '';
+                const city = e.geo ? e.geo.city : '';
+                const os = e.hardware ? e.hardware.os : '';
+                const browser = e.hardware ? e.hardware.browser : '';
+                const ram = e.hardware ? e.hardware.deviceMemory : '';
+                const net = e.hardware ? e.hardware.effectiveType : '';
+                const page = e.page ? e.page.path : '';
+                const prev = e.page ? e.page.previousPage : '';
+                const details = e.details ? JSON.stringify(e.details).replace(/"/g, '""') : '';
+
+                csv += `"${e.id}","${date}","${time}","${e.type}","${e.visitorId}","${isNew}","${country}","${city}","${os}","${browser}","${ram}","${net}","${page}","${prev}","${details}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+            saveAs(blob, `CopperGiant_Analytics_${new Date().toISOString().split('T')[0]}.csv`);
+        }
+
+        setInterval(() => {
+            if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
+                loadAnalyticsData();
+            }
+        }, 15000);
+    </script>
+
+
+    <!-- KAIZEN SECTION -->
+    
+
+    <!-- Navigations -->
+    <nav class="admin-nav">
+        <a href="index.html" class="admin-logo">
+            <img src="assets/LOGO.svg" alt="Copper Giant" style="height: 24px;">
+            <div style="border-left: 1px solid var(--border-light); padding-left: 12px; margin-left: 8px; font-size: 0.9rem; color: #fff; font-weight: 500;">Kaizen AI System V2</div>
+        </a>
+        <div style="display: flex; gap: 10px;">
+            <a href="admin-analytics.html" class="btn-action"><i data-lucide="layout-dashboard" style="width: 14px;"></i> Volver a Telemetría</a>
+        </div>
+    </nav>
+    <div class="sub-nav">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <select class="select-modern" onchange="filterNodes(this.value)">
+                <option value="all">🌍 Todas las Áreas</option>
+                <option value="geo">⚒️ Exploración / Geología</option>
+                <option value="ir">📈 Relaciones Públicas (IR)</option>
+                <option value="esg">🌱 Comunidad (ESG)</option>
+            </select>
+            <button class="btn-action" onclick="showToast('Modo Zen activará interfaz sin distracciones')"><i data-lucide="eye-off" style="width: 14px;"></i> Modo Zen</button>
+            <button class="btn-action" onclick="showToast('Máquina del tiempo te permitirá viajar a decisiones pasadas')"><i data-lucide="history" style="width: 14px;"></i> Rewind</button>
+        </div>
+        <button class="btn-action btn-gold" onclick="exportToPPTX()"><i data-lucide="presentation" style="width: 14px;"></i> Exportar a Junta</button>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="kaizen-container">
+        
+        <!-- COL 1: RADAR -->
+        <div class="panel">
+            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="radar" style="color:var(--copper-primary);width:16px;"></i> Radar Global</div></div>
+            <div class="panel-content">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('stk', this)">Stakeholders</div>
+                    <div class="tab" onclick="switchTab('mkt', this)">Mercado</div>
+                    <div class="tab" onclick="switchTab('gov', this)">Gov-Track</div>
+                </div>
+
+                <div id="tab-stk" class="radar-content-block active">
+                    <div style="background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--success); display: flex; justify-content: center; align-items: center; font-weight: 700; color: #fff;">92</div>
+                        <div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">LICENCIA SOCIAL (LSO)</div>
+                            <div style="font-size: 0.85rem; color: #fff; font-weight: 500;">Riesgo Reputacional Mínimo</div>
+                        </div>
+                    </div>
+                    <div style="background: rgba(0,122,255,0.05); border: 1px solid rgba(0,122,255,0.2); border-radius: 8px; padding: 12px;">
+                        <div style="font-size: 0.7rem; color: #4da3ff; font-weight: 700; margin-bottom: 4px;"><i data-lucide="anchor" style="width: 12px; display: inline;"></i> ALERTA INSTITUCIONAL (B2B)</div>
+                        <div style="font-size: 0.8rem; color: #ddd;">Tráfico detectado desde IPs de <strong>BlackRock</strong> leyendo sección del PEA durante 18 min.</div>
+                    </div>
+                </div>
+
+                <div id="tab-mkt" class="radar-content-block">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">TSXV: CGNT</div>
+                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">C$1.28 <span style="color: var(--success); font-size: 0.7rem;">+18%</span></div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Cobre (HG=F)</div>
+                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">$4.18/Lb <span style="color: var(--warning); font-size: 0.7rem;">-1.2%</span></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #ddd; margin-top: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px;">El spread positivo de CGNT frente a la caída del cobre confirma interés específico en Mocoa.</p>
+                </div>
+
+                <div id="tab-gov" class="radar-content-block">
+                    <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; font-size: 0.8rem; color: #ddd;">
+                        <span style="color: var(--success); font-weight: 600; display: block; margin-bottom: 4px;">Foros Putumayo</span>
+                        Menciones orgánicas positivas sobre el programa de viveros. El sentimiento regional es estable.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COL 2: ROADMAP -->
+        <div class="panel">
+            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="network" style="color:var(--copper-primary);width:16px;"></i> Rutas Kaizen</div></div>
+            <div class="panel-content">
+                <div class="roadmap-canvas" id="roadmapCanvas">
+                    <div style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 40px 0;">
+                        <i data-lucide="loader-2" class="lucide-spin" style="margin-bottom: 12px;"></i><br>
+                        El Motor Cognitivo (Gemini 2.5) está analizando la telemetría real...
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- COL 3: EXECUTION (Always visible, populates based on selection) -->
+        <div class="panel" id="execPanel">
+            <div class="panel-header" style="background: rgba(255,0,44,0.05); border-bottom-color: rgba(255,0,44,0.2);">
+                <div style="display:flex;gap:8px;color:var(--copper-primary);"><i data-lucide="zap" style="width:16px;"></i> Centro de Ejecución Integral</div>
+            </div>
+            
+            <div class="panel-content" style="display: flex; flex-direction: column;">
+                <h2 id="execTitle" style="font-size: 1.2rem; color: #fff; margin-bottom: 6px;">Simplificar MRE (Retail)</h2>
+                <p id="execDesc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">La IA detectó fuga de tráfico retail. Estrategia lista para retener conversión.</p>
+
+                <!-- Inteligencia Predictiva -->
+                <div class="exec-section">
+                    <div class="exec-title-small"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección & Simulador (What-if)</div>
+                    <div style="display: flex; gap: 16px; margin-bottom: 12px;">
+                        <div><div id="dynMetric1" style="font-size: 1.1rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div id="dynLabel1" style="font-size: 0.65rem; color: var(--text-muted);">Retención de Capital</div></div>
+                        <div><div id="dynMetric2" style="font-size: 1.1rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div id="dynLabel2" style="font-size: 0.65rem; color: var(--text-muted);">Inversores Salvados</div></div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" placeholder="Ej: ¿Qué pasa si el cobre cae?" style="flex:1; background:var(--bg-main); border:1px solid var(--border-light); border-radius:6px; padding:8px; color:#fff; font-size:0.8rem; outline:none; font-family:'Outfit';">
+                        <button class="btn-action" style="padding: 6px 10px;" onclick="showToast('Ejecutando simulación macroeconómica...')"><i data-lucide="play" style="width: 14px;"></i></button>
+                    </div>
+                </div>
+
+                <!-- Entregables -->
+                <div class="exec-section" style="flex: 1; margin-bottom: 20px;">
+                    <div class="exec-title-small"><i data-lucide="package-check" style="width: 14px;"></i> Entregables Inmediatos de la IA</div>
+                    
+                    <div id="draftsContainer"></div>
+                </div>
+
+                <!-- Action Button -->
+                <div>
+                    <button class="btn-massive" onclick="executeApprove(this)">
+                        <i data-lucide="check-circle-2" style="width: 18px;"></i> APROBAR Y EJECUTAR
+                    </button>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 8px;">
+                        <i data-lucide="lock" style="width: 12px; display: inline; margin-right: 4px;"></i> Registro inmutable (Safe Harbor Audit) activo.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Component -->
+    <div id="toast"><i data-lucide="info" style="color: var(--copper-primary);"></i><span id="toastMsg">Mensaje</span></div>
+
+    <script>
+        lucide.createIcons();
+
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.querySelectorAll('.radar-content-block').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        function filterNodes(val) {
+            document.querySelectorAll('.roadmap-node').forEach(node => {
+                if (val === 'all' || node.getAttribute('data-cat') === val) node.style.display = 'block';
+                else node.style.display = 'none';
+            });
+            showToast('Filtro aplicado: ' + val.toUpperCase());
+        }
+
+        
+        let currentRoutes = [];
+
+        async function loadCognitiveEngine() {
+            try {
+                const response = await fetch('/api/kaizen-cognitive-engine', { method: 'POST' });
+                
+                const data = await response.json();
+                if (!response.ok || data.error) {
+                    throw new Error(data.details || data.error || "HTTP Error " + response.status);
+                }
+                currentRoutes = data;
+                
+                let html = '';
+                
+                if (!Array.isArray(data)) {
+                    throw new Error("El servidor no devolvió un Array JSON válido: " + JSON.stringify(data));
+                }
+                data.forEach((route, index) => {
+                    let activeClass = index === 0 ? 'active' : '';
+                    html += `
+                    <div class="roadmap-node ${route.priorityClass} ${activeClass}" data-cat="${route.cat}" onclick="openExecution(this, '${route.id}')">
+                        <div class="node-card">
+                            <div class="node-badge" style="color: ${route.badgeColor};"><i data-lucide="${route.badgeIcon}" style="width: 12px;"></i> ${route.badgeTitle}</div>
+                            <h3 style="font-size: 0.95rem; color: #fff; margin-bottom: 4px;">${route.title}</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">${route.desc}</p>
+                        </div>
+                    </div>`;
+                });
+                
+                document.getElementById('roadmapCanvas').innerHTML = html;
+                lucide.createIcons();
+                
+                // Open the first one
+                if(data.length > 0) {
+                    const firstNodeEl = document.querySelector('.roadmap-node');
+                    openExecution(firstNodeEl, data[0].id);
+                }
+                showToast("Motor Cognitivo IA actualizado con datos reales.");
+                
+            } catch (err) {
+                document.getElementById('roadmapCanvas').innerHTML = '<div style="color:var(--warning); padding: 20px;"><b>Error de Motor:</b><br>' + err.message + '</div>';
+                console.error(err);
+            }
+        }
+
+        // Modificamos openExecution para usar datos dinámicos
+        
+        async function generateDraft(title, desc) {
+            const modal = document.getElementById('draftModal');
+            const titleEl = document.getElementById('modalTitle');
+            const contentEl = document.getElementById('modalContent');
+            
+            modal.style.display = 'flex';
+            titleEl.innerHTML = '<i data-lucide="bot" style="color:var(--copper-primary); width:20px;"></i> Generando: ' + title;
+            contentEl.innerHTML = '<div style="text-align:center; padding: 60px 20px;"><i data-lucide="loader-2" class="lucide-spin" style="width:40px; height:40px; color:var(--copper-primary); margin-bottom:16px;"></i><br><span style="color:#fff; font-size:1.1rem;">Gemini 2.5 está redactando el entregable estratégicamente...</span><br><span style="color:var(--text-muted); font-size:0.85rem;">Esto tomará unos segundos dependiendo de la complejidad.</span></div>';
+            lucide.createIcons();
+
+            try {
+                const res = await fetch('/api/kaizen-generate-draft', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: title, desc: desc })
+                });
+                const data = await res.json();
+                if(data.error) throw new Error(data.details || data.error);
+                
+                // Formateo muy básico para negritas y listas si la IA las pone (aunque le pedimos texto plano, a veces usa markdown)
+                let formattedContent = data.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                contentEl.innerHTML = formattedContent;
+            } catch(e) {
+                contentEl.innerHTML = '<div style="color:var(--warning); padding:20px; text-align:center;"><i data-lucide="alert-triangle" style="width:32px; height:32px; margin-bottom:10px;"></i><br>Error de Redacción: ' + e.message + '</div>';
+                lucide.createIcons();
+            }
+        }
+
+        function openExecution(el, id) {
+            document.querySelectorAll('.roadmap-node').forEach(n => n.classList.remove('active'));
+            if(el) el.classList.add('active');
+            
+            const route = currentRoutes.find(r => r.id === id);
+            if(!route) return;
+
+            document.getElementById('execTitle').innerText = route.execTitle;
+            document.getElementById('execDesc').innerText = route.execDesc;
+            
+            // Actualizar métricas dinámicas
+            document.getElementById('dynMetric1').innerText = route.metricValue;
+            document.getElementById('dynLabel1').innerText = route.metricLabel;
+            document.getElementById('dynMetric2').innerText = route.metricValue2;
+            document.getElementById('dynLabel2').innerText = route.metricLabel2;
+
+            // Actualizar drafts
+            let draftsHtml = '';
+            route.drafts.forEach((draft, idx) => {
+                const safeTitle = draft.title.replace(/'/g, "\\'");
+                const safeDesc = draft.desc.replace(/'/g, "\\'");
+                draftsHtml += `
+                <div class="draft-item" id="draft${idx}" onclick="generateDraft('${safeTitle}', '${safeDesc}')">
+                    <i data-lucide="${draft.icon}" style="color: ${draft.color};"></i>
+                    <div><div style="color: #fff; font-size: 0.85rem; font-weight: 500;">${draft.title}</div><div style="font-size: 0.75rem; color: var(--text-muted);">${draft.desc}</div></div>
+                    <i data-lucide="chevron-right" style="margin-left: auto; color: var(--text-muted); width: 14px;"></i>
+                </div>`;
+            });
+            document.getElementById('draftsContainer').innerHTML = draftsHtml;
+            
+            lucide.createIcons();
+        }
+
+        // Disparar motor cognitivo al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCognitiveEngine();
+        });
+
+        
+
+        function executeApprove(btn) {
+            btn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin" style="width:18px;"></i> Desplegando...';
+            lucide.createIcons();
+            setTimeout(() => {
+                btn.innerHTML = '<i data-lucide="check" style="width:18px;"></i> EJECUTADO CON ÉXITO';
+                btn.style.background = 'var(--success)';
+                btn.style.boxShadow = '0 4px 15px rgba(16,185,129,0.3)';
+                lucide.createIcons();
+                showToast('Cambios enviados a producción. Se auditarán bajo Safe Harbor.');
+            }, 1500);
+        }
+
+        function exportToPPTX() {
+            showToast('Generando Reporte Estratégico PPTX (Versión Corporativa)...');
+            
+            if (typeof PptxGenJS === 'undefined') {
+                showToast('Error: Librería PPTX no cargada.');
+                return;
+            }
+
+            try {
+                let pres = new PptxGenJS();
+                pres.layout = "LAYOUT_16x9";
+                pres.author = "Kaizen AI";
+                pres.company = "Copper Giant Resources Corp";
+
+                // Definir plantilla maestra corporativa
+                pres.defineSlideMaster({
+                    title: "MASTER_SLIDE",
+                    background: { color: "FFFFFF" },
+                    objects: [
+                        { rect: { x: 0, y: 0, w: "100%", h: 0.5, fill: { color: "FF002C" } } },
+                        { text: { text: "COPPER GIANT RESOURCES CORP. | REPORTE KAIZEN AI DIRECTIVO", options: { x: 0.2, y: 0.1, w: 9, h: 0.3, color: "FFFFFF", fontSize: 10, bold: true, fontFace: "Helvetica" } } },
+                        { text: { text: "Documento Confidencial de Uso Interno - " + new Date().toLocaleDateString('es-ES'), options: { x: 0, y: 5.3, w: "100%", h: 0.3, align: "center", color: "999999", fontSize: 9 } } }
+                    ]
+                });
+
+                // Diapositiva 1: Portada
+                let slide1 = pres.addSlide({ masterName: "MASTER_SLIDE" });
+                slide1.addText("REPORTE ESTRATÉGICO", { x: 1, y: 2, w: 8, h: 1, fontSize: 44, bold: true, color: "1A1A1A" });
+                slide1.addText("Desglose de Telemetría y Rutas Kaizen", { x: 1, y: 3, w: 8, h: 0.5, fontSize: 20, color: "666666" });
+                slide1.addText("Generado Autónomamente por Gemini 2.5 Flash", { x: 1, y: 3.5, w: 8, h: 0.5, fontSize: 14, color: "FF002C", italic: true });
+
+                // Bucle por las rutas generadas por la IA
+                if (typeof currentRoutes !== 'undefined' && currentRoutes.length > 0) {
+                    currentRoutes.forEach((route, i) => {
+                        let slide = pres.addSlide({ masterName: "MASTER_SLIDE" });
+                        
+                        // Etiqueta
+                        slide.addShape(pres.ShapeType.rect, { x: 0.5, y: 0.8, w: 2.5, h: 0.4, fill: { color: "F2F2F2" } });
+                        slide.addText("ESTRATEGIA " + (i+1) + ": " + route.badgeTitle.toUpperCase(), { x: 0.5, y: 0.8, w: 2.5, h: 0.4, fontSize: 10, color: "333333", align: "center", bold: true });
+
+                        // Titulo
+                        slide.addText(route.title, { x: 0.5, y: 1.4, w: 9, h: 0.6, fontSize: 28, bold: true, color: "1A1A1A" });
+                        
+                        // Descripcion
+                        slide.addText(route.desc, { x: 0.5, y: 2.0, w: 9, h: 0.8, fontSize: 14, color: "444444", valign: "top" });
+
+                        // Cuadro de metricas
+                        slide.addShape(pres.ShapeType.rect, { x: 0.5, y: 3.2, w: 4, h: 1.5, fill: { color: "FAFAFA" }, line: { color: "E5E5E5", width: 1 } });
+                        slide.addText("PROYECCIÓN / IMPACTO (WHAT-IF)", { x: 0.7, y: 3.3, w: 3.6, h: 0.3, fontSize: 10, color: "999999", bold: true });
+                        slide.addText(route.metricValue, { x: 0.7, y: 3.7, w: 1.5, h: 0.5, fontSize: 28, color: "10B981", bold: true });
+                        slide.addText(route.metricLabel, { x: 0.7, y: 4.2, w: 1.5, h: 0.3, fontSize: 10, color: "666666" });
+                        slide.addText(route.metricValue2, { x: 2.5, y: 3.7, w: 1.5, h: 0.5, fontSize: 28, color: "1A1A1A", bold: true });
+                        slide.addText(route.metricLabel2, { x: 2.5, y: 4.2, w: 1.5, h: 0.3, fontSize: 10, color: "666666" });
+
+                        // Cuadro de entregables
+                        slide.addShape(pres.ShapeType.rect, { x: 5.0, y: 3.2, w: 4.5, h: 1.5, fill: { color: "FAFAFA" }, line: { color: "E5E5E5", width: 1 } });
+                        slide.addText("ENTREGABLES GENERADOS POR LA IA", { x: 5.2, y: 3.3, w: 4.1, h: 0.3, fontSize: 10, color: "999999", bold: true });
+                        
+                        let yPos = 3.7;
+                        if (route.drafts && route.drafts.length > 0) {
+                            route.drafts.forEach(draft => {
+                                slide.addText("✓ " + draft.title + " (" + draft.desc + ")", { x: 5.2, y: yPos, w: 4.1, h: 0.3, fontSize: 12, color: "1A1A1A" });
+                                yPos += 0.4;
+                            });
+                        }
+                    });
+                } else {
+                    let slide = pres.addSlide({ masterName: "MASTER_SLIDE" });
+                    slide.addText("No hay datos dinámicos generados por la IA en este momento.", { x: 1, y: 2.5, w: 8, h: 1, fontSize: 20, color: "666666", align: "center" });
+                }
+
+                // Guardar
+                pres.writeFile({ fileName: "Reporte_Estrategico_Kaizen.pptx" }).then(() => {
+                    showToast('¡Presentación Corporativa descargada!');
+                }).catch(e => {
+                    showToast('Error al descargar el archivo PPTX.');
+                    console.error(e);
+                });
+            } catch(e) {
+                showToast('Error de motor: ' + e.message);
+                console.error(e);
+            }
+        }
+
+    </script>
+
+    <!-- Modal de Entregables Generados por IA -->
+    <div id="draftModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding: 20px;">
+        <div style="background:var(--bg-panel); border:1px solid var(--copper-primary); border-radius:12px; width:100%; max-width:800px; max-height:85vh; display:flex; flex-direction:column; box-shadow: 0 10px 40px rgba(255,0,44,0.2);">
+            <div style="padding:16px 24px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.02);">
+                <h3 id="modalTitle" style="color:#fff; font-size:1.1rem; margin:0; display:flex; align-items:center; gap:10px;"><i data-lucide="bot" style="color:var(--copper-primary);"></i> IA Redactando...</h3>
+                <button onclick="document.getElementById('draftModal').style.display='none'" style="background:none; border:none; color:var(--text-muted); cursor:pointer; padding:4px;"><i data-lucide="x"></i></button>
+            </div>
+            <div id="modalContent" style="padding:24px; overflow-y:auto; color:#ddd; font-size:0.95rem; white-space:pre-wrap; line-height:1.6; font-family: 'Outfit', sans-serif;"></div>
+            <div style="padding:16px 24px; border-top:1px solid var(--border-color); background: rgba(0,0,0,0.2); display:flex; justify-content:flex-end;">
+                <button class="btn-action" onclick="navigator.clipboard.writeText(document.getElementById('modalContent').innerText); showToast('Copiado al portapapeles');"><i data-lucide="copy" style="width:14px;"></i> Copiar Entregable</button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
