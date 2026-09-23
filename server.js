@@ -448,7 +448,7 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
             } catch (error) {
                 console.error("Internal Server Error generating Kaizen routes:", error);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: "Server connection failed" }));
+                res.end(JSON.stringify({ error: "Server connection failed", details: error.message, stack: error.stack, data_preview: typeof data !== "undefined" ? data : null }));
             }
         });
         return;
