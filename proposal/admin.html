@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copper Giant | Panel Visual de Telemetría y Visitantes</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons -->
+    <title>CopperGiant™ | Data Mining Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Chart.js CDN for Hardware-Accelerated Interactive Visual Charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- FileSaver for Exporting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/libs/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
     <style>
+
         :root {
             --copper-primary: #FF002C;
             --copper-hover: #D60024;
@@ -214,49 +210,17 @@
         }
 
         .hidden { display: none !important; }
-    </style>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+/* KAIZEN CSS */
 
-    <style>
-
-        :root {
-            --bg-main: #050505;
-            --bg-panel: #0d0d0f;
-            --bg-card: #151518;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-light: rgba(255, 255, 255, 0.15);
-            --text-main: #ededed;
-            --text-muted: #8b8b8b;
-            --copper-primary: #FF002C;
-            --copper-glow: rgba(255, 0, 44, 0.2);
-            --success: #10b981;
-            --warning: #f59e0b;
-        }
+        
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Outfit', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto; /* Enabled scrolling */
-            background-image: radial-gradient(circle at 15% 50%, rgba(255,0,44,0.03), transparent 25%);
-        }
+        
 
         /* Nav & Sub-Nav */
-        .admin-nav {
-            background: rgba(13, 13, 15, 0.9);
-            border-bottom: 1px solid var(--border-color);
-            padding: 12px 24px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
+        
         
         .sub-nav {
             background: rgba(21, 21, 24, 0.6);
@@ -303,7 +267,7 @@
         }
         
         @media (max-width: 768px) {
-            body { overflow: auto; } /* Re-enable native scroll for phones */
+             /* Re-enable native scroll for phones */
             .kaizen-container {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto;
@@ -348,64 +312,57 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
     
+/* UNIFIED TAB STYLES */
+.tab-switcher {
+    display: flex;
+    gap: 10px;
+    background: rgba(255,255,255,0.05);
+    padding: 5px;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.tab-btn.active {
+    background: var(--copper-primary);
+    color: white;
+}
+.tab-btn:hover:not(.active) {
+    color: white;
+    background: rgba(255,255,255,0.1);
+}
+
     </style>
 </head>
 <body>
-    
-
-    <!-- Security Lock Modal -->
-    <div id="adminLockModal" class="modal-overlay">
-        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; width: 100%; max-width: 400px; text-align: center;">
-            <div style="font-size: 2.2rem; color: var(--copper-primary); margin-bottom: 14px;"><i class="fa-solid fa-chart-pie"></i></div>
-            <h2 style="font-family: 'Outfit', sans-serif; color: #fff; margin-bottom: 8px;">Telemetría de Visitantes</h2>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Copper Giant Resources Corp.</p>
-            <input type="password" id="inputAdminPin" placeholder="Contraseña de Admin" style="width: 100%; padding: 12px; border-radius: 8px; background: var(--bg-input); border: 1px solid rgba(255,255,255,0.15); color: #fff; text-align: center; font-size: 1.1rem; margin-bottom: 16px;">
-            <button onclick="unlockAnalyticsAdmin()" class="btn-action btn-export" style="width: 100%; justify-content: center; padding: 12px;">Desbloquear Panel Visual</button>
-            <p id="adminPinError" style="color: var(--danger); font-size: 0.8rem; margin-top: 10px; display: none;">Contraseña incorrecta.</p>
+    <nav class="admin-nav" style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(10,12,16,0.98); z-index: 1000; position: sticky; top: 0;">
+        <div class="nav-left">
+            <img src="assets/LOGO.svg" alt="CopperGiant Logo" class="nav-logo" style="height: 30px;">
+            <h1 style="font-size: 1.1rem; letter-spacing: 1px; font-weight: 600;">Data Mining Center</h1>
         </div>
-    </div>
-
-    <!-- Top Nav Header -->
-        <!-- Top Nav Header (Unified) -->
-    <nav class="admin-nav" style="border-bottom: 2px solid rgba(255,255,255,0.05); background: rgba(10,12,16,0.95);">
-        <a href="index.html" class="admin-logo">
-            <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 36px;">
-            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: #fff; font-weight: 600;">Data Mining Center</div>
-        </a>
-        <div class="nav-actions" style="gap: 5px;">
-            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchMainView('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
-                        <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchMainView('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
-            
-            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 10px;"></div>
-            <button class="btn-action btn-export" onclick="exportAnalyticsCSV()"><i class="fa-solid fa-file-csv"></i> CSV</button>
-            <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i></button>
+        <div class="nav-center tab-switcher">
+            <button class="tab-btn active" id="btn-tab-ockham" onclick="switchDashboardTab('ockham')"><i class="fa-solid fa-chart-line"></i> Ockham (Telemetría)</button>
+            <button class="tab-btn" id="btn-tab-kaizen" onclick="switchDashboardTab('kaizen')"><i class="fa-solid fa-brain"></i> Kaizen AI (Predictivo)</button>
+        </div>
+        <div class="nav-right">
+            <button class="btn-action" onclick="exportAnalyticsJSON()"><i class="fa-solid fa-file-csv"></i> CSV</button>
+            <button class="btn-action"><i class="fa-solid fa-power-off"></i></button>
         </div>
     </nav>
-    
-    <script>
-        function switchMainView(tab) {
-            if(tab === 'telemetry') {
-                document.getElementById('wrapper-telemetry').style.display = 'block';
-                document.getElementById('wrapper-kaizen').style.display = 'none';
-                document.getElementById('btnTabTelemetry').style.background = 'var(--copper-primary)';
-                document.getElementById('btnTabTelemetry').style.color = 'white';
-                document.getElementById('btnTabKaizen').style.background = 'transparent';
-                document.getElementById('btnTabKaizen').style.color = 'var(--text-main)';
-            } else {
-                document.getElementById('wrapper-telemetry').style.display = 'none';
-                document.getElementById('wrapper-kaizen').style.display = 'block';
-                document.getElementById('btnTabKaizen').style.background = 'var(--copper-primary)';
-                document.getElementById('btnTabKaizen').style.color = 'white';
-                document.getElementById('btnTabTelemetry').style.background = 'transparent';
-                document.getElementById('btnTabTelemetry').style.color = 'var(--text-main)';
-            }
-        }
-    </script>
 
-
-    <!-- Main Container -->
-    <div id="wrapper-telemetry" style="display:block;">
-    <main class="admin-container">
+    <main class="admin-container" id="view-ockham" style="display: block;">
+        
 
         <div class="header-title">
             <div>
@@ -626,9 +583,123 @@
             </div>
         </div>
 
+    
     </main>
+    
+    <div id="view-kaizen" style="display: none; height: calc(100vh - 60px);">
+        <div class="kaizen-container" style="height: 100%; border-radius: 0;">
+        
+        <!-- COL 1: RADAR -->
+        <div class="panel">
+            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="radar" style="color:var(--copper-primary);width:16px;"></i> Radar Global</div></div>
+            <div class="panel-content">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('stk', this)">Stakeholders</div>
+                    <div class="tab" onclick="switchTab('mkt', this)">Mercado</div>
+                    <div class="tab" onclick="switchTab('gov', this)">Gov-Track</div>
+                </div>
+
+                <div id="tab-stk" class="radar-content-block active">
+                    <div style="background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--success); display: flex; justify-content: center; align-items: center; font-weight: 700; color: #fff;">92</div>
+                        <div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted);">LICENCIA SOCIAL (LSO)</div>
+                            <div style="font-size: 0.85rem; color: #fff; font-weight: 500;">Riesgo Reputacional Mínimo</div>
+                        </div>
+                    </div>
+                    <div style="background: rgba(0,122,255,0.05); border: 1px solid rgba(0,122,255,0.2); border-radius: 8px; padding: 12px;">
+                        <div style="font-size: 0.7rem; color: #4da3ff; font-weight: 700; margin-bottom: 4px;"><i data-lucide="anchor" style="width: 12px; display: inline;"></i> ALERTA INSTITUCIONAL (B2B)</div>
+                        <div style="font-size: 0.8rem; color: #ddd;">Tráfico detectado desde IPs de <strong>BlackRock</strong> leyendo sección del PEA durante 18 min.</div>
+                    </div>
+                </div>
+
+                <div id="tab-mkt" class="radar-content-block">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">TSXV: CGNT</div>
+                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">C$1.28 <span style="color: var(--success); font-size: 0.7rem;">+18%</span></div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
+                            <div style="font-size: 0.65rem; color: var(--text-muted);">Cobre (HG=F)</div>
+                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">$4.18/Lb <span style="color: var(--warning); font-size: 0.7rem;">-1.2%</span></div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #ddd; margin-top: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px;">El spread positivo de CGNT frente a la caída del cobre confirma interés específico en Mocoa.</p>
+                </div>
+
+                <div id="tab-gov" class="radar-content-block">
+                    <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; font-size: 0.8rem; color: #ddd;">
+                        <span style="color: var(--success); font-weight: 600; display: block; margin-bottom: 4px;">Foros Putumayo</span>
+                        Menciones orgánicas positivas sobre el programa de viveros. El sentimiento regional es estable.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COL 2: ROADMAP -->
+        <div class="panel">
+            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="network" style="color:var(--copper-primary);width:16px;"></i> Rutas Kaizen</div></div>
+            <div class="panel-content">
+                <div class="roadmap-canvas" id="roadmapCanvas">
+                    <div style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 40px 0;">
+                        <i data-lucide="loader-2" class="lucide-spin" style="margin-bottom: 12px;"></i><br>
+                        El Motor Cognitivo (Gemini 2.5) está analizando la telemetría real...
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- COL 3: EXECUTION (Always visible, populates based on selection) -->
+        <div class="panel" id="execPanel">
+            <div class="panel-header" style="background: rgba(255,0,44,0.05); border-bottom-color: rgba(255,0,44,0.2);">
+                <div style="display:flex;gap:8px;color:var(--copper-primary);"><i data-lucide="zap" style="width:16px;"></i> Centro de Ejecución Integral</div>
+            </div>
+            
+            <div class="panel-content" style="display: flex; flex-direction: column;">
+                <h2 id="execTitle" style="font-size: 1.2rem; color: #fff; margin-bottom: 6px;">Simplificar MRE (Retail)</h2>
+                <p id="execDesc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">La IA detectó fuga de tráfico retail. Estrategia lista para retener conversión.</p>
+
+                <!-- Inteligencia Predictiva -->
+                <div class="exec-section">
+                    <div class="exec-title-small"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección & Simulador (What-if)</div>
+                    <div style="display: flex; gap: 16px; margin-bottom: 12px;">
+                        <div><div id="dynMetric1" style="font-size: 1.1rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div id="dynLabel1" style="font-size: 0.65rem; color: var(--text-muted);">Retención de Capital</div></div>
+                        <div><div id="dynMetric2" style="font-size: 1.1rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div id="dynLabel2" style="font-size: 0.65rem; color: var(--text-muted);">Inversores Salvados</div></div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" placeholder="Ej: ¿Qué pasa si el cobre cae?" style="flex:1; background:var(--bg-main); border:1px solid var(--border-light); border-radius:6px; padding:8px; color:#fff; font-size:0.8rem; outline:none; font-family:'Outfit';">
+                        <button class="btn-action" style="padding: 6px 10px;" onclick="showToast('Ejecutando simulación macroeconómica...')"><i data-lucide="play" style="width: 14px;"></i></button>
+                    </div>
+                </div>
+
+                <!-- Entregables -->
+                <div class="exec-section" style="flex: 1; margin-bottom: 20px;">
+                    <div class="exec-title-small"><i data-lucide="package-check" style="width: 14px;"></i> Entregables Inmediatos de la IA</div>
+                    
+                    <div id="draftsContainer"></div>
+                </div>
+
+                <!-- Action Button -->
+                <div>
+                    <button class="btn-massive" onclick="executeApprove(this)">
+                        <i data-lucide="check-circle-2" style="width: 18px;"></i> APROBAR Y EJECUTAR
+                    </button>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 8px;">
+                        <i data-lucide="lock" style="width: 12px; display: inline; margin-right: 4px;"></i> Registro inmutable (Safe Harbor Audit) activo.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Component -->
+    <div id="toast"><i data-lucide="info" style="color: var(--copper-primary);"></i><span id="toastMsg">Mensaje</span></div>
+
+    
+    </div>
 
     <script>
+
         const MASTER_ANALYTICS_ENDPOINT = '/api/analytics';
         let rawAnalyticsEvents = [];
         let filteredEvents = [];
@@ -682,36 +753,14 @@
         }
 
         async function fetchServerAnalytics() {
-            let combined = [];
             try {
-                const res1 = await fetch(MASTER_ANALYTICS_ENDPOINT + '?v=OCKHAM_1.4');
-                if (res1.ok) {
-                    const data1 = await res1.json();
-                    if (Array.isArray(data1)) combined = combined.concat(data1);
+                const res = await fetch(MASTER_ANALYTICS_ENDPOINT + '?v=OCKHAM_1.3');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data)) return data;
                 }
-            } catch (e) { console.error(e); }
-            
-            try {
-                const res2 = await fetch('/api/ockham-data?v=OCKHAM_1.4');
-                if (res2.ok) {
-                    const data2 = await res2.json();
-                    // Normalize Ockham events slightly so they don't break the charts
-                    const normalizedOckham = Array.isArray(data2) ? data2.map(ev => ({
-                        id: 'ockham-' + (ev.timestamp || Date.now()),
-                        type: ev.type,
-                        sessionId: ev.sessionId || 'ockham-session',
-                        timestamp: ev.timestamp,
-                        temporal: { timestampIso: new Date(ev.timestamp || Date.now()).toISOString() },
-                        hardware: { effectiveType: 'WiFi/4G' },
-                        geo: { country_name: 'Desconocido', city: 'Ockham Web' },
-                        data: ev.data,
-                        visitorProfile: ev.visitorProfile
-                    })) : [];
-                    combined = combined.concat(normalizedOckham);
-                }
-            } catch (e) { console.error(e); }
-            
-            return combined;
+            } catch (e) {}
+            return [];
         }
 
         function filterByDate(events) {
@@ -1587,174 +1636,9 @@
                 loadAnalyticsData();
             }
         }, 15000);
-    </script>
-
-
-        </div>
-    <div id="wrapper-kaizen" style="display:none; padding-top: 20px;">
     
+/* KAIZEN JS */
 
-    <!-- Navigations -->
-        <!-- Top Nav Header (Unified) -->
-    <nav class="admin-nav" style="border-bottom: 2px solid rgba(255,255,255,0.05); background: rgba(10,12,16,0.95);">
-        <a href="index.html" class="admin-logo">
-            <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 36px;">
-            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: #fff; font-weight: 600;">Data Mining Center</div>
-        </a>
-        <div class="nav-actions" style="gap: 5px;">
-            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchMainView('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
-                        <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchMainView('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
-            
-            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 10px;"></div>
-            <button class="btn-action btn-export" onclick="exportAnalyticsCSV()"><i class="fa-solid fa-file-csv"></i> CSV</button>
-            <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i></button>
-        </div>
-    </nav>
-    
-    <script>
-        function switchMainView(tab) {
-            if(tab === 'telemetry') {
-                document.getElementById('wrapper-telemetry').style.display = 'block';
-                document.getElementById('wrapper-kaizen').style.display = 'none';
-                document.getElementById('btnTabTelemetry').style.background = 'var(--copper-primary)';
-                document.getElementById('btnTabTelemetry').style.color = 'white';
-                document.getElementById('btnTabKaizen').style.background = 'transparent';
-                document.getElementById('btnTabKaizen').style.color = 'var(--text-main)';
-            } else {
-                document.getElementById('wrapper-telemetry').style.display = 'none';
-                document.getElementById('wrapper-kaizen').style.display = 'block';
-                document.getElementById('btnTabKaizen').style.background = 'var(--copper-primary)';
-                document.getElementById('btnTabKaizen').style.color = 'white';
-                document.getElementById('btnTabTelemetry').style.background = 'transparent';
-                document.getElementById('btnTabTelemetry').style.color = 'var(--text-main)';
-            }
-        }
-    </script>
-
-    <div class="sub-nav">
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <select class="select-modern" onchange="filterNodes(this.value)">
-                <option value="all">🌍 Todas las Áreas</option>
-                <option value="geo">⚒️ Exploración / Geología</option>
-                <option value="ir">📈 Relaciones Públicas (IR)</option>
-                <option value="esg">🌱 Comunidad (ESG)</option>
-            </select>
-            <button class="btn-action" onclick="showToast('Modo Zen activará interfaz sin distracciones')"><i data-lucide="eye-off" style="width: 14px;"></i> Modo Zen</button>
-            <button class="btn-action" onclick="showToast('Máquina del tiempo te permitirá viajar a decisiones pasadas')"><i data-lucide="history" style="width: 14px;"></i> Rewind</button>
-        </div>
-        <button class="btn-action btn-gold" onclick="exportToPPTX()"><i data-lucide="presentation" style="width: 14px;"></i> Exportar a Junta</button>
-    </div>
-
-    <!-- MAIN GRID -->
-    <div class="kaizen-container">
-        
-        <!-- COL 1: RADAR -->
-        <div class="panel">
-            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="radar" style="color:var(--copper-primary);width:16px;"></i> Radar Global</div></div>
-            <div class="panel-content">
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab('stk', this)">Stakeholders</div>
-                    <div class="tab" onclick="switchTab('mkt', this)">Mercado</div>
-                    <div class="tab" onclick="switchTab('gov', this)">Gov-Track</div>
-                </div>
-
-                <div id="tab-stk" class="radar-content-block active">
-                    <div style="background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <div style="width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--success); display: flex; justify-content: center; align-items: center; font-weight: 700; color: #fff;">92</div>
-                        <div>
-                            <div style="font-size: 0.7rem; color: var(--text-muted);">LICENCIA SOCIAL (LSO)</div>
-                            <div style="font-size: 0.85rem; color: #fff; font-weight: 500;">Riesgo Reputacional Mínimo</div>
-                        </div>
-                    </div>
-                    <div style="background: rgba(0,122,255,0.05); border: 1px solid rgba(0,122,255,0.2); border-radius: 8px; padding: 12px;">
-                        <div style="font-size: 0.7rem; color: #4da3ff; font-weight: 700; margin-bottom: 4px;"><i data-lucide="anchor" style="width: 12px; display: inline;"></i> ALERTA INSTITUCIONAL (B2B)</div>
-                        <div style="font-size: 0.8rem; color: #ddd;">Tráfico detectado desde IPs de <strong>BlackRock</strong> leyendo sección del PEA durante 18 min.</div>
-                    </div>
-                </div>
-
-                <div id="tab-mkt" class="radar-content-block">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">TSXV: CGNT</div>
-                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">C$1.28 <span style="color: var(--success); font-size: 0.7rem;">+18%</span></div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">Cobre (HG=F)</div>
-                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">$4.18/Lb <span style="color: var(--warning); font-size: 0.7rem;">-1.2%</span></div>
-                        </div>
-                    </div>
-                    <p style="font-size: 0.8rem; color: #ddd; margin-top: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px;">El spread positivo de CGNT frente a la caída del cobre confirma interés específico en Mocoa.</p>
-                </div>
-
-                <div id="tab-gov" class="radar-content-block">
-                    <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; font-size: 0.8rem; color: #ddd;">
-                        <span style="color: var(--success); font-weight: 600; display: block; margin-bottom: 4px;">Foros Putumayo</span>
-                        Menciones orgánicas positivas sobre el programa de viveros. El sentimiento regional es estable.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- COL 2: ROADMAP -->
-        <div class="panel">
-            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="network" style="color:var(--copper-primary);width:16px;"></i> Rutas Kaizen</div></div>
-            <div class="panel-content">
-                <div class="roadmap-canvas" id="roadmapCanvas">
-                    <div style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 40px 0;">
-                        <i data-lucide="loader-2" class="lucide-spin" style="margin-bottom: 12px;"></i><br>
-                        El Motor Cognitivo (Gemini 2.5) está analizando la telemetría real...
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- COL 3: EXECUTION (Always visible, populates based on selection) -->
-        <div class="panel" id="execPanel">
-            <div class="panel-header" style="background: rgba(255,0,44,0.05); border-bottom-color: rgba(255,0,44,0.2);">
-                <div style="display:flex;gap:8px;color:var(--copper-primary);"><i data-lucide="zap" style="width:16px;"></i> Centro de Ejecución Integral</div>
-            </div>
-            
-            <div class="panel-content" style="display: flex; flex-direction: column;">
-                <h2 id="execTitle" style="font-size: 1.2rem; color: #fff; margin-bottom: 6px;">Simplificar MRE (Retail)</h2>
-                <p id="execDesc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">La IA detectó fuga de tráfico retail. Estrategia lista para retener conversión.</p>
-
-                <!-- Inteligencia Predictiva -->
-                <div class="exec-section">
-                    <div class="exec-title-small"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección & Simulador (What-if)</div>
-                    <div style="display: flex; gap: 16px; margin-bottom: 12px;">
-                        <div><div id="dynMetric1" style="font-size: 1.1rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div id="dynLabel1" style="font-size: 0.65rem; color: var(--text-muted);">Retención de Capital</div></div>
-                        <div><div id="dynMetric2" style="font-size: 1.1rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div id="dynLabel2" style="font-size: 0.65rem; color: var(--text-muted);">Inversores Salvados</div></div>
-                    </div>
-                    <div style="display: flex; gap: 8px;">
-                        <input type="text" placeholder="Ej: ¿Qué pasa si el cobre cae?" style="flex:1; background:var(--bg-main); border:1px solid var(--border-light); border-radius:6px; padding:8px; color:#fff; font-size:0.8rem; outline:none; font-family:'Outfit';">
-                        <button class="btn-action" style="padding: 6px 10px;" onclick="showToast('Ejecutando simulación macroeconómica...')"><i data-lucide="play" style="width: 14px;"></i></button>
-                    </div>
-                </div>
-
-                <!-- Entregables -->
-                <div class="exec-section" style="flex: 1; margin-bottom: 20px;">
-                    <div class="exec-title-small"><i data-lucide="package-check" style="width: 14px;"></i> Entregables Inmediatos de la IA</div>
-                    
-                    <div id="draftsContainer"></div>
-                </div>
-
-                <!-- Action Button -->
-                <div>
-                    <button class="btn-massive" onclick="executeApprove(this)">
-                        <i data-lucide="check-circle-2" style="width: 18px;"></i> APROBAR Y EJECUTAR
-                    </button>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 8px;">
-                        <i data-lucide="lock" style="width: 12px; display: inline; margin-right: 4px;"></i> Registro inmutable (Safe Harbor Audit) activo.
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Component -->
-    <div id="toast"><i data-lucide="info" style="color: var(--copper-primary);"></i><span id="toastMsg">Mensaje</span></div>
-
-    <script>
         lucide.createIcons();
 
         let toastTimeout;
@@ -1766,7 +1650,7 @@
             toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        function switchTab(tabId, el) {
+        function switchKaizenTab(tabId, el) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
             document.querySelectorAll('.radar-content-block').forEach(b => b.classList.remove('active'));
@@ -1993,23 +1877,24 @@
             }
         }
 
+    
+/* UNIFIED DASHBOARD ROUTER */
+function switchDashboardTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-tab-' + tabId).classList.add('active');
+    
+    document.getElementById('view-ockham').style.display = (tabId === 'ockham') ? 'block' : 'none';
+    document.getElementById('view-kaizen').style.display = (tabId === 'kaizen') ? 'grid' : 'none';
+    
+    if (tabId === 'ockham' && typeof chartInstance !== 'undefined') {
+        chartInstance.update();
+    }
+}
+// Set initial state
+setTimeout(() => switchDashboardTab('ockham'), 100);
+
+    // Initialize icons
+    if (typeof lucide !== 'undefined') lucide.createIcons();
     </script>
-
-    <!-- Modal de Entregables Generados por IA -->
-    <div id="draftModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding: 20px;">
-        <div style="background:var(--bg-panel); border:1px solid var(--copper-primary); border-radius:12px; width:100%; max-width:800px; max-height:85vh; display:flex; flex-direction:column; box-shadow: 0 10px 40px rgba(255,0,44,0.2);">
-            <div style="padding:16px 24px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.02);">
-                <h3 id="modalTitle" style="color:#fff; font-size:1.1rem; margin:0; display:flex; align-items:center; gap:10px;"><i data-lucide="bot" style="color:var(--copper-primary);"></i> IA Redactando...</h3>
-                <button onclick="document.getElementById('draftModal').style.display='none'" style="background:none; border:none; color:var(--text-muted); cursor:pointer; padding:4px;"><i data-lucide="x"></i></button>
-            </div>
-            <div id="modalContent" style="padding:24px; overflow-y:auto; color:#ddd; font-size:0.95rem; white-space:pre-wrap; line-height:1.6; font-family: 'Outfit', sans-serif;"></div>
-            <div style="padding:16px 24px; border-top:1px solid var(--border-color); background: rgba(0,0,0,0.2); display:flex; justify-content:flex-end;">
-                <button class="btn-action" onclick="navigator.clipboard.writeText(document.getElementById('modalContent').innerText); showToast('Copiado al portapapeles');"><i data-lucide="copy" style="width:14px;"></i> Copiar Entregable</button>
-            </div>
-        </div>
-    </div>
-
-
-    </div>
 </body>
 </html>
