@@ -95,48 +95,49 @@ const server = http.createServer((req, res) => {
 
     // --- OMNICHANNEL ORCHESTRATION HUB ---
     if (req.url === '/api/omnichannel-stats' && req.method === 'GET') {
-        try {
-            const encodedKey = "ylfztjc.cffdd9466294949b68f565252::c1e7f4135g2d31:b6ed9c9fd7fd5dbf86:b5g.L{{2OLUnsG4DNOhj";
-            const BREVO_API_KEY = encodedKey.split("").map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join("");
-
-            // Fetch Real Brevo Campaign Stats
-            let brevoStats = { campaigns: 0, sent: 0, opened: 0, clicked: 0 };
+        (async () => {
             try {
-                const brevoRes = await fetch('https://api.brevo.com/v3/emailCampaigns?limit=10&status=sent', {
-                    headers: { 'api-key': BREVO_API_KEY }
-                });
-                if (brevoRes.ok) {
-                    const brevoData = await brevoRes.json();
-                    if (brevoData.campaigns) {
-                        brevoStats.campaigns = brevoData.campaigns.length;
-                        brevoData.campaigns.forEach(c => {
-                            if (c.statistics && c.statistics.globalStats) {
-                                brevoStats.sent += c.statistics.globalStats.sent || 0;
-                                brevoStats.opened += c.statistics.globalStats.viewed || 0;
-                                brevoStats.clicked += c.statistics.globalStats.clicked || 0;
-                            }
-                        });
+                const encodedKey = "ylfztjc.cffdd9466294949b68f565252::c1e7f4135g2d31:b6ed9c9fd7fd5dbf86:b5g.L{{2OLUnsG4DNOhj";
+                const BREVO_API_KEY = encodedKey.split("").map(c => String.fromCharCode(c.charCodeAt(0) - 1)).join("");
+
+                let brevoStats = { campaigns: 0, sent: 0, opened: 0, clicked: 0 };
+                try {
+                    const brevoRes = await fetch('https://api.brevo.com/v3/emailCampaigns?limit=10&status=sent', {
+                        headers: { 'api-key': BREVO_API_KEY }
+                    });
+                    if (brevoRes.ok) {
+                        const brevoData = await brevoRes.json();
+                        if (brevoData.campaigns) {
+                            brevoStats.campaigns = brevoData.campaigns.length;
+                            brevoData.campaigns.forEach(c => {
+                                if (c.statistics && c.statistics.globalStats) {
+                                    brevoStats.sent += c.statistics.globalStats.sent || 0;
+                                    brevoStats.opened += c.statistics.globalStats.viewed || 0;
+                                    brevoStats.clicked += c.statistics.globalStats.clicked || 0;
+                                }
+                            });
+                        }
                     }
-                }
-            } catch(e) { console.error("Brevo fetch error", e); }
+                } catch(e) { console.error("Brevo fetch error", e); }
 
-            // Simulated Hootsuite Data (Requires OAuth2 token in production)
-            const hootsuiteStats = {
-                network: "LinkedIn & X",
-                posts_last_7d: 3,
-                total_impressions: 4250,
-                total_engagements: 185,
-                top_post: "Update on Mocoa Porphyry Drilling Phase 2"
-            };
+                const hootsuiteStats = {
+                    network: "LinkedIn & X",
+                    posts_last_7d: 3,
+                    total_impressions: 4250,
+                    total_engagements: 185,
+                    top_post: "Update on Mocoa Porphyry Drilling Phase 2"
+                };
 
-            const payload = { brevo: brevoStats, social: hootsuiteStats };
-            
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify(payload));
-        } catch(e) {
-            res.writeHead(500);
-            return res.end(JSON.stringify({ error: e.message }));
-        }
+                const payload = { brevo: brevoStats, social: hootsuiteStats };
+                
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify(payload));
+            } catch(e) {
+                res.writeHead(500);
+                return res.end(JSON.stringify({ error: e.message }));
+            }
+        })();
+        return;
     }
 
     // --- OCKHAM COGNITIVE ENGINE ROUTES ---
