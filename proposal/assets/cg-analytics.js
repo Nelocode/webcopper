@@ -20,6 +20,7 @@
         }
         return { id: vid, isNew: false };
     }
+    const sessionStartTime = Date.now();
     const visitorInfo = getVisitorId();
 
     function getSessionId() {
