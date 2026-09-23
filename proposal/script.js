@@ -2596,6 +2596,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!emailInput || !emailInput.value) return;
         
         const payload = { email: emailInput.value };
+        payload.vid = localStorage.getItem('cg_analytics_vid') || 'Unknown'; // Lead Scoring
         if (fnameInput && fnameInput.value) payload.fname = fnameInput.value;
         if (lnameInput && lnameInput.value) payload.lname = lnameInput.value;
         if (companyInput && companyInput.value) payload.company = companyInput.value;
