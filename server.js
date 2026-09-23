@@ -468,6 +468,16 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
         return;
     }
     
+    
+    if (req.url === '/api/find-data') {
+        const { exec } = require('child_process');
+        exec('ls -la /usr/src/app/data && ls -la /usr/src/app', (err, stdout, stderr) => {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end(`STDOUT:\n${stdout}\nSTDERR:\n${stderr}`);
+        });
+        return;
+    }
+
     if (req.url === '/api/rescue-db') {
         const { exec } = require('child_process');
         exec('git stash list && git diff HEAD@{1} data/analytics_db.json || echo "no diff"', { maxBuffer: 1024 * 1024 * 50 }, (err, stdout, stderr) => {
