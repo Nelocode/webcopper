@@ -551,6 +551,20 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
     }
 
     
+    
+    if (req.url === '/api/analytics/stream') {
+        res.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'Access-Control-Allow-Origin': '*'
+        });
+        res.write('data: {"connected": true}\n\n');
+        sseClients.add(res);
+        req.on('close', () => { sseClients.delete(res); });
+        return;
+    }
+
     if (req.url.startsWith('/api/visitors')) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');

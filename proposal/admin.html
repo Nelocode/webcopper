@@ -1691,11 +1691,18 @@ body {
             saveAs(blob, `CopperGiant_Analytics_${new Date().toISOString().split('T')[0]}.csv`);
         }
 
-        setInterval(() => {
-            if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
-                loadAnalyticsData();
+        // WebSockets via Server-Sent Events (SSE)
+        const evtSource = new EventSource('/api/analytics/stream');
+        evtSource.onmessage = function(event) {
+            const payload = JSON.parse(event.data);
+            if (payload.events) {
+                // Solo si está autenticado
+                if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
+                    rawAnalyticsEvents = payload.events;
+                    updateDashboard(payload.events, payload.analytics);
+                }
             }
-        }, 15000);
+        };
     
 /* KAIZEN JS */
 
