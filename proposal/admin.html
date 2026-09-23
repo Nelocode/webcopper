@@ -665,14 +665,36 @@
         }
 
         async function fetchServerAnalytics() {
+            let combined = [];
             try {
-                const res = await fetch(MASTER_ANALYTICS_ENDPOINT + '?v=OCKHAM_1.3');
-                if (res.ok) {
-                    const data = await res.json();
-                    if (Array.isArray(data)) return data;
+                const res1 = await fetch(MASTER_ANALYTICS_ENDPOINT + '?v=OCKHAM_1.4');
+                if (res1.ok) {
+                    const data1 = await res1.json();
+                    if (Array.isArray(data1)) combined = combined.concat(data1);
                 }
-            } catch (e) {}
-            return [];
+            } catch (e) { console.error(e); }
+            
+            try {
+                const res2 = await fetch('/api/ockham-data?v=OCKHAM_1.4');
+                if (res2.ok) {
+                    const data2 = await res2.json();
+                    // Normalize Ockham events slightly so they don't break the charts
+                    const normalizedOckham = Array.isArray(data2) ? data2.map(ev => ({
+                        id: 'ockham-' + (ev.timestamp || Date.now()),
+                        type: ev.type,
+                        sessionId: ev.sessionId || 'ockham-session',
+                        timestamp: ev.timestamp,
+                        temporal: { timestampIso: new Date(ev.timestamp || Date.now()).toISOString() },
+                        hardware: { effectiveType: 'WiFi/4G' },
+                        geo: { country_name: 'Desconocido', city: 'Ockham Web' },
+                        data: ev.data,
+                        visitorProfile: ev.visitorProfile
+                    })) : [];
+                    combined = combined.concat(normalizedOckham);
+                }
+            } catch (e) { console.error(e); }
+            
+            return combined;
         }
 
         function filterByDate(events) {

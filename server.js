@@ -80,6 +80,13 @@ const mimeTypes = {
 const server = http.createServer((req, res) => {
 
     // --- OCKHAM COGNITIVE ENGINE ROUTES ---
+    
+    if (req.url === '/api/ockham-data' && req.method === 'GET') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' });
+        return res.end(JSON.stringify(ockhamEventsDB));
+    }
+
     if (req.url === '/api/ockham-event' && req.method === 'POST') {
         res.setHeader('Access-Control-Allow-Origin', '*');
         let body = '';
