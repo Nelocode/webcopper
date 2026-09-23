@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copper Giant | Corporate Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+    <!-- Use our analytics tracker -->
+    <script src="assets/cg-analytics.js" defer></script>
+    <style>
+        body { margin: 0; padding: 0; background-color: #323639; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+        #toolbar { position: fixed; top: 0; left: 0; width: 100%; height: 50px; background-color: #202124; color: white; display: flex; align-items: center; justify-content: center; z-index: 1000; font-family: sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        #viewer-container { margin-top: 60px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .pdf-page-canvas { margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); max-width: 100%; }
+        button { background: transparent; border: none; color: white; cursor: pointer; padding: 10px; font-size: 16px; margin: 0 10px; }
+        button:hover { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div id="toolbar">
+        <span id="page_info" style="font-weight: bold; margin-right: 20px;">Loading Document...</span>
+    </div>
+    <div id="viewer-container"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let pdfUrl = urlParams.get('file');
+        
+        if (!pdfUrl) {
+            document.getElementById('page_info').innerText = 'No PDF file specified.';
+        } else {
+            let pdfDoc = null;
+            let totalPages = 0;
+            let maxPageReached = 1;
+            let currentVisiblePage = 1;
+
+            // Load PDF
+            pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+                pdfDoc = pdf;
+                totalPages = pdf.numPages;
+                document.getElementById('page_info').innerText = \`Page 1 of \${totalPages}\`;
+                
+                // Render all pages sequentially into the container
+                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                    pdf.getPage(pageNum).then(page => {
+                        const viewport = page.getViewport({ scale: 1.5 });
+                        const canvas = document.createElement('canvas');
+                        canvas.className = 'pdf-page-canvas';
+                        canvas.id = 'page-' + pageNum;
+                        canvas.dataset.pageNumber = pageNum;
+                        const ctx = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        const renderContext = { canvasContext: ctx, viewport: viewport };
+                        page.render(renderContext);
+                        
+                        // Insert in order
+                        const container = document.getElementById('viewer-container');
+                        const existingCanvas = Array.from(container.children);
+                        const insertIndex = existingCanvas.findIndex(c => parseInt(c.dataset.pageNumber) > pageNum);
+                        if (insertIndex === -1) {
+                            container.appendChild(canvas);
+                        } else {
+                            container.insertBefore(canvas, existingCanvas[insertIndex]);
+                        }
+                    });
+                }
+            }).catch(err => {
+                document.getElementById('page_info').innerText = 'Error loading PDF: ' + err.message;
+            });
+
+            // Intersection Observer to track which page is currently in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const pageNum = parseInt(entry.target.dataset.pageNumber);
+                        currentVisiblePage = pageNum;
+                        document.getElementById('page_info').innerText = \`Page \${pageNum} of \${totalPages}\`;
+                        if (pageNum > maxPageReached) {
+                            maxPageReached = pageNum;
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe all canvases as they are added
+            const observeNewElements = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.tagName === 'CANVAS') {
+                            observer.observe(node);
+                        }
+                    });
+                });
+            });
+            observeNewElements.observe(document.getElementById('viewer-container'), { childList: true });
+
+            // On Exit, transmit the abandonment telemetry
+            window.addEventListener('beforeunload', () => {
+                if (totalPages > 0 && window.trackEvent) {
+                    const readPercentage = Math.round((maxPageReached / totalPages) * 100);
+                    // Force a beacon push
+                    const beaconData = [{
+                        event: 'pdf_abandonment',
+                        timestamp: new Date().toISOString(),
+                        vid: localStorage.getItem('cg_analytics_vid') || 'Unknown',
+                        sid: sessionStorage.getItem('cg_analytics_sid') || 'Unknown',
+                        file: pdfUrl,
+                        totalPages: totalPages,
+                        maxPageReached: maxPageReached,
+                        abandonmentPage: currentVisiblePage,
+                        completionPercentage: readPercentage
+                    }];
+                    navigator.sendBeacon('/api/analytics', JSON.stringify(beaconData));
+                }
+            });
+            
+            // Track initial open
+            window.addEventListener('load', () => {
+                if (window.trackEvent) {
+                    window.trackEvent('pdf_opened', { file: pdfUrl });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
