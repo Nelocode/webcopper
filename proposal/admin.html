@@ -366,28 +366,44 @@
     </div>
 
     <!-- Top Nav Header -->
-    <nav class="admin-nav">
+        <!-- Top Nav Header (Unified) -->
+    <nav class="admin-nav" style="border-bottom: 2px solid rgba(255,255,255,0.05); background: rgba(10,12,16,0.95);">
         <a href="index.html" class="admin-logo">
             <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 36px;">
-            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: var(--text-muted);">Visual Telemetry Dashboard</div>
+            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: #fff; font-weight: 600;">Data Mining Center</div>
         </a>
-        <div class="nav-actions">
-            <a href="#kaizen-section" onclick="document.getElementById('kaizen-section').scrollIntoView({behavior: 'smooth'}); return false;" class="btn-action" style="background: var(--copper-primary); border-color: var(--copper-primary); color: white;"><i class="fa-solid fa-brain"></i> Modo Kaizen AI</a>
-            <button class="btn-action" onclick="toggleDarkMode()"><i class="fa-solid fa-moon"></i> Modo Oscuro/Claro</button>
-            <button class="btn-action btn-export" onclick="exportAnalyticsCSV()">
-                <i class="fa-solid fa-file-csv"></i> Exportar CSV
-            </button>
-            <button class="btn-action btn-export" onclick="exportAnalyticsJSON()">
-                <i class="fa-solid fa-download"></i> Exportar Telemetría (JSON)
-            </button>
-            <a href="admin-visitors.html" class="btn-action" style="text-decoration: none;">
-                <i class="fa-solid fa-id-card"></i> Inducción HSE Visitantes
-            </a>
-            <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-lock"></i> Salir</button>
+        <div class="nav-actions" style="gap: 5px;">
+            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchTab('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
+            <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchTab('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
+            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 10px;"></div>
+            <button class="btn-action btn-export" onclick="exportAnalyticsCSV()"><i class="fa-solid fa-file-csv"></i> CSV</button>
+            <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i></button>
         </div>
     </nav>
+    
+    <script>
+        function switchTab(tab) {
+            if(tab === 'telemetry') {
+                document.getElementById('wrapper-telemetry').style.display = 'block';
+                document.getElementById('wrapper-kaizen').style.display = 'none';
+                document.getElementById('btnTabTelemetry').style.background = 'var(--copper-primary)';
+                document.getElementById('btnTabTelemetry').style.color = 'white';
+                document.getElementById('btnTabKaizen').style.background = 'transparent';
+                document.getElementById('btnTabKaizen').style.color = 'var(--text-main)';
+            } else {
+                document.getElementById('wrapper-telemetry').style.display = 'none';
+                document.getElementById('wrapper-kaizen').style.display = 'block';
+                document.getElementById('btnTabKaizen').style.background = 'var(--copper-primary)';
+                document.getElementById('btnTabKaizen').style.color = 'white';
+                document.getElementById('btnTabTelemetry').style.background = 'transparent';
+                document.getElementById('btnTabTelemetry').style.color = 'var(--text-main)';
+            }
+        }
+    </script>
+
 
     <!-- Main Container -->
+    <div id="wrapper-telemetry" style="display:block;">
     <main class="admin-container">
 
         <div class="header-title">
@@ -1573,19 +1589,46 @@
     </script>
 
 
-    <div id="kaizen-section"></div>
+        </div>
+    <div id="wrapper-kaizen" style="display:none; padding-top: 20px;">
     
 
     <!-- Navigations -->
-    <nav class="admin-nav">
+        <!-- Top Nav Header (Unified) -->
+    <nav class="admin-nav" style="border-bottom: 2px solid rgba(255,255,255,0.05); background: rgba(10,12,16,0.95);">
         <a href="index.html" class="admin-logo">
-            <img src="assets/LOGO.svg" alt="Copper Giant" style="height: 24px;">
-            <div style="border-left: 1px solid var(--border-light); padding-left: 12px; margin-left: 8px; font-size: 0.9rem; color: #fff; font-weight: 500;">Kaizen AI System V2</div>
+            <img src="assets/LOGO.svg" alt="Copper Giant Logo" style="height: 36px;">
+            <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: #fff; font-weight: 600;">Data Mining Center</div>
         </a>
-        <div style="display: flex; gap: 10px;">
-            <a href="admin-analytics.html" class="btn-action"><i data-lucide="layout-dashboard" style="width: 14px;"></i> Volver a Telemetría</a>
+        <div class="nav-actions" style="gap: 5px;">
+            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchTab('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
+            <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchTab('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
+            <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 10px;"></div>
+            <button class="btn-action btn-export" onclick="exportAnalyticsCSV()"><i class="fa-solid fa-file-csv"></i> CSV</button>
+            <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i></button>
         </div>
     </nav>
+    
+    <script>
+        function switchTab(tab) {
+            if(tab === 'telemetry') {
+                document.getElementById('wrapper-telemetry').style.display = 'block';
+                document.getElementById('wrapper-kaizen').style.display = 'none';
+                document.getElementById('btnTabTelemetry').style.background = 'var(--copper-primary)';
+                document.getElementById('btnTabTelemetry').style.color = 'white';
+                document.getElementById('btnTabKaizen').style.background = 'transparent';
+                document.getElementById('btnTabKaizen').style.color = 'var(--text-main)';
+            } else {
+                document.getElementById('wrapper-telemetry').style.display = 'none';
+                document.getElementById('wrapper-kaizen').style.display = 'block';
+                document.getElementById('btnTabKaizen').style.background = 'var(--copper-primary)';
+                document.getElementById('btnTabKaizen').style.color = 'white';
+                document.getElementById('btnTabTelemetry').style.background = 'transparent';
+                document.getElementById('btnTabTelemetry').style.color = 'var(--text-main)';
+            }
+        }
+    </script>
+
     <div class="sub-nav">
         <div style="display: flex; gap: 10px; align-items: center;">
             <select class="select-modern" onchange="filterNodes(this.value)">
@@ -1965,5 +2008,6 @@
     </div>
 
 
+    </div>
 </body>
 </html>
