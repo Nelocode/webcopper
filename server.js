@@ -435,9 +435,11 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
                 });
                 
                 const data = await response.json();
-                if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+                fs.writeFileSync('kaizen_debug.json', JSON.stringify(data, null, 2));
+                
+                if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0]) {
                     res.writeHead(500, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ error: "Gemini API Error", details: data }));
+                    res.end(JSON.stringify({ error: "Gemini API Error - Missing Parts", details: data }));
                     return;
                 }
                 let rawText = data.candidates[0].content.parts[0].text;
