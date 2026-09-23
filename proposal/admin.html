@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
+<!DOCTYPE html><html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CopperGiant™ | Data Mining Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&amp;family=Roboto+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -423,8 +421,29 @@ body {
 </style>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
-    <link rel="canonical" href="https://coppergiant.com/admin.html" />
-</head>
+    <link rel="canonical" href="https://coppergiant.com/admin.html">
+<style>
+.mission-control-wrapper-new {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+}
+.ai-glass-panel {
+    background: linear-gradient(135deg, rgba(20,20,20,0.8) 0%, rgba(10,10,10,0.9) 100%);
+    border: 1px solid rgba(255,100,50,0.3);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,100,50,0.05);
+}
+@media (max-width: 1024px) {
+    .kpi-master-row, .ai-brain-section > div:last-child, .analytics-deep-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style></head>
 <body>
     <nav class="admin-nav">
         <div class="nav-left">
@@ -437,12 +456,8 @@ body {
         </div>
     </nav>
 
-    <div class="mission-control-wrapper">
-        <!-- LEFT COLUMN: OCKHAM TELEMETRY -->
-        <div class="mc-left-col" id="col-left">
-            
-
-        <div class="header-title">
+    <div class="mission-control-wrapper-new" id="master-grid">
+    <div class="header-title">
             <div>
                 <h1>Panel Visual de Telemetría y Comportamiento</h1>
                 <div class="header-subtitle">Monitoreo gráfico en tiempo real de visitas, dispositivos, hardware, interacción con el Proyecto Mocoa y Presentación Corporativa.</div>
@@ -462,261 +477,41 @@ body {
             </div>
         </div>
 
-        <!-- Metrics Cards -->
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
-                <div>
-                    <div class="metric-value" id="valTotalVisitors">0</div>
-                    <div class="metric-label">Eventos de Telemetría</div>
-                </div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                <div>
-                    <div class="metric-value" id="valUniqueSessions">0</div>
-                    <div class="metric-label">Visitas a Páginas</div>
-                </div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-icon"><i class="fa-solid fa-file-pdf"></i></div>
-                <div>
-                    <div class="metric-value" id="valPresentationViews">0</div>
-                    <div class="metric-label">Lecturas de la Presentación</div>
-                </div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-icon"><i class="fa-solid fa-wifi"></i></div>
-                <div>
-                    <div class="metric-value" id="valTopConnection">4G / WiFi</div>
-                    <div class="metric-label">Conexión Predominante</div>
-                </div>
-            </div>
-        </div>
-
-        
-        
-        <!-- AI SEO/GEO Insights Module -->
-        <div class="chart-card" style="margin-bottom: 24px; border-top: 2px solid var(--copper-primary); background: linear-gradient(180deg, rgba(255, 0, 44, 0.05) 0%, var(--bg-card) 100%);">
-            <div class="header-title" style="margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
-                <h2 style="font-size: 1.2rem; color: #fff; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--copper-primary);"></i> Analista IA de SEO y GEO
-                </h2>
-                <button class="btn-action btn-export" onclick="generateAIReport()"><i class="fa-solid fa-robot"></i> Generar Reporte Inteligente</button>
-            </div>
-            
-            <div id="aiReportBox" style="display: none; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid var(--copper-primary);">
-                <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando cientos de data points...</div>
-            </div>
-        </div>
-
-        <!-- 2D Interactive Vector Map with Overlays -->
-        <div class="chart-card" style="margin-bottom: 24px; position: relative;">
-            <div class="chart-card-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                <div><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Análisis Geográfico Global</div>
-                <div style="display: flex; gap: 8px;">
-                    <button id="btnMapAll" class="btn-action" style="background: var(--copper-primary); color: #fff; font-size: 0.75rem;" onclick="setMapLayer('all')">Tráfico Global</button>
-                    <button id="btnMapPDF" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('pdf')">Interés PDF</button>
-                    <button id="btnMapDesktop" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('desktop')">Escritorio</button>
-                    <button id="btnMapMobile" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('mobile')">Móvil</button>
-                </div>
-            </div>
-            <div id="vectorMapContainer" style="width: 100%; height: 450px; background: #121820; border-radius: 8px; overflow: hidden;">
-                <div id="vectorMap" style="width: 100%; height: 100%;"></div>
-            </div>
-        </div>
-
-        <!-- Interactive Charts Row 1 -->
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-card-title"><i class="fa-solid fa-chart-line" style="color: var(--copper-primary);"></i> Tendencia de Visitas en Vivo (Línea del Tiempo)</div>
-                <div class="chart-wrapper">
-                    <canvas id="chartTrafficTrend"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-card">
-                <div class="chart-card-title"><i class="fa-solid fa-chart-pie" style="color: var(--copper-primary);"></i> Dispositivos (Móvil vs Desktop)</div>
-                <div class="chart-wrapper">
-                    <canvas id="chartDevices"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Interactive Charts Row 2 -->
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-card-title"><i class="fa-solid fa-filter" style="color: var(--copper-primary);"></i> Embudo de Conversión</div>
-                <div class="chart-wrapper">
-                    <canvas id="chartFunnel"></canvas>
-                </div>
-            </div>
-            <div class="chart-card">
-                <div class="chart-card-title"><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Geo-Localización de Visitas</div>
-                <div class="chart-wrapper">
-                    <canvas id="chartGeo"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="charts-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
-            <div class="chart-card">
-                <div class="chart-card-title"><i class="fa-solid fa-chart-bar" style="color: var(--copper-primary);"></i> Secciones Más Consultadas (% Interés)</div>
-                <div class="chart-wrapper">
-                    <canvas id="chartSections"></canvas>
-                </div>
-            </div>
-
-            <div class="chart-card">
-                <div class="chart-card-title"><i class="fa-solid fa-microchip" style="color: var(--copper-primary);"></i> Sistemas Operativos & Hardware</div>
-                <div class="chart-wrapper">
-                    <canvas id="chartHardware"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tables Grid -->
-        <div class="tables-grid">
-            <!-- Hardware & Network Telemetry Table -->
-            <div class="table-card">
-                <div class="table-card-header">
-                    <div class="table-card-title"><i class="fa-solid fa-server" style="color: var(--copper-primary); margin-right: 8px;"></i> Telemetría de Red y Hardware</div>
-                </div>
-                <div style="overflow-x: auto;">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Variable Técnica</th>
-                            <th>Valor Detectado</th>
-                            <th>Muestras</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableHardwareBody">
-                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando telemetría de hardware...</td></tr>
-                    </tbody>
-                </table>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
-                    <button class="btn-action" onclick="changePageHw(-1)">Anterior</button>
-                    <span id="pageIndicatorHw" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
-                    <button class="btn-action" onclick="changePageHw(1)">Siguiente</button>
-                </div>
-            </div>
-
-            <!-- Deep Engagement & PDF Interactions -->
-            <div class="table-card">
-                <div class="table-card-header">
-                    <div class="table-card-title"><i class="fa-solid fa-copy" style="color: var(--copper-primary); margin-right: 8px;"></i> Interacciones y Copia de Texto</div>
-                </div>
-                <div style="overflow-x: auto;">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Acción de Interés</th>
-                            <th>Detalle / Fragmento Copiado</th>
-                            <th>Frecuencia</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableInteractionsBody">
-                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando interacciones...</td></tr>
-                    </tbody>
-                </table>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
-                    <button class="btn-action" onclick="changePageInt(-1)">Anterior</button>
-                    <span id="pageIndicatorInt" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
-                    <button class="btn-action" onclick="changePageInt(1)">Siguiente</button>
-                </div>
-            </div>
+    <div class="kpi-master-row" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px;">
+        <div class="kpi-telemetry-container" style="display:flex; flex-direction:column; justify-content:center;">
+            <div style="color:var(--copper-primary); font-weight:700; text-transform:uppercase; font-size:0.8rem; margin-bottom:10px; letter-spacing:1px;">Web Telemetry</div>
             
         </div>
-
-        <!-- Live Activity Stream Table -->
-        <div class="table-card" style="margin-bottom: 28px;">
-            <div class="table-card-header">
-                <div class="table-card-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--copper-primary); margin-right: 8px;"></i> Historial Detallado de Telemetría en Vivo</div>
-                <input type="text" id="logSearch" placeholder="Buscar por IP, ciudad, SO..." class="btn-action" style="width: 250px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main);" onkeyup="renderStreamTable()">
-                <div style="font-size: 0.8rem; color: var(--text-muted);">Registro completo de metadatos</div>
+        <div class="omni-container">
+            <div style="color:#0096ff; font-weight:700; text-transform:uppercase; font-size:0.8rem; margin-bottom:10px; letter-spacing:1px;">Omnichannel Outbound</div>
+            <div class="panel" id="omniPanel">
+            <div class="panel-header" style="background: rgba(0, 150, 255, 0.05); border-bottom-color: rgba(0, 150, 255, 0.2);">
+                <div style="display:flex;gap:8px;color:#0096ff;"><i data-lucide="share-2" style="width:16px;"></i> Omnichannel Outbound (CRM &amp; Social)</div>
             </div>
-            <div style="overflow-x: auto;">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Fecha y Hora</th>
-                            <th>ID Visitante</th>
-                            <th>Página / Acción</th>
-                            <th>Dispositivo / OS</th>
-                            <th>Red / CPU / RAM</th>
-                            <th>Origen de la Visita</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableStreamBody">
-                        <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría aún.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 15px;">
-                <button class="btn-action" onclick="changePage(-1)">Anterior</button>
-                <span id="pageIndicator" style="font-size: 0.9rem; color: var(--text-muted);">Página 1</span>
-                <button class="btn-action" onclick="changePage(1)">Siguiente</button>
+            <div class="panel-content" id="omniContent" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="text-align: center; padding: 20px 0; color: #888;"><i class="fa-solid fa-circle-notch fa-spin"></i> Sincronizando APIs...</div>
             </div>
         </div>
+        </div>
+    </div>
 
-    
+    <!-- THE KAIZEN BRAIN -->
+    <div class="ai-brain-section ai-glass-panel" style="margin-bottom: 30px;">
+        <div class="ai-brain-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom: 1px solid rgba(255,100,50,0.2); padding-bottom: 15px;">
+            <div style="display:flex; align-items:center; gap: 15px;">
+                <div style="background: rgba(255,100,50,0.1); padding: 12px; border-radius: 8px; color: var(--copper-primary);"><i class="fa-solid fa-brain" style="font-size: 1.5rem;"></i></div>
+                <div>
+                    <h2 style="margin:0; font-size: 1.4rem; color:#fff;">Ockham Cognitive Engine (Kaizen AI)</h2>
+                    <div style="color:#888; font-size:0.85rem;">Motor de recomendación estratégica y generación de rutas. RAG Vectorial Activo.</div>
+                </div>
+            </div>
+            <button class="btn-action" onclick="generateAIReport()" style="background: var(--copper-primary); color: #fff; font-size: 1.1rem; padding: 12px 24px; box-shadow: 0 4px 15px rgba(255,100,50,0.4);"><i class="fa-solid fa-bolt"></i> Iniciar Análisis Global</button>
         </div>
         
-        <!-- RIGHT COLUMN: KAIZEN AI -->
-        <div class="mc-right-col" id="col-right">
-            
         
-        <!-- COL 1: RADAR -->
-        <div class="panel">
-            <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="radar" style="color:var(--copper-primary);width:16px;"></i> Radar Global</div></div>
-            <div class="panel-content">
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab('stk', this)">Stakeholders</div>
-                    <div class="tab" onclick="switchTab('mkt', this)">Mercado</div>
-                    <div class="tab" onclick="switchTab('gov', this)">Gov-Track</div>
-                </div>
-
-                <div id="tab-stk" class="radar-content-block active">
-                    <div style="background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;">
-                        <div style="width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--success); display: flex; justify-content: center; align-items: center; font-weight: 700; color: #fff;">92</div>
-                        <div>
-                            <div style="font-size: 0.7rem; color: var(--text-muted);">LICENCIA SOCIAL (LSO)</div>
-                            <div style="font-size: 0.85rem; color: #fff; font-weight: 500;">Riesgo Reputacional Mínimo</div>
-                        </div>
-                    </div>
-                    <div style="background: rgba(0,122,255,0.05); border: 1px solid rgba(0,122,255,0.2); border-radius: 8px; padding: 12px;">
-                        <div style="font-size: 0.7rem; color: #4da3ff; font-weight: 700; margin-bottom: 4px;"><i data-lucide="anchor" style="width: 12px; display: inline;"></i> ALERTA INSTITUCIONAL (B2B)</div>
-                        <div style="font-size: 0.8rem; color: #ddd;">Tráfico detectado desde IPs de <strong>BlackRock</strong> leyendo sección del PEA durante 18 min.</div>
-                    </div>
-                </div>
-
-                <div id="tab-mkt" class="radar-content-block">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">TSXV: CGNT</div>
-                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">C$1.28 <span style="color: var(--success); font-size: 0.7rem;">+18%</span></div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.03); padding: 8px; border-radius: 6px;">
-                            <div style="font-size: 0.65rem; color: var(--text-muted);">Cobre (HG=F)</div>
-                            <div style="font-size: 1rem; color: #fff; font-family: 'JetBrains Mono';">$4.18/Lb <span style="color: var(--warning); font-size: 0.7rem;">-1.2%</span></div>
-                        </div>
-                    </div>
-                    <p style="font-size: 0.8rem; color: #ddd; margin-top: 12px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px;">El spread positivo de CGNT frente a la caída del cobre confirma interés específico en Mocoa.</p>
-                </div>
-
-                <div id="tab-gov" class="radar-content-block">
-                    <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; font-size: 0.8rem; color: #ddd;">
-                        <span style="color: var(--success); font-weight: 600; display: block; margin-bottom: 4px;">Foros Putumayo</span>
-                        Menciones orgánicas positivas sobre el programa de viveros. El sentimiento regional es estable.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- COL 2: ROADMAP -->
-        <div class="panel">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+            <div class="panel">
             <div class="panel-header"><div style="display:flex;gap:8px;"><i data-lucide="network" style="color:var(--copper-primary);width:16px;"></i> Rutas Kaizen</div></div>
             <div class="panel-content">
                 <div class="roadmap-canvas" id="roadmapCanvas">
@@ -727,18 +522,7 @@ body {
                 </div>
             </div>
         </div>
-        <!-- COL 4: OMNICHANNEL HUB (Brevo + Hootsuite) -->
-        <div class="panel" id="omniPanel">
-            <div class="panel-header" style="background: rgba(0, 150, 255, 0.05); border-bottom-color: rgba(0, 150, 255, 0.2);">
-                <div style="display:flex;gap:8px;color:#0096ff;"><i data-lucide="share-2" style="width:16px;"></i> Omnichannel Outbound (CRM & Social)</div>
-            </div>
-            <div class="panel-content" id="omniContent" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div style="text-align: center; padding: 20px 0; color: #888;"><i class="fa-solid fa-circle-notch fa-spin"></i> Sincronizando APIs...</div>
-            </div>
-        </div>
-
-        <!-- COL 3: EXECUTION (Always visible, populates based on selection) -->
-        <div class="panel" id="execPanel">
+            <div class="panel" id="execPanel">
             <div class="panel-header" style="background: rgba(255,0,44,0.05); border-bottom-color: rgba(255,0,44,0.2);">
                 <div style="display:flex;gap:8px;color:var(--copper-primary);"><i data-lucide="zap" style="width:16px;"></i> Centro de Ejecución Integral</div>
             </div>
@@ -749,7 +533,7 @@ body {
 
                 <!-- Inteligencia Predictiva -->
                 <div class="exec-section">
-                    <div class="exec-title-small"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección & Simulador (What-if)</div>
+                    <div class="exec-title-small"><i data-lucide="test-tube-2" style="width: 14px;"></i> Proyección &amp; Simulador (What-if)</div>
                     <div style="display: flex; gap: 16px; margin-bottom: 12px;">
                         <div><div id="dynMetric1" style="font-size: 1.1rem; color: var(--success); font-family: 'JetBrains Mono'; font-weight:700;">+14%</div><div id="dynLabel1" style="font-size: 0.65rem; color: var(--text-muted);">Retención de Capital</div></div>
                         <div><div id="dynMetric2" style="font-size: 1.1rem; color: #fff; font-family: 'JetBrains Mono'; font-weight:700;">3,200</div><div id="dynLabel2" style="font-size: 0.65rem; color: var(--text-muted);">Inversores Salvados</div></div>
@@ -779,12 +563,22 @@ body {
 
             </div>
         </div>
-    </div>
-
-    <!-- Toast Component -->
-    <div id="toast"><i data-lucide="info" style="color: var(--copper-primary);"></i><span id="toastMsg">Mensaje</span>
         </div>
     </div>
+
+    <!-- DEEP DIVE ANALYTICS -->
+    <div class="analytics-deep-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="display:flex; flex-direction:column; gap:20px;">
+            <div style="color:#fff; font-weight:700; text-transform:uppercase; font-size:0.8rem; letter-spacing:1px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px;">Comportamiento Gráfico</div>
+            
+        </div>
+        <div style="display:flex; flex-direction:column; gap:20px;">
+            <div style="color:#fff; font-weight:700; text-transform:uppercase; font-size:0.8rem; letter-spacing:1px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom:10px;">Inteligencia Geoespacial</div>
+            
+            
+        </div>
+    </div>
+</div>
 
     <script>
 
@@ -2010,5 +1804,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize icons
     if (typeof lucide !== 'undefined') lucide.createIcons();
     </script>
-</body>
-</html>
+
+
+</body></html>
