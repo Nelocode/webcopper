@@ -30,5 +30,28 @@
     </div>
     
     <iframe src="https://cgntns.terrahutton.io/" name="th-frame" class="th-frame" onload="document.getElementById('loader').style.opacity = '0';"></iframe>
+
+    <!-- 3D Telemetry (Idea 22) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const frame = document.querySelector('.th-frame');
+            let interactStart = 0;
+            
+            frame.addEventListener('mouseenter', () => {
+                interactStart = Date.now();
+            });
+            
+            frame.addEventListener('mouseleave', () => {
+                if (interactStart > 0) {
+                    const duration = Math.floor((Date.now() - interactStart) / 1000);
+                    if (duration > 2 && window.trackEvent) {
+                        window.trackEvent('3d_interaction', { durationSeconds: duration, model: 'Mocoa Porphyry' });
+                    }
+                    interactStart = 0;
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

@@ -115,7 +115,22 @@
             title: document.title,
             referrer: document.referrer || 'Direct Entry',
             previousPage: prevPage,
-            isNewVisitor: visitorInfo.isNew
+            isNewVisitor: visitorInfo.isNew,
+            utm: getUTMs()
+        };
+    }
+
+    // 6. Cloud Queue & Event Dispatcher
+    
+    // Helper to get UTM params
+    function getUTMs() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            source: params.get('utm_source') || null,
+            medium: params.get('utm_medium') || null,
+            campaign: params.get('utm_campaign') || null,
+            term: params.get('utm_term') || null,
+            content: params.get('utm_content') || null
         };
     }
 

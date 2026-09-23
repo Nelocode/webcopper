@@ -567,14 +567,41 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
         if (req.method === 'POST') {
             let body = '';
             req.on('data', chunk => { body += chunk.toString(); });
-            req.on('end', () => {
+            req.on('end', async () => {
                 try {
                     const newEvents = JSON.parse(body);
                     if (Array.isArray(newEvents)) {
                         const existingIds = new Set(analyticsDB.map(e => e.id));
-                        const filteredNew = newEvents.filter(e => !existingIds.has(e.id));
+                        let filteredNew = newEvents.filter(e => !existingIds.has(e.id));
+                        
+                        // B2B Radar: Resolve IPs to Companies (Idea 20)
+                        const httpReq = require('http');
+                        for (let ev of filteredNew) {
+                            if (ev.geo && ev.geo.ip && ev.geo.ip !== 'Unknown' && !ev.geo.org) {
+                                await new Promise((resolve) => {
+                                    httpReq.get(`http://ip-api.com/json/${ev.geo.ip}?fields=status,country,city,org,isp,as`, (res) => {
+                                        let data = '';
+                                        res.on('data', c => data += c);
+                                        res.on('end', () => {
+                                            try {
+                                                const j = JSON.parse(data);
+                                                if (j.status === 'success') {
+                                                    ev.geo.country = j.country || ev.geo.country;
+                                                    ev.geo.city = j.city || ev.geo.city;
+                                                    ev.geo.org = j.org || j.isp || 'Unknown';
+                                                    ev.geo.asn = j.as || 'Unknown';
+                                                }
+                                            } catch(e){}
+                                            resolve();
+                                        });
+                                    }).on('error', resolve);
+                                });
+                            }
+                        }
                         
                         analyticsDB = [...filteredNew, ...analyticsDB].slice(0, 100000);
+                        safeWrite('analytics_db.json', analyticsDB);
+                        broadcastUpdate();
                     }
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     return res.end(JSON.stringify({ success: true }));
@@ -585,6 +612,7 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
             });
             return;
         }
+
     }
 
     
