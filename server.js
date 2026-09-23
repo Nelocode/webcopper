@@ -380,16 +380,15 @@ Debes incluir estas 3 secciones obligatoriamente:
                 const path = require('path');
                 let telemetria = {};
                 try {
-                    telemetria.ockham = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'ockham_db.json'), 'utf8')).slice(0, 100);
-                    telemetria.visitas = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'analytics_db.json'), 'utf8')).slice(0, 100);
+                    let ockhamData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'ockham_db.json'), 'utf8'));
+                    let visitasData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'analytics_db.json'), 'utf8'));
                     
-                    let rawLeads = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'visitors_db.json'), 'utf8'));
-                    // Strip base64 images from leads to avoid crashing the AI prompt limit
-                    telemetria.leads = rawLeads.map(l => {
-                        let clean = {...l};
-                        delete clean.vaccineDoc;
-                        return clean;
-                    }).slice(0, 50);
+                    // Take only the last 200 events to keep the prompt light and focused on recent data
+                    telemetria.ockham = ockhamData.slice(-200);
+                    telemetria.visitas = visitasData.slice(-200);
+                    
+                    // User explicitly stated: "el HSE no va en este panel". 
+                    // Do NOT send visitors_db.json to Kaizen AI.
                 } catch(e) { console.error("Error leyendo datos locales", e); }
 
                 const prompt = `Actúa como el motor de Inteligencia Artificial (Kaizen AI) de Copper Giant Resources (empresa minera junior de cobre en Colombia).
