@@ -2,3 +2,4 @@
 *.ARW
 *.HEIC
 *.mp4
+data/*.json
