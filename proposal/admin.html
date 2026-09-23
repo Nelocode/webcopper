@@ -54,7 +54,7 @@
         }
 
         .admin-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .admin-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
+        .admin-title { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
         
         .nav-actions { display: flex; gap: 12px; align-items: center; }
 
@@ -80,7 +80,7 @@
         .admin-container { max-width: 1400px; width: 100%; margin: 0 auto; padding: 28px; flex: 1; }
 
         .header-title { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; }
-        .header-title h1 { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 700; color: #fff; }
+        .header-title h1 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 700; color: #fff; }
         .header-subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
 
         /* Metrics Cards */
@@ -113,7 +113,7 @@
             font-size: 1.3rem;
         }
 
-        .metric-value { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 700; color: #fff; }
+        .metric-value { font-family: 'Montserrat', sans-serif; font-size: 1.7rem; font-weight: 700; color: #fff; }
         .metric-label { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
 
         /* Charts Layout Grid */
@@ -133,7 +133,7 @@
         }
 
         .chart-card-title {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.1rem;
             font-weight: 600;
             color: #fff;
@@ -168,7 +168,7 @@
             margin-bottom: 16px;
         }
 
-        .table-card-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
+        .table-card-title { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #fff; }
 
         .custom-table { width: 100%; min-width: 450px; border-collapse: collapse; font-size: 0.88rem; }
         .custom-table th {
@@ -1247,7 +1247,10 @@ body {
                 };
                 
                 reportBox.innerHTML = `
-                    <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Outfit', sans-serif;"><i class="fa-solid fa-sparkles" style="color: #FF002C;"></i> Análisis Profundo de Gemini AI</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <h3 style="color: #fff; font-family: 'Montserrat', sans-serif; margin: 0;"><i class="fa-solid fa-sparkles" style="color: #FF002C;"></i> Análisis Profundo de Gemini AI</h3>
+                        <button onclick="document.getElementById('aiReportBox').style.display='none'" style="background: rgba(255,255,255,0.1); border: none; color: #fff; cursor: pointer; font-size: 1.2rem; padding: 5px 10px; border-radius: 4px; transition: 0.2s;"><i class="fa-solid fa-times"></i></button>
+                    </div>
                     <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; color: #eee;">
                         ${data.report}
                     </div>
@@ -1278,7 +1281,7 @@ body {
                     window.latestAIReport = { geo: geoInsight, seo: seoInsight, pres: presInsight, topPage: topPageName };
                     
                     reportBox.innerHTML += `
-                        <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Outfit', sans-serif;">Reporte de Respaldo (Local)</h3>
+                        <h3 style="color: #fff; margin-bottom: 12px; font-family: 'Montserrat', sans-serif;">Reporte de Respaldo (Local)</h3>
                         <div style="display: flex; flex-direction: column; gap: 12px;">
                             <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
                                 <h4 style="color: var(--copper-primary); margin-bottom: 6px;"><i class="fa-solid fa-globe"></i> Análisis GEO</h4>
