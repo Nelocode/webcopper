@@ -413,6 +413,13 @@ body {
     opacity: 0.4;
     border: 2px dashed var(--copper-primary);
 }
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 44, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 0, 44, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 44, 0); }
+}
+
 </style>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
@@ -854,6 +861,27 @@ body {
             const totalPageviews = filteredEvents.filter(e => e.type === 'pageview').length;
             const uniqueSessions = new Set(filteredEvents.map(e => e.sessionId)).size;
             const presViews = filteredEvents.filter(e => e.type === 'presentation_view').length;
+
+            // Check for high-value B2B hits (Idea 3)
+            let highValueDetected = false;
+            filteredEvents.slice(-20).forEach(e => {
+                const ageSecs = (Date.now() - new Date(e.temporal?.timestampIso || Date.now()).getTime()) / 1000;
+                if (ageSecs < 120 && e.geo && e.geo.org && e.geo.org !== 'Unknown' && e.geo.org !== 'Google LLC') {
+                    highValueDetected = true; // High value corp inside!
+                }
+            });
+
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            kpiCards.forEach(card => {
+                if (highValueDetected) {
+                    card.style.animation = 'pulse-red 2s infinite';
+                    card.style.borderColor = 'rgba(255, 0, 44, 0.5)';
+                } else {
+                    card.style.animation = 'none';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                }
+            });
+
 
             document.getElementById('valTotalVisitors').innerText = filteredEvents.length;
             document.getElementById('valUniqueSessions').innerText = totalPageviews;

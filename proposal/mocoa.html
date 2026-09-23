@@ -1947,5 +1947,26 @@
     }(jQuery));
     var $mcj = jQuery.noConflict(true);
     </script>
+
+    <!-- Passive Capture Popup (Idea 17) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let popupTriggered = false;
+            window.addEventListener('scroll', () => {
+                if (popupTriggered) return;
+                const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                if (scrollPercent > 80) {
+                    popupTriggered = true;
+                    // Re-use the Get Updates modal
+                    const modal = document.getElementById('newsletter-modal');
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        if (window.trackEvent) window.trackEvent('passive_popup_shown', { page: 'Mocoa' });
+                    }
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
