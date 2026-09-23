@@ -373,8 +373,8 @@
             <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: #fff; font-weight: 600;">Data Mining Center</div>
         </a>
         <div class="nav-actions" style="gap: 5px;">
-            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchTab('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
-            <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchTab('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
+            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchMainView('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
+            <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchMainView('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
             <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 10px;"></div>
             <button class="btn-action btn-export" onclick="exportAnalyticsCSV()"><i class="fa-solid fa-file-csv"></i> CSV</button>
             <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i></button>
@@ -382,7 +382,7 @@
     </nav>
     
     <script>
-        function switchTab(tab) {
+        function switchMainView(tab) {
             if(tab === 'telemetry') {
                 document.getElementById('wrapper-telemetry').style.display = 'block';
                 document.getElementById('wrapper-kaizen').style.display = 'none';
@@ -1601,8 +1601,8 @@
             <div class="admin-title" style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; margin-left: 8px; font-size: 1rem; color: #fff; font-weight: 600;">Data Mining Center</div>
         </a>
         <div class="nav-actions" style="gap: 5px;">
-            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchTab('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
-            <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchTab('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
+            <button id="btnTabTelemetry" class="btn-action" style="background: var(--copper-primary); color: white; border-color: var(--copper-primary);" onclick="switchMainView('telemetry')"><i class="fa-solid fa-chart-pie"></i> Telemetría Visual (Ockham)</button>
+            <button id="btnTabKaizen" class="btn-action" style="background: transparent; color: var(--text-main);" onclick="switchMainView('kaizen')"><i class="fa-solid fa-brain" style="color: var(--copper-primary);"></i> Kaizen AI (Predictivo)</button>
             <div style="width: 1px; height: 20px; background: rgba(255,255,255,0.2); margin: 0 10px;"></div>
             <button class="btn-action btn-export" onclick="exportAnalyticsCSV()"><i class="fa-solid fa-file-csv"></i> CSV</button>
             <button class="btn-action" onclick="logoutAdmin()"><i class="fa-solid fa-power-off"></i></button>
@@ -1610,7 +1610,7 @@
     </nav>
     
     <script>
-        function switchTab(tab) {
+        function switchMainView(tab) {
             if(tab === 'telemetry') {
                 document.getElementById('wrapper-telemetry').style.display = 'block';
                 document.getElementById('wrapper-kaizen').style.display = 'none';
