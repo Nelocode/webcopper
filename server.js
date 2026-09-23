@@ -405,9 +405,24 @@ Debes incluir estas 3 secciones obligatoriamente:
                     // Do NOT send visitors_db.json to Kaizen AI.
                 } catch(e) { console.error("Error leyendo datos locales", e); }
 
+                // RAG Vector Core: Fetch long-term memory
+                let memoryContext = "No past memory available.";
+                try {
+                    const memPath = require('path').join(__dirname, 'data', 'kaizen_memory.json');
+                    if (fs.existsSync(memPath)) {
+                        const memoryDB = JSON.parse(fs.readFileSync(memPath, 'utf8'));
+                        if (memoryDB.length > 0) {
+                            const pastRoutes = memoryDB.slice(-10).map(m => `[Ruta Ejecutada en el Pasado] ${m.title}: ${m.desc}`).join('\n');
+                            memoryContext = `CONTEXTO DE MEMORIA A LARGO PLAZO:\nYa has sugerido y ejecutado las siguientes rutas en el pasado:\n${pastRoutes}\n\nIMPORTANTE: NO repitas estas mismas sugerencias exactas. Construye sobre ellas o busca nuevos ángulos y descubrimientos.`;
+                        }
+                    }
+                } catch(e) {}
+
                 const prompt = `Actúa como el motor de Inteligencia Artificial (Kaizen AI) de Copper Giant Resources (empresa minera junior de cobre en Colombia).
 Revisa estos datos de telemetría reales del sitio web corporativo de hoy:
 ${JSON.stringify(telemetria, null, 2)}
+
+${memoryContext}
 
 Devuelve estrictamente un ARRAY de JSON con 2 rutas de mejora continua (Kaizen Routes) basadas EN ESTOS DATOS. Usa este formato:
 [
