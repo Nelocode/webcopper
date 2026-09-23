@@ -334,3 +334,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("Market fetch error", e);
     }
 });
+
+// 8. Auto-Intercept PDF Links for Telemetry Viewer
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href$=".pdf"]');
+    if (link && !link.hasAttribute('download')) {
+        e.preventDefault();
+        const pdfUrl = link.getAttribute('href');
+        // Redirect to our custom telemetry viewer
+        window.location.href = 'pdf-viewer.html?file=' + encodeURIComponent(pdfUrl);
+    }
+});
