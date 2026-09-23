@@ -77,6 +77,20 @@ const mimeTypes = {
     '.mp4': 'video/mp4'
 };
 
+const sseClients = new Set();
+function broadcastUpdate() {
+    const fs = require('fs');
+    const path = require('path');
+    try {
+        let events = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'ockham_db.json'), 'utf8'));
+        let analytics = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'analytics_db.json'), 'utf8'));
+        const payload = JSON.stringify({ events, analytics });
+        for (let client of sseClients) {
+            client.write(`data: ${payload}\n\n`);
+        }
+    } catch(e) { console.error('SSE Broadcast error', e); }
+}
+
 const server = http.createServer((req, res) => {
 
     // --- OCKHAM COGNITIVE ENGINE ROUTES ---
