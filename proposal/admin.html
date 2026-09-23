@@ -401,7 +401,18 @@ body {
     padding: 20px;
 }
 
-    </style>
+    .card {
+    cursor: grab;
+}
+.card:active {
+    cursor: grabbing;
+}
+.sortable-ghost {
+    opacity: 0.4;
+    border: 2px dashed var(--copper-primary);
+}
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body>
     <nav class="admin-nav">
@@ -417,7 +428,7 @@ body {
 
     <div class="mission-control-wrapper">
         <!-- LEFT COLUMN: OCKHAM TELEMETRY -->
-        <div class="mc-left-col">
+        <div class="mc-left-col" id="col-left">
             
 
         <div class="header-title">
@@ -643,7 +654,7 @@ body {
         </div>
         
         <!-- RIGHT COLUMN: KAIZEN AI -->
-        <div class="mc-right-col">
+        <div class="mc-right-col" id="col-right">
             
         
         <!-- COL 1: RADAR -->
