@@ -273,7 +273,7 @@ const server = http.createServer((req, res) => {
             } catch (error) {
                 console.error("Internal Server Error during subscription:", error);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: "Server connection failed" }));
+                res.end(JSON.stringify({ error: "Server connection failed", details: error.message, stack: error.stack, data_preview: typeof data !== "undefined" ? data : null }));
             }
         });
         return;
