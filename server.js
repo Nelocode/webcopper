@@ -435,6 +435,11 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
                 });
                 
                 const data = await response.json();
+                if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: "Gemini API Error", details: data }));
+                    return;
+                }
                 let rawText = data.candidates[0].content.parts[0].text;
                 let startIndex = rawText.indexOf('[');
                 let endIndex = rawText.lastIndexOf(']');
