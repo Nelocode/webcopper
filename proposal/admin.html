@@ -779,7 +779,7 @@ body {
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
                 document.getElementById('adminLockModal').classList.add('hidden');
-                loadAnalyticsData();
+                renderDashboardData();
             }
             if (localStorage.getItem('cg_dark_mode') === 'true') toggleDarkMode(true);
         });
@@ -798,7 +798,7 @@ body {
             if (pin === 'copper2026' || pin === 'i212345678' || pin === 'visitor2026') {
                 localStorage.setItem('cg_analytics_admin_auth', 'true');
                 document.getElementById('adminLockModal').classList.add('hidden');
-                loadAnalyticsData();
+                renderDashboardData();
             } else {
                 document.getElementById('adminPinError').style.display = 'block';
             }
@@ -834,8 +834,8 @@ body {
             });
         }
 
-        async function loadAnalyticsData() {
-            rawAnalyticsEvents = await fetchServerAnalytics();
+        async function renderDashboardData() { if(!window.rawOckhamEvents) return;
+            // data injected by SSE
             filteredEvents = filterByDate(rawAnalyticsEvents);
 
             // Metrics
@@ -1696,10 +1696,13 @@ body {
         evtSource.onmessage = function(event) {
             const payload = JSON.parse(event.data);
             if (payload.events) {
-                // Solo si está autenticado
                 if (localStorage.getItem('cg_analytics_admin_auth') === 'true') {
-                    rawAnalyticsEvents = payload.events;
-                    updateDashboard(payload.events, payload.analytics);
+                    // Update global variables
+                    rawAnalyticsEvents = payload.analytics; // analytics_db.json is the visits!
+                    window.rawOckhamEvents = payload.events; // ockham_db.json is the clicks!
+                    
+                    // We call loadAnalyticsData, but we need to modify it to use the global vars instead of fetching!
+                    renderDashboardData();
                 }
             }
         };

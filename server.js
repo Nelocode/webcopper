@@ -512,6 +512,29 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
         return;
     }
 
+    
+    if (req.url === '/api/analytics/stream') {
+        res.writeHead(200, {
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'Access-Control-Allow-Origin': '*'
+        });
+        res.write('data: {"connected": true}\n\n');
+        sseClients.add(res);
+        req.on('close', () => { sseClients.delete(res); });
+        
+        // Push initial payload immediately
+        const path = require("path");
+        try {
+            let events = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "ockham_db.json"), "utf8"));
+            let analytics = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "analytics_db.json"), "utf8"));
+            res.write(`data: ${JSON.stringify({ events, analytics })}\n\n`);
+        } catch(e){}
+
+        return;
+    }
+
     if (req.url.startsWith('/api/analytics')) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -552,18 +575,7 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
 
     
     
-    if (req.url === '/api/analytics/stream') {
-        res.writeHead(200, {
-            'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive',
-            'Access-Control-Allow-Origin': '*'
-        });
-        res.write('data: {"connected": true}\n\n');
-        sseClients.add(res);
-        req.on('close', () => { sseClients.delete(res); });
-        return;
-    }
+    
 
     if (req.url.startsWith('/api/visitors')) {
         res.setHeader('Access-Control-Allow-Origin', '*');
