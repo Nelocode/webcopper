@@ -611,7 +611,153 @@ body {
             
         </div>
     </div>
-</div>
+<div class="chart-card" style="margin-bottom: 24px; border-top: 2px solid var(--copper-primary); background: linear-gradient(180deg, rgba(255, 0, 44, 0.05) 0%, var(--bg-card) 100%);">
+            <div class="header-title" style="margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+                <h2 style="font-size: 1.2rem; color: #fff; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--copper-primary);"></i> Analista IA de SEO y GEO
+                </h2>
+                <button class="btn-action btn-export" onclick="generateAIReport()"><i class="fa-solid fa-robot"></i> Generar Reporte Inteligente</button>
+            </div>
+            
+            <div id="aiReportBox" style="display: none; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 8px; border-left: 4px solid var(--copper-primary);">
+                <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Analizando cientos de data points...</div>
+            </div>
+        </div><div class="chart-card" style="margin-bottom: 24px; position: relative;">
+            <div class="chart-card-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Análisis Geográfico Global</div>
+                <div style="display: flex; gap: 8px;">
+                    <button id="btnMapAll" class="btn-action" style="background: var(--copper-primary); color: #fff; font-size: 0.75rem;" onclick="setMapLayer('all')">Tráfico Global</button>
+                    <button id="btnMapPDF" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('pdf')">Interés PDF</button>
+                    <button id="btnMapDesktop" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('desktop')">Escritorio</button>
+                    <button id="btnMapMobile" class="btn-action" style="font-size: 0.75rem;" onclick="setMapLayer('mobile')">Móvil</button>
+                </div>
+            </div>
+            <div id="vectorMapContainer" style="width: 100%; height: 450px; background: #121820; border-radius: 8px; overflow: hidden;">
+                <div id="vectorMap" style="width: 100%; height: 100%;"></div>
+            </div>
+        </div><div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-line" style="color: var(--copper-primary);"></i> Tendencia de Visitas en Vivo (Línea del Tiempo)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartTrafficTrend"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-pie" style="color: var(--copper-primary);"></i> Dispositivos (Móvil vs Desktop)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartDevices"></canvas>
+                </div>
+            </div>
+        </div><div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-filter" style="color: var(--copper-primary);"></i> Embudo de Conversión</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartFunnel"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-map-location-dot" style="color: var(--copper-primary);"></i> Geo-Localización de Visitas</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartGeo"></canvas>
+                </div>
+            </div>
+        </div><div class="charts-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));">
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-chart-bar" style="color: var(--copper-primary);"></i> Secciones Más Consultadas (% Interés)</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartSections"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-title"><i class="fa-solid fa-microchip" style="color: var(--copper-primary);"></i> Sistemas Operativos &amp; Hardware</div>
+                <div class="chart-wrapper">
+                    <canvas id="chartHardware"></canvas>
+                </div>
+            </div>
+        </div><div class="tables-grid">
+            <!-- Hardware & Network Telemetry Table -->
+            <div class="table-card">
+                <div class="table-card-header">
+                    <div class="table-card-title"><i class="fa-solid fa-server" style="color: var(--copper-primary); margin-right: 8px;"></i> Telemetría de Red y Hardware</div>
+                </div>
+                <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Variable Técnica</th>
+                            <th>Valor Detectado</th>
+                            <th>Muestras</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableHardwareBody">
+                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando telemetría de hardware...</td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
+                    <button class="btn-action" onclick="changePageHw(-1)">Anterior</button>
+                    <span id="pageIndicatorHw" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
+                    <button class="btn-action" onclick="changePageHw(1)">Siguiente</button>
+                </div>
+            </div>
+
+            <!-- Deep Engagement & PDF Interactions -->
+            <div class="table-card">
+                <div class="table-card-header">
+                    <div class="table-card-title"><i class="fa-solid fa-copy" style="color: var(--copper-primary); margin-right: 8px;"></i> Interacciones y Copia de Texto</div>
+                </div>
+                <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Acción de Interés</th>
+                            <th>Detalle / Fragmento Copiado</th>
+                            <th>Frecuencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableInteractionsBody">
+                        <tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 20px;">Cargando interacciones...</td></tr>
+                    </tbody>
+                </table>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 0 10px;">
+                    <button class="btn-action" onclick="changePageInt(-1)">Anterior</button>
+                    <span id="pageIndicatorInt" style="font-size: 0.85rem; color: var(--text-muted);">Página 1</span>
+                    <button class="btn-action" onclick="changePageInt(1)">Siguiente</button>
+                </div>
+            </div>
+            
+        </div><div class="table-card" style="margin-bottom: 28px;">
+            <div class="table-card-header">
+                <div class="table-card-title"><i class="fa-solid fa-clock-rotate-left" style="color: var(--copper-primary); margin-right: 8px;"></i> Historial Detallado de Telemetría en Vivo</div>
+                <input type="text" id="logSearch" placeholder="Buscar por IP, ciudad, SO..." class="btn-action" style="width: 250px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-main);" onkeyup="renderStreamTable()">
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Registro completo de metadatos</div>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <th>ID Visitante</th>
+                            <th>Página / Acción</th>
+                            <th>Dispositivo / OS</th>
+                            <th>Red / CPU / RAM</th>
+                            <th>Origen de la Visita</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableStreamBody">
+                        <tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">No hay registros de telemetría aún.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap; gap: 10px; padding: 15px;">
+                <button class="btn-action" onclick="changePage(-1)">Anterior</button>
+                <span id="pageIndicator" style="font-size: 0.9rem; color: var(--text-muted);">Página 1</span>
+                <button class="btn-action" onclick="changePage(1)">Siguiente</button>
+            </div>
+        </div></div>
 
     <script>
 
@@ -1872,5 +2018,5 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
     </div>
 
-</body>
-</html>
+
+</body></html>
