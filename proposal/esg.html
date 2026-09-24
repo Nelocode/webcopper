@@ -136,8 +136,8 @@
     <!-- HERO SECTION -->
     <section class="hero-video-section">
         <div class="hero-video-wrapper">
-            <video autoplay loop muted playsinline preload="auto" class="hero-video-bg ken-burns" style="width: 100%; height: 100%; object-fit: cover;">
-        <source src="assets/esg/Hero.mp4" type="video/mp4">
+            <video loop muted playsinline preload="none" class="lazy-video" preload="none" class="hero-video-bg ken-burns" style="width: 100%; height: 100%; object-fit: cover;">
+        <source data-src="assets/esg/Hero.mp4" type="video/mp4">
     </video>
             <div class="hero-video-overlay">
                 <div class="hero-text-container" style="text-align: center;">
@@ -204,7 +204,7 @@
             </div>
             <div style="flex: 1; width: 100%; min-width: 0;" class="fade-up">
                 <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); aspect-ratio: 16/9;">
-                    <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;"><source src="assets/esg/AMBIENTAL.mp4" type="video/mp4"></video>
+                    <video loop muted playsinline preload="none" class="lazy-video" preload="none" style="width: 100%; height: 100%; object-fit: cover;"><source data-src="assets/esg/AMBIENTAL.mp4" type="video/mp4"></video>
                 </div>
             </div>
         </div>
@@ -244,7 +244,7 @@
             <div style="flex: 1;" class="fade-up">
                 <!-- Video placeholder using an image with a play button overlay -->
                 <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); aspect-ratio: 16/9; position: relative;">
-                    <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;"><source src="assets/esg/SOCIAL.mp4" type="video/mp4"></video>
+                    <video loop muted playsinline preload="none" class="lazy-video" preload="none" style="width: 100%; height: 100%; object-fit: cover;"><source data-src="assets/esg/SOCIAL.mp4" type="video/mp4"></video>
                 </div>
             </div>
             <div style="flex: 1;" class="fade-up">
@@ -307,7 +307,7 @@
             </div>
             <div style="flex: 1; width: 100%; min-width: 0;" class="fade-up">
                 <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); aspect-ratio: 16/9; position: relative;">
-                    <video autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover;"><source src="assets/esg/Gobernanza.mp4" type="video/mp4"></video>
+                    <video loop muted playsinline preload="none" class="lazy-video" preload="none" style="width: 100%; height: 100%; object-fit: cover;"><source data-src="assets/esg/Gobernanza.mp4" type="video/mp4"></video>
                 </div>
             </div>
         </div>
@@ -547,17 +547,39 @@
     var $mcj = jQuery.noConflict(true);
     </script>
 
+
+
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const videos = document.querySelectorAll('video');
-        videos.forEach(v => {
-            v.muted = true;
-            v.setAttribute('muted', '');
-            v.setAttribute('playsinline', '');
-            v.play().catch(e => console.log("Autoplay prevented:", e));
+document.addEventListener("DOMContentLoaded", function() {
+    const lazyVideos = [].slice.call(document.querySelectorAll("video.lazy-video"));
+
+    if ("IntersectionObserver" in window) {
+        let lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(video) {
+                if (video.isIntersecting) {
+                    for (let source in video.target.children) {
+                        let videoSource = video.target.children[source];
+                        if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+                            videoSource.src = videoSource.dataset.src;
+                        }
+                    }
+                    video.target.load();
+                    video.target.classList.remove("lazy-video");
+                    video.target.play().catch(e => console.log("Play failed:", e));
+                    lazyVideoObserver.unobserve(video.target);
+                }
+            });
+        }, {
+            rootMargin: "0px 0px 200px 0px" // Load slightly before it comes into view
         });
-    });
+
+        lazyVideos.forEach(function(lazyVideo) {
+            lazyVideoObserver.observe(lazyVideo);
+        });
+    }
+});
 </script>
 </body>
+
 
 </html>
