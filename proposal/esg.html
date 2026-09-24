@@ -546,5 +546,18 @@
     }(jQuery));
     var $mcj = jQuery.noConflict(true);
     </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const videos = document.querySelectorAll('video');
+        videos.forEach(v => {
+            v.muted = true;
+            v.setAttribute('muted', '');
+            v.setAttribute('playsinline', '');
+            v.play().catch(e => console.log("Autoplay prevented:", e));
+        });
+    });
+</script>
 </body>
+
 </html>
