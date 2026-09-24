@@ -1840,4 +1840,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 <div id="toast"><i data-lucide="info" style="color: var(--copper-primary);"></i><span id="toastMsg">Mensaje</span>
-        </div></body></html>
+        </div>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast"><i data-lucide="info" style="width:18px; color:var(--copper-primary);"></i> <span id="toastMsg"></span></div>
+
+    <!-- ADMIN LOCK MODAL -->
+    <div class="modal-overlay" id="adminLockModal">
+        <div class="modal" style="max-width: 400px; text-align: center; display: flex; flex-direction: column; gap: 20px;">
+            <div style="color: var(--copper-primary); margin: 0 auto; padding: 15px; background: rgba(255,0,44,0.1); border-radius: 50%; width: max-content;">
+                <i data-lucide="lock" style="width: 32px; height: 32px;"></i>
+            </div>
+            <h2 style="font-size: 1.5rem; color: #fff; margin: 0;">Centro de Comando Seguro</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Ingrese el PIN maestro de seguridad para desencriptar la telemetría en tiempo real y el Motor Cognitivo Ockham.</p>
+            <input type="password" id="inputAdminPin" class="date-filter" placeholder="• • • • • •" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.5rem; padding: 15px;" onkeypress="if(event.key==='Enter') unlockAnalyticsAdmin()">
+            <div id="adminPinError" style="color: var(--danger); font-size: 0.85rem; display: none;">Error de decodificación. Credenciales inválidas.</div>
+            <button class="btn-action" style="width: 100%; justify-content: center; padding: 15px; margin-top: 10px;" onclick="unlockAnalyticsAdmin()"><i class="fa-solid fa-unlock-keyhole"></i> Autenticar Sesión</button>
+        </div>
+    </div>
+
+    <!-- DRAFT MODAL -->
+    <div id="draftModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding: 20px;">
+        <div style="background:var(--bg-panel); border:1px solid var(--copper-primary); border-radius:12px; width:100%; max-width:800px; max-height:85vh; display:flex; flex-direction:column; box-shadow: 0 10px 40px rgba(255,0,44,0.2);">
+            <div style="padding:16px 24px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.02);">
+                <h3 id="modalTitle" style="color:#fff; font-size:1.1rem; margin:0; display:flex; align-items:center; gap:10px;"><i data-lucide="bot" style="color:var(--copper-primary);"></i> IA Redactando...</h3>
+                <button onclick="document.getElementById('draftModal').style.display='none'" style="background:none; border:none; color:var(--text-muted); cursor:pointer; padding:4px;"><i data-lucide="x"></i></button>
+            </div>
+            <div id="modalContent" style="padding:24px; overflow-y:auto; color:#ddd; font-size:0.95rem; white-space:pre-wrap; line-height:1.6; font-family: 'Outfit', sans-serif;"></div>
+            <div style="padding:16px 24px; border-top:1px solid var(--border-color); background: rgba(0,0,0,0.2); display:flex; justify-content:flex-end;">
+                <button class="btn-action" onclick="navigator.clipboard.writeText(document.getElementById('modalContent').innerText); showToast('Copiado al portapapeles');"><i data-lucide="copy" style="width:14px;"></i> Copiar Entregable</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
