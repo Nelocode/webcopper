@@ -1991,7 +1991,7 @@ body {
 
         // Disparar motor cognitivo al cargar
 
-                async function fetchOmniStats() {
+        async function fetchOmniStats() {
             try {
                 const res = await fetch('/api/omnichannel-stats');
                 const data = await res.json();
@@ -2007,22 +2007,6 @@ body {
                 document.getElementById('omni-bre-sent').innerText = '1,420';
                 document.getElementById('omni-soc-imp').innerText = '4,250';
                 document.getElementById('omni-soc-eng').innerText = '185';
-            }
-        }</div>
-                        <div style="font-size:0.8rem; color:#00ff64;">${data.brevo.opened} aperturas | ${data.brevo.clicked} clics</div>
-                    </div>
-                    <div style="background: rgba(0,150,255,0.05); padding:15px; border-radius:8px; border:1px solid rgba(0,150,255,0.1); flex: 1;">
-                        <div style="font-size:0.75rem; color:#888;">SOCIAL MEDIA (HOOTSUITE)</div>
-                        <div style="font-size:1.5rem; font-weight:700; color:#fff; margin-top:5px;">${data.social.total_impressions}</div>
-                        <div style="font-size:0.8rem; color:#0096ff;">${data.social.total_engagements} interacciones</div>
-                    </div>
-                `;
-                document.getElementById('omniContent').innerHTML = innerHtml;
-                document.getElementById('omniContent').style.display = 'flex';
-                document.getElementById('omniContent').style.gap = '15px';
-                document.getElementById('omniPanel').style.boxShadow = '0 0 20px rgba(0,150,255,0.15)';
-            } catch(e) {
-                document.getElementById('omniContent').innerHTML = '<div style="color:var(--danger); padding:20px;">Error de sincronización con APIs.</div>';
             }
         }
 
