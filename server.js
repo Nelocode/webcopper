@@ -25,6 +25,22 @@ if (!fs.existsSync(path.join(__dirname, 'data'))) {
     fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true });
 }
 
+// Auto-Restore from backup on ephemeral restart (Prevents data wipe on EasyPanel deploy)
+try {
+    const restoreDir = path.join(__dirname, 'proposal', 'data', 'restore');
+    if (!fs.existsSync(DB_FILE) && fs.existsSync(path.join(restoreDir, 'analytics_db.json'))) {
+        fs.copyFileSync(path.join(restoreDir, 'analytics_db.json'), DB_FILE);
+    }
+    if (!fs.existsSync(VISITOR_DB_FILE) && fs.existsSync(path.join(restoreDir, 'visitors_db.json'))) {
+        fs.copyFileSync(path.join(restoreDir, 'visitors_db.json'), VISITOR_DB_FILE);
+    }
+    if (!fs.existsSync(OCKHAM_DB_FILE) && fs.existsSync(path.join(restoreDir, 'ockham_db.json'))) {
+        fs.copyFileSync(path.join(restoreDir, 'ockham_db.json'), OCKHAM_DB_FILE);
+    }
+} catch (e) {
+    console.error("Auto-Restore failed", e);
+}
+
 // In-Memory Database for Lightning Fast API
 let analyticsDB = [];
 try {
