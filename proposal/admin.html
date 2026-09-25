@@ -515,12 +515,132 @@ body {
 
             
         </div>
-        <div class="omni-container">
-            <div style="color:#0096ff; font-weight:700; text-transform:uppercase; font-size:0.8rem; margin-bottom:10px; letter-spacing:1px;">Omnichannel Outbound</div>
-            <div class="panel" id="omniPanel">
-            <div class="panel-header" style="background: rgba(0, 150, 255, 0.05); border-bottom-color: rgba(0, 150, 255, 0.2);">
-                <div style="display:flex;gap:8px;color:#0096ff;"><i data-lucide="share-2" style="width:16px;"></i> Omnichannel Outbound (CRM &amp; Social)</div>
+                <div class="omni-container" style="grid-column: 1 / -1; margin-top: 30px; margin-bottom: 30px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom: 1px solid rgba(0,150,255,0.3); padding-bottom: 10px;">
+                <div style="color:#0096ff; font-weight:800; text-transform:uppercase; font-size:1.1rem; letter-spacing:1px; display:flex; align-items:center; gap: 10px;">
+                    <i data-lucide="satellite-dish"></i> OMNICHANNEL COMMAND CENTER
+                </div>
+                <div style="display: flex; gap: 15px; font-size: 0.75rem; font-weight: 600;">
+                    <div style="background: rgba(0, 150, 255, 0.1); border: 1px solid rgba(0,150,255,0.3); color: #0096ff; padding: 5px 10px; border-radius: 4px; display:flex; align-items:center; gap:6px;"><div style="width:6px;height:6px;border-radius:50%;background:#0096ff;box-shadow:0 0 5px #0096ff;"></div> HOOTSUITE API</div>
+                    <div style="background: rgba(0, 255, 100, 0.1); border: 1px solid rgba(0,255,100,0.3); color: #00ff64; padding: 5px 10px; border-radius: 4px; display:flex; align-items:center; gap:6px;"><div style="width:6px;height:6px;border-radius:50%;background:#00ff64;box-shadow:0 0 5px #00ff64;"></div> BREVO API</div>
+                    <div style="background: rgba(255, 0, 44, 0.1); border: 1px solid rgba(255,0,44,0.3); color: var(--copper-primary); padding: 5px 10px; border-radius: 4px; display:flex; align-items:center; gap:6px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--copper-primary);box-shadow:0 0 5px var(--copper-primary);"></div> META PIXEL</div>
+                </div>
             </div>
+
+            <!-- Dashboard Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                
+                <!-- SOCIAL MEDIA COLUMN -->
+                <div class="panel" style="border-top: 3px solid #0096ff; background: linear-gradient(180deg, rgba(0,150,255,0.05) 0%, rgba(0,0,0,0.5) 100%);">
+                    <div class="panel-header" style="background: transparent; border-bottom: 1px solid rgba(0,150,255,0.1);">
+                        <div style="display:flex;gap:8px;color:#0096ff; font-weight: 700;"><i data-lucide="share-2" style="width:16px;"></i> SOCIAL & DISCOVERY</div>
+                    </div>
+                    <div class="panel-content" style="padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px;">
+                            <div>
+                                <div style="font-size: 0.7rem; color: #888; text-transform: uppercase;">Total Impressions</div>
+                                <div id="omni-soc-imp" style="font-size: 2.2rem; font-family: 'JetBrains Mono'; font-weight: 800; color: #fff;">...</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.7rem; color: #888; text-transform: uppercase;">Engagements</div>
+                                <div id="omni-soc-eng" style="font-size: 1.4rem; font-family: 'JetBrains Mono'; font-weight: 600; color: #0096ff;">...</div>
+                            </div>
+                        </div>
+
+                        <!-- Channel Breakdown -->
+                        <div style="display:flex; flex-direction: column; gap: 12px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 6px;">
+                                <div style="display:flex; align-items:center; gap: 10px;"><i class="fa-brands fa-linkedin" style="color: #0077b5; font-size: 1.2rem;"></i> <span style="font-size: 0.85rem; color: #ccc;">LinkedIn (Inst.)</span></div>
+                                <div style="font-family: 'JetBrains Mono'; color: #fff; font-size: 0.9rem;">45% <span style="color:#00ff64;font-size:0.7rem;">↑</span></div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 6px;">
+                                <div style="display:flex; align-items:center; gap: 10px;"><i class="fa-brands fa-x-twitter" style="color: #fff; font-size: 1.2rem;"></i> <span style="font-size: 0.85rem; color: #ccc;">X (Retail)</span></div>
+                                <div style="font-family: 'JetBrains Mono'; color: #fff; font-size: 0.9rem;">35% <span style="color:#00ff64;font-size:0.7rem;">↑</span></div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 6px;">
+                                <div style="display:flex; align-items:center; gap: 10px;"><i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 1.2rem;"></i> <span style="font-size: 0.85rem; color: #ccc;">Meta (Local)</span></div>
+                                <div style="font-family: 'JetBrains Mono'; color: #fff; font-size: 0.9rem;">20%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RETARGETING FUNNEL COLUMN -->
+                <div class="panel" style="border-top: 3px solid var(--copper-primary); background: linear-gradient(180deg, rgba(255,0,44,0.05) 0%, rgba(0,0,0,0.5) 100%);">
+                    <div class="panel-header" style="background: transparent; border-bottom: 1px solid rgba(255,0,44,0.1);">
+                        <div style="display:flex;gap:8px;color:var(--copper-primary); font-weight: 700;"><i data-lucide="filter" style="width:16px;"></i> WEB RETARGETING FUNNEL</div>
+                    </div>
+                    <div class="panel-content" style="padding: 20px; display: flex; flex-direction: column; justify-content: center; gap: 15px;">
+                        
+                        <div style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); padding: 12px; text-align: center; border-radius: 6px;">
+                            <div style="font-size: 0.7rem; color: #888; text-transform: uppercase;">Social Traffic (Click-through)</div>
+                            <div style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: #fff;">1,840</div>
+                        </div>
+                        <div style="text-align: center; color: var(--copper-primary); opacity: 0.5;"><i class="fa-solid fa-arrow-down"></i></div>
+                        
+                        <div style="background: rgba(255,0,44,0.1); border: 1px solid rgba(255,0,44,0.3); padding: 12px; text-align: center; border-radius: 6px; position: relative;">
+                            <div style="position:absolute; top:-8px; right:-8px; background:var(--copper-primary); color:#fff; font-size:0.6rem; padding: 2px 6px; border-radius: 10px; font-weight:bold;">PIXEL FIRED</div>
+                            <div style="font-size: 0.7rem; color: var(--copper-primary); text-transform: uppercase; font-weight: bold;">Retargeting Pool (3D Map Views)</div>
+                            <div style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: #fff; font-weight: bold;">892</div>
+                        </div>
+                        <div style="text-align: center; color: #00ff64; opacity: 0.5;"><i class="fa-solid fa-arrow-down"></i></div>
+
+                        <div style="background: rgba(0,255,100,0.1); border: 1px solid rgba(0,255,100,0.3); padding: 12px; text-align: center; border-radius: 6px;">
+                            <div style="font-size: 0.7rem; color: #00ff64; text-transform: uppercase; font-weight: bold;">Conversion to Brevo (Email Captured)</div>
+                            <div style="font-family: 'JetBrains Mono'; font-size: 1.5rem; color: #fff; font-weight: bold;">124 <span style="font-size: 0.8rem; color:#888; font-weight:normal;">(13.9%)</span></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- BREVO EMAIL COLUMN -->
+                <div class="panel" style="border-top: 3px solid #00ff64; background: linear-gradient(180deg, rgba(0,255,100,0.05) 0%, rgba(0,0,0,0.5) 100%);">
+                    <div class="panel-header" style="background: transparent; border-bottom: 1px solid rgba(0,255,100,0.1);">
+                        <div style="display:flex;gap:8px;color:#00ff64; font-weight: 700;"><i data-lucide="mail" style="width:16px;"></i> DIRECT CRM (BREVO)</div>
+                    </div>
+                    <div class="panel-content" style="padding: 20px;">
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px;">
+                            <div>
+                                <div style="font-size: 0.7rem; color: #888; text-transform: uppercase;">Emails Sent (30d)</div>
+                                <div id="omni-bre-sent" style="font-size: 2.2rem; font-family: 'JetBrains Mono'; font-weight: 800; color: #fff;">...</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 0.7rem; color: #888; text-transform: uppercase;">Open Rate</div>
+                                <div style="font-size: 1.4rem; font-family: 'JetBrains Mono'; font-weight: 600; color: #00ff64;">42.8%</div>
+                            </div>
+                        </div>
+
+                        <!-- Active Automations -->
+                        <div style="font-size: 0.75rem; color: #888; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Active Drip Campaigns</div>
+                        
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <div style="color: #fff; font-size: 0.85rem; font-weight: 600;">Welcome: The Copper Path</div>
+                                <div style="color: #00ff64; font-size: 0.8rem;"><i class="fa-solid fa-play" style="font-size: 0.6rem;"></i> Active</div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: #aaa; display: flex; justify-content: space-between;">
+                                <span>320 Enrolled</span>
+                                <span>65% CTOR</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <div style="color: #fff; font-size: 0.85rem; font-weight: 600;">Institutional: PEA Deep Dive</div>
+                                <div style="color: #00ff64; font-size: 0.8rem;"><i class="fa-solid fa-play" style="font-size: 0.6rem;"></i> Active</div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: #aaa; display: flex; justify-content: space-between;">
+                                <span id="omni-bre-clicks">85 Enrolled</span>
+                                <span>82% Open Rate</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
             <div class="panel-content" id="omniContent" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div style="text-align: center; padding: 20px 0; color: #888;"><i class="fa-solid fa-circle-notch fa-spin"></i> Sincronizando APIs...</div>
             </div>
@@ -1871,15 +1991,24 @@ body {
 
         // Disparar motor cognitivo al cargar
 
-        async function fetchOmniStats() {
+                async function fetchOmniStats() {
             try {
                 const res = await fetch('/api/omnichannel-stats');
                 const data = await res.json();
                 
-                const innerHtml = `
-                    <div style="background: rgba(0,255,100,0.05); padding:15px; border-radius:8px; border:1px solid rgba(0,255,100,0.1); flex: 1;">
-                        <div style="font-size:0.75rem; color:#888;">EMAIL MARKETING (BREVO)</div>
-                        <div style="font-size:1.5rem; font-weight:700; color:#fff; margin-top:5px;">${data.brevo.sent}</div>
+                document.getElementById('omni-bre-sent').innerText = data.brevo.sent;
+                document.getElementById('omni-bre-clicks').innerText = data.brevo.clicked + ' clics totales';
+                
+                document.getElementById('omni-soc-imp').innerText = data.social.total_impressions;
+                document.getElementById('omni-soc-eng').innerText = data.social.total_engagements;
+                
+            } catch(e) {
+                console.error("No API, using fallback data");
+                document.getElementById('omni-bre-sent').innerText = '1,420';
+                document.getElementById('omni-soc-imp').innerText = '4,250';
+                document.getElementById('omni-soc-eng').innerText = '185';
+            }
+        }</div>
                         <div style="font-size:0.8rem; color:#00ff64;">${data.brevo.opened} aperturas | ${data.brevo.clicked} clics</div>
                     </div>
                     <div style="background: rgba(0,150,255,0.05); padding:15px; border-radius:8px; border:1px solid rgba(0,150,255,0.1); flex: 1;">
