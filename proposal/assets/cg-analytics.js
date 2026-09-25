@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // 8. Auto-Intercept PDF Links for Telemetry Viewer
 document.addEventListener('click', (e) => {
     const link = e.target.closest('a[href$=".pdf"]');
-    if (link && !link.hasAttribute('download')) {
+    if (link && !link.hasAttribute('download') && link.getAttribute('data-native') !== 'true') {
         e.preventDefault();
         const pdfUrl = link.getAttribute('href');
         // Redirect to our custom telemetry viewer
