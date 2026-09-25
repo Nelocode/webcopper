@@ -34,96 +34,73 @@
         } else {
             let pdfDoc = null;
             let totalPages = 0;
-            let maxPageReached = 1;
-            let currentVisiblePage = 1;
 
-            // Load PDF
             pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
                 pdfDoc = pdf;
                 totalPages = pdf.numPages;
-                document.getElementById('page_info').innerText = \`Page 1 of \${totalPages}\`;
+                document.getElementById('page_info').innerText = `Scroll to view ${totalPages} pages`;
                 
-                // Render all pages sequentially into the container
-                for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                    pdf.getPage(pageNum).then(page => {
-                        const viewport = page.getViewport({ scale: 1.5 });
-                        const canvas = document.createElement('canvas');
-                        canvas.className = 'pdf-page-canvas';
-                        canvas.id = 'page-' + pageNum;
-                        canvas.dataset.pageNumber = pageNum;
-                        const ctx = canvas.getContext('2d');
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
+                const container = document.getElementById('viewer-container');
+                
+                pdf.getPage(1).then(firstPage => {
+                    const viewport = firstPage.getViewport({ scale: 1.5 });
+                    const aspectRatio = viewport.width / viewport.height;
+                    const canvasWidth = Math.min(viewport.width, window.innerWidth - 40);
+                    const canvasHeight = canvasWidth / aspectRatio;
 
-                        const renderContext = { canvasContext: ctx, viewport: viewport };
-                        page.render(renderContext);
-                        
-                        // Insert in order
-                        const container = document.getElementById('viewer-container');
-                        const existingCanvas = Array.from(container.children);
-                        const insertIndex = existingCanvas.findIndex(c => parseInt(c.dataset.pageNumber) > pageNum);
-                        if (insertIndex === -1) {
-                            container.appendChild(canvas);
-                        } else {
-                            container.insertBefore(canvas, existingCanvas[insertIndex]);
-                        }
-                    });
+                    for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'pdf-page-wrapper';
+                        wrapper.style.width = canvasWidth + 'px';
+                        wrapper.style.height = canvasHeight + 'px';
+                        wrapper.style.marginBottom = '20px';
+                        wrapper.style.boxShadow = '0 4px 8px rgba(0,0,0,0.5)';
+                        wrapper.style.backgroundColor = '#fff';
+                        wrapper.setAttribute('data-page-num', pageNum);
+                        wrapper.setAttribute('id', 'page-' + pageNum);
+                        container.appendChild(wrapper);
+                    }
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const wrapper = entry.target;
+                                const pageNum = parseInt(wrapper.getAttribute('data-page-num'), 10);
+                                document.getElementById('page_info').innerText = `Page ${pageNum} of ${totalPages}`;
+                                
+                                if (!wrapper.hasAttribute('data-rendered')) {
+                                    wrapper.setAttribute('data-rendered', 'true');
+                                    pdf.getPage(pageNum).then(page => {
+                                        const vp = page.getViewport({ scale: canvasWidth / page.getViewport({scale:1}).width });
+                                        const canvas = document.createElement('canvas');
+                                        canvas.className = 'pdf-page-canvas';
+                                        canvas.width = vp.width;
+                                        canvas.height = vp.height;
+                                        canvas.style.width = '100%';
+                                        canvas.style.height = '100%';
+                                        
+                                        const renderContext = {
+                                            canvasContext: canvas.getContext('2d'),
+                                            viewport: vp
+                                        };
+                                        wrapper.innerHTML = ''; 
+                                        wrapper.appendChild(canvas);
+                                        page.render(renderContext);
+                                    });
+                                }
+                            }
+                        });
+                    }, { rootMargin: '800px 0px' });
+
+                    document.querySelectorAll('.pdf-page-wrapper').forEach(w => observer.observe(w));
+                });
+                
+                if (window.OckhamWebSDK) {
+                    window.OckhamWebSDK.trackEvent('pdf_view', { file: pdfUrl, pages: totalPages });
                 }
             }).catch(err => {
-                document.getElementById('page_info').innerText = 'Error loading PDF: ' + err.message;
-            });
-
-            // Intersection Observer to track which page is currently in view
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const pageNum = parseInt(entry.target.dataset.pageNumber);
-                        currentVisiblePage = pageNum;
-                        document.getElementById('page_info').innerText = \`Page \${pageNum} of \${totalPages}\`;
-                        if (pageNum > maxPageReached) {
-                            maxPageReached = pageNum;
-                        }
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            // Observe all canvases as they are added
-            const observeNewElements = new MutationObserver((mutations) => {
-                mutations.forEach(mutation => {
-                    mutation.addedNodes.forEach(node => {
-                        if (node.tagName === 'CANVAS') {
-                            observer.observe(node);
-                        }
-                    });
-                });
-            });
-            observeNewElements.observe(document.getElementById('viewer-container'), { childList: true });
-
-            // On Exit, transmit the abandonment telemetry
-            window.addEventListener('beforeunload', () => {
-                if (totalPages > 0 && window.trackEvent) {
-                    const readPercentage = Math.round((maxPageReached / totalPages) * 100);
-                    // Force a beacon push
-                    const beaconData = [{
-                        event: 'pdf_abandonment',
-                        timestamp: new Date().toISOString(),
-                        vid: localStorage.getItem('cg_analytics_vid') || 'Unknown',
-                        sid: sessionStorage.getItem('cg_analytics_sid') || 'Unknown',
-                        file: pdfUrl,
-                        totalPages: totalPages,
-                        maxPageReached: maxPageReached,
-                        abandonmentPage: currentVisiblePage,
-                        completionPercentage: readPercentage
-                    }];
-                    navigator.sendBeacon('/api/analytics', JSON.stringify(beaconData));
-                }
-            });
-            
-            // Track initial open
-            window.addEventListener('load', () => {
-                if (window.trackEvent) {
-                    window.trackEvent('pdf_opened', { file: pdfUrl });
-                }
+                document.getElementById('page_info').innerText = "Error loading PDF: " + err.message;
+                console.error(err);
             });
         }
     </script>
