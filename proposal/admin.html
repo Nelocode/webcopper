@@ -4,7 +4,51 @@
     <title>CopperGiant™ | Data Mining Center</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&amp;family=Roboto+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+        async function deployBrevoCampaign() {
+            const btn = document.getElementById('brevoDeployBtn');
+            const subject = document.getElementById('brevoSubject').value;
+            const bodyContent = document.getElementById('brevoBody').value;
+            
+            if (!subject || !bodyContent) {
+                alert('Por favor completa el asunto y el contenido de la campaña.');
+                return;
+            }
+
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin"></i> Desplegando...';
+            lucide.createIcons();
+            
+            try {
+                const res = await fetch('/api/brevo/campaign', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ subject: subject, htmlContent: bodyContent })
+                });
+                
+                const data = await res.json();
+                if (res.ok) {
+                    btn.innerHTML = '<i data-lucide="check"></i> ¡Campaña Activa!';
+                    btn.style.background = '#00ff64';
+                    setTimeout(() => {
+                        document.getElementById('brevoModal').style.display='none';
+                        btn.innerHTML = originalHtml;
+                        document.getElementById('brevoSubject').value = '';
+                        document.getElementById('brevoBody').value = '';
+                        showToast('Campaña B2B desplegada exitosamente con Brevo.');
+                        fetchOmniStats(); // Refresh stats
+                    }, 2000);
+                } else {
+                    alert('Error desplegando campaña: ' + (data.error || 'Fallo desconocido'));
+                    btn.innerHTML = originalHtml;
+                }
+            } catch(e) {
+                alert('Error de conexión al servidor.');
+                btn.innerHTML = originalHtml;
+            }
+            lucide.createIcons();
+        }
+\n    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
@@ -606,7 +650,9 @@ body {
                             </div>
                             <div style="color: #00ff64;"><i class="fa-solid fa-check-circle"></i></div>
                         </div>
-
+                            <button onclick="document.getElementById('hootsuiteModal').style.display='flex';" class="btn-primary" style="margin-top: 10px; width: 100%; justify-content: center; background: rgba(0, 150, 255, 0.1); border: 1px solid rgba(0,150,255,0.3); color: #0096ff; box-shadow: none; padding: 10px;">
+                                <i data-lucide="send" style="width:16px;"></i> Publicar en Redes
+                            </button>
                     </div>
                 </div>
 
@@ -652,6 +698,9 @@ body {
                                 <div style="color: #00ff64; font-size: 0.7rem;"><i class="fa-solid fa-play"></i> Active</div>
                             </div>
                         </div>
+                        <button onclick="document.getElementById('brevoModal').style.display='flex';" class="btn-primary" style="margin-top: 10px; width: 100%; justify-content: center; background: rgba(0,255,100,0.1); border: 1px solid rgba(0,255,100,0.3); color: #00ff64; box-shadow: none; padding: 10px;">
+                            <i data-lucide="send" style="width:16px;"></i> Lanzar Nueva Campaña B2B
+                        </button>
 
                     </div>
                 </div>
@@ -2172,4 +2221,82 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 
 
-</body></html>
+
+<!-- BREVO CAMPAIGN MODAL -->
+<div id="brevoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+    <div style="background:#1a1a1a; border: 1px solid rgba(0,255,100,0.2); border-radius:12px; width:500px; max-width:90%; padding:30px; box-shadow: 0 20px 50px rgba(0,255,100,0.1);">
+        <h3 style="color:#fff; margin-top:0; font-size:1.4rem; display:flex; align-items:center; gap:10px;"><i data-lucide="mail" style="color:#00ff64;"></i> Despliegue de Campaña B2B</h3>
+        <p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;">Redacta y lanza una campaña masiva a los fondos institucionales e inversores clave usando la API de Brevo.</p>
+        
+        <input type="text" id="brevoSubject" placeholder="Asunto del Correo" style="width:100%; padding:12px; margin-bottom:15px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:#fff; font-family:inherit;">
+        
+        <textarea id="brevoBody" placeholder="Contenido del mensaje (Soporta HTML)..." style="width:100%; height:120px; padding:12px; margin-bottom:20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:#fff; font-family:inherit; resize:vertical;"></textarea>
+        
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button onclick="document.getElementById('brevoModal').style.display='none';" style="padding:10px 20px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:6px; cursor:pointer;">Cancelar</button>
+            <button id="brevoDeployBtn" onclick="deployBrevoCampaign()" style="padding:10px 20px; background:#00ff64; border:none; color:#000; font-weight:700; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:8px;"><i data-lucide="send"></i> Lanzar Campaña</button>
+        </div>
+    </div>
+</div>
+\n
+<!-- HOOTSUITE CAMPAIGN MODAL -->
+<div id="hootsuiteModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+    <div style="background:#1a1a1a; border: 1px solid rgba(0,150,255,0.2); border-radius:12px; width:500px; max-width:90%; padding:30px; box-shadow: 0 20px 50px rgba(0,150,255,0.1);">
+        <h3 style="color:#fff; margin-top:0; font-size:1.4rem; display:flex; align-items:center; gap:10px;"><i data-lucide="share-2" style="color:#0096ff;"></i> Publicar Omnicanal (Hootsuite)</h3>
+        <p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;">Redacta y publica simultáneamente en las redes sociales conectadas (LinkedIn, X, Meta).</p>
+        
+        <textarea id="hootsuiteBody" placeholder="¿Qué está pasando en Copper Giant? Escribe aquí el post..." style="width:100%; height:120px; padding:12px; margin-bottom:20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:#fff; font-family:inherit; resize:vertical;"></textarea>
+        
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+            <button onclick="document.getElementById('hootsuiteModal').style.display='none';" style="padding:10px 20px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:6px; cursor:pointer;">Cancelar</button>
+            <button id="hootsuiteDeployBtn" onclick="deployHootsuitePost()" style="padding:10px 20px; background:#0096ff; border:none; color:#fff; font-weight:700; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:8px;"><i data-lucide="send"></i> Publicar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+        async function deployHootsuitePost() {
+            const btn = document.getElementById('hootsuiteDeployBtn');
+            const bodyContent = document.getElementById('hootsuiteBody').value;
+            
+            if (!bodyContent) {
+                alert('Por favor escribe el contenido de la publicación.');
+                return;
+            }
+
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin"></i> Publicando...';
+            lucide.createIcons();
+            
+            try {
+                // Mock endpoint request to /api/hootsuite/post
+                const res = await fetch('/api/hootsuite/post', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: bodyContent })
+                });
+                
+                const data = await res.json();
+                if (res.ok) {
+                    btn.innerHTML = '<i data-lucide="check"></i> ¡Publicado!';
+                    btn.style.background = '#10B981';
+                    setTimeout(() => {
+                        document.getElementById('hootsuiteModal').style.display='none';
+                        btn.innerHTML = originalHtml;
+                        btn.style.background = '#0096ff';
+                        document.getElementById('hootsuiteBody').value = '';
+                        showToast('Publicación distribuida exitosamente a través de Hootsuite API.');
+                        fetchOmniStats(); // Refresh stats
+                    }, 2000);
+                } else {
+                    alert('Error publicando: ' + (data.error || 'Configura los tokens API primero.'));
+                    btn.innerHTML = originalHtml;
+                }
+            } catch(e) {
+                alert('Error de conexión al servidor.');
+                btn.innerHTML = originalHtml;
+            }
+            lucide.createIcons();
+        }
+</script>
+\n</body></html>
