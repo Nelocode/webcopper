@@ -39,35 +39,38 @@
     <link rel="canonical" href="https://coppergiant.com/esg.html" />
 
 <style>
-/* Responsive Gallery: Grid on Desktop, Horizontal Scroll (Carousel) on Mobile */
+/* Responsive Gallery: Horizontal Scroll Carousel */
 .esg-gallery {
     margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
     gap: 15px;
+}
+.esg-gallery::-webkit-scrollbar {
+    height: 8px;
+}
+.esg-gallery::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+.esg-gallery::-webkit-scrollbar-thumb {
+    background: var(--copper-primary, #d97736);
+    border-radius: 10px;
+}
+.esg-gallery > div {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
 }
 @media (max-width: 768px) {
     .esg-gallery {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 15px;
         margin-left: -20px; /* Bleed out of container padding */
         margin-right: -20px;
         padding-left: 20px; /* Keep first item aligned */
         padding-right: 20px;
-    }
-    .esg-gallery::-webkit-scrollbar {
-        height: 6px;
-    }
-    .esg-gallery::-webkit-scrollbar-track {
-        background: rgba(255,255,255,0.05);
-    }
-    .esg-gallery::-webkit-scrollbar-thumb {
-        background: var(--copper-primary, #d97736);
-        border-radius: 10px;
     }
     .esg-gallery > div {
         flex: 0 0 80%; /* 80% width so user sees the edge of the next photo */
