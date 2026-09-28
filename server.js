@@ -112,17 +112,112 @@ const server = http.createServer((req, res) => {
     // --- OMNICHANNEL ORCHESTRATION HUB ---
     
     
+    // --- HOOTSUITE OAUTH & PUBLISH LOGIC ---
+    const HOOTSUITE_CLIENT_ID = "cb40e6ac-219f-4a34-85ab-4c35ebda9e28";
+    const HOOTSUITE_SECRET = "jMIWJ6CzkLjQ";
+    const HOOTSUITE_TOKEN_FILE = path.join(__dirname, 'data', 'hootsuite_tokens.json');
+
+    if (req.url.startsWith('/api/hootsuite/login')) {
+        const redirectUri = "https://" + req.headers.host + "/api/hootsuite/callback";
+        const authUrl = `https://platform.hootsuite.com/oauth2/auth?response_type=code&client_id=${HOOTSUITE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=offline`;
+        res.writeHead(302, { 'Location': authUrl });
+        return res.end();
+    }
+
+    if (req.url.startsWith('/api/hootsuite/callback')) {
+        const urlObj = new URL(req.url, `https://${req.headers.host}`);
+        const code = urlObj.searchParams.get('code');
+        const redirectUri = "https://" + req.headers.host + "/api/hootsuite/callback";
+        
+        if (code) {
+            // Exchange code for token
+            const authHeader = Buffer.from(HOOTSUITE_CLIENT_ID + ':' + HOOTSUITE_SECRET).toString('base64');
+            const tokenParams = new URLSearchParams({
+                grant_type: 'authorization_code',
+                code: code,
+                redirect_uri: redirectUri
+            });
+            
+            fetch('https://platform.hootsuite.com/oauth2/token', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Basic ' + authHeader,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: tokenParams.toString()
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.access_token) {
+                    fs.writeFileSync(HOOTSUITE_TOKEN_FILE, JSON.stringify(data, null, 2));
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.end('<h1>¡Autorización exitosa!</h1><p>Hootsuite ha sido conectado. Cierra esta ventana y regresa al panel.</p><script>setTimeout(()=>window.close(), 3000);</script>');
+                } else {
+                    res.writeHead(400);
+                    res.end('Error de Hootsuite: ' + JSON.stringify(data));
+                }
+            })
+            .catch(err => {
+                res.writeHead(500);
+                res.end('Error de red: ' + err.message);
+            });
+        } else {
+            res.writeHead(400);
+            res.end('No se recibio codigo de autorizacion');
+        }
+        return;
+    }
+
     if (req.url === '/api/hootsuite/post' && req.method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
-        req.on('end', () => {
+        req.on('end', async () => {
             try {
                 const payload = JSON.parse(body);
-                // MOCK HOOTSUITE API PUBLISH
-                console.log("Mock Hootsuite Post received:", payload.content);
-                // Return success to the UI to simulate the integration until OAuth is configured
+                
+                // Check if we have tokens
+                if (!fs.existsSync(HOOTSUITE_TOKEN_FILE)) {
+                    res.writeHead(401, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: "Hootsuite no está autorizado. Ejecuta el login primero." }));
+                }
+                
+                let tokens = JSON.parse(fs.readFileSync(HOOTSUITE_TOKEN_FILE, 'utf8'));
+                
+                // For a robust implementation, we would check expiry and use refresh_token here.
+                // Assuming token is valid for this immediate test.
+                
+                // To publish a message, we first need to know WHICH social profile to post to.
+                // Since we don't have the profile ID selected, we will fetch profiles first, pick the first one, and post.
+                // In a production app, the user would select the profiles in the UI.
+                
+                const profileRes = await fetch('https://platform.hootsuite.com/v1/me/profiles', {
+                    headers: { 'Authorization': 'Bearer ' + tokens.access_token }
+                });
+                const profilesData = await profileRes.json();
+                
+                if (!profilesData.data || profilesData.data.length === 0) {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ error: "No hay redes sociales conectadas a esta cuenta de Hootsuite." }));
+                }
+                
+                const profileIds = profilesData.data.map(p => ({ id: p.id }));
+                
+                const postRes = await fetch('https://platform.hootsuite.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 
+                        'Authorization': 'Bearer ' + tokens.access_token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: payload.content,
+                        profileIds: profileIds.map(p => p.id) // post to all connected profiles
+                    })
+                });
+                
+                const postData = await postRes.json();
+                
                 res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: true, mock: true, id: "msg_" + Math.floor(Math.random()*10000) }));
+                res.end(JSON.stringify({ success: true, mock: false, data: postData }));
             } catch(e) {
                 console.error(e);
                 res.writeHead(500);
