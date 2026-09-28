@@ -1,191 +1,440 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
+  // For Production Cloud Deployment (Vercel / Supabase / Neon PostgreSQL):
+  // provider = "postgresql"
+  // url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
-model Organization {
-  id          String    @id @default(uuid())
-  name        String
-  domain      String?
-  industry    String?
-  size        String?
-  website     String?
-  location    String?
-  description String?
-  logoUrl     String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  contacts    Contact[]
+model Tenant {
+  id           String   @id @default(uuid())
+  name         String   // e.g. "Outcrop Silver Corp", "Andes Mining"
+  slug         String   @unique // e.g. "outcrop-silver", "andes-mining"
+  logoUrl      String?
+  primaryColor String?  @default("#3b82f6")
+  status       String   @default("ACTIVE") // ACTIVE, SUSPENDED, PENDING_SETUP
+  configJson   String?  @default("{}") // Custom pipeline stages, investor types, branding
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  users             User[]
+  contacts          Contact[]
+  deals             Deal[]
+  workflowRules     WorkflowRule[]
+  whatsAppWhitelist WhatsAppWhitelist[]
+  socialCategories  SocialCategory[]
+  socialPosts       SocialPost[]
+  calendarEvents    CalendarEvent[]
+  tasks             Task[]
+  hermesSessions    HermesSession[]
+  hermesConfig      HermesConfig?
+}
+
+model User {
+  id           String    @id @default(uuid())
+  email        String?   @unique
+  phone        String    @unique
+  name         String?
+  role         String    @default("AGENT") // SUPER_ADMIN, TENANT_ADMIN, MANAGER, AGENT
+  tenantId     String?
+  otpCode      String?
+  otpExpiresAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 }
 
 model Contact {
-  id                 String            @id @default(uuid())
-  name               String
-  email              String?           @unique
-  phone              String?
-  avatar             String?
-  birthday           String?
-  location           String?
-  linkedin           String?
-  twitter            String?
-  role               String?
-  department         String?
-  seniority          String?
-  relationshipScore  Int               @default(50)
-  engagementLevel    String?
-  communicationStyle String?
-  preferredChannel   String?
-  spouseName         String?
-  childrenCount      Int?
-  hobbies            String?
-  personalNotes      String?
-  aiIcebreaker       String?
-  aiStrategicContext String?
-  aiSentiment        String?
-  aiKeyInterests     String?
-  capturedAt         DateTime?
-  captureSource      String?
-  captureLocation    String?
-  captureLat         Float?
-  captureLng         Float?
-  organizationId     String?
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-  organization       Organization?     @relation(fields: [organizationId], references: [id])
-  tags               ContactTag[]
-  interactions       Interaction[]
-  meetings           MeetingAttendee[]
-  notes              Note[]
-  relationships_to   Relationship[]    @relation("relationshipB")
-  relationships_from Relationship[]    @relation("relationshipA")
+  id            String   @id @default(uuid())
+  tenantId      String?
+  name          String
+  email         String?
+  phone         String?
+  company       String?
+  title         String?
+  bio           String?
+  location      String?
+  investorType  String?  // PE, Venture Capital, Family Office, Retail, Corporate
+  interestLevel String   @default("Medium") // High, Medium, Low
+  aum           String?  // Assets Under Management
+  preferredAsset String? // Gold, Silver, Copper, Exploration, Production
+  notes         String?
+  source        String?  // Card Scan, Form, Manual, Import
+  tags          String?  @default("") // Comma separated tags
+  customTags    String?  @default("")
+  country       String?  @default("Colombia")
+  city          String?
+  linkedin      String?
+  whatsapp      String?
+  dynamicIcebreaker String?
+  strategicContext String?
+  avatarUrl String?
+
+  // Scoring & Stage
+  leadScore     Int      @default(50)
+  stage         String   @default("Lead Prospect") // Lead Prospect, Contacted, Qualified, Due Diligence, Term Sheet, Closed Investor
+  relationshipScore Float @default(50)
+
+  // Audit
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relationships
+  tenant       Tenant?   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  interactions Interaction[]
+  documents    Document[]
+  deals        Deal[]
+  quotes       Quote[]
+  timelineActivities TimelineActivity[]
+  calendarEvents     CalendarEvent[]
+  sourceRelationships Relationship[] @relation("SourceContact")
+  targetRelationships Relationship[] @relation("TargetContact")
+  tasks               Task[]
 }
 
 model Interaction {
-  id           String    @id @default(uuid())
-  type         String
-  date         DateTime
-  summary      String
-  sentiment    String?
-  duration     Int?
-  location     String?
-  isRemote     Boolean   @default(false)
-  followUpDue  DateTime?
-  followUpDone Boolean   @default(false)
-  outcome      String?
-  contactId    String
-  meetingId    String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  meeting      Meeting?  @relation(fields: [meetingId], references: [id])
-  contact      Contact   @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  id          String   @id @default(uuid())
+  contactId   String
+  type        String   // Meeting, Call, Email, Note, WhatsApp, Card Scan
+  summary     String
+  sentiment   String?  @default("Neutral") // Positive, Neutral, Negative
+  location    String?
+  duration    Int?     // in minutes
+  rawText     String?  // OCR text or transcript
+
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
 }
 
-model Tag {
-  id        String       @id @default(uuid())
-  name      String       @unique
-  color     String?
-  createdAt DateTime     @default(now())
-  contacts  ContactTag[]
+model Document {
+  id          String   @id @default(uuid())
+  contactId   String
+  name        String
+  fileUrl     String
+  fileType    String   // PDF, Image, Deck, Agreement
+  fileSize    Int?     // in bytes
+
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
 }
 
-model ContactTag {
-  contactId  String
-  tagId      String
-  assignedAt DateTime @default(now())
-  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  contact    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+model Deal {
+  id                String   @id @default(uuid())
+  tenantId          String?
+  contactId         String
+  title             String   // e.g., "Silver Stream Investment Round A"
+  amount            Float
+  currency          String   @default("USD")
+  stage             String   @default("Qualified") // Prospecting, Qualified, Pitch, DD, Closing, Closed Won, Closed Lost
+  probability       Int      @default(50)
+  expectedCloseDate DateTime?
 
-  @@id([contactId, tagId])
+  tenant            Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contact           Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  quotes            Quote[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model Meeting {
-  id           String            @id @default(uuid())
-  title        String
-  startTime    DateTime
-  endTime      DateTime
-  location     String?
-  isRemote     Boolean           @default(false)
-  description  String?
-  status       String            @default("upcoming")
-  agenda       String?
-  outcomes     String?
-  recordingUrl String?
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
-  interactions Interaction[]
-  attendees    MeetingAttendee[]
-}
+model Quote {
+  id          String   @id @default(uuid())
+  dealId      String?
+  contactId   String
+  quoteNumber String   @unique
+  itemsJson   String   // JSON string of quote line items
+  totalAmount Float    @default(0.0)
+  status      String   @default("Draft") // Draft, Sent, Accepted, Rejected
 
-model MeetingAttendee {
-  meetingId String
-  contactId String
-  role      String?
-  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  deal        Deal?    @relation(fields: [dealId], references: [id], onDelete: SetNull)
 
-  @@id([meetingId, contactId])
-}
-
-model Note {
-  id        String   @id @default(uuid())
-  content   String
-  isPinned  Boolean  @default(false)
-  isPrivate Boolean  @default(false)
-  contactId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
-}
-
-model CalendarConfig {
-  id           String    @id @default("singleton")
-  provider     String
-  webcalUrl    String?
-  accessToken  String?
-  refreshToken String?
-  expiryDate   DateTime?
-  lastSyncedAt DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-}
-
-model Integration {
-  id        String   @id @default(uuid())
-  key       String   @unique
-  value     String
-  isEnabled Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model ContactChangeLog {
-  id        String   @id @default("lower(hex(randomblob(16)))")
-  contactId String
-  field     String
-  oldValue  String?
-  newValue  String?
-  source    String   @default("upsert")
-  createdAt DateTime @default(now())
-
-  @@index([contactId])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Relationship {
-  id         String   @id @default(uuid())
-  contactAId String
-  contactBId String
-  type       String
-  strength   Int      @default(50)
-  notes      String?
-  source     String   @default("manual")
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  contactB   Contact  @relation("relationshipB", fields: [contactBId], references: [id], onDelete: Cascade)
-  contactA   Contact  @relation("relationshipA", fields: [contactAId], references: [id], onDelete: Cascade)
-
-  @@unique([contactAId, contactBId])
+  id              String   @id @default(uuid())
+  sourceContactId String
+  targetContactId String
+  relationshipType String  @default("Colleague")
+  strength        Float    @default(50)
+  notes           String?
+  sourceContact   Contact  @relation("SourceContact", fields: [sourceContactId], references: [id], onDelete: Cascade)
+  targetContact   Contact  @relation("TargetContact", fields: [targetContactId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
+
+model TimelineActivity {
+  id          String   @id @default(uuid())
+  contactId   String
+  type        String?  @default("NOTE")
+  title       String?
+  action      String?  @default("ACTIVITY")
+  description String?
+  metadata    String?
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+}
+
+model CalendarEvent {
+  id          String    @id @default(uuid())
+  tenantId    String?
+  contactId   String?
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  location    String?
+  meetingUrl  String?
+  syncSource  String    @default("MANUAL") // MANUAL, ICAL_FEED, GOOGLE, OUTLOOK
+  attendees   String?   @default("") // Comma separated emails
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  tenant      Tenant?   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contact     Contact?  @relation(fields: [contactId], references: [id], onDelete: SetNull)
+}
+
+model BusinessCard {
+  id                 String   @id @default(uuid())
+  contactId          String?
+  imageUrl           String?
+  frontImageUrl      String?
+  backImageUrl       String?
+  extractedTextFront String?
+  extractedTextBack  String?
+  parsedData         String?
+  parsedDataJson     String?
+  createdAt          DateTime @default(now())
+}
+
+model VoiceNote {
+  id              String   @id @default(uuid())
+  contactId       String?
+  audioUrl        String?
+  audioDataUrl    String?
+  transcript      String?
+  durationSeconds Int?
+  sentiment       String?
+  createdAt       DateTime @default(now())
+}
+
+model WorkflowRule {
+  id               String   @id @default(uuid())
+  tenantId         String?
+  name             String
+  triggerType      String   // STAGE_CHANGED, LEAD_SCORE_ABOVE, TAG_ADDED, NEW_CARD_SCANNED
+  triggerValue     String
+  actionType       String   // CREATE_TASK, SEND_WHATSAPP, ADD_SCORE, NOTIFY_TEAM
+  actionValue      String
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+
+  tenant           Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+model WhatsAppSession {
+  id           String   @id @default(uuid())
+  tenantId     String   @unique // One session per tenant (SaaS multi-tenant)
+  instanceName String?  // Evolution API instance name
+  status       String   @default("DISCONNECTED") // DISCONNECTED, CONNECTING, CONNECTED
+  qrCode       String?
+  phoneNumber  String?
+  updatedAt    DateTime @updatedAt
+}
+
+model WhatsAppWhitelist {
+  id          String   @id @default(uuid())
+  tenantId    String?
+  phoneNumber String   @unique
+  name        String?
+  role        String   @default("Admin")
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+model WhatsAppMessage {
+  id         String   @id @default(uuid())
+  tenantId   String?  // Tenant isolation
+  fromNumber String
+  senderName String?
+  toNumber   String
+  message    String
+  mediaUrl   String?
+  direction  String   // INBOUND, OUTBOUND
+  createdAt  DateTime @default(now())
+}
+
+model SocialCategory {
+  id        String       @id @default(uuid())
+  tenantId  String?
+  name      String
+  color     String       @default("#d4af37")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  tenant    Tenant?      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  posts     SocialPost[]
+}
+
+model SocialPost {
+  id                 String          @id @default(uuid())
+  tenantId           String?
+  title              String
+  content            String
+  platforms          String          @default("instagram,x,linkedin") // comma separated
+  status             String          @default("scheduled") // scheduled, draft, published
+  categoryId         String?
+  scheduledDate      DateTime
+  isRecurring        Boolean         @default(false)
+  recurringFrequency String?         @default("weekly") // daily, weekly, monthly
+  recurringDay       String?         // monday, tuesday, etc.
+  hashtags           String?
+  authorName         String?         @default("Outcrop IR Team")
+
+  tenant             Tenant?         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category           SocialCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  media              SocialMedia[]
+  comments           SocialComment[]
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+}
+
+model SocialMedia {
+  id        String      @id @default(uuid())
+  postId    String?
+  filePath  String
+  fileType  String      @default("image") // image, video
+  fileName  String
+  fileSize  Int?
+  post      SocialPost? @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime    @default(now())
+}
+
+model SocialComment {
+  id        String     @id @default(uuid())
+  postId    String
+  username  String?    @default("Admin")
+  userId    String?
+  content   String
+  post      SocialPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+}
+
+model SocialAuditLog {
+  id         String   @id @default(uuid())
+  action     String   // create_post, update_post, delete_post, upload_media, create_category, etc.
+  username   String?  @default("Admin")
+  userId     String?
+  entityType String?  // post, media, category, user
+  entityId   String?
+  details    String?
+  createdAt  DateTime @default(now())
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  tenantId    String?
+  contactId   String?
+  title       String
+  description String?
+  status      String    @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, CANCELLED
+  priority    String    @default("Medium")  // High, Medium, Low
+  dueDate     DateTime?
+  assignee    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  tenant  Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contact Contact? @relation(fields: [contactId], references: [id], onDelete: Cascade)
+}
+
+model MediaFolder {
+  id          String   @id @default(uuid())
+  tenantId    String?
+  name        String
+  color       String?  @default("#00E5FF")
+  accessLevel String?  @default("PUBLIC")
+  parentId    String?
+  createdAt   DateTime @default(now())
+
+  files       MediaFile[]
+}
+
+model MediaFile {
+  id                   String       @id @default(uuid())
+  tenantId             String?
+  folderId             String?
+  name                 String
+  originalName         String
+  mimeType             String
+  size                 Int
+  url                  String
+  version              Int?         @default(1)
+  previousVersionsJson String?
+  accessLevel          String?      @default("PUBLIC")
+  tags                 String?      @default("")
+  aiCategory           String?      @default("General")
+  aiSummary            String?
+  aiSummaryEn          String?
+  aiKeywords           String?
+  shareToken           String?      @unique @default(uuid())
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+
+  folder               MediaFolder? @relation(fields: [folderId], references: [id], onDelete: SetNull)
+}
+
+model HermesSession {
+  id           String          @id @default(uuid())
+  tenantId     String?
+  title        String          @default("Nueva sesión")
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  messages     HermesMessage[]
+
+  tenant       Tenant?         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+model HermesMessage {
+  id          String        @id @default(uuid())
+  sessionId   String
+  role        String        // user, assistant, system, tool
+  content     String
+  attachments String?       // JSON string of attachments [{ name, url, type, size }]
+  audioUrl    String?
+  workerName  String?       // e.g. "Web Scraper", "Lead Finder", "Doc Parser"
+  workerStatus String?      // "completed", "running", "error"
+  workerData  String?       // JSON string of structured results
+  createdAt   DateTime      @default(now())
+
+  session     HermesSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model HermesConfig {
+  id               String   @id @default(uuid())
+  tenantId         String?  @unique
+  endpointUrl      String   @default("http://localhost:8000")
+  apiKey           String?  @default("hermes_outcrop_secret_2026")
+  telegramBotToken String?
+  telegramChatId   String?  @default("-5370719843")
+  gatewayMode      String   @default("TELEGRAM") // "TELEGRAM" | "HTTP_TUNNEL"
+  isActive         Boolean  @default(true)
+  updatedAt        DateTime @updatedAt
+
+  tenant           Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+

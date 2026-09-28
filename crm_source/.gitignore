@@ -1,18 +1,5 @@
-node_modules
-.env
-prisma/dev.db
-prisma/dev.db-journal
-prisma/core-crm.db
-prisma/dev.db.bak*
-prisma/dev.db.backup-*
-backups/
+node_modules/
+.next/
+baileys_auth_info/
 .DS_Store
-public/*.html
-!public/index.html
-!public/war-room.html
-!public/changelog.html
-!public/relaciones.html
-public/*.js
-public/*.json
-scripts/
-# Easypanel deploy config
+*.log

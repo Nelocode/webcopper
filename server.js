@@ -108,17 +108,8 @@ function broadcastUpdate() {
 }
 
 const server = http.createServer((req, res) => {
-    // --- MICROSERVICE PROXY: HOMUNCULUS CRM ---
-    const crmRoutes = [
-        '/app', '/assets', '/relaciones', '/changelog', '/health',
-        '/api/ocr', '/api/transcribe', '/api/contacts', '/api/organizations',
-        '/api/interactions', '/api/tags', '/api/notes', '/api/calendar',
-        '/api/meetings', '/api/integrations', '/api/briefings',
-        '/api/relationships', '/api/investigate', '/api/dashboard', '/api/config'
-    ];
-
-    if (crmRoutes.some(route => req.url.startsWith(route))) {
-        // We only proxy these exact routes to port 3001 (CRM Engine)
+    // --- MICROSERVICE PROXY: OUTCROP CRM (NEXT.JS) ---
+    if (req.url.startsWith('/crm') || req.url.startsWith('/_next')) {
         const httpProxy = require('http');
         const options = {
             hostname: '127.0.0.1',
@@ -128,7 +119,6 @@ const server = http.createServer((req, res) => {
             headers: { ...req.headers }
         };
         
-        // Remove origin headers to avoid CORS issues locally if needed, but keeping them is fine.
         const proxyReq = httpProxy.request(options, (proxyRes) => {
             res.writeHead(proxyRes.statusCode, proxyRes.headers);
             proxyRes.pipe(res, { end: true });
@@ -139,7 +129,7 @@ const server = http.createServer((req, res) => {
         proxyReq.on('error', (e) => {
             console.error("CRM Proxy Error:", e.message);
             res.writeHead(502);
-            res.end(JSON.stringify({ error: 'CRM Service Unavailable', detail: e.message }));
+            res.end('CRM Service Unavailable');
         });
         return;
     }
