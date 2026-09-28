@@ -1,9 +1,0 @@
-node_modules
-.next
-.git
-.env
-.env.local
-.DS_Store
-*.pdf
-backup_crm_v2.1_checkpoint.zip
-baileys_auth_info

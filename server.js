@@ -108,32 +108,6 @@ function broadcastUpdate() {
 }
 
 const server = http.createServer((req, res) => {
-    // --- MICROSERVICE PROXY: OUTCROP CRM (NEXT.JS) ---
-    if (req.url.startsWith('/crm') || req.url.startsWith('/_next')) {
-        const httpProxy = require('http');
-        const options = {
-            hostname: '127.0.0.1',
-            port: 3001,
-            path: req.url,
-            method: req.method,
-            headers: { ...req.headers }
-        };
-        
-        const proxyReq = httpProxy.request(options, (proxyRes) => {
-            res.writeHead(proxyRes.statusCode, proxyRes.headers);
-            proxyRes.pipe(res, { end: true });
-        });
-        
-        req.pipe(proxyReq, { end: true });
-        
-        proxyReq.on('error', (e) => {
-            console.error("CRM Proxy Error:", e.message);
-            res.writeHead(502);
-            res.end('CRM Service Unavailable');
-        });
-        return;
-    }
-
 
     // --- OMNICHANNEL ORCHESTRATION HUB ---
     
