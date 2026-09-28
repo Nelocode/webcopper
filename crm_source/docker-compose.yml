@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - 80:80
+    environment:
+      - DATABASE_URL=file:./dev.db
+      - PORT=80
+      - NODE_ENV=production
+    volumes:
+      - crm-data:/app/prisma
+    restart: unless-stopped
+
+volumes:
+  crm-data:

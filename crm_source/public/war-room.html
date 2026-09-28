@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>War Room — The Core</title>
+<style>
+  :root {
+    --cgnt-red: #FF002C;
+    --cgnt-dark: #08090a;
+    --cgnt-copper: #c17f3a;
+    --cgnt-card: #111316;
+    --cgnt-border: #1e2024;
+    --cgnt-text: #e8e8e8;
+    --cgnt-muted: #6b7280;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--cgnt-dark);
+    color: var(--cgnt-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .war-room {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 16px;
+    gap: 12px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--cgnt-card);
+    border: 1px solid var(--cgnt-border);
+    border-radius: 10px;
+  }
+  .header h1 {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cgnt-red);
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+  }
+  .status-dot.online { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.5); }
+  .header-right { display: flex; align-items: center; gap: 12px; font-size: 11px; color: var(--cgnt-muted); }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+  }
+  .panel {
+    background: var(--cgnt-card);
+    border: 1px solid var(--cgnt-border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .panel-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--cgnt-muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-content {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .stat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 12px; color: var(--cgnt-muted); }
+  .stat-value { font-size: 16px; font-weight: 800; color: #fff; }
+  .stat-value.red { color: var(--cgnt-red); }
+  .stat-value.copper { color: var(--cgnt-copper); }
+  .stat-value.gold { color: #fbbf24; }
+  .activity-item {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cgnt-border);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-time { color: var(--cgnt-muted); font-size: 11px; white-space: nowrap; }
+  .discovery-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--cgnt-border);
+    font-size: 12px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 6px;
+  }
+  .discovery-item:hover { background: rgba(255,255,255,0.05); }
+  .discovery-item:last-child { border-bottom: none; }
+  .discovery-name { color: #fff; font-weight: 600; }
+  .discovery-org { color: var(--cgnt-copper); }
+  .discovery-action { color: var(--cgnt-muted); }
+  .discovery-type-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 100px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+  }
+  .type-peer { background: rgba(193,127,58,0.2); color: var(--cgnt-copper); }
+  .type-banker { background: rgba(255,0,44,0.2); color: var(--cgnt-red); }
+  .type-analyst { background: rgba(34,197,94,0.2); color: #22c55e; }
+  .type-board { background: rgba(251,191,36,0.2); color: #fbbf24; }
+  .type-media { background: rgba(99,102,241,0.2); color: #6366f1; }
+  .type-mining { background: rgba(193,127,58,0.25); color: var(--cgnt-copper); }
+  .tag-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+    background: rgba(193,127,58,0.15);
+    color: var(--cgnt-copper);
+  }
+  .map-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cgnt-muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  .map-placeholder svg { width: 80px; height: 80px; opacity: 0.3; margin-bottom: 8px; }
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="war-room">
+  <div class="header">
+    <h1>⚔️ War Room</h1>
+    <div class="header-right">
+      <span><span class="status-dot online"></span>Operational</span>
+      <span>v1.5.1</span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="panel" style="grid-row:1;grid-column:1;">
+      <div class="panel-title">📊 Metrics</div>
+      <div class="panel-content" id="metrics">
+        <div class="stat-card"><span class="stat-label">Total Contacts</span><span class="stat-value" id="total-contacts">—</span></div>
+        <div class="stat-card"><span class="stat-label">Organizations</span><span class="stat-value" id="total-orgs">—</span></div>
+        <div class="stat-card"><span class="stat-label">Interactions</span><span class="stat-value copper" id="total-interactions">—</span></div>
+        <div class="stat-card"><span class="stat-label">Relationships</span><span class="stat-value gold" id="total-relationships">—</span></div>
+        <div class="stat-card"><span class="stat-label">Tags</span><span class="stat-value" id="total-tags">—</span></div>
+      </div>
+    </div>
+    <div class="panel" style="grid-row:1;grid-column:2;">
+      <div class="panel-title">🕐 Recent Activity</div>
+      <div class="panel-content" id="activity">Loading...</div>
+    </div>
+    <div class="panel" style="grid-row:1;grid-column:3;">
+      <div class="panel-title">🔍 Hallazgos</div>
+      <div class="panel-content" id="discoveries">Loading...</div>
+    </div>
+    <div class="panel" style="grid-row:2;grid-column:1;">
+      <div class="panel-title">🏷️ Top Tags</div>
+      <div class="panel-content" id="tags">Loading...</div>
+    </div>
+    <div class="panel" style="grid-row:2;grid-column:2;grid-column:span 2;">
+      <div class="panel-title">🌐 Network</div>
+      <div class="panel-content map-container" id="network-map">
+        <div class="map-placeholder">
+          <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="38" stroke="#c17f3a" stroke-width="2" opacity="0.3"/><circle cx="40" cy="40" r="4" fill="#FF002C"/><circle cx="25" cy="30" r="3" fill="#c17f3a" opacity="0.7"/><circle cx="55" cy="30" r="3" fill="#c17f3a" opacity="0.7"/><circle cx="30" cy="55" r="3" fill="#c17f3a" opacity="0.7"/><circle cx="50" cy="55" r="3" fill="#c17f3a" opacity="0.7"/><line x1="40" y1="40" x2="25" y2="30" stroke="#FF002C" stroke-width="0.5" opacity="0.3"/><line x1="40" y1="40" x2="55" y2="30" stroke="#FF002C" stroke-width="0.5" opacity="0.3"/><line x1="40" y1="40" x2="30" y2="55" stroke="#FF002C" stroke-width="0.5" opacity="0.3"/><line x1="40" y1="40" x2="50" y2="55" stroke="#FF002C" stroke-width="0.5" opacity="0.3"/></svg>
+          <p>Mapa de Relaciones</p>
+          <p style="font-size:11px;margin-top:4px;color:var(--cgnt-border);"><a href="/relaciones" target="_blank" style="color:var(--cgnt-copper);">Ver red completa →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+async function loadWarRoom() {
+  try {
+    // Fetch all data in parallel
+    const [contactsRaw, orgsRaw, tagsRaw, interactionsRaw, relsRaw] = await Promise.all([
+      fetch('/api/contacts?limit=2000').then(r => r.json()).catch(() => []),
+      fetch('/api/organizations?limit=500').then(r => r.json()).catch(() => []),
+      fetch('/api/tags').then(r => r.json()).catch(() => []),
+      fetch('/api/interactions?limit=10').then(r => r.json()).catch(() => []),
+      fetch('/api/relationships/all').then(r => r.json()).catch(() => []),
+    ]);
+
+    const contacts = Array.isArray(contactsRaw) ? contactsRaw : (contactsRaw.data || contactsRaw.contacts || []);
+    const orgs = Array.isArray(orgsRaw) ? orgsRaw : (orgsRaw.data || []);
+    const tags = Array.isArray(tagsRaw) ? tagsRaw : (tagsRaw.data || []);
+    const interactions = Array.isArray(interactionsRaw) ? interactionsRaw : (interactionsRaw.data || []);
+    const rels = Array.isArray(relsRaw) ? relsRaw : (relsRaw.data || relsRaw.relationships || []);
+
+    // === METRICS ===
+    document.getElementById('total-contacts').textContent = contacts.length.toLocaleString();
+    document.getElementById('total-orgs').textContent = orgs.length.toLocaleString();
+    document.getElementById('total-interactions').textContent = interactions.length.toLocaleString();
+    document.getElementById('total-relationships').textContent = rels.length.toLocaleString();
+    document.getElementById('total-tags').textContent = tags.length.toLocaleString();
+
+    // === RECENT ACTIVITY ===
+    const activityEl = document.getElementById('activity');
+    if (interactions.length > 0) {
+      activityEl.innerHTML = interactions.map(function(i) {
+        var type = i.type || 'Interaction';
+        var date = i.date || i.createdAt || null;
+        var dateStr = date ? new Date(date).toLocaleDateString('es-CO', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : '';
+        var desc = i.subject || i.description || i.notes || '';
+        return '<div class="activity-item"><span>' +
+          (desc ? '<strong>' + type + ':</strong> ' + desc.slice(0, 60) : type) +
+          '</span><span class="activity-time">' + dateStr + '</span></div>';
+      }).join('');
+    } else {
+      // Show recent contacts as fallback activity
+      var recentContacts = contacts.slice(-8).reverse();
+      activityEl.innerHTML = recentContacts.map(function(c) {
+        var date = c.createdAt || c.updatedAt;
+        var dateStr = date ? new Date(date).toLocaleDateString('es-CO', {day:'numeric', month:'short'}) : '';
+        return '<div class="activity-item"><span>\ud83d\udc64 Nuevo: <strong>' + c.name + '</strong>' +
+          (c.org ? ' (' + c.org + ')' : '') +
+          '</span><span class="activity-time">' + dateStr + '</span></div>';
+      }).join('');
+    }
+
+    // === TOP TAGS with counts ===
+    const tagsEl = document.getElementById('tags');
+    if (tags.length > 0) {
+      // Count contacts per tag
+      var tagCounts = {};
+      contacts.forEach(function(c) {
+        var cTags = c.tags || [];
+        cTags.forEach(function(t) {
+          var tid = t.id || t.tagId || t;
+          var tname = t.name || '';
+          if (!tagCounts[tid]) {
+            tagCounts[tid] = { name: tname, count: 0, color: t.color || '#c17f3a' };
+          }
+          tagCounts[tid].count++;
+        });
+      });
+
+      var sortedTags = Object.values(tagCounts).sort(function(a, b) { return b.count - a.count; });
+      if (sortedTags.length > 0) {
+        tagsEl.innerHTML = sortedTags.slice(0, 10).map(function(t) {
+          return '<div class="stat-card"><span><span class="tag-badge" style="background:' + t.color + '22;color:' + t.color + '">' +
+            t.name + '</span></span><span class="stat-value" style="font-size:14px;">' + t.count.toLocaleString() + '</span></div>';
+        }).join('');
+      } else {
+        tagsEl.innerHTML = '<div style="color:var(--cgnt-muted);font-size:13px;text-align:center;padding:20px;">' +
+          tags.map(function(t) {
+            var tname = t.name || t;
+            return '<span class="tag-badge">' + tname + '</span> ';
+          }).join('') + '</div>';
+      }
+    } else {
+      tagsEl.innerHTML = '<div style="color:var(--cgnt-muted);font-size:13px;text-align:center;padding:20px;">Sin tags</div>';
+    }
+
+    // === HALLAZGOS ===
+    var discoveriesEl = document.getElementById('discoveries');
+    if (rels.length > 0) {
+      // Build a lookup for contact orgs
+      var contactOrgs = {};
+      contacts.forEach(function(c) {
+        var org = c.org || (c.organization && c.organization.name) || c.company || '';
+        contactOrgs[c.id] = org;
+      });
+
+      // Generate natural-language discoveries
+      var items = [];
+      rels.forEach(function(r) {
+        var ca = r.contactA || {};
+        var cb = r.contactB || {};
+        if (!ca.name || !cb.name) return;
+
+        var orgA = contactOrgs[ca.id] || (ca.organization && ca.organization.name) || '';
+        var orgB = contactOrgs[cb.id] || (cb.organization && cb.organization.name) || '';
+        var type = r.type || '';
+        var verb = '';
+        var badge = '';
+        var badgeClass = '';
+
+        // Assign verb + badge based on type
+        if (type === 'colleague') { verb = 'trabaj\u00f3 junto a'; badge = 'COLEGA'; badgeClass = 'type-peer'; }
+        else if (type === 'board_connection') { verb = 'comparte consejo con'; badge = 'CONSEJO'; badgeClass = 'type-board'; }
+        else if (type === 'investment_banker') { verb = 'es Investment Banker vinculado a'; badge = 'IB'; badgeClass = 'type-banker'; }
+        else if (type === 'mining_ib') { verb = 'conecta como Mining IB con'; badge = 'IB MINING'; badgeClass = 'type-mining'; }
+        else if (type === 'analyst_coverage') { verb = 'tiene cobertura de analista de'; badge = 'COBERTURA'; badgeClass = 'type-analyst'; }
+        else if (type === 'analyst_ir') { verb = 'es enlace IR con'; badge = 'IR'; badgeClass = 'type-analyst'; }
+        else if (type === 'media_coverage') { verb = 'fue entrevistado por'; badge = 'MEDIA'; badgeClass = 'type-media'; }
+        else if (type === 'industry_peer') { verb = 'es par del sector de'; badge = 'SECTOR'; badgeClass = 'type-peer'; }
+        else { verb = 'est\u00e1 conectado con'; badge = type.toUpperCase(); badgeClass = 'type-peer'; }
+
+        // Build natural sentence
+        var nameA = ca.name;
+        var nameB = cb.name;
+        var roleA = ca.role || '';
+        var roleB = cb.role || '';
+
+        // Try to include roles for flavor
+        var descA = roleA ? nameA + ' (' + roleA + ')' : nameA;
+        var descB = roleB ? nameB + ' (' + roleB + ')' : nameB;
+
+        // Add org if available
+        var orgPart = '';
+        if (orgA && orgB && orgA !== orgB) {
+          orgPart = ' — ' + orgA + ' / ' + orgB;
+        } else if (orgA) {
+          orgPart = ' — ' + orgA;
+        } else if (orgB) {
+          orgPart = ' — ' + orgB;
+        }
+
+        var sentence = '<span class="discovery-name">' + descA + '</span> ' +
+          '<span class="discovery-action">' + verb + '</span> ' +
+          '<span class="discovery-name">' + descB + '</span>' +
+          (orgPart ? '<span class="discovery-org">' + orgPart + '</span>' : '');
+
+        var date = r.createdAt ? new Date(r.createdAt) : null;
+        var dateStr = date ? date.toLocaleDateString('es-CO', {day:'numeric', month:'short'}) : '';
+
+        items.push({
+          html: '<div class="discovery-item" onclick="window.open(\'/contacts/' + ca.id + '\',\'_blank\')">' +
+            '<span class="discovery-type-badge ' + badgeClass + '">' + badge + '</span>' +
+            sentence +
+            '<div style="margin-top:4px;font-size:10px;color:var(--cgnt-muted);">' + dateStr + '</div>' +
+            '</div>',
+          date: date ? date.getTime() : 0
+        });
+      });
+
+      // Sort by date (newest first), then randomize among same-date items for freshness
+      items.sort(function(a, b) { return b.date - a.date; });
+
+      discoveriesEl.innerHTML = items.slice(0, 20).map(function(i) { return i.html; }).join('');
+    } else {
+      discoveriesEl.innerHTML = '<div style="color:var(--cgnt-muted);font-size:13px;text-align:center;padding:20px;">A\u00fan no hay hallazgos. Las conexiones investigadas aparecer\u00e1n aqu\u00ed.</div>';
+    }
+  } catch(e) {
+    document.getElementById('metrics').innerHTML = '<div style="color:var(--cgnt-red);">Error: ' + (e.message || 'desconocido') + '</div>';
+  }
+}
+loadWarRoom();
+</script>
+</body>
+</html>

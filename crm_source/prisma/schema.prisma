@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id          String    @id @default(uuid())
+  name        String
+  domain      String?
+  industry    String?
+  size        String?
+  website     String?
+  location    String?
+  description String?
+  logoUrl     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  contacts    Contact[]
+}
+
+model Contact {
+  id                 String            @id @default(uuid())
+  name               String
+  email              String?           @unique
+  phone              String?
+  avatar             String?
+  birthday           String?
+  location           String?
+  linkedin           String?
+  twitter            String?
+  role               String?
+  department         String?
+  seniority          String?
+  relationshipScore  Int               @default(50)
+  engagementLevel    String?
+  communicationStyle String?
+  preferredChannel   String?
+  spouseName         String?
+  childrenCount      Int?
+  hobbies            String?
+  personalNotes      String?
+  aiIcebreaker       String?
+  aiStrategicContext String?
+  aiSentiment        String?
+  aiKeyInterests     String?
+  capturedAt         DateTime?
+  captureSource      String?
+  captureLocation    String?
+  captureLat         Float?
+  captureLng         Float?
+  organizationId     String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  organization       Organization?     @relation(fields: [organizationId], references: [id])
+  tags               ContactTag[]
+  interactions       Interaction[]
+  meetings           MeetingAttendee[]
+  notes              Note[]
+  relationships_to   Relationship[]    @relation("relationshipB")
+  relationships_from Relationship[]    @relation("relationshipA")
+}
+
+model Interaction {
+  id           String    @id @default(uuid())
+  type         String
+  date         DateTime
+  summary      String
+  sentiment    String?
+  duration     Int?
+  location     String?
+  isRemote     Boolean   @default(false)
+  followUpDue  DateTime?
+  followUpDone Boolean   @default(false)
+  outcome      String?
+  contactId    String
+  meetingId    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  meeting      Meeting?  @relation(fields: [meetingId], references: [id])
+  contact      Contact   @relation(fields: [contactId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id        String       @id @default(uuid())
+  name      String       @unique
+  color     String?
+  createdAt DateTime     @default(now())
+  contacts  ContactTag[]
+}
+
+model ContactTag {
+  contactId  String
+  tagId      String
+  assignedAt DateTime @default(now())
+  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  contact    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@id([contactId, tagId])
+}
+
+model Meeting {
+  id           String            @id @default(uuid())
+  title        String
+  startTime    DateTime
+  endTime      DateTime
+  location     String?
+  isRemote     Boolean           @default(false)
+  description  String?
+  status       String            @default("upcoming")
+  agenda       String?
+  outcomes     String?
+  recordingUrl String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  interactions Interaction[]
+  attendees    MeetingAttendee[]
+}
+
+model MeetingAttendee {
+  meetingId String
+  contactId String
+  role      String?
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+
+  @@id([meetingId, contactId])
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  content   String
+  isPinned  Boolean  @default(false)
+  isPrivate Boolean  @default(false)
+  contactId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  contact   Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+}
+
+model CalendarConfig {
+  id           String    @id @default("singleton")
+  provider     String
+  webcalUrl    String?
+  accessToken  String?
+  refreshToken String?
+  expiryDate   DateTime?
+  lastSyncedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Integration {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  isEnabled Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactChangeLog {
+  id        String   @id @default("lower(hex(randomblob(16)))")
+  contactId String
+  field     String
+  oldValue  String?
+  newValue  String?
+  source    String   @default("upsert")
+  createdAt DateTime @default(now())
+
+  @@index([contactId])
+}
+
+model Relationship {
+  id         String   @id @default(uuid())
+  contactAId String
+  contactBId String
+  type       String
+  strength   Int      @default(50)
+  notes      String?
+  source     String   @default("manual")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  contactB   Contact  @relation("relationshipB", fields: [contactBId], references: [id], onDelete: Cascade)
+  contactA   Contact  @relation("relationshipA", fields: [contactAId], references: [id], onDelete: Cascade)
+
+  @@unique([contactAId, contactBId])
+}
