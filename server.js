@@ -911,6 +911,116 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
         }
     }
 
+    
+    // --- COPPER BRAIN API --- //
+    if (req.url.startsWith('/api/brain')) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+        if (req.method === 'OPTIONS') {
+            res.writeHead(204);
+            return res.end();
+        }
+
+        let brainDB = [];
+        try {
+            if (fs.existsSync('brain_db.json')) {
+                brainDB = JSON.parse(fs.readFileSync('brain_db.json', 'utf8'));
+            } else {
+                brainDB = { directives: [], tasks: [], state: [] };
+            }
+        } catch(e) {
+            brainDB = { directives: [], tasks: [], state: [] };
+        }
+
+        const saveBrain = () => fs.writeFileSync('brain_db.json', JSON.stringify(brainDB, null, 2));
+
+        if (req.url === '/api/brain/directives') {
+            if (req.method === 'GET') {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify(brainDB.directives));
+            }
+            if (req.method === 'POST') {
+                let body = '';
+                req.on('data', chunk => body += chunk);
+                req.on('end', () => {
+                    const data = JSON.parse(body);
+                    data.id = Date.now();
+                    data.created_at = new Date().toISOString();
+                    data.author = data.author || 'Mio';
+                    brainDB.directives.unshift(data);
+                    saveBrain();
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ success: true, id: data.id }));
+                });
+                return;
+            }
+        }
+
+        if (req.url === '/api/brain/tasks') {
+            if (req.method === 'GET') {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify(brainDB.tasks));
+            }
+            if (req.method === 'POST') {
+                let body = '';
+                req.on('data', chunk => body += chunk);
+                req.on('end', () => {
+                    const data = JSON.parse(body);
+                    data.id = Date.now();
+                    data.created_at = new Date().toISOString();
+                    data.status = data.status || 'pending';
+                    data.author = data.author || 'Copper Mind';
+                    brainDB.tasks.unshift(data);
+                    saveBrain();
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ success: true, id: data.id }));
+                });
+                return;
+            }
+        }
+
+        if (req.url.startsWith('/api/brain/tasks/') && req.method === 'PUT') {
+            const taskId = parseInt(req.url.split('/').pop());
+            let body = '';
+            req.on('data', chunk => body += chunk);
+            req.on('end', () => {
+                const data = JSON.parse(body);
+                const task = brainDB.tasks.find(t => t.id === taskId);
+                if (task) {
+                    task.status = data.status;
+                    saveBrain();
+                }
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ success: !!task }));
+            });
+            return;
+        }
+
+        if (req.url === '/api/brain/state') {
+            if (req.method === 'GET') {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify(brainDB.state));
+            }
+            if (req.method === 'POST') {
+                let body = '';
+                req.on('data', chunk => body += chunk);
+                req.on('end', () => {
+                    const data = JSON.parse(body);
+                    data.id = Date.now();
+                    data.updated_at = new Date().toISOString();
+                    data.author = 'Antigravity';
+                    brainDB.state.unshift(data);
+                    saveBrain();
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    return res.end(JSON.stringify({ success: true, id: data.id }));
+                });
+                return;
+            }
+        }
+    }
+
     // Static File Server with Streams, Caching, and Compression
     let rawUrl = decodeURIComponent(req.url.split('?')[0]);
     if (rawUrl === '/') rawUrl = '/index.html';
