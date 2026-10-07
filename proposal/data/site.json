@@ -1,9 +1,14 @@
 {
   "ticker": {
-    "TSXV": { "symbol": "CGNT", "price": "C$1.31", "change": "+0.77%", "direction": "up" },
-    "OTC": { "symbol": "LBCMF", "price": "$0.96", "change": "+0.54%", "direction": "up" },
-    "FSE": { "symbol": "29H0", "price": "€0.80", "change": "+6.69%", "direction": "up" },
-    "Cu": { "price": "$4.42/Lb" }
+    "TSXV": {
+      "symbol": "CGNT"
+    },
+    "OTCQX": {
+      "symbol": "CGNRF"
+    },
+    "FSE": {
+      "symbol": "29H0"
+    }
   },
   "heroes": [
     {
@@ -35,7 +40,7 @@
       "title": "A giant in<br>the making.",
       "title_tag": "h1",
       "title_class": "hero-title",
-      "eyebrow": "Asset Profile · Putumayo, Colombia"
+      "eyebrow": "Asset Profile \u00b7 Putumayo, Colombia"
     },
     {
       "page": "news",
@@ -64,17 +69,35 @@
     "corporate": {
       "description": "Copper Giant is part of the Fiore Group, advancing high-quality copper projects responsibly, efficiently, and with long-term positive impact.",
       "metrics": [
-        { "value": "$30B+", "label": "Value Created" },
-        { "value": "40+ Yrs", "label": "Mining Experience" },
-        { "value": "89%", "label": "Local Employees" }
+        {
+          "value": "$30B+",
+          "label": "Value Created"
+        },
+        {
+          "value": "40+ Yrs",
+          "label": "Mining Experience"
+        },
+        {
+          "value": "89%",
+          "label": "Local Employees"
+        }
       ]
     },
     "mocoa": {
       "description": "The Mocoa deposit ranks among the largest undeveloped copper resources in the Americas.",
       "metrics": [
-        { "value": "1.12B", "label": "TONNES|Inferred Resource" },
-        { "value": "12.7B", "label": "LBS CuEq" },
-        { "value": "0.51%", "label": "CuEq" }
+        {
+          "value": "1.12B",
+          "label": "TONNES|Inferred Resource"
+        },
+        {
+          "value": "12.7B",
+          "label": "LBS CuEq"
+        },
+        {
+          "value": "0.51%",
+          "label": "CuEq"
+        }
       ]
     }
   },
@@ -85,7 +108,7 @@
         "title": "Copper Today",
         "heading": "The world needs more copper.",
         "body": "Every electric vehicle, every wind turbine, every grid upgrade demands exponentially more copper than the fossil fuel equivalent. Supply isn't keeping up.",
-        "link_text": "Why Copper Matters →",
+        "link_text": "Why Copper Matters \u2192",
         "link_href": "https://www.coppergiant.co",
         "image": "assets/copper-today.jpg",
         "span": "wide"
@@ -95,7 +118,7 @@
         "title": "Mocoa at Scale",
         "heading": "A world-class asset in a tier-1 jurisdiction.",
         "body": "One of the largest undeveloped copper resources in the Americas. At-surface mineralization. District-scale potential beyond the current resource footprint.",
-        "link_text": "Explore Mocoa →",
+        "link_text": "Explore Mocoa \u2192",
         "link_href": "mocoa.html",
         "image": "assets/mocoa-landscape.jpg",
         "span": "tall"
@@ -105,7 +128,7 @@
         "title": "Team",
         "heading": "Meet the team behind the discovery.",
         "body": "A management team with a proven track record of finding and building mines. Backed by the Fiore Group.",
-        "link_text": "Meet the Team →",
+        "link_text": "Meet the Team \u2192",
         "link_href": "corporate.html#team",
         "image": "assets/meet-the-team.jpg",
         "span": "tall"
@@ -115,7 +138,7 @@
         "title": "Investment Thesis",
         "heading": "Why Copper Giant?",
         "body": "Strong copper fundamentals, a world-class resource in a mining-friendly jurisdiction, an experienced team, and a clear path to value creation.",
-        "link_text": "Investor Deck →",
+        "link_text": "Investor Deck \u2192",
         "link_href": "investors.html",
         "image": "assets/why-invest.jpg",
         "span": "wide"
@@ -204,7 +227,7 @@
     },
     {
       "title": "Sustainable Future",
-      "body": "Every step of our operations is designed with long-term sustainability in mind — creating value that outlasts the mine."
+      "body": "Every step of our operations is designed with long-term sustainability in mind \u2014 creating value that outlasts the mine."
     }
   ],
   "menu_dropdown_cards": [

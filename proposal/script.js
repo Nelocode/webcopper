@@ -19,104 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const tickerContainers = document.querySelectorAll('.ticker-stocks');
         if (tickerContainers.length === 0) return;
 
-        let stockData = {
-            TSXV: { symbol: "CGNT", price: "C$1.31", change: "+0.77%", direction: "up" },
-            OTC: { symbol: "LBCMF", price: "$0.96", change: "+0.54%", direction: "up" },
-            FSE: { symbol: "29H0", price: "€0.80", change: "+6.69%", direction: "up" },
-            Cu: { price: "$4.42/Lb" }
-        };
-
-        function updateTickerUI() {
-            const formatStock = (name, stock) => {
-                if (!stock) return '';
-                const color = stock.direction === 'down' ? '#ff3b30' : '#4cd964';
-                return `<span class="ticker-item" data-stock="${name}"><strong>${name}</strong>: ${stock.symbol} ${stock.price} <span style="color: ${color}; font-weight: 600;">${stock.change}</span></span>`;
-            };
-
-            const tsxvStr = formatStock('TSXV', stockData.TSXV);
-            const otcStr = formatStock('OTC', stockData.OTC);
-            const fseStr = formatStock('FSE', stockData.FSE);
-            const cuStr = stockData.Cu ? `<span class="ticker-item" data-stock="Cu"><strong>Cu</strong>: ${stockData.Cu.price}</span>` : '';
-
-            const htmlContent = `${tsxvStr} ${otcStr} ${fseStr} ${cuStr}`;
-            tickerContainers.forEach(container => {
-                container.innerHTML = htmlContent;
-            });
-        }
-
-        // 1. Initial render from site.json baseline
-        fetch('data/site.json?v=OCKHAM_1.2')
-            .then(res => res.json())
-            .then(data => {
-                if (data && data.ticker) {
-                    stockData = Object.assign({}, stockData, data.ticker);
-                    updateTickerUI();
-                }
-            })
-            .catch(() => updateTickerUI());
-
-        // 2. Resilient Real-Time Financial Market API Fetcher
-        async function fetchLiveMarketData() {
-            const symbols = [
-                { key: 'TSXV', symbol: 'CGNT.V', prefix: 'C$', decimals: 2 },
-                { key: 'OTC', symbol: 'LBCMF', prefix: '$', decimals: 2 },
-                { key: 'FSE', symbol: '29H0.F', prefix: '€', decimals: 2 },
-                { key: 'Cu', symbol: 'HG=F', prefix: '$', suffix: '/Lb', decimals: 2 }
-            ];
-
-            const proxies = [
-                'https://proxy.cors.sh/',
-                'https://corsproxy.org/?',
-                'https://corsproxy.io/?url=',
-                'https://api.allorigins.win/raw?url='
-            ];
-
-            let updated = false;
-
-            for (const item of symbols) {
-                const targetUrl = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(item.symbol)}?interval=1d`;
-                for (const proxy of proxies) {
-                    try {
-                        const res = await fetch(proxy + encodeURIComponent(targetUrl), { cache: 'no-cache' });
-                        if (!res.ok) continue;
-                        const json = await res.json();
-                        const meta = json?.chart?.result?.[0]?.meta;
-                        if (meta && typeof meta.regularMarketPrice === 'number' && meta.regularMarketPrice > 0) {
-                            const price = meta.regularMarketPrice;
-                            const prevClose = meta.chartPreviousClose || price;
-                            const diff = price - prevClose;
-                            const pct = prevClose ? (diff / prevClose) * 100 : 0;
-                            const direction = diff >= 0 ? 'up' : 'down';
-                            const changeStr = (diff >= 0 ? '+' : '') + pct.toFixed(2) + '%';
-                            const priceStr = `${item.prefix || ''}${price.toFixed(item.decimals)}${item.suffix || ''}`;
-
-                            if (item.key === 'Cu') {
-                                stockData.Cu = { price: priceStr };
-                            } else {
-                                stockData[item.key] = {
-                                    symbol: stockData[item.key]?.symbol || item.symbol.split('.')[0],
-                                    price: priceStr,
-                                    change: changeStr,
-                                    direction: direction
-                                };
-                            }
-                            updated = true;
-                            break; // Successfully got quote for this symbol
-                        }
-                    } catch (e) {
-                        // Failover to next proxy cleanly
-                    }
-                }
-            }
-
-            if (updated) {
-                updateTickerUI();
-            }
-        }
-
-        // Fetch live market quotes 2 seconds after initial load and refresh every 60s
-        setTimeout(fetchLiveMarketData, 2000);
-        setInterval(fetchLiveMarketData, 60000);
+        const htmlContent = `
+            <span class="ticker-item"><strong>TSXV</strong>: CGNT</span>
+            <span class="ticker-item"><strong>OTCQX</strong>: CGNRF</span>
+            <span class="ticker-item"><strong>FSE</strong>: 29H0</span>
+        `;
+        
+        tickerContainers.forEach(container => {
+            container.innerHTML = htmlContent;
+        });
     }
     initTicker();
 

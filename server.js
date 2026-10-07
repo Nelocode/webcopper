@@ -933,8 +933,8 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
                         res.writeHead(404);
                         return res.end('Not Found');
                     }
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    fs.createReadStream(path.join(PUBLIC_DIR, 'index.html')).pipe(res);
+                    res.writeHead(404, { 'Content-Type': 'text/plain' });
+                    res.end('404 Not Found');
                 });
             } else {
                 res.writeHead(404);
@@ -953,7 +953,9 @@ NO incluyas marcas de markdown. Solo el array JSON puro.`;
         if (['.png', '.jpg', '.jpeg', '.gif', '.svg', '.woff2', '.woff', '.ttf', '.pdf', '.css', '.js', '.mp4', '.json', '.webp', '.webm'].includes(extname)) {
             headers['Cache-Control'] = 'public, max-age=31536000, immutable'; // 1 Year Cache
         } else {
-            headers['Cache-Control'] = 'no-cache, must-revalidate'; // HTML always fresh
+            headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+            headers['Pragma'] = 'no-cache';
+            headers['Clear-Site-Data'] = '\"cache\"';
         }
 
         // Handle Range Requests for large PDFs and Videos
