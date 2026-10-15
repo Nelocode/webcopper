@@ -49,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const cleanPath = path.toLowerCase().replace(/\/$/, '').split('/').pop().replace('.html', '');
         const pageName = (cleanPath === '' || cleanPath === 'index' || cleanPath === 'home') ? 'home' : cleanPath;
 
+        if (pageName === 'home' && section.querySelector('.hero-video-wrapper')) {
+            // Already statically rendered in index.html, avoid destroying DOM & FOUC
+            return;
+        }
+
         fetch('data/site.json')
             .then(res => res.json())
             .then(data => {
@@ -359,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <!-- Panels -->
                     <div class="mocoa-360-overlay-container" style="display: flex; justify-content: space-between; align-items: flex-end; padding: 20px; box-sizing: border-box; position: absolute; inset: 0; pointer-events: none;">
                         <div class="mocoa-360-left-panel" style="width: 240px; max-width: 30vw; pointer-events: auto;">
-                            <img src="Recurso 2.svg" alt="Inferred Mineral Resource Estimate" class="recurso-panel-img">
+                            <img src="Recurso 2.svg" alt="Mineral Resource Estimate (Indicated &amp; Inferred)" class="recurso-panel-img">
                         </div>
                         <div class="mocoa-360-right-panel" style="width: 210px; max-width: 28vw; pointer-events: auto;">
                             <img src="Recurso 3.svg" alt="Towers, Scale and Legend" class="recurso-panel-img">
@@ -2028,12 +2033,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="height: 1px; background: rgba(255, 255, 255, 0.1); margin-bottom: 30px;"></div>
                     
                     <!-- Metrics Grid -->
-                    <div class="modal-metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-bottom: 35px;">
+                    <div class="modal-metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; margin-bottom: 35px;">
                         
-                        <!-- Metric 1: Tonnes -->
-                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
-                            <div style="font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 12px; font-family: var(--font-sans); letter-spacing: -0.02em;">
-                                1.12B
+                        <!-- Metric 1: Inferred Tonnes -->
+                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 22px 16px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
+                            <div style="font-size: 2.4rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                                1.60B
                             </div>
                             <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
                                 <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">TONNES</span>
@@ -2041,32 +2046,43 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         
-                        <!-- Metric 2: Lbs CuEq -->
-                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
-                            <div style="font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 12px; font-family: var(--font-sans); letter-spacing: -0.02em;">
-                                12.7B
+                        <!-- Metric 2: Indicated Tonnes -->
+                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 22px 16px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
+                            <div style="font-size: 2.4rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                                290M
                             </div>
                             <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
-                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">LBS CuEq</span>
-                                <span style="visibility: hidden; display: block; margin-top: 2px;">&nbsp;</span>
+                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">TONNES</span>
+                                <span style="color: var(--text-secondary); text-transform: none; display: block; font-weight: 400; margin-top: 2px; letter-spacing: 0;">Indicated Resource</span>
+                            </div>
+                        </div>
+
+                        <!-- Metric 3: Total Contained Cu -->
+                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 22px 16px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
+                            <div style="font-size: 2.4rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                                11.5B
+                            </div>
+                            <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
+                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">LBS Cu</span>
+                                <span style="color: var(--text-secondary); text-transform: none; display: block; font-weight: 400; margin-top: 2px; letter-spacing: 0;">Contained Copper (+50%)</span>
                             </div>
                         </div>
                         
-                        <!-- Metric 3: Grade -->
-                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 25px 20px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
-                            <div style="font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 12px; font-family: var(--font-sans); letter-spacing: -0.02em;">
-                                0.51%
+                        <!-- Metric 4: Grade -->
+                        <div class="metric-block" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 22px 16px; border-radius: var(--radius-card); transition: all 0.3s; cursor: default;">
+                            <div style="font-size: 2.4rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 10px; font-family: var(--font-sans); letter-spacing: -0.02em;">
+                                0.54%
                             </div>
                             <div style="font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; line-height: 1.4;">
-                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">CuEq</span>
-                                <span style="visibility: hidden; display: block; margin-top: 2px;">&nbsp;</span>
+                                <span style="color: var(--copper-primary); font-weight: 700; text-transform: uppercase; display: block; letter-spacing: 0.05em;">CuEq*</span>
+                                <span style="color: var(--text-secondary); text-transform: none; display: block; font-weight: 400; margin-top: 2px; letter-spacing: 0;">Indicated Core Grade</span>
                             </div>
                         </div>
                         
                     </div>
                     
-                    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; max-width: 580px; margin: 0 auto 20px auto; text-align: center;">
-                        Note: The Mocoa copper-molybdenum porphyry deposit is one of the largest undeveloped copper resources in the Americas. Resources are reported in accordance with National Instrument 43-101 standards at a cut-off grade of 0.25% CuEq.
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; max-width: 620px; margin: 0 auto 20px auto; text-align: center;">
+                        Note: The Mocoa copper-molybdenum porphyry deposit is one of the largest undeveloped copper resources in the Americas. Resources are reported in accordance with National Instrument 43-101 standards, effective September 24, 2026: 290 Mt Indicated at 0.54% CuEq* (0.33% Cu and 0.038% Mo) and 1.60 Bt Inferred at 0.40% CuEq* (0.27% Cu and 0.025% Mo). Total contained copper: 11.49 billion pounds.
                     </p>
                 </div>
                 

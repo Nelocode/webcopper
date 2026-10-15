@@ -87,16 +87,16 @@
       "description": "The Mocoa deposit ranks among the largest undeveloped copper resources in the Americas.",
       "metrics": [
         {
-          "value": "1.12B",
+          "value": "1.60B",
           "label": "TONNES|Inferred Resource"
         },
         {
-          "value": "12.7B",
-          "label": "LBS CuEq"
+          "value": "290Mt",
+          "label": "TONNES|Indicated Resource"
         },
         {
-          "value": "0.51%",
-          "label": "CuEq"
+          "value": "11.5B",
+          "label": "LBS Cu|Contained Copper"
         }
       ]
     }
