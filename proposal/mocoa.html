@@ -217,109 +217,618 @@
                 <h2 class="section-title">Mineral Resource</h2>
                 <div class="section-subtitle">Resource Estimate</div>
             </div>
-            <div class="bg-giant-slate p-8 mb-12">
-                <div class="flex items-center gap-4 mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database h-10 w-10 text-copper-500" aria-hidden="true">
-                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                        <path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
-                        <path d="M3 12A9 3 0 0 0 21 12"></path>
-                    </svg>
-                    <div>
-                        <h3 class="text-2xl font-bold text-white">Mineral Resource Estimate</h3>
-                        <p class="text-white/60">NI 43-101 Compliant — Effective Date: September 24, 2026 (APEX Geoscience Ltd.)</p>
+            <style>
+                /* MRE Enhanced Executive Table & KPI Styles */
+                .mre-kpi-grid {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 16px;
+                    margin-bottom: 24px;
+                }
+                @media (max-width: 1024px) {
+                    .mre-kpi-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+                @media (max-width: 640px) {
+                    .mre-kpi-grid {
+                        grid-template-columns: 1fr;
+                    }
+                }
+                .mre-kpi-card {
+                    background: rgba(22, 25, 31, 0.7);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 12px;
+                    padding: 18px 20px;
+                    transition: all 0.3s ease;
+                }
+                .mre-kpi-card:hover {
+                    border-color: rgba(223, 85, 33, 0.35);
+                    background: rgba(26, 30, 38, 0.85);
+                    transform: translateY(-2px);
+                }
+                .mre-kpi-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+                }
+                .mre-pill {
+                    font-size: 0.65rem;
+                    font-weight: 800;
+                    letter-spacing: 0.08em;
+                    padding: 3px 8px;
+                    border-radius: 4px;
+                    text-transform: uppercase;
+                    font-family: var(--font-mono);
+                }
+                .mre-pill-indicated {
+                    background: rgba(223, 85, 33, 0.15);
+                    color: #ff9d6c;
+                    border: 1px solid rgba(223, 85, 33, 0.4);
+                }
+                .mre-pill-inferred {
+                    background: rgba(255, 255, 255, 0.06);
+                    color: #cbd5e1;
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                }
+                .mre-pill-moly {
+                    background: rgba(56, 189, 248, 0.12);
+                    color: #7dd3fc;
+                    border: 1px solid rgba(56, 189, 248, 0.3);
+                }
+                .mre-kpi-badge-growth {
+                    font-size: 0.65rem;
+                    font-weight: 800;
+                    letter-spacing: 0.08em;
+                    padding: 3px 8px;
+                    border-radius: 4px;
+                    background: rgba(34, 197, 94, 0.15);
+                    color: #4ade80;
+                    border: 1px solid rgba(34, 197, 94, 0.35);
+                    font-family: var(--font-mono);
+                }
+                .mre-kpi-sub {
+                    font-size: 0.72rem;
+                    color: rgba(255, 255, 255, 0.45);
+                    font-family: var(--font-sans);
+                }
+                .mre-kpi-val {
+                    font-size: 1.85rem;
+                    font-weight: 800;
+                    color: #ffffff;
+                    font-family: var(--font-sans);
+                    line-height: 1.1;
+                    margin-bottom: 6px;
+                    letter-spacing: -0.02em;
+                }
+                .mre-kpi-val.copper-highlight {
+                    color: #ff9d6c;
+                }
+                .mre-kpi-val.moly-highlight {
+                    color: #93c5fd;
+                }
+                .mre-kpi-unit {
+                    font-size: 0.95rem;
+                    font-weight: 600;
+                    color: rgba(255, 255, 255, 0.55);
+                }
+                .mre-kpi-desc {
+                    font-size: 0.78rem;
+                    color: rgba(255, 255, 255, 0.65);
+                    line-height: 1.35;
+                }
+                .mre-kpi-desc strong {
+                    color: #ffffff;
+                }
+
+                .mre-table-card {
+                    background: rgba(18, 20, 26, 0.75);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 16px;
+                    overflow: hidden;
+                    margin-bottom: 24px;
+                    backdrop-filter: blur(12px);
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+                }
+                .mre-card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 22px 28px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                    background: rgba(255, 255, 255, 0.015);
+                    flex-wrap: wrap;
+                    gap: 16px;
+                }
+                .mre-title-group {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                }
+                .mre-icon-box {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 10px;
+                    background: rgba(223, 85, 33, 0.12);
+                    border: 1px solid rgba(223, 85, 33, 0.25);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: var(--copper-primary);
+                    flex-shrink: 0;
+                }
+                .mre-card-title {
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    margin: 0 0 4px 0;
+                    letter-spacing: -0.01em;
+                }
+                .mre-card-meta {
+                    font-size: 0.8rem;
+                    color: rgba(255, 255, 255, 0.5);
+                    margin: 0;
+                    font-family: var(--font-mono);
+                }
+                .mre-header-badge {
+                    padding: 6px 14px;
+                    border-radius: 9999px;
+                    background: rgba(223, 85, 33, 0.1);
+                    border: 1px solid rgba(223, 85, 33, 0.25);
+                    color: #ff9d6c;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    font-family: var(--font-mono);
+                    letter-spacing: 0.03em;
+                }
+
+                .mre-table-wrapper {
+                    overflow-x: auto;
+                    width: 100%;
+                    scrollbar-width: thin;
+                    scrollbar-color: rgba(223, 85, 33, 0.3) rgba(255, 255, 255, 0.02);
+                }
+                .mre-table-wrapper::-webkit-scrollbar {
+                    height: 6px;
+                }
+                .mre-table-wrapper::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.02);
+                }
+                .mre-table-wrapper::-webkit-scrollbar-thumb {
+                    background: rgba(223, 85, 33, 0.3);
+                    border-radius: 3px;
+                }
+
+                .mre-table {
+                    width: 100%;
+                    min-width: 960px;
+                    border-collapse: collapse;
+                    font-size: 0.88rem;
+                }
+                .mre-table thead th {
+                    background: rgba(12, 14, 18, 0.85);
+                    padding: 14px 18px;
+                    color: rgba(255, 255, 255, 0.55);
+                    font-size: 0.72rem;
+                    font-weight: 700;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                    font-family: var(--font-mono);
+                }
+                .mre-table thead th.col-domain {
+                    text-align: left;
+                    width: 25%;
+                }
+                .mre-table thead th.col-cutoff {
+                    text-align: right;
+                    width: 10%;
+                }
+                .mre-table thead th.col-tonnes {
+                    text-align: right;
+                    width: 13%;
+                }
+                .mre-table thead th.col-grade {
+                    text-align: right;
+                    width: 9%;
+                }
+                .mre-table thead th.col-metal {
+                    text-align: right;
+                    width: 13%;
+                }
+
+                .row-domain-header {
+                    background: rgba(255, 255, 255, 0.02);
+                    border-top: 1px solid rgba(255, 255, 255, 0.06);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+                }
+                .row-domain-header td {
+                    padding: 10px 18px;
+                }
+                .domain-header-inner {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .domain-icon {
+                    font-size: 0.95rem;
+                }
+                .domain-name {
+                    font-weight: 700;
+                    color: #f1f5f9;
+                    font-size: 0.8rem;
+                    letter-spacing: 0.04em;
+                    text-transform: uppercase;
+                    font-family: var(--font-mono);
+                }
+                .domain-cutoff-pill {
+                    margin-left: auto;
+                    font-size: 0.68rem;
+                    font-weight: 600;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    background: rgba(255, 255, 255, 0.05);
+                    color: rgba(255, 255, 255, 0.6);
+                    font-family: var(--font-mono);
+                }
+
+                .row-data {
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+                    transition: background 0.15s ease;
+                }
+                .row-data:hover {
+                    background: rgba(255, 255, 255, 0.025);
+                }
+                .row-data td {
+                    padding: 14px 18px;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                }
+
+                .cat-pill {
+                    display: inline-block;
+                    font-size: 0.65rem;
+                    font-weight: 800;
+                    letter-spacing: 0.08em;
+                    padding: 3px 8px;
+                    border-radius: 4px;
+                    text-transform: uppercase;
+                    margin-right: 8px;
+                    vertical-align: middle;
+                    font-family: var(--font-mono);
+                }
+                .cat-indicated {
+                    background: rgba(223, 85, 33, 0.15);
+                    color: #ff9d6c;
+                    border: 1px solid rgba(223, 85, 33, 0.35);
+                }
+                .cat-inferred {
+                    background: rgba(255, 255, 255, 0.05);
+                    color: #cbd5e1;
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                }
+                .cat-label {
+                    color: rgba(255, 255, 255, 0.65);
+                    font-size: 0.82rem;
+                    vertical-align: middle;
+                }
+
+                .col-cutoff {
+                    text-align: right;
+                    color: rgba(255, 255, 255, 0.6);
+                    font-family: var(--font-mono);
+                    font-size: 0.82rem;
+                }
+                .col-tonnes {
+                    text-align: right;
+                    font-family: var(--font-mono);
+                }
+                .col-grade {
+                    text-align: right;
+                    font-family: var(--font-mono);
+                    color: #e2e8f0;
+                }
+                .grade-cueq {
+                    font-weight: 700;
+                    color: #ffffff;
+                }
+                .col-metal {
+                    text-align: right;
+                    font-family: var(--font-mono);
+                }
+                .metal-cu .val-main {
+                    color: #ff9d6c;
+                    font-weight: 700;
+                }
+                .metal-mo .val-main {
+                    color: #93c5fd;
+                    font-weight: 600;
+                }
+                .val-main {
+                    font-weight: 700;
+                    color: #ffffff;
+                    font-size: 0.92rem;
+                }
+                .val-sub {
+                    font-size: 0.74rem;
+                    color: rgba(255, 255, 255, 0.45);
+                    font-weight: 400;
+                    margin-left: 3px;
+                }
+
+                .row-totals-header {
+                    background: rgba(255, 255, 255, 0.04);
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                }
+                .row-subtotal {
+                    background: rgba(255, 255, 255, 0.015);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+                }
+                .row-subtotal td {
+                    padding: 13px 18px;
+                    white-space: nowrap;
+                }
+
+                .row-grand-total {
+                    background: linear-gradient(90deg, rgba(223, 85, 33, 0.16), rgba(223, 85, 33, 0.05));
+                    border-top: 2px solid rgba(223, 85, 33, 0.5);
+                    border-bottom: 2px solid rgba(223, 85, 33, 0.5);
+                }
+                .row-grand-total td {
+                    padding: 16px 18px;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                }
+                .grand-total-label {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-weight: 800;
+                    color: #ff9d6c;
+                    font-size: 0.9rem;
+                    letter-spacing: 0.03em;
+                    text-transform: uppercase;
+                }
+                .grand-star {
+                    color: #ff9d6c;
+                    font-size: 1rem;
+                }
+                .total-tonnes-val {
+                    font-size: 1.05rem;
+                    font-weight: 800;
+                    color: #ffffff;
+                }
+                .total-grade-val {
+                    font-size: 0.95rem;
+                    font-weight: 700;
+                }
+                .total-metal-cu .total-cu-val {
+                    font-size: 1.05rem;
+                    font-weight: 800;
+                    color: #ff9d6c;
+                }
+                .total-metal-mo .total-mo-val {
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    color: #93c5fd;
+                }
+
+                .mre-mobile-scroll-hint {
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    padding: 10px;
+                    background: rgba(255, 255, 255, 0.02);
+                    border-top: 1px solid rgba(255, 255, 255, 0.05);
+                    color: rgba(255, 255, 255, 0.4);
+                    font-size: 0.72rem;
+                    font-family: var(--font-mono);
+                }
+                @media (max-width: 991px) {
+                    .mre-mobile-scroll-hint {
+                        display: flex;
+                    }
+                }
+            </style>
+
+            <!-- Executive Summary Cards -->
+            <div class="mre-kpi-grid">
+                <div class="mre-kpi-card">
+                    <div class="mre-kpi-header">
+                        <span class="mre-pill mre-pill-indicated">INDICATED</span>
+                        <span class="mre-kpi-sub">First-ever at Mocoa</span>
+                    </div>
+                    <div class="mre-kpi-val">290 <span class="mre-kpi-unit">Mt</span></div>
+                    <div class="mre-kpi-desc"><strong>0.54% CuEq*</strong> · 2.13 Blbs Cu &amp; 240 Mlbs Mo</div>
+                </div>
+
+                <div class="mre-kpi-card">
+                    <div class="mre-kpi-header">
+                        <span class="mre-pill mre-pill-inferred">INFERRED</span>
+                        <span class="mre-kpi-sub">Expanded Footprint</span>
+                    </div>
+                    <div class="mre-kpi-val">1.60 <span class="mre-kpi-unit">Bt</span></div>
+                    <div class="mre-kpi-desc"><strong>0.40% CuEq*</strong> · 9.36 Blbs Cu &amp; 890 Mlbs Mo</div>
+                </div>
+
+                <div class="mre-kpi-card">
+                    <div class="mre-kpi-header">
+                        <span class="mre-kpi-badge-growth">+50% EXPANSION</span>
+                        <span class="mre-kpi-sub">Total Copper</span>
+                    </div>
+                    <div class="mre-kpi-val copper-highlight">11.49 <span class="mre-kpi-unit">Blbs Cu</span></div>
+                    <div class="mre-kpi-desc">2.13 Blbs Indicated + 9.36 Blbs Inferred</div>
+                </div>
+
+                <div class="mre-kpi-card">
+                    <div class="mre-kpi-header">
+                        <span class="mre-pill mre-pill-moly">STRATEGIC CO-PRODUCT</span>
+                        <span class="mre-kpi-sub">Total Moly</span>
+                    </div>
+                    <div class="mre-kpi-val moly-highlight">1.13 <span class="mre-kpi-unit">Blbs Mo</span></div>
+                    <div class="mre-kpi-desc">1,130 Million lbs total contained molybdenum</div>
+                </div>
+            </div>
+
+            <!-- Enhanced Table Container -->
+            <div class="mre-table-card">
+                <div class="mre-card-header">
+                    <div class="mre-title-group">
+                        <div class="mre-icon-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database text-copper-500"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="mre-card-title">Table 1 — 2026 Mocoa Mineral Resource Estimate</h3>
+                            <p class="mre-card-meta">National Instrument 43-101 Compliant · Effective Date: September 24, 2026 · APEX Geoscience Ltd.</p>
+                        </div>
+                    </div>
+                    <div class="mre-header-badge">
+                        <span>PEA Target: Q4 2026</span>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full" style="border-collapse: collapse;">
+
+                <div class="mre-table-wrapper">
+                    <table class="mre-table">
                         <thead>
-                            <tr class="border-b" style="border-bottom: 1px solid var(--border-glass);">
-                                <th class="text-left py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Domain / Category</th>
-                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Cut-off</th>
-                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Tonnes</th>
-                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">CuEq %*</th>
-                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Cu %</th>
-                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Mo %</th>
-                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Contained Cu</th>
-                                <th class="text-right py-4 px-4 text-white/60 font-medium" style="color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase;">Contained Mo</th>
+                            <tr>
+                                <th class="col-domain">DOMAIN &amp; CATEGORY</th>
+                                <th class="col-cutoff">CUT-OFF</th>
+                                <th class="col-tonnes">TONNAGE</th>
+                                <th class="col-grade">CuEq* (%)</th>
+                                <th class="col-grade">Cu (%)</th>
+                                <th class="col-grade">Mo (%)</th>
+                                <th class="col-metal">CONTAINED Cu</th>
+                                <th class="col-metal">CONTAINED Mo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Within Conceptual Pit Shell -->
-                            <tr style="background: rgba(223,85,33,0.06); border-top: 1px solid rgba(223,85,33,0.2);">
-                                <td colspan="8" class="py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider" style="color: var(--copper-primary);">Within Conceptual Pit Shell</td>
+                            <!-- DOMAIN 1: PIT SHELL -->
+                            <tr class="row-domain-header">
+                                <td colspan="8">
+                                    <div class="domain-header-inner">
+                                        <span class="domain-icon">⛏️</span>
+                                        <span class="domain-name">Surface Domain: Within Conceptual Pit Shell</span>
+                                        <span class="domain-cutoff-pill">0.15% CuEq* cut-off</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
-                                <td class="py-3 px-4 text-white font-medium">Indicated Resource</td>
-                                <td class="py-3 px-4 text-right text-white/70 font-mono text-sm">0.15% CuEq*</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">290 Million (0.29 Bt)</td>
-                                <td class="py-3 px-4 text-right text-white font-mono font-semibold">0.54%</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.33%</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.038%</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">2.13 Billion lbs</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">240 Million lbs</td>
+                            <tr class="row-data">
+                                <td class="col-domain">
+                                    <span class="cat-pill cat-indicated">INDICATED</span>
+                                    <span class="cat-label">Near-Surface Core</span>
+                                </td>
+                                <td class="col-cutoff">0.15% CuEq*</td>
+                                <td class="col-tonnes"><span class="val-main">290 Mt</span> <span class="val-sub">(0.29 Bt)</span></td>
+                                <td class="col-grade grade-cueq">0.54%</td>
+                                <td class="col-grade">0.33%</td>
+                                <td class="col-grade">0.038%</td>
+                                <td class="col-metal metal-cu"><span class="val-main">2.13 Blbs</span> <span class="val-sub">(2,130 Mlbs)</span></td>
+                                <td class="col-metal metal-mo"><span class="val-main">240 Mlbs</span> <span class="val-sub">(0.24 Blbs)</span></td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
-                                <td class="py-3 px-4 text-white font-medium">Inferred Resource</td>
-                                <td class="py-3 px-4 text-right text-white/70 font-mono text-sm">0.15% CuEq*</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">1.48 Billion (1.48 Bt)</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.40%</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.26%</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.025%</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">8.46 Billion lbs</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">820 Million lbs</td>
-                            </tr>
-
-                            <!-- Below Pit Shell -->
-                            <tr style="background: rgba(223,85,33,0.06); border-top: 1px solid rgba(223,85,33,0.2);">
-                                <td colspan="8" class="py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider" style="color: var(--copper-primary);">Below Pit Shell (Underground Block-Caving)</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); background: rgba(255,255,255,0.01);">
-                                <td class="py-3 px-4 text-white font-medium">Inferred Resource</td>
-                                <td class="py-3 px-4 text-right text-white/70 font-mono text-sm">0.40% CuEq*</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">120 Million (0.12 Bt)</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.48%</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.34%</td>
-                                <td class="py-3 px-4 text-right text-white font-mono">0.025%</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">0.90 Billion lbs</td>
-                                <td class="py-3 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary);">70 Million lbs</td>
+                            <tr class="row-data">
+                                <td class="col-domain">
+                                    <span class="cat-pill cat-inferred">INFERRED</span>
+                                    <span class="cat-label">Pit Shell Constrained</span>
+                                </td>
+                                <td class="col-cutoff">0.15% CuEq*</td>
+                                <td class="col-tonnes"><span class="val-main">1,480 Mt</span> <span class="val-sub">(1.48 Bt)</span></td>
+                                <td class="col-grade grade-cueq">0.40%</td>
+                                <td class="col-grade">0.26%</td>
+                                <td class="col-grade">0.025%</td>
+                                <td class="col-metal metal-cu"><span class="val-main">8.46 Blbs</span> <span class="val-sub">(8,460 Mlbs)</span></td>
+                                <td class="col-metal metal-mo"><span class="val-main">820 Mlbs</span> <span class="val-sub">(0.82 Blbs)</span></td>
                             </tr>
 
-                            <!-- Total Summary -->
-                            <tr style="background: rgba(255,255,255,0.05); border-top: 2px solid rgba(255,255,255,0.2);">
-                                <td colspan="8" class="py-2.5 px-4 text-xs font-mono font-bold uppercase tracking-wider text-white">Total Mineral Resources (Within & Below Pit Shell)</td>
+                            <!-- DOMAIN 2: BELOW PIT -->
+                            <tr class="row-domain-header">
+                                <td colspan="8">
+                                    <div class="domain-header-inner">
+                                        <span class="domain-icon">🚇</span>
+                                        <span class="domain-name">Underground Domain: Below Pit Shell (Block-Caving Shapes)</span>
+                                        <span class="domain-cutoff-pill">0.40% CuEq* cut-off</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.03);">
-                                <td class="py-3.5 px-4 text-white font-bold">Total Indicated</td>
-                                <td class="py-3.5 px-4 text-right text-white/70 font-mono text-sm">0.15% CuEq*</td>
-                                <td class="py-3.5 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.05rem;">290 Million (0.29 Bt)</td>
-                                <td class="py-3.5 px-4 text-right text-white font-mono font-bold">0.54%</td>
-                                <td class="py-3.5 px-4 text-right text-white font-mono">0.33%</td>
-                                <td class="py-3.5 px-4 text-right text-white font-mono">0.038%</td>
-                                <td class="py-3.5 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.05rem;">2.13 Billion lbs</td>
-                                <td class="py-3.5 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.05rem;">240 Million lbs</td>
+                            <tr class="row-data">
+                                <td class="col-domain">
+                                    <span class="cat-pill cat-inferred">INFERRED</span>
+                                    <span class="cat-label">Mineable Shapes</span>
+                                </td>
+                                <td class="col-cutoff">0.40% CuEq*</td>
+                                <td class="col-tonnes"><span class="val-main">120 Mt</span> <span class="val-sub">(0.12 Bt)</span></td>
+                                <td class="col-grade grade-cueq">0.48%</td>
+                                <td class="col-grade">0.34%</td>
+                                <td class="col-grade">0.025%</td>
+                                <td class="col-metal metal-cu"><span class="val-main">0.90 Blbs</span> <span class="val-sub">(900 Mlbs)</span></td>
+                                <td class="col-metal metal-mo"><span class="val-main">70 Mlbs</span> <span class="val-sub">(0.07 Blbs)</span></td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.03);">
-                                <td class="py-3.5 px-4 text-white font-bold">Total Inferred</td>
-                                <td class="py-3.5 px-4 text-right text-white/70 font-mono text-sm">0.15 / 0.40% CuEq*</td>
-                                <td class="py-3.5 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.05rem;">1.60 Billion (1.60 Bt)</td>
-                                <td class="py-3.5 px-4 text-right text-white font-mono font-bold">0.40%</td>
-                                <td class="py-3.5 px-4 text-right text-white font-mono">0.27%</td>
-                                <td class="py-3.5 px-4 text-right text-white font-mono">0.025%</td>
-                                <td class="py-3.5 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.05rem;">9.36 Billion lbs</td>
-                                <td class="py-3.5 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.05rem;">890 Million lbs</td>
+
+                            <!-- CONSOLIDATED TOTALS -->
+                            <tr class="row-domain-header row-totals-header">
+                                <td colspan="8">
+                                    <div class="domain-header-inner">
+                                        <span class="domain-icon">📊</span>
+                                        <span class="domain-name">Consolidated Mineral Resources (Within &amp; Below Pit Shell)</span>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr style="border-bottom: 2px solid rgba(223,85,33,0.4); background: rgba(223,85,33,0.08);">
-                                <td class="py-4 px-4 text-white font-bold" style="color: var(--copper-primary);">TOTAL (Indicated + Inferred)</td>
-                                <td class="py-4 px-4 text-right text-white/70 font-mono text-sm">—</td>
-                                <td class="py-4 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.15rem;">1.89 Billion Tonnes</td>
-                                <td class="py-4 px-4 text-right text-white font-mono font-bold" style="font-size: 1.1rem;">0.42%</td>
-                                <td class="py-4 px-4 text-right text-white font-mono" style="font-size: 1.05rem;">0.28%</td>
-                                <td class="py-4 px-4 text-right text-white font-mono" style="font-size: 1.05rem;">0.027%</td>
-                                <td class="py-4 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.15rem;">11.49 Billion lbs</td>
-                                <td class="py-4 px-4 text-right text-copper-500 font-bold font-mono" style="color: var(--copper-primary); font-size: 1.15rem;">1.13 Billion lbs</td>
+                            <tr class="row-subtotal">
+                                <td class="col-domain">
+                                    <span class="cat-pill cat-indicated">TOTAL INDICATED</span>
+                                </td>
+                                <td class="col-cutoff">0.15% CuEq*</td>
+                                <td class="col-tonnes"><span class="val-main">290 Mt</span> <span class="val-sub">(0.29 Bt)</span></td>
+                                <td class="col-grade grade-cueq">0.54%</td>
+                                <td class="col-grade">0.33%</td>
+                                <td class="col-grade">0.038%</td>
+                                <td class="col-metal metal-cu"><span class="val-main">2.13 Blbs</span> <span class="val-sub">(2,130 Mlbs)</span></td>
+                                <td class="col-metal metal-mo"><span class="val-main">240 Mlbs</span> <span class="val-sub">(0.24 Blbs)</span></td>
+                            </tr>
+                            <tr class="row-subtotal">
+                                <td class="col-domain">
+                                    <span class="cat-pill cat-inferred">TOTAL INFERRED</span>
+                                </td>
+                                <td class="col-cutoff">0.15 / 0.40%*</td>
+                                <td class="col-tonnes"><span class="val-main">1,600 Mt</span> <span class="val-sub">(1.60 Bt)</span></td>
+                                <td class="col-grade grade-cueq">0.40%</td>
+                                <td class="col-grade">0.27%</td>
+                                <td class="col-grade">0.025%</td>
+                                <td class="col-metal metal-cu"><span class="val-main">9.36 Blbs</span> <span class="val-sub">(9,360 Mlbs)</span></td>
+                                <td class="col-metal metal-mo"><span class="val-main">890 Mlbs</span> <span class="val-sub">(0.89 Blbs)</span></td>
+                            </tr>
+                            <tr class="row-grand-total">
+                                <td class="col-domain">
+                                    <div class="grand-total-label">
+                                        <span class="grand-star">★</span>
+                                        <span>TOTAL (Indicated + Inferred)</span>
+                                    </div>
+                                </td>
+                                <td class="col-cutoff">—</td>
+                                <td class="col-tonnes">
+                                    <span class="total-tonnes-val">1.89 Bt</span>
+                                    <span class="val-sub">(1,890 Mt)</span>
+                                </td>
+                                <td class="col-grade grade-cueq total-grade-val">0.42%</td>
+                                <td class="col-grade total-grade-val">0.28%</td>
+                                <td class="col-grade total-grade-val">0.027%</td>
+                                <td class="col-metal metal-cu total-metal-cu">
+                                    <span class="total-cu-val">11.49 Blbs</span>
+                                    <span class="val-sub">(11,490 Mlbs)</span>
+                                </td>
+                                <td class="col-metal metal-mo total-metal-mo">
+                                    <span class="total-mo-val">1.13 Blbs</span>
+                                    <span class="val-sub">(1,130 Mlbs)</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div class="mre-mobile-scroll-hint">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <span>Desplaza horizontalmente para ver todas las columnas</span>
                 </div>
             </div>
             <details class="resource-notes-accordion p-6 md:p-8 mb-12">
