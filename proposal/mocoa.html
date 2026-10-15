@@ -405,10 +405,11 @@
                     min-width: 960px;
                     border-collapse: collapse;
                     font-size: 0.88rem;
+                    table-layout: auto;
                 }
                 .mre-table thead th {
-                    background: rgba(12, 14, 18, 0.85);
-                    padding: 14px 18px;
+                    background: rgba(12, 14, 18, 0.9);
+                    padding: 14px 16px;
                     color: rgba(255, 255, 255, 0.55);
                     font-size: 0.72rem;
                     font-weight: 700;
@@ -416,54 +417,67 @@
                     text-transform: uppercase;
                     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
                     font-family: var(--font-mono);
+                    white-space: nowrap;
+                    vertical-align: middle;
                 }
                 .mre-table thead th.col-domain {
                     text-align: left;
-                    width: 25%;
+                    padding-left: 24px;
+                    width: 27%;
                 }
                 .mre-table thead th.col-cutoff {
-                    text-align: right;
-                    width: 10%;
+                    text-align: center;
+                    width: 11%;
                 }
                 .mre-table thead th.col-tonnes {
                     text-align: right;
                     width: 13%;
                 }
-                .mre-table thead th.col-grade {
+                .mre-table thead th.col-grade-cueq {
                     text-align: right;
                     width: 9%;
                 }
-                .mre-table thead th.col-metal {
+                .mre-table thead th.col-grade-cu {
                     text-align: right;
-                    width: 13%;
+                    width: 8%;
+                }
+                .mre-table thead th.col-grade-mo {
+                    text-align: right;
+                    width: 8%;
+                }
+                .mre-table thead th.col-metal-cu {
+                    text-align: right;
+                    width: 12%;
+                }
+                .mre-table thead th.col-metal-mo {
+                    text-align: right;
+                    padding-right: 24px;
+                    width: 12%;
                 }
 
                 .row-domain-header {
                     background: rgba(255, 255, 255, 0.02);
-                    border-top: 1px solid rgba(255, 255, 255, 0.06);
+                    border-top: 1px solid rgba(255, 255, 255, 0.08);
                     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
                 }
                 .row-domain-header td {
-                    padding: 10px 18px;
+                    padding: 10px 24px;
                 }
                 .domain-header-inner {
                     display: flex;
                     align-items: center;
-                    gap: 10px;
-                }
-                .domain-icon {
-                    font-size: 0.95rem;
+                    justify-content: space-between;
+                    gap: 16px;
                 }
                 .domain-name {
                     font-weight: 700;
                     color: #f1f5f9;
-                    font-size: 0.8rem;
-                    letter-spacing: 0.04em;
+                    font-size: 0.76rem;
+                    letter-spacing: 0.06em;
                     text-transform: uppercase;
                     font-family: var(--font-mono);
                 }
                 .domain-cutoff-pill {
-                    margin-left: auto;
                     font-size: 0.68rem;
                     font-weight: 600;
                     padding: 2px 8px;
@@ -481,61 +495,93 @@
                     background: rgba(255, 255, 255, 0.025);
                 }
                 .row-data td {
-                    padding: 14px 18px;
+                    padding: 13px 16px;
                     white-space: nowrap;
                     vertical-align: middle;
                 }
+                .row-data td.col-domain {
+                    padding-left: 24px;
+                    text-align: left;
+                }
+                .row-data td.col-metal-mo {
+                    padding-right: 24px;
+                }
 
-                .cat-pill {
+                .category-cell {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .cat-badge {
                     display: inline-block;
+                    width: 82px;
+                    text-align: center;
                     font-size: 0.65rem;
                     font-weight: 800;
                     letter-spacing: 0.08em;
-                    padding: 3px 8px;
+                    padding: 3px 0;
                     border-radius: 4px;
                     text-transform: uppercase;
-                    margin-right: 8px;
-                    vertical-align: middle;
                     font-family: var(--font-mono);
+                    flex-shrink: 0;
                 }
                 .cat-indicated {
                     background: rgba(223, 85, 33, 0.15);
                     color: #ff9d6c;
-                    border: 1px solid rgba(223, 85, 33, 0.35);
+                    border: 1px solid rgba(223, 85, 33, 0.4);
                 }
                 .cat-inferred {
                     background: rgba(255, 255, 255, 0.05);
                     color: #cbd5e1;
                     border: 1px solid rgba(255, 255, 255, 0.12);
                 }
+                .cat-total {
+                    background: rgba(223, 85, 33, 0.25);
+                    color: #ff9d6c;
+                    border: 1px solid rgba(223, 85, 33, 0.5);
+                }
                 .cat-label {
-                    color: rgba(255, 255, 255, 0.65);
+                    color: rgba(255, 255, 255, 0.7);
                     font-size: 0.82rem;
-                    vertical-align: middle;
+                    font-weight: 500;
+                }
+                .cat-label-total {
+                    color: #ffffff;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    letter-spacing: 0.02em;
                 }
 
                 .col-cutoff {
-                    text-align: right;
-                    color: rgba(255, 255, 255, 0.6);
+                    text-align: center;
+                    color: rgba(255, 255, 255, 0.65);
                     font-family: var(--font-mono);
                     font-size: 0.82rem;
                 }
                 .col-tonnes {
                     text-align: right;
                     font-family: var(--font-mono);
+                    font-variant-numeric: tabular-nums;
                 }
                 .col-grade {
                     text-align: right;
                     font-family: var(--font-mono);
+                    font-variant-numeric: tabular-nums;
                     color: #e2e8f0;
                 }
                 .grade-cueq {
                     font-weight: 700;
                     color: #ffffff;
                 }
-                .col-metal {
+                .col-metal-cu {
                     text-align: right;
                     font-family: var(--font-mono);
+                    font-variant-numeric: tabular-nums;
+                }
+                .col-metal-mo {
+                    text-align: right;
+                    font-family: var(--font-mono);
+                    font-variant-numeric: tabular-nums;
                 }
                 .metal-cu .val-main {
                     color: #ff9d6c;
@@ -548,10 +594,10 @@
                 .val-main {
                     font-weight: 700;
                     color: #ffffff;
-                    font-size: 0.92rem;
+                    font-size: 0.9rem;
                 }
                 .val-sub {
-                    font-size: 0.74rem;
+                    font-size: 0.72rem;
                     color: rgba(255, 255, 255, 0.45);
                     font-weight: 400;
                     margin-left: 3px;
@@ -566,8 +612,16 @@
                     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
                 }
                 .row-subtotal td {
-                    padding: 13px 18px;
+                    padding: 13px 16px;
                     white-space: nowrap;
+                    vertical-align: middle;
+                }
+                .row-subtotal td.col-domain {
+                    padding-left: 24px;
+                    text-align: left;
+                }
+                .row-subtotal td.col-metal-mo {
+                    padding-right: 24px;
                 }
 
                 .row-grand-total {
@@ -576,40 +630,33 @@
                     border-bottom: 2px solid rgba(223, 85, 33, 0.5);
                 }
                 .row-grand-total td {
-                    padding: 16px 18px;
+                    padding: 16px 16px;
                     white-space: nowrap;
                     vertical-align: middle;
                 }
-                .grand-total-label {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    font-weight: 800;
-                    color: #ff9d6c;
-                    font-size: 0.9rem;
-                    letter-spacing: 0.03em;
-                    text-transform: uppercase;
+                .row-grand-total td.col-domain {
+                    padding-left: 24px;
+                    text-align: left;
                 }
-                .grand-star {
-                    color: #ff9d6c;
-                    font-size: 1rem;
+                .row-grand-total td.col-metal-mo {
+                    padding-right: 24px;
                 }
                 .total-tonnes-val {
-                    font-size: 1.05rem;
+                    font-size: 1rem;
                     font-weight: 800;
                     color: #ffffff;
                 }
                 .total-grade-val {
-                    font-size: 0.95rem;
+                    font-size: 0.92rem;
                     font-weight: 700;
                 }
                 .total-metal-cu .total-cu-val {
-                    font-size: 1.05rem;
+                    font-size: 1rem;
                     font-weight: 800;
                     color: #ff9d6c;
                 }
                 .total-metal-mo .total-mo-val {
-                    font-size: 1.05rem;
+                    font-size: 1rem;
                     font-weight: 700;
                     color: #93c5fd;
                 }
@@ -641,7 +688,7 @@
                         <span class="mre-kpi-sub">First-ever at Mocoa</span>
                     </div>
                     <div class="mre-kpi-val">290 <span class="mre-kpi-unit">Mt</span></div>
-                    <div class="mre-kpi-desc"><strong>0.54% CuEq*</strong> · 2.13 Blbs Cu &amp; 240 Mlbs Mo</div>
+                    <div class="mre-kpi-desc"><strong>0.54% CuEq*</strong> · 2.13 Blbs Cu &amp; 0.24 Blbs Mo</div>
                 </div>
 
                 <div class="mre-kpi-card">
@@ -650,7 +697,7 @@
                         <span class="mre-kpi-sub">Expanded Footprint</span>
                     </div>
                     <div class="mre-kpi-val">1.60 <span class="mre-kpi-unit">Bt</span></div>
-                    <div class="mre-kpi-desc"><strong>0.40% CuEq*</strong> · 9.36 Blbs Cu &amp; 890 Mlbs Mo</div>
+                    <div class="mre-kpi-desc"><strong>0.40% CuEq*</strong> · 9.36 Blbs Cu &amp; 0.89 Blbs Mo</div>
                 </div>
 
                 <div class="mre-kpi-card">
@@ -695,12 +742,12 @@
                             <tr>
                                 <th class="col-domain">DOMAIN &amp; CATEGORY</th>
                                 <th class="col-cutoff">CUT-OFF</th>
-                                <th class="col-tonnes">TONNAGE</th>
-                                <th class="col-grade">CuEq* (%)</th>
-                                <th class="col-grade">Cu (%)</th>
-                                <th class="col-grade">Mo (%)</th>
-                                <th class="col-metal">CONTAINED Cu</th>
-                                <th class="col-metal">CONTAINED Mo</th>
+                                <th class="col-tonnes">TONNES (Bt)</th>
+                                <th class="col-grade-cueq">CuEq* (%)</th>
+                                <th class="col-grade-cu">Cu (%)</th>
+                                <th class="col-grade-mo">Mo (%)</th>
+                                <th class="col-metal-cu">CONTAINED Cu (Blbs)</th>
+                                <th class="col-metal-mo">CONTAINED Mo (Blbs)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -708,101 +755,111 @@
                             <tr class="row-domain-header">
                                 <td colspan="8">
                                     <div class="domain-header-inner">
-                                        <span class="domain-icon">⛏️</span>
-                                        <span class="domain-name">Surface Domain: Within Conceptual Pit Shell</span>
+                                        <span class="domain-name">Surface Domain: Conceptual Pit Shell</span>
                                         <span class="domain-cutoff-pill">0.15% CuEq* cut-off</span>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="row-data">
                                 <td class="col-domain">
-                                    <span class="cat-pill cat-indicated">INDICATED</span>
-                                    <span class="cat-label">Near-Surface Core</span>
+                                    <div class="category-cell">
+                                        <span class="cat-badge cat-indicated">INDICATED</span>
+                                        <span class="cat-label">Near-Surface Core</span>
+                                    </div>
                                 </td>
                                 <td class="col-cutoff">0.15% CuEq*</td>
-                                <td class="col-tonnes"><span class="val-main">290 Mt</span> <span class="val-sub">(0.29 Bt)</span></td>
-                                <td class="col-grade grade-cueq">0.54%</td>
-                                <td class="col-grade">0.33%</td>
-                                <td class="col-grade">0.038%</td>
-                                <td class="col-metal metal-cu"><span class="val-main">2.13 Blbs</span> <span class="val-sub">(2,130 Mlbs)</span></td>
-                                <td class="col-metal metal-mo"><span class="val-main">240 Mlbs</span> <span class="val-sub">(0.24 Blbs)</span></td>
+                                <td class="col-tonnes"><span class="val-main">0.29 Bt</span> <span class="val-sub">(290 Mt)</span></td>
+                                <td class="col-grade-cueq grade-cueq">0.54%</td>
+                                <td class="col-grade-cu">0.33%</td>
+                                <td class="col-grade-mo">0.038%</td>
+                                <td class="col-metal-cu metal-cu"><span class="val-main">2.13 Blbs</span> <span class="val-sub">(2,130 Mlbs)</span></td>
+                                <td class="col-metal-mo metal-mo"><span class="val-main">0.24 Blbs</span> <span class="val-sub">(240 Mlbs)</span></td>
                             </tr>
                             <tr class="row-data">
                                 <td class="col-domain">
-                                    <span class="cat-pill cat-inferred">INFERRED</span>
-                                    <span class="cat-label">Pit Shell Constrained</span>
+                                    <div class="category-cell">
+                                        <span class="cat-badge cat-inferred">INFERRED</span>
+                                        <span class="cat-label">Pit Shell Constrained</span>
+                                    </div>
                                 </td>
                                 <td class="col-cutoff">0.15% CuEq*</td>
-                                <td class="col-tonnes"><span class="val-main">1,480 Mt</span> <span class="val-sub">(1.48 Bt)</span></td>
-                                <td class="col-grade grade-cueq">0.40%</td>
-                                <td class="col-grade">0.26%</td>
-                                <td class="col-grade">0.025%</td>
-                                <td class="col-metal metal-cu"><span class="val-main">8.46 Blbs</span> <span class="val-sub">(8,460 Mlbs)</span></td>
-                                <td class="col-metal metal-mo"><span class="val-main">820 Mlbs</span> <span class="val-sub">(0.82 Blbs)</span></td>
+                                <td class="col-tonnes"><span class="val-main">1.48 Bt</span> <span class="val-sub">(1,480 Mt)</span></td>
+                                <td class="col-grade-cueq grade-cueq">0.40%</td>
+                                <td class="col-grade-cu">0.26%</td>
+                                <td class="col-grade-mo">0.025%</td>
+                                <td class="col-metal-cu metal-cu"><span class="val-main">8.46 Blbs</span> <span class="val-sub">(8,460 Mlbs)</span></td>
+                                <td class="col-metal-mo metal-mo"><span class="val-main">0.82 Blbs</span> <span class="val-sub">(820 Mlbs)</span></td>
                             </tr>
 
                             <!-- DOMAIN 2: BELOW PIT -->
                             <tr class="row-domain-header">
                                 <td colspan="8">
                                     <div class="domain-header-inner">
-                                        <span class="domain-icon">🚇</span>
-                                        <span class="domain-name">Underground Domain: Below Pit Shell (Block-Caving Shapes)</span>
+                                        <span class="domain-name">Underground Domain: Below Pit Shell (Block-Caving)</span>
                                         <span class="domain-cutoff-pill">0.40% CuEq* cut-off</span>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="row-data">
                                 <td class="col-domain">
-                                    <span class="cat-pill cat-inferred">INFERRED</span>
-                                    <span class="cat-label">Mineable Shapes</span>
+                                    <div class="category-cell">
+                                        <span class="cat-badge cat-inferred">INFERRED</span>
+                                        <span class="cat-label">Underground Shapes</span>
+                                    </div>
                                 </td>
                                 <td class="col-cutoff">0.40% CuEq*</td>
-                                <td class="col-tonnes"><span class="val-main">120 Mt</span> <span class="val-sub">(0.12 Bt)</span></td>
-                                <td class="col-grade grade-cueq">0.48%</td>
-                                <td class="col-grade">0.34%</td>
-                                <td class="col-grade">0.025%</td>
-                                <td class="col-metal metal-cu"><span class="val-main">0.90 Blbs</span> <span class="val-sub">(900 Mlbs)</span></td>
-                                <td class="col-metal metal-mo"><span class="val-main">70 Mlbs</span> <span class="val-sub">(0.07 Blbs)</span></td>
+                                <td class="col-tonnes"><span class="val-main">0.12 Bt</span> <span class="val-sub">(120 Mt)</span></td>
+                                <td class="col-grade-cueq grade-cueq">0.48%</td>
+                                <td class="col-grade-cu">0.34%</td>
+                                <td class="col-grade-mo">0.025%</td>
+                                <td class="col-metal-cu metal-cu"><span class="val-main">0.90 Blbs</span> <span class="val-sub">(900 Mlbs)</span></td>
+                                <td class="col-metal-mo metal-mo"><span class="val-main">0.07 Blbs</span> <span class="val-sub">(70 Mlbs)</span></td>
                             </tr>
 
                             <!-- CONSOLIDATED TOTALS -->
                             <tr class="row-domain-header row-totals-header">
                                 <td colspan="8">
                                     <div class="domain-header-inner">
-                                        <span class="domain-icon">📊</span>
-                                        <span class="domain-name">Consolidated Mineral Resources (Within &amp; Below Pit Shell)</span>
+                                        <span class="domain-name">Consolidated Mineral Resources (All Domains)</span>
+                                        <span class="domain-cutoff-pill">Combined Inventory</span>
                                     </div>
                                 </td>
                             </tr>
                             <tr class="row-subtotal">
                                 <td class="col-domain">
-                                    <span class="cat-pill cat-indicated">TOTAL INDICATED</span>
+                                    <div class="category-cell">
+                                        <span class="cat-badge cat-indicated">INDICATED</span>
+                                        <span class="cat-label">Total Surface Indicated</span>
+                                    </div>
                                 </td>
                                 <td class="col-cutoff">0.15% CuEq*</td>
-                                <td class="col-tonnes"><span class="val-main">290 Mt</span> <span class="val-sub">(0.29 Bt)</span></td>
-                                <td class="col-grade grade-cueq">0.54%</td>
-                                <td class="col-grade">0.33%</td>
-                                <td class="col-grade">0.038%</td>
-                                <td class="col-metal metal-cu"><span class="val-main">2.13 Blbs</span> <span class="val-sub">(2,130 Mlbs)</span></td>
-                                <td class="col-metal metal-mo"><span class="val-main">240 Mlbs</span> <span class="val-sub">(0.24 Blbs)</span></td>
+                                <td class="col-tonnes"><span class="val-main">0.29 Bt</span> <span class="val-sub">(290 Mt)</span></td>
+                                <td class="col-grade-cueq grade-cueq">0.54%</td>
+                                <td class="col-grade-cu">0.33%</td>
+                                <td class="col-grade-mo">0.038%</td>
+                                <td class="col-metal-cu metal-cu"><span class="val-main">2.13 Blbs</span> <span class="val-sub">(2,130 Mlbs)</span></td>
+                                <td class="col-metal-mo metal-mo"><span class="val-main">0.24 Blbs</span> <span class="val-sub">(240 Mlbs)</span></td>
                             </tr>
                             <tr class="row-subtotal">
                                 <td class="col-domain">
-                                    <span class="cat-pill cat-inferred">TOTAL INFERRED</span>
+                                    <div class="category-cell">
+                                        <span class="cat-badge cat-inferred">INFERRED</span>
+                                        <span class="cat-label">Total Surface + Underground Inferred</span>
+                                    </div>
                                 </td>
                                 <td class="col-cutoff">0.15 / 0.40%*</td>
-                                <td class="col-tonnes"><span class="val-main">1,600 Mt</span> <span class="val-sub">(1.60 Bt)</span></td>
-                                <td class="col-grade grade-cueq">0.40%</td>
-                                <td class="col-grade">0.27%</td>
-                                <td class="col-grade">0.025%</td>
-                                <td class="col-metal metal-cu"><span class="val-main">9.36 Blbs</span> <span class="val-sub">(9,360 Mlbs)</span></td>
-                                <td class="col-metal metal-mo"><span class="val-main">890 Mlbs</span> <span class="val-sub">(0.89 Blbs)</span></td>
+                                <td class="col-tonnes"><span class="val-main">1.60 Bt</span> <span class="val-sub">(1,600 Mt)</span></td>
+                                <td class="col-grade-cueq grade-cueq">0.40%</td>
+                                <td class="col-grade-cu">0.27%</td>
+                                <td class="col-grade-mo">0.025%</td>
+                                <td class="col-metal-cu metal-cu"><span class="val-main">9.36 Blbs</span> <span class="val-sub">(9,360 Mlbs)</span></td>
+                                <td class="col-metal-mo metal-mo"><span class="val-main">0.89 Blbs</span> <span class="val-sub">(890 Mlbs)</span></td>
                             </tr>
                             <tr class="row-grand-total">
                                 <td class="col-domain">
-                                    <div class="grand-total-label">
-                                        <span class="grand-star">★</span>
-                                        <span>TOTAL (Indicated + Inferred)</span>
+                                    <div class="category-cell">
+                                        <span class="cat-badge cat-total">TOTAL</span>
+                                        <span class="cat-label-total">Consolidated (Indicated + Inferred)</span>
                                     </div>
                                 </td>
                                 <td class="col-cutoff">—</td>
@@ -810,14 +867,14 @@
                                     <span class="total-tonnes-val">1.89 Bt</span>
                                     <span class="val-sub">(1,890 Mt)</span>
                                 </td>
-                                <td class="col-grade grade-cueq total-grade-val">0.42%</td>
-                                <td class="col-grade total-grade-val">0.28%</td>
-                                <td class="col-grade total-grade-val">0.027%</td>
-                                <td class="col-metal metal-cu total-metal-cu">
+                                <td class="col-grade-cueq grade-cueq total-grade-val">0.42%</td>
+                                <td class="col-grade-cu total-grade-val">0.28%</td>
+                                <td class="col-grade-mo total-grade-val">0.027%</td>
+                                <td class="col-metal-cu metal-cu total-metal-cu">
                                     <span class="total-cu-val">11.49 Blbs</span>
                                     <span class="val-sub">(11,490 Mlbs)</span>
                                 </td>
-                                <td class="col-metal metal-mo total-metal-mo">
+                                <td class="col-metal-mo metal-mo total-metal-mo">
                                     <span class="total-mo-val">1.13 Blbs</span>
                                     <span class="val-sub">(1,130 Mlbs)</span>
                                 </td>
